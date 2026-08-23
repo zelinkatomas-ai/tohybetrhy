@@ -1,0 +1,45 @@
+---
+/** Karta kurátorovaného zahraničního zdroje. */
+interface Props {
+  item: {
+    title: string; source: string; url: string; date: string;
+    tags: string[]; summary: string; why: string; demo?: boolean;
+  };
+}
+const { item } = Astro.props;
+const dateStr = new Date(item.date).toLocaleDateString('cs-CZ');
+---
+<article class="source-card">
+  <header>
+    <h3>
+      {item.url && item.url !== '#'
+        ? <a href={item.url} rel="noopener" target="_blank">{item.title}</a>
+        : item.title}
+      {item.demo && <span class="demo-chip" title="Ukázkový záznam – nahraďte skutečným">ukázka</span>}
+    </h3>
+    <p class="meta">{item.source} · {item.tags.join(' · ')} · {dateStr}</p>
+  </header>
+  <p class="summary">{item.summary}</p>
+  <p class="why"><strong>Proč to hýbe trhy:</strong> {item.why}</p>
+</article>
+
+<style>
+  .source-card {
+    padding: 1rem 1.2rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  h3 { margin: 0; font-size: 1rem; line-height: 1.4; }
+  h3 a { color: var(--text-primary); text-decoration: none; }
+  h3 a:hover { color: var(--accent); }
+  .demo-chip {
+    display: inline-block; margin-left: 0.5rem; padding: 0.05rem 0.5rem;
+    font-size: 0.68rem; font-weight: 600; border-radius: 999px;
+    color: var(--text-muted); border: 1px dashed var(--baseline); vertical-align: middle;
+  }
+  .meta { margin: 0.15rem 0 0.5rem; font-size: 0.78rem; color: var(--text-muted); }
+  .summary { margin: 0; font-size: 0.92rem; color: var(--text-secondary); }
+  .why { margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary); }
+  .why strong { color: var(--text-primary); font-weight: 600; }
+</style>

@@ -1,0 +1,144 @@
+{
+ "updated": "2026-07-21T10:47:17+00:00",
+ "note": "Výnosy v %, momentum oken 4/13/26/52 týdnů. Signál = cena v CZK vs 52týdenní průměr.",
+ "rows": [
+  {
+   "ticker": "IWDA.AS",
+   "isin": "IE00B4L5Y983",
+   "name": "Svět (MSCI World)",
+   "r1": {
+    "eur": -0.38,
+    "czk": -0.69
+   },
+   "r3": {
+    "eur": 7.01,
+    "czk": 6.21
+   },
+   "r6": {
+    "eur": 11.65,
+    "czk": 11.34
+   },
+   "r12": {
+    "eur": 23.01,
+    "czk": 21.26
+   },
+   "signal": "above",
+   "last_czk": 3030.0394
+  },
+  {
+   "ticker": "CSPX.AS",
+   "isin": "IE00B5BMR087",
+   "name": "USA (S&P 500)",
+   "r1": {
+    "eur": -0.02,
+    "czk": -0.34
+   },
+   "r3": {
+    "eur": 7.42,
+    "czk": 6.61
+   },
+   "r6": {
+    "eur": 12.76,
+    "czk": 12.45
+   },
+   "r12": {
+    "eur": 22.55,
+    "czk": 20.81
+   },
+   "signal": "above",
+   "last_czk": 17074.2696
+  },
+  {
+   "ticker": "MEUD.PA",
+   "isin": "LU0908500753",
+   "name": "Evropa (STOXX 600)",
+   "r1": {
+    "eur": -1.5,
+    "czk": -1.81
+   },
+   "r3": {
+    "eur": 5.97,
+    "czk": 5.18
+   },
+   "r6": {
+    "eur": 7.23,
+    "czk": 6.93
+   },
+   "r12": {
+    "eur": 23.82,
+    "czk": 22.06
+   },
+   "signal": "above",
+   "last_czk": 7641.621
+  },
+  {
+   "ticker": "EMIM.AS",
+   "isin": "IE00BKM4GZ66",
+   "name": "Rozvíjející se trhy",
+   "r1": {
+    "eur": -3.74,
+    "czk": -4.04
+   },
+   "r3": {
+    "eur": 5.13,
+    "czk": 4.34
+   },
+   "r6": {
+    "eur": 13.37,
+    "czk": 13.05
+   },
+   "r12": {
+    "eur": 36.79,
+    "czk": 34.84
+   },
+   "signal": "above",
+   "last_czk": 1126.7702
+  },
+  {
+   "ticker": "4GLD.DE",
+   "isin": "DE000A0S9GB0",
+   "name": "Zlato (Xetra-Gold)",
+   "r1": {
+    "eur": -2.28,
+    "czk": -2.59
+   },
+   "r3": {
+    "eur": -9.66,
+    "czk": -10.34
+   },
+   "r6": {
+    "eur": -14.84,
+    "czk": -15.07
+   },
+   "r12": {
+    "eur": 22.77,
+    "czk": 21.02
+   },
+   "signal": "below",
+   "last_czk": 2769.0293
+  },
+  {
+   "ticker": "AGGH.AS",
+   "isin": "IE00BDBRDM35",
+   "name": "Dluhopisy (Global Agg €h)",
+   "r1": {
+    "eur": -0.58,
+    "czk": -0.89
+   },
+   "r3": {
+    "eur": -0.2,
+    "czk": -0.95
+   },
+   "r6": {
+    "eur": -0.76,
+    "czk": -1.03
+   },
+   "r12": {
+    "eur": 0.16,
+    "czk": -1.27
+   },
+   "signal": "below",
+   "last_czk": 118.5673
+  }
+ ]
+}

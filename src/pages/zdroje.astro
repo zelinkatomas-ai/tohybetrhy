@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import SourceCard from '../components/SourceCard.astro';
+import Methodology from '../components/Methodology.astro';
+import sources from '../config/sources.json';
+---
+<Base title="Zahraniční zdroje – To hýbe trhy" description="Kurátorovaný výběr zahraničních zpráv, které hýbou trhy – s vlastním shrnutím a vysvětlením, proč jsou relevantní pro momentum.">
+  <h1>Co hýbe trhy jinde</h1>
+  <p class="lead">
+    Kurátorovaný výběr ze zahraničních zdrojů. Nekopírujeme články ani
+    automaticky nepřekládáme zprávy – u každé položky je odkaz na originál,
+    vlastní jedno- až dvouvěté shrnutí a vysvětlení, proč je zpráva relevantní
+    pro momentum.
+  </p>
+
+  <div class="sources">
+    {sources.items.map((item) => <SourceCard item={item} />)}
+  </div>
+
+  <Methodology title="Jak vybíráme">
+    <p>
+      Do výběru se dostane zpráva, která vysvětluje nebo předznamenává pohyb
+      momenta: výsledková sezóna měnící sektorový trend, tok kapitálu mezi
+      regiony, změna měnové politiky, regulace. Nadpis a odkaz vedou vždy na
+      původní zdroj; shrnutí a hodnocení relevance jsou naše vlastní. Neručíme
+      za obsah odkazovaných článků a výběr není investičním doporučením.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+  .sources { display: grid; gap: 0.8rem; }
+</style>

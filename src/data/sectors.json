@@ -1,0 +1,139 @@
+{
+ "updated": "2026-07-27T19:45:36+00:00",
+ "note": "Americké sektory (Select Sector SPDR), výnosy v USD. Řazeno podle 3M momenta.",
+ "rows": [
+  {
+   "ticker": "XLV",
+   "name": "Zdravotnictví",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -0.03,
+   "r3": 13.27,
+   "r6": 6.69,
+   "r12": 27.01,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLF",
+   "name": "Finance",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 2.25,
+   "r3": 9.92,
+   "r6": 7.34,
+   "r12": 12.36,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLK",
+   "name": "Technologie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -3.59,
+   "r3": 7.68,
+   "r6": 21.3,
+   "r12": 36.16,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLI",
+   "name": "Průmysl",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -0.53,
+   "r3": 6.02,
+   "r6": 11.16,
+   "r12": 23.74,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLRE",
+   "name": "Reality",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 2.67,
+   "r3": 4.42,
+   "r6": 12.45,
+   "r12": 14.93,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLP",
+   "name": "Základní spotřeba",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 0.54,
+   "r3": 2.22,
+   "r6": 3.61,
+   "r12": 9.55,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLB",
+   "name": "Materiály",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -1.19,
+   "r3": 0.45,
+   "r6": 5.16,
+   "r12": 20.68,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLE",
+   "name": "Energie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 9.78,
+   "r3": -0.01,
+   "r6": 16.03,
+   "r12": 40.78,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLU",
+   "name": "Utility",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -0.2,
+   "r3": -1.26,
+   "r6": 7.01,
+   "r12": 9.43,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLY",
+   "name": "Zbytná spotřeba",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -5.31,
+   "r3": -6.33,
+   "r6": -8.11,
+   "r12": 3.44,
+   "signal": "below"
+  },
+  {
+   "ticker": "XLC",
+   "name": "Komunikační služby",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -1.65,
+   "r3": -7.41,
+   "r6": -9.71,
+   "r12": 2.86,
+   "signal": "below"
+  }
+ ],
+ "chart": null
+}

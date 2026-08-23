@@ -1,0 +1,23 @@
+---
+/** Box s metodikou – patří na každou detailovou stránku. */
+interface Props { title?: string }
+const { title = 'Metodika' } = Astro.props;
+---
+<aside class="methodology">
+  <h2>{title}</h2>
+  <div class="content"><slot /></div>
+</aside>
+
+<style>
+  .methodology {
+    margin: 2.5rem 0 1rem;
+    padding: 1.1rem 1.3rem;
+    background: color-mix(in srgb, var(--accent) 5%, var(--surface-1));
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+  }
+  .methodology h2 { font-size: 1rem; margin: 0 0 0.4rem; }
+  .content { font-size: 0.9rem; color: var(--text-secondary); }
+  .content :global(p) { margin: 0.4rem 0; }
+</style>

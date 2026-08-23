@@ -1,0 +1,112 @@
+---
+/**
+ * Tabulka momenta – vykresluje se na serveru (dobré pro SEO).
+ * Použití: <MomentumTable data={group} /> kde data = obsah assets.json,
+ * sectors.json nebo momentum_etfs.json (vygenerované pipeline).
+ */
+interface Row {
+  ticker: string;
+  name: string;
+  currency: string;
+  benchmark: boolean;
+  r1: number | null;
+  r3: number | null;
+  r6: number | null;
+  r12: number | null;
+  signal: 'above' | 'below' | null;
+}
+interface Props {
+  data: { updated: string; note?: string; rows: Row[] };
+  title: string;
+  linkDetails?: boolean;
+}
+const { data, title, linkDetails = true } = Astro.props;
+import { etfSlug } from '../lib/utils';
+
+const fmt = (v: number | null) =>
+  v == null ? '–' : `${v > 0 ? '+' : ''}${v.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`;
+const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
+const arrow = (v: number | null) => (v == null ? '' : v >= 0 ? '↑' : '↓');
+const updated = new Date(data.updated).toLocaleDateString('cs-CZ');
+const windows: { key: keyof Pick<Row, 'r1' | 'r3' | 'r6' | 'r12'>; label: string }[] = [
+  { key: 'r1', label: '1 měsíc' },
+  { key: 'r3', label: '3 měsíce' },
+  { key: 'r6', label: '6 měsíců' },
+  { key: 'r12', label: '12 měsíců' },
+];
+---
+<figure class="viz">
+  <figcaption>
+    <strong>{title}</strong>
+    <span class="note">Aktualizováno {updated}{data.note ? ` · ${data.note}` : ''}</span>
+  </figcaption>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Titul</th>
+          {windows.map((w) => <th>{w.label}</th>)}
+          <th>Signál <span class="hint">(vs 52t průměr)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.rows.map((row) => (
+          <tr class={row.benchmark ? 'benchmark' : ''}>
+            <td class="asset">
+              <span class="name">
+                {linkDetails
+                  ? <a href={`/etf/${etfSlug(row.ticker)}/`}>{row.name}</a>
+                  : row.name}
+                {row.benchmark && <em class="bench-tag"> · benchmark</em>}
+              </span>
+              <span class="ticker">{row.ticker} · {row.currency}</span>
+            </td>
+            {windows.map((w) => (
+              <td class={cls(row[w.key])}>
+                <span aria-hidden="true">{arrow(row[w.key])}</span> {fmt(row[w.key])}
+              </td>
+            ))}
+            <td>
+              {row.signal === 'above' && <span class="badge good">▲ nad průměrem</span>}
+              {row.signal === 'below' && <span class="badge bad">▼ pod průměrem</span>}
+              {row.signal === null && <span class="badge">–</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</figure>
+
+<style>
+  .viz {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  figcaption { margin-bottom: 0.75rem; }
+  .note { display: block; font-size: 0.8rem; color: var(--text-secondary); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.55rem 0.7rem; text-align: right; border-bottom: 1px solid var(--gridline); white-space: nowrap; }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; }
+  th:first-child, td:first-child { text-align: left; }
+  tbody tr:hover { background: color-mix(in srgb, var(--gridline) 35%, transparent); }
+  tr.benchmark { background: color-mix(in srgb, var(--gridline) 20%, transparent); }
+  .bench-tag { font-size: 0.75rem; color: var(--text-muted); font-style: normal; }
+  .asset .name { display: block; font-weight: 600; }
+  .asset .name a { color: var(--text-primary); text-decoration: none; border-bottom: 1px dotted var(--baseline); }
+  .asset .name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .asset .ticker { display: block; font-size: 0.75rem; color: var(--text-muted); }
+  .hint { font-weight: 400; font-size: 0.72rem; }
+  .up { color: var(--delta-up); }
+  .down { color: var(--delta-down); }
+  .badge {
+    display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px;
+    font-size: 0.78rem; font-weight: 600; color: var(--text-secondary);
+  }
+  .badge.good { color: var(--delta-up); background: var(--badge-good-bg); }
+  .badge.bad { color: var(--delta-down); background: var(--badge-bad-bg); }
+</style>

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
+import MomentumTable from '../components/MomentumTable.astro';
+import Methodology from '../components/Methodology.astro';
+import momentumEtfs from '../data/momentum_etfs.json';
+---
+<Base title="Momentum ETF – To hýbe trhy" description="Jak se daří ETF postaveným na momentum faktoru proti širokému trhu: SPMO, MTUM, XSMO, IDMO a další.">
+  <h1>Momentum ETF vs široký trh</h1>
+  <p class="lead">
+    Momentum se dá koupit i jako balíček – ETF, která faktor systematicky
+    sledují. Tady vidíte, jestli svou práci dělají: kompletní přehled včetně
+    evropského a emerging markets momenta, v grafu proti S&P 500 a MSCI World
+    (čárkovaně). Kliknutím na název otevřete detail fondu.
+  </p>
+
+  <MomentumTable data={momentumEtfs} title="Momentum ETF a benchmarky" />
+
+  <LineChart
+    title="Momentum ETF vs benchmarky od 1. 1. 2024 (indexováno na 100)"
+    note={momentumEtfs.note}
+    dates={momentumEtfs.chart.dates}
+    series={momentumEtfs.chart.series}
+  />
+
+  <Methodology>
+    <p>
+      Sledujeme nejvýznamnější ETF postavená na momentum faktoru: americká
+      (SPMO, MTUM, XSMO, FMTM), mezinárodní (IDMO), evropské UCITS (IEMO)
+      a emerging markets (PIE, EEMO). Benchmarky SPY a URTH ukazují, jestli
+      momentum výběr přidává hodnotu proti prostému držení trhu.
+    </p>
+    <p>
+      Výnosy v měně fondu, momentum jako klouzavý výnos za 1/3/6/12 měsíců
+      z týdenních cen. Pozor na krátkou historii FMTM (fond vznikl v roce
+      2024). Americká ETF nejsou kvůli regulaci PRIIPs běžně dostupná
+      evropským retailovým investorům – zde slouží především jako indikátor
+      toho, jak se faktoru daří.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+</style>

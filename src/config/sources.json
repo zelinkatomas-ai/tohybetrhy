@@ -1,0 +1,35 @@
+{
+  "_comment": "Kurátorované zahraniční zdroje. Žádné kopírování článků – jen nadpis, zdroj, odkaz, vlastní shrnutí a vysvětlení relevance pro momentum. Položky s demo:true jsou ukázkové a před spuštěním je nahraďte skutečnými.",
+  "items": [
+    {
+      "title": "Evropské banky posilují po výsledcích",
+      "source": "Reuters",
+      "url": "#",
+      "date": "2026-07-24",
+      "tags": ["Finance", "Evropa"],
+      "summary": "Lepší výsledky a rostoucí výhled úrokových marží podporují relativní sílu evropského finančního sektoru.",
+      "why": "Potvrzuje sektorové momentum financí a přispívá k rotaci kapitálu směrem k Evropě.",
+      "demo": true
+    },
+    {
+      "title": "Zdravotnictví táhnou výsledky farmaceutických firem",
+      "source": "Bloomberg",
+      "url": "#",
+      "date": "2026-07-23",
+      "tags": ["Zdravotnictví", "USA"],
+      "summary": "Silná výsledková sezóna farmaceutického sektoru vrací kapitál do defenzivních částí trhu.",
+      "why": "Vysvětluje, proč má zdravotnictví aktuálně nejlepší 3měsíční momentum mezi americkými sektory.",
+      "demo": true
+    },
+    {
+      "title": "Čínské akcie zažívají nejsilnější měsíc v roce",
+      "source": "Financial Times",
+      "url": "#",
+      "date": "2026-07-22",
+      "tags": ["Regiony", "Čína"],
+      "summary": "Stimulační opatření a levné valuace přitahují zahraniční kapitál zpět na čínský trh.",
+      "why": "Krátkodobý obrat čínského momenta může předznamenat širší rotaci v rámci rozvíjejících se trhů.",
+      "demo": true
+    }
+  ]
+}

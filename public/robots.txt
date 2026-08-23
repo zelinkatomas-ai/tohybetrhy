@@ -1,0 +1,25 @@
+# tohybetrhy.cz
+# Klasické vyhledávače i AI crawlery jsou vědomě povolené:
+# web žije z viditelnosti a citovanost v AI odpovědích je distribuce zdarma.
+# Kdybyste názor změnili, odkomentujte blok níže.
+
+User-agent: *
+Allow: /
+
+# Přesměrovací stránky affiliate odkazů nemá smysl indexovat
+User-agent: *
+Disallow: /go/
+
+# --- Blokace AI crawlerů (vypnuto) ---
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ClaudeBot
+# Disallow: /
+# User-agent: Google-Extended
+# Disallow: /
+# User-agent: PerplexityBot
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+
+Sitemap: https://tohybetrhy.cz/sitemap-index.xml

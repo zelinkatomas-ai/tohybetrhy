@@ -1,0 +1,35 @@
+name: Aktualizace dat
+
+on:
+  schedule:
+    # Každý pátek v 18:00 UTC (po zavření evropských burz); cron běží v UTC
+    - cron: "0 18 * * 5"
+  workflow_dispatch: {} # ruční spuštění z GitHubu
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalace závislostí
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Stažení dat a výpočet momenta
+        run: python pipeline/fetch_data.py
+
+      - name: Commit nových dat
+        run: |
+          git config user.name "data-bot"
+          git config user.email "actions@github.com"
+          git add src/data
+          git diff --cached --quiet || git commit -m "Automatická aktualizace dat ($(date -u +%F))"
+          git push
+      # Push spustí build & deploy (Cloudflare Pages / Netlify napojené na repo).

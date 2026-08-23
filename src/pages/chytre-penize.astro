@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
+import Methodology from '../components/Methodology.astro';
+import smartMoney from '../data/smart_money.json';
+---
+<Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců a apetit retailu.">
+  <h1>Chytré peníze vs retail</h1>
+  <p class="lead">
+    Kdo teď do trhu přitéká a kdo utíká? Tři nezávislé pohledy: oficiální
+    data CFTC o pozicích ve futures na S&P 500, expozice aktivních správců
+    (NAAIM) a apetit retailu měřený objemem pákových ETF. Žádný z nich není
+    neomylný – nejcennější informace vzniká, když se rozejdou.
+  </p>
+
+  {smartMoney.cot && (
+    <LineChart
+      title="Pozicování ve futures na S&P 500 (čisté pozice, % open interestu)"
+      note="CFTC Traders in Financial Futures, týdně. Instituce bývají trvale long, hedge fondy short (hedging) – hodnotu má změna trendu, ne absolutní číslo. Malí obchodníci = nejbližší oficiální proxy retailu."
+      dates={smartMoney.cot.dates}
+      series={smartMoney.cot.series}
+    />
+  )}
+  {smartMoney.naaim && (
+    <LineChart
+      title="Expozice aktivních správců (NAAIM Exposure Index)"
+      note="Průměrná akciová expozice členů NAAIM: 0 = mimo trh, 100 = plně zainvestováno. Extrémy bývají kontrariánský signál."
+      dates={smartMoney.naaim.dates}
+      series={smartMoney.naaim.series}
+    />
+  )}
+  {smartMoney.retail && (
+    <LineChart
+      title="Apetit retailu: podíl pákových ETF na objemu"
+      note="Dolarový objem TQQQ + SQQQ + SPXL + SPXS vůči SPY + QQQ, týdně. Pákové ETF obchoduje převážně retail – růst podílu = rostoucí spekulativní apetit."
+      dates={smartMoney.retail.dates}
+      series={smartMoney.retail.series}
+    />
+  )}
+
+  <Methodology>
+    <p>
+      <strong>CFTC Commitments of Traders:</strong> americký regulátor každý
+      týden zveřejňuje, kdo drží jaké pozice ve futures na S&P 500. Asset
+      manažeři = instituce, leveraged funds = hedge fondy, „nonreportable“
+      malí obchodníci = nejbližší oficiální proxy retailu. Ukazujeme čisté
+      pozice (long − short) jako procento open interestu; podstatná je změna
+      trendu, ne absolutní úroveň.
+    </p>
+    <p>
+      <strong>NAAIM Exposure Index:</strong> aktivní správci aktiv každý týden
+      reportují svou akciovou expozici (0 = mimo trh, 100 = plně, záporné
+      hodnoty = short). Propady pod ~40 historicky odpovídaly panice a bývají
+      kontrariánský signál.
+    </p>
+    <p>
+      <strong>Retail proxy:</strong> podíl dolarového objemu pákových ETF
+      (TQQQ, SQQQ, SPXL, SPXS) vůči SPY + QQQ. Pákové ETF obchoduje převážně
+      retail, takže rostoucí podíl znamená rostoucí spekulativní apetit.
+      Skutečné toky fondů (fund flows) jsou placená data; tyto tři ukazatele
+      jsou nejlepší bezplatné aproximace.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+</style>

@@ -1,0 +1,109 @@
+---
+import '../styles/tokens.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = 'Přehled, kde je na trzích momentum, kam se přesouvá kapitál a jaký je aktuální sentiment.',
+} = Astro.props;
+
+// Analytika (Umami): načte se jen v produkčním buildu a jen když jsou
+// nastavené env proměnné – viz .env.example a README, sekce Analytika.
+const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const umamiEnabled = import.meta.env.PROD && umamiUrl && umamiId;
+
+const nav = [
+  { href: '/regiony/', label: 'Regiony' },
+  { href: '/sektory/', label: 'Sektory' },
+  { href: '/momentum-etf/', label: 'Momentum ETF' },
+  { href: '/chytre-penize/', label: 'Chytré peníze' },
+  { href: '/zdroje/', label: 'Zdroje' },
+];
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
+    {umamiEnabled && (
+      <script defer src={`${umamiUrl}/script.js`} data-website-id={umamiId} is:inline></script>
+    )}
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a class="brand" href="/">To hýbe <span>trhy</span></a>
+        <div class="nav-links">
+          {nav.map((n) => (
+            <a href={n.href} class={path.startsWith(n.href) ? 'active' : ''}>{n.label}</a>
+          ))}
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p class="motto">
+        <strong>tohybetrhy.cz</strong> – přehled, kde je na trzích momentum,
+        kam se přesouvá kapitál a jaký je aktuální sentiment.
+      </p>
+      <p>
+        Obsah webu má výhradně informační a vzdělávací charakter a není investičním
+        doporučením ani poradenstvím. Historická výkonnost není zárukou budoucích
+        výnosů. Signály vycházejí z mechanických, veřejně popsaných pravidel.
+      </p>
+      <p class="muted">
+        © {new Date().getFullYear()} tohybetrhy.cz · Data: Yahoo Finance, CFTC, NAAIM
+        · <a href="/clanky/co-je-momentum/">Co je momentum?</a>
+      </p>
+    </footer>
+
+    <style>
+      * { box-sizing: border-box; }
+      html { font-family: var(--font); background: var(--page); color: var(--text-primary); }
+      body { margin: 0; line-height: 1.6; }
+      main { max-width: 1000px; margin: 0 auto; padding: 1.75rem 1rem 3rem; }
+
+      .site-header {
+        border-bottom: 1px solid var(--border);
+        background: color-mix(in srgb, var(--surface-1) 85%, transparent);
+        backdrop-filter: blur(8px);
+        position: sticky; top: 0; z-index: 10;
+      }
+      .site-header nav {
+        max-width: 1000px; margin: 0 auto; padding: 0.8rem 1rem;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 1rem; flex-wrap: wrap;
+      }
+      .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.01em; text-decoration: none; color: var(--text-primary); }
+      .brand span { color: var(--accent); }
+      .nav-links { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+      .nav-links a {
+        color: var(--text-secondary); text-decoration: none; font-size: 0.92rem;
+        padding: 0.3rem 0.65rem; border-radius: 999px;
+      }
+      .nav-links a:hover { color: var(--text-primary); background: color-mix(in srgb, var(--gridline) 40%, transparent); }
+      .nav-links a.active { color: var(--accent); font-weight: 600; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+      .site-footer {
+        max-width: 1000px; margin: 0 auto; padding: 1.5rem 1rem 2.5rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.8rem; color: var(--text-secondary);
+      }
+      .site-footer .motto { font-size: 0.85rem; }
+      .site-footer .muted { color: var(--text-muted); }
+      .site-footer a { color: var(--accent); }
+    </style>
+  </body>
+</html>

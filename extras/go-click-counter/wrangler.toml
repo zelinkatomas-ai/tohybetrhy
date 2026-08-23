@@ -1,0 +1,18 @@
+# Konfigurace Cloudflare Workeru pro počítání prokliků /go/*
+# Nasazení: npx wrangler deploy  (po vyplnění id KV namespace)
+
+name = "tohybetrhy-go-counter"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+# 1) vytvořte KV namespace:  npx wrangler kv namespace create GO_CLICKS
+# 2) doplňte vrácené id sem:
+[[kv_namespaces]]
+binding = "GO_CLICKS"
+id = "DOPLNTE_ID"
+
+# 3) nastavte token pro čtení statistik:
+#    npx wrangler secret put STATS_TOKEN
+
+# 4) v dashboardu Cloudflare přidejte Workers Route:
+#    tohybetrhy.cz/go/*  ->  tohybetrhy-go-counter

@@ -1,0 +1,62 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Co je momentum investování a proč na něm dnes záleží víc než dřív"
+description: "Úvod do momentum investování: co říká výzkum, jak funguje absolutní a relativní momentum a proč zrychlující trh hraje momentu do karet."
+date: 2026-07-21
+---
+
+import LineChart from '../../components/LineChart.astro';
+import MomentumTable from '../../components/MomentumTable.astro';
+import regions from '../../data/regions.json';
+
+Momentum je jedna z nejlépe zdokumentovaných anomálií finančních trhů: aktiva,
+kterým se v posledních měsících dařilo, mají statisticky mírně vyšší šanci, že
+si povedou dobře i v následujícím období. Na tomto pozorování stojí celá rodina
+mechanických strategií – od jednoduchého „drž, dokud je cena nad klouzavým
+průměrem“ (absolutní momentum) po rotační strategie typu Dual Momentum, které
+každý měsíc přesouvají kapitál do třídy aktiv s nejsilnějším výnosem
+(relativní momentum).
+
+## Trh, který zrychlil
+
+Důvod, proč momentum sledovat právě teď, je změna chování trhu samotného.
+Informace se do cen propisují rychleji, pohyby mají větší rozsah a podíl
+retailových investorů – obchodujících přes mobilní aplikace, opce s nulovou
+expirací a tematická ETF – je historicky nejvýš. Trendy se tak rozjíždějí
+prudčeji a otáčejí ostřeji než v minulé dekádě. Pro pasivního investora to
+znamená větší houpačku; pro toho, kdo momentum měří, je to víc signálu za
+kratší dobu.
+
+## Aktuální situace
+
+Takhle vypadá momentum hlavních regionů právě teď – tabulka i graf se
+aktualizují automaticky spolu s daty:
+
+<MomentumTable data={regions} title="Aktuální momentum hlavních regionů" />
+
+Jeden řádek v MDX souboru – a graf či tabulka jsou v článku. Stejná data,
+stejné komponenty jako na dashboardu:
+
+<LineChart
+  title="Výkonnost hlavních regionů od 1. 1. 2024 (indexováno na 100)"
+  note={regions.note}
+  dates={regions.chart.dates}
+  series={regions.chart.series}
+/>
+
+## Poznámka k měnám
+
+Výnosy měříme v měně fondu. Kurzové riziko je pro investora reálné – korunový
+výnos z dolarového ETF může kurz výrazně posunout oběma směry – ale do určení
+toho, *co má momentum*, měnový přepočet nepatří: přidával by k trendu aktiva
+šum měnového páru.
+
+## Co si z toho odnést
+
+Momentum není křišťálová koule. Je to statistická výhoda, která funguje
+dlouhodobě a v průměru, vyžaduje disciplínu a přináší i období, kdy mechanická
+pravidla prohrávají s prostým „kup a drž“. Smyslem tohoto webu je dát vám
+podklady – čerstvá data, srozumitelné signály a poctivá srovnání – abyste se
+mohli rozhodovat sami.
+
+*Tento článek není investičním doporučením.*

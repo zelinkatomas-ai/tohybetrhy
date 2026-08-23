@@ -1,0 +1,23 @@
+{
+  "_comment": "Centrální správa externích/affiliate odkazů. Na webu odkazuj vždy na /go/<klíč>/ – při změně affiliate podmínek se mění jen tento soubor.",
+  "xtb": {
+    "url": "https://www.xtb.com/cz",
+    "label": "XTB",
+    "sponsored": true
+  },
+  "portu": {
+    "url": "https://www.portu.cz/",
+    "label": "Portu",
+    "sponsored": true
+  },
+  "degiro": {
+    "url": "https://www.degiro.cz/",
+    "label": "DEGIRO",
+    "sponsored": true
+  },
+  "justetf": {
+    "url": "https://www.justetf.com/",
+    "label": "justETF",
+    "sponsored": false
+  }
+}

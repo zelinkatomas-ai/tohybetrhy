@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import MomentumTable from '../components/MomentumTable.astro';
+import Methodology from '../components/Methodology.astro';
+import sectors from '../data/sectors.json';
+---
+<Base title="Momentum sektorů – To hýbe trhy" description="Momentum amerických sektorů: kde se trend rodí a kam rotuje kapitál mezi technologiemi, financemi, zdravotnictvím a dalšími sektory.">
+  <h1>Momentum sektorů</h1>
+  <p class="lead">
+    Kde se momentum rodí nejdřív: všech jedenáct amerických sektorů seřazených
+    podle 3měsíčního výnosu. Sektorová rotace bývá rychlejší, než většina
+    investorů stačí zaregistrovat – právě tady se přesuny kapitálu projeví
+    jako první.
+  </p>
+
+  <MomentumTable data={sectors} title="Momentum amerických sektorů" />
+
+  <Methodology>
+    <p>
+      Sektory měříme přes Select Sector SPDR ETF – jedenáct fondů, které
+      rozdělují index S&P 500 podle klasifikace GICS. Jsou nejlikvidnějším
+      a nejdéle fungujícím sektorovým nástrojem na světě, proto slouží jako
+      standard i pro čtení sektorové rotace.
+    </p>
+    <p>
+      Momentum = klouzavý výnos za 1, 3, 6 a 12 měsíců z týdenních cen v USD.
+      Tabulka je řazena podle 3měsíčního výnosu, který nejlépe vystihuje
+      střednědobou rotaci. Signál porovnává cenu s 52týdenním klouzavým
+      průměrem. Evropské sektorové rozpady zatím nesledujeme – likvidita
+      evropských sektorových ETF je řádově nižší.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+</style>

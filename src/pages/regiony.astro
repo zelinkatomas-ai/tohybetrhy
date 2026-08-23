@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
+import MomentumTable from '../components/MomentumTable.astro';
+import Methodology from '../components/Methodology.astro';
+import regions from '../data/regions.json';
+---
+<Base title="Momentum regionů – To hýbe trhy" description="Momentum světových akciových regionů: svět, USA, Evropa, rozvíjející se trhy, Čína, Indie, Japonsko a další.">
+  <h1>Momentum regionů</h1>
+  <p class="lead">
+    Geografická mapa momenta: čtyři hlavní regiony v grafu a rozšířený rozpad
+    na Čínu, Indii, Japonsko, Jižní Ameriku a Afriku v tabulce. Kliknutím na
+    název otevřete detail podkladového ETF.
+  </p>
+
+  <MomentumTable data={regions} title="Momentum podle regionů" />
+
+  <LineChart
+    title="Hlavní regiony od 1. 1. 2024 (indexováno na 100)"
+    note="Čtyři hlavní regiony přes UCITS ETF, výnosy v měně fondu."
+    dates={regions.chart.dates}
+    series={regions.chart.series}
+  />
+
+  <Methodology>
+    <p>
+      Momentum měříme jako klouzavý výnos za 1, 3, 6 a 12 měsíců (4/13/26/52
+      týdnů) z týdenních cen ETF reprezentujících jednotlivé regiony, v měně
+      fondu. Signál „nad/pod průměrem“ porovnává aktuální cenu s 52týdenním
+      klouzavým průměrem – mechanické pravidlo absolutního momenta.
+    </p>
+    <p>
+      Kde existuje kvalitní UCITS fond, používáme ten (svět, USA, Evropa,
+      rozvíjející se trhy, Indie, Japonsko). Pro Čínu, Jižní Ameriku a Afriku
+      slouží jako indikátor likvidnější americká ETF; Afriku zastupuje
+      jihoafrický trh, protože širší africké ETF na trhu prakticky neexistuje.
+      Měnový přepočet záměrně neděláme – přidával by k trendu regionu šum
+      měnového páru. Zlato a dluhopisy zatím nesledujeme; web se soustředí na
+      akciové momentum.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+</style>

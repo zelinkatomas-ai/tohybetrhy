@@ -1,0 +1,135 @@
+---
+/**
+ * Znovupoužitelný čárový graf (ECharts).
+ * Použití:  <LineChart title="..." dates={data.dates} series={data.series} note="..." />
+ * Data = { dates: string[], series: { name: string, values: (number|null)[] }[] }
+ */
+interface Props {
+  title: string;
+  note?: string;
+  dates: string[];
+  series: { name: string; values: (number | null)[]; benchmark?: boolean }[];
+  yLabel?: string;
+}
+const { title, note, dates, series, yLabel = '' } = Astro.props;
+const payload = JSON.stringify({ dates, series, yLabel });
+---
+<figure class="viz" data-linechart>
+  <figcaption>
+    <strong>{title}</strong>
+    {note && <span class="note">{note}</span>}
+  </figcaption>
+  <div class="plot" role="img" aria-label={title}></div>
+  <script type="application/json" set:html={payload} />
+  <details class="data-table">
+    <summary>Zobrazit data v tabulce</summary>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Datum</th>{series.map((s) => <th>{s.name}</th>)}</tr>
+        </thead>
+        <tbody>
+          {dates.map((d, i) => (
+            <tr>
+              <td>{d}</td>
+              {series.map((s) => <td>{s.values[i] ?? '–'}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</figure>
+
+<style>
+  .viz {
+    margin: 1.5rem 0;
+    padding: 1rem 1rem 0.5rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  figcaption { margin-bottom: 0.25rem; }
+  figcaption strong { font-size: 1rem; }
+  .note { display: block; font-size: 0.8rem; color: var(--text-secondary); }
+  .plot { width: 100%; height: 380px; }
+  .data-table { font-size: 0.8rem; margin: 0.5rem 0; color: var(--text-secondary); }
+  .data-table summary { cursor: pointer; }
+  .scroll { max-height: 260px; overflow: auto; margin-top: 0.5rem; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.2rem 0.5rem; text-align: right; border-bottom: 1px solid var(--gridline); }
+  th:first-child, td:first-child { text-align: left; }
+</style>
+
+<script>
+  import * as echarts from 'echarts/core';
+  import { LineChart as EChartsLine } from 'echarts/charts';
+  import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components';
+  import { SVGRenderer } from 'echarts/renderers';
+  echarts.use([EChartsLine, GridComponent, TooltipComponent, LegendComponent, SVGRenderer]);
+
+  function cssVar(name: string): string {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function palette(): string[] {
+    return [1, 2, 3, 4, 5, 6, 7, 8].map((i) => cssVar(`--series-${i}`));
+  }
+
+  function render(fig: Element) {
+    const el = fig.querySelector('.plot') as HTMLElement;
+    const data = JSON.parse(fig.querySelector('script[type="application/json"]')!.textContent!);
+    const chart = echarts.init(el, null, { renderer: 'svg' });
+
+    const apply = () => {
+      const ink = { primary: cssVar('--text-primary'), muted: cssVar('--text-muted') };
+      chart.setOption({
+        color: palette(),
+        textStyle: { fontFamily: getComputedStyle(document.body).fontFamily },
+        legend: {
+          show: data.series.length > 1, // jedna série legendu nepotřebuje – pojmenovává ji titulek
+          top: 0, left: 0, icon: 'roundRect', itemWidth: 12, itemHeight: 12,
+          textStyle: { color: cssVar('--text-secondary'), fontSize: 12 },
+        },
+        grid: { left: 8, right: 16, top: data.series.length > 1 ? 56 : 24, bottom: 28, containLabel: true },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'line', lineStyle: { color: cssVar('--baseline') } },
+          backgroundColor: cssVar('--surface-1'),
+          borderColor: cssVar('--gridline'),
+          textStyle: { color: ink.primary, fontSize: 12 },
+          valueFormatter: (v: number | null) =>
+            v == null ? '–' : v.toLocaleString('cs-CZ', { maximumFractionDigits: 1 }),
+        },
+        xAxis: {
+          type: 'category', data: data.dates, boundaryGap: false,
+          axisLine: { lineStyle: { color: cssVar('--baseline') } },
+          axisTick: { show: false },
+          axisLabel: { color: ink.muted, fontSize: 11 },
+        },
+        yAxis: {
+          type: 'value', scale: true, name: data.yLabel,
+          nameTextStyle: { color: ink.muted },
+          axisLabel: { color: ink.muted, fontSize: 11 },
+          splitLine: { lineStyle: { color: cssVar('--gridline') } },
+        },
+        series: data.series.map((s: { name: string; values: (number | null)[]; benchmark?: boolean }) => ({
+          name: s.name, type: 'line', data: s.values,
+          showSymbol: false, symbolSize: 8,
+          lineStyle: { width: 2, type: s.benchmark ? [6, 5] : 'solid' },
+          emphasis: { focus: 'series' },
+        })),
+      });
+    };
+
+    apply();
+    // překreslení při přepnutí světlého/tmavého režimu a při změně velikosti okna
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', apply);
+    window.addEventListener('resize', () => chart.resize());
+  }
+
+  const init = () => document.querySelectorAll('[data-linechart]').forEach(render);
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
+</script>

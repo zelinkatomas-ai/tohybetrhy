@@ -1,0 +1,188 @@
+---
+import Base from '../layouts/Base.astro';
+import SourceCard from '../components/SourceCard.astro';
+import regions from '../data/regions.json';
+import sectors from '../data/sectors.json';
+import momentumEtfs from '../data/momentum_etfs.json';
+import smartMoney from '../data/smart_money.json';
+import summary from '../data/summary.json';
+import sources from '../config/sources.json';
+import { etfSlug, fmtPct } from '../lib/utils';
+
+const updated = new Date(summary.updated).toLocaleDateString('cs-CZ');
+const s = summary.sentences;
+
+const coreRegions = regions.rows.filter((r) => r.core);
+const topSectors = sectors.rows.slice(0, 3);
+const topEtfs = momentumEtfs.rows
+  .filter((r) => !r.benchmark && r.r6 != null)
+  .sort((a, b) => (b.r6 ?? 0) - (a.r6 ?? 0))
+  .slice(0, 3);
+
+// chytré peníze: poslední hodnota + posun za ~4 týdny
+const lastDelta = (chart: any, i = 0) => {
+  const v = chart.series[i].values;
+  return { last: v[v.length - 1], delta: v[v.length - 1] - v[Math.max(0, v.length - 5)] };
+};
+const inst = smartMoney.cot ? lastDelta(smartMoney.cot, 0) : null;
+const naaim = smartMoney.naaim ? lastDelta(smartMoney.naaim) : null;
+const retail = smartMoney.retail ? lastDelta(smartMoney.retail) : null;
+const trendArrow = (d: number, lim = 0.5) => (d > lim ? '↗' : d < -lim ? '↘' : '→');
+
+const latestSources = sources.items.slice(0, 3);
+const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
+---
+<Base title="To hýbe trhy – kde je momentum, kam teče kapitál, jaký je sentiment">
+  <section class="hero">
+    <p class="kicker">Aktualizováno {updated} · data týdně, grafy od 1. 1. 2024</p>
+    <h1>Kde je momentum, kam se přesouvá kapitál<br />a jaký je sentiment.</h1>
+  </section>
+
+  <section class="verdict" aria-label="Aktuální vzkaz">
+    <p class="main">{s.global} {s.rotation}</p>
+    <p class="secondary">{s.sectors} {s.etfs}</p>
+    {s.smart && <p class="tertiary">{s.smart}</p>}
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Regiony</h2>
+      <a class="more" href="/regiony/">Detail regionů →</a>
+    </div>
+    <div class="tiles">
+      {coreRegions.map((r) => (
+        <a class="tile" href={`/etf/${etfSlug(r.ticker)}/`}>
+          <span class="tile-name">{r.name}</span>
+          <span class="tile-nums">
+            <span class={cls(r.r1)}>{fmtPct(r.r1)}<small>1M</small></span>
+            <span class={cls(r.r3)}>{fmtPct(r.r3)}<small>3M</small></span>
+          </span>
+          {r.signal === 'above'
+            ? <span class="badge good">▲ nad průměrem</span>
+            : <span class="badge bad">▼ pod průměrem</span>}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Nejsilnější sektory</h2>
+      <a class="more" href="/sektory/">Všech 11 sektorů →</a>
+    </div>
+    <div class="tiles three">
+      {topSectors.map((r, i) => (
+        <a class="tile rank" href={`/etf/${etfSlug(r.ticker)}/`}>
+          <span class="rank-num">{i + 1}</span>
+          <span class="tile-name">{r.name}</span>
+          <span class="tile-nums"><span class={cls(r.r3)}>{fmtPct(r.r3)}<small>3M</small></span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Momentum ETF, kterým se daří</h2>
+      <a class="more" href="/momentum-etf/">Kompletní přehled →</a>
+    </div>
+    <div class="tiles three">
+      {topEtfs.map((r) => (
+        <a class="tile" href={`/etf/${etfSlug(r.ticker)}/`}>
+          <span class="tile-name">{r.name}</span>
+          <span class="tile-nums"><span class={cls(r.r6)}>{fmtPct(r.r6)}<small>6M</small></span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Chytré peníze vs retail</h2>
+      <a class="more" href="/chytre-penize/">Grafy a souvislosti →</a>
+    </div>
+    <div class="tiles three">
+      {inst && (
+        <div class="tile stat">
+          <span class="tile-name">Instituce ve futures</span>
+          <span class="stat-val">{trendArrow(inst.delta)} {inst.last.toFixed(0)} %<small>čisté pozice / OI</small></span>
+        </div>
+      )}
+      {naaim && (
+        <div class="tile stat">
+          <span class="tile-name">Expozice správců (NAAIM)</span>
+          <span class="stat-val">{trendArrow(naaim.delta, 3)} {naaim.last.toFixed(0)} %<small>0 = mimo trh, 100 = plně</small></span>
+        </div>
+      )}
+      {retail && (
+        <div class="tile stat">
+          <span class="tile-name">Apetit retailu</span>
+          <span class="stat-val">{trendArrow(retail.delta)} {retail.last.toFixed(1)} %<small>podíl pákových ETF na objemu</small></span>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Co hýbe trhy jinde</h2>
+      <a class="more" href="/zdroje/">Všechny zdroje →</a>
+    </div>
+    <div class="sources">
+      {latestSources.map((item) => <SourceCard item={item} />)}
+    </div>
+  </section>
+
+  <style>
+    .kicker { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 0.5rem 0 0.25rem; }
+    .hero h1 { margin: 0 0 1rem; font-size: 1.9rem; line-height: 1.25; letter-spacing: -0.015em; }
+
+    .verdict {
+      padding: 1.3rem 1.5rem; margin-bottom: 2rem;
+      background: color-mix(in srgb, var(--accent) 6%, var(--surface-1));
+      border: 1px solid var(--border); border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+    }
+    .verdict .main { margin: 0; font-size: 1.15rem; line-height: 1.55; font-weight: 600; }
+    .verdict .secondary { margin: 0.6rem 0 0; font-size: 1rem; color: var(--text-primary); }
+    .verdict .tertiary { margin: 0.6rem 0 0; font-size: 0.88rem; color: var(--text-secondary); }
+
+    .block { margin: 2.25rem 0; }
+    .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .block-head h2 { font-size: 1.2rem; margin: 0; }
+    .more { font-size: 0.85rem; color: var(--accent); text-decoration: none; white-space: nowrap; }
+    .more:hover { text-decoration: underline; }
+
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+    .tiles.three { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .tile {
+      display: flex; flex-direction: column; gap: 0.45rem;
+      padding: 0.95rem 1.1rem; text-decoration: none;
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text-primary);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    a.tile:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07); }
+    .tile-name { font-weight: 600; font-size: 0.95rem; }
+    .tile-nums { display: flex; gap: 1rem; font-variant-numeric: tabular-nums; font-size: 1.05rem; font-weight: 600; }
+    .tile-nums small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--text-muted); }
+    .rank { flex-direction: row; align-items: center; gap: 0.9rem; }
+    .rank .tile-nums { margin-left: auto; }
+    .rank-num {
+      font-size: 1.3rem; font-weight: 800; color: var(--accent);
+      width: 1.6rem; text-align: center; flex-shrink: 0;
+    }
+    .stat-val { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .stat-val small { display: block; font-size: 0.7rem; font-weight: 400; color: var(--text-muted); }
+
+    .sources { display: grid; gap: 0.8rem; }
+    .up { color: var(--delta-up); }
+    .down { color: var(--delta-down); }
+    .badge {
+      align-self: flex-start; padding: 0.12rem 0.55rem; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .badge.good { color: var(--delta-up); background: var(--badge-good-bg); }
+    .badge.bad { color: var(--delta-down); background: var(--badge-bad-bg); }
+  </style>
+</Base>

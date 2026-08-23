@@ -1,0 +1,28 @@
+---
+/**
+ * Přesměrovací stránky pro externí (affiliate) odkazy: /go/xtb/ apod.
+ * Cíle se spravují v src/config/links.json.
+ */
+import links from '../../config/links.json';
+
+export function getStaticPaths() {
+  return Object.keys(links)
+    .filter((k) => !k.startsWith('_'))
+    .map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const link = (links as Record<string, { url: string; label: string }>)[slug!];
+---
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <title>Přesměrování – {link.label}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${link.url}`} />
+  </head>
+  <body>
+    <p>Přesměrováváme na <a href={link.url} rel="sponsored noopener">{link.label}</a>…</p>
+  </body>
+</html>
