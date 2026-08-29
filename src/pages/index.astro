@@ -27,6 +27,7 @@ const lastDelta = (chart: any, i = 0) => {
 const inst = smartMoney.cot ? lastDelta(smartMoney.cot, 0) : null;
 const naaim = smartMoney.naaim ? lastDelta(smartMoney.naaim) : null;
 const retail = smartMoney.retail ? lastDelta(smartMoney.retail) : null;
+const redditTop = (smartMoney as any).reddit?.top?.[0] ?? null;
 const trendArrow = (d: number, lim = 0.5) => (d > lim ? '↗' : d < -lim ? '↘' : '→');
 
 const latestSources = sources.items.slice(0, 3);
@@ -42,6 +43,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
     <p class="main">{s.global} {s.rotation}</p>
     <p class="secondary">{s.sectors} {s.etfs}</p>
     {s.smart && <p class="tertiary">{s.smart}</p>}
+    {s.btc && <p class="tertiary">{s.btc}</p>}
   </section>
 
   <section class="block">
@@ -118,6 +120,15 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
         <div class="tile stat">
           <span class="tile-name">Apetit retailu</span>
           <span class="stat-val">{trendArrow(retail.delta)} {retail.last.toFixed(1)} %<small>podíl pákových ETF na objemu</small></span>
+        </div>
+      )}
+      {redditTop && (
+        <div class="tile stat">
+          <span class="tile-name">Nejzmiňovanější na Redditu</span>
+          <span class="stat-val">
+            {redditTop.change_pct != null && trendArrow(redditTop.change_pct, 10)} {redditTop.ticker}
+            <small>{redditTop.mentions} zmínek za 24 h{redditTop.change_pct != null ? ` · ${fmtPct(redditTop.change_pct)} t/t` : ''}</small>
+          </span>
         </div>
       )}
     </div>

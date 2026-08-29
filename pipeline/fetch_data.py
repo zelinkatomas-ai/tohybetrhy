@@ -327,9 +327,61 @@ def fetch_retail_proxy() -> dict:
     }
 
 
+def fetch_reddit() -> dict:
+    """Reddit sentiment (ApeWisdom, veřejné API): top tickery podle počtu
+    zmínek za posledních 24 h napříč investičními subreddity (WSB, r/stocks…).
+
+    Změna t/t se počítá proti snapshotu z minulého běhu pipeline (typicky
+    před týdnem) uloženému přímo v smart_money.json; při prvním běhu změna
+    není k dispozici a dopočítá se od druhého týdne."""
+    import html as html_mod
+
+    r = requests.get("https://apewisdom.io/api/v1.0/filter/all-stocks/page/1",
+                     headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    results = r.json()["results"]
+
+    # předchozí snapshot (kvůli změně t/t) – čteme starý soubor před přepisem
+    prev_mentions: dict[str, int] = {}
+    prev_date: str | None = None
+    try:
+        old = json.loads((OUT_DIR / "smart_money.json").read_text(encoding="utf-8"))
+        snap = (old.get("reddit") or {}).get("snapshot") or {}
+        prev_mentions = snap.get("mentions") or {}
+        prev_date = snap.get("date")
+    except Exception:
+        pass
+
+    top = []
+    for row in results[:10]:
+        ticker = row["ticker"]
+        mentions = int(row["mentions"])
+        prev = prev_mentions.get(ticker)
+        top.append({
+            "rank": int(row["rank"]),
+            "ticker": ticker,
+            "name": html_mod.unescape(row["name"]),
+            "mentions": mentions,
+            "upvotes": int(row["upvotes"]),
+            "prev_mentions": prev,
+            "change_pct": round((mentions / prev - 1) * 100, 1) if prev else None,
+        })
+
+    return {
+        "top": top,
+        "prev_date": prev_date,
+        # snapshot top 50, aby měly změnu i tituly, které se do top 10 teprve dostanou
+        "snapshot": {
+            "date": date.today().isoformat(),
+            "mentions": {r_["ticker"]: int(r_["mentions"]) for r_ in results[:50]},
+        },
+    }
+
+
 def build_smart_money() -> None:
     charts = {}
-    for key, fn in [("cot", fetch_cot), ("naaim", fetch_naaim), ("retail", fetch_retail_proxy)]:
+    for key, fn in [("cot", fetch_cot), ("naaim", fetch_naaim),
+                    ("retail", fetch_retail_proxy), ("reddit", fetch_reddit)]:
         try:
             print(f"[smart_money] {key} ...")
             charts[key] = fn()
@@ -341,7 +393,8 @@ def build_smart_money() -> None:
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). "
                 "NAAIM: průměrná akciová expozice aktivních správců. "
-                "Retail proxy: podíl pákových ETF na dolarovém objemu.",
+                "Retail proxy: podíl pákových ETF na dolarovém objemu. "
+                "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[smart_money] -> smart_money.json")
@@ -360,6 +413,7 @@ def build_summary() -> None:
     sectors = json.loads((OUT_DIR / "sectors.json").read_text(encoding="utf-8"))
     etfs = json.loads((OUT_DIR / "momentum_etfs.json").read_text(encoding="utf-8"))
     smart = json.loads((OUT_DIR / "smart_money.json").read_text(encoding="utf-8"))
+    crypto = json.loads((OUT_DIR / "crypto.json").read_text(encoding="utf-8"))
 
     by_ticker = {r["ticker"]: r for r in regions["rows"]}
 
@@ -432,6 +486,24 @@ def build_summary() -> None:
         parts.append(f"instituce ve futures na S&P 500 {trend(d_inst, 'pozice přidávají', 'pozice ubírají', 'pozice drží')}")
     s_smart = (parts[0][0].upper() + ", ".join(parts)[1:] + ".") if parts else None
 
+    # 6) Bitcoin jako barometr rizikového apetitu (signál vs 52t průměr)
+    s_btc = None
+    btc = next((r for r in crypto["rows"] if r["ticker"] == "BTC-USD"), None)
+    if btc and btc["signal"]:
+        b3 = btc["r3"]
+        if btc["signal"] == "above":
+            s_btc = ("Bitcoin, barometr rizikového apetitu, se drží nad svým "
+                     "52týdenním průměrem"
+                     + (f" ({_fmt(b3)} za tři měsíce)." if b3 is not None else "."))
+        elif b3 is not None and b3 > 0:
+            s_btc = (f"Bitcoin, barometr rizikového apetitu, je stále pod svým "
+                     f"52týdenním průměrem, krátkodobé momentum ale sílí "
+                     f"({_fmt(b3)} za tři měsíce).")
+        else:
+            s_btc = ("Bitcoin, barometr rizikového apetitu, je pod svým "
+                     "52týdenním průměrem"
+                     + (f" a za tři měsíce ztrácí {_fmt(b3)}." if b3 is not None else "."))
+
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sentences": {
@@ -440,6 +512,7 @@ def build_summary() -> None:
             "sectors": s_sectors,
             "etfs": s_etfs,
             "smart": s_smart,
+            "btc": s_btc,
         },
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[summary] -> summary.json")

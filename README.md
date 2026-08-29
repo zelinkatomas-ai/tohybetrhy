@@ -9,6 +9,7 @@ fondu, grafy od 1. 1. 2024). Architektura odděluje **obsah** (Markdown/MDX),
 
 ```
 pipeline/fetch_data.py        Python pipeline: Yahoo Finance → JSON (skupiny v GROUPS)
+pipeline/fetch_sources.py     RSS → návrhy do Zdrojů (ruční schválení --approve)
 src/data/*.json               Vygenerovaná data: assets, sectors, momentum_etfs (zdroj pravdy)
 src/components/LineChart.astro    Čárový graf (ECharts) – dostane data, vykreslí se sám
 src/components/MomentumTable.astro  Tabulka momenta – server-side render, dobré SEO

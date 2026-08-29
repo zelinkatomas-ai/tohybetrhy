@@ -44,16 +44,31 @@
 
 ## Fronta vývoje (v pořadí priorit)
 
-- [ ] **Automat na plnění Zdrojů**: RSS feedy (Reuters, FT, Bloomberg…) →
-      filtr klíčových slov dle regionů/sektorů → návrh shrnutí → ruční
-      schválení (kurátorský krok zůstává lidský). Výstup = `sources.json`.
-- [ ] **Reddit sentiment**: ApeWisdom má veřejné API (apewisdom.io/api),
-      alternativa AltIndex. Metrika: top tickery, zmínky, změna t/t.
-      Zobrazit jako dlaždici v Chytrých penězích + detail.
-- [ ] **Směrový retail flow**: pákové ETF měří aktivitu, ne směr. Prozkoumat
-      veřejnou stránku Fidelity s denními top obchody klientů (poměr
-      buy/sell příkazů). Inspirace: VandaTrack (placené, nereplikovatelné).
-- [ ] **BTC do generovaného vzkazu** na homepage (věta o signálu vs 52t průměr).
+- [x] **Automat na plnění Zdrojů**: `pipeline/fetch_sources.py` — RSS feedy
+      (MarketWatch, FT, Yahoo Finance, Investing.com; CNBC blokuje některé IP,
+      Reuters/Bloomberg veřejné RSS nemají) → filtr klíčových slov dle
+      regionů/sektorů → návrhy do `pipeline/sources_proposals.json` →
+      `--approve 1,3` přesune vybrané do `sources.json` (kurátor pak doladí
+      summary + why). Cache viděných URL v `pipeline/sources_seen.json`
+      (obojí v .gitignore). Spouští se ručně, ne v CI.
+- [x] **Reddit sentiment**: ApeWisdom API napojeno v pipeline
+      (`fetch_reddit`) → `smart_money.json` klíč `reddit`. Top 10 tickerů,
+      zmínky/24 h, upvoty; změna t/t proti snapshotu z minulého běhu
+      (top 50 se ukládá přímo do JSON, první běh změnu nemá). Dlaždice
+      na homepage + tabulka a metodika na /chytre-penize/.
+- [x] **Směrový retail flow — prozkoumáno (2026-08-29)**: stará veřejná
+      stránka Fidelity (eresearch…fidelityTopOrders.jhtml) už neexistuje —
+      302 na SPA (digital.fidelity.com/prgw/digital/research/src), data se
+      dotahují JS/za loginem → **nereplikovatelné bez skládání s jejich
+      interním API, neriskovat**. Lepší kandidát: **Nasdaq Retail Trading
+      Activity Tracker (RTAT)** — free tier `NDAQ/RTAT10` na data.nasdaq.com:
+      denně top 10 retailových tickerů s aktivitou a *směrovým* net
+      sentimentem; stačí bezplatný API klíč (do GitHub Actions jako secret
+      `NASDAQ_DATA_LINK_API_KEY`). Endpoint ověřen (bez klíče vrací
+      QEPx04 = existuje, chce klíč). Až bude klíč, přidat `fetch_rtat()`
+      vedle `fetch_reddit()`.
+- [x] **BTC do generovaného vzkazu** na homepage — věta o signálu vs 52t
+      průměr (`sentences.btc` v summary.json, skládá se z crypto.json).
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 

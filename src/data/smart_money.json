@@ -1,6 +1,6 @@
 {
- "updated": "2026-08-29T01:23:56+00:00",
- "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu.",
+ "updated": "2026-08-29T18:31:38+00:00",
+ "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu. Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu.",
  "cot": {
   "dates": [
    "2024-01-02",
@@ -869,5 +869,155 @@
     ]
    }
   ]
+ },
+ "reddit": {
+  "top": [
+   {
+    "rank": 1,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 161,
+    "upvotes": 881,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 2,
+    "ticker": "SPY",
+    "name": "SPDR S&P 500 ETF Trust",
+    "mentions": 102,
+    "upvotes": 760,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 3,
+    "ticker": "IREN",
+    "name": "Iris Energy",
+    "mentions": 52,
+    "upvotes": 251,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 4,
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 41,
+    "upvotes": 83,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 5,
+    "ticker": "DTE",
+    "name": "DTE Energy",
+    "mentions": 40,
+    "upvotes": 475,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 6,
+    "ticker": "AMD",
+    "name": "AMD",
+    "mentions": 37,
+    "upvotes": 608,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 7,
+    "ticker": "VOO",
+    "name": "Vanguard S&P 500 ETF",
+    "mentions": 32,
+    "upvotes": 197,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 8,
+    "ticker": "MRVL",
+    "name": "Marvell Technology Group",
+    "mentions": 32,
+    "upvotes": 351,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 9,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 29,
+    "upvotes": 255,
+    "prev_mentions": null,
+    "change_pct": null
+   },
+   {
+    "rank": 10,
+    "ticker": "NKE",
+    "name": "Nike",
+    "mentions": 24,
+    "upvotes": 46,
+    "prev_mentions": null,
+    "change_pct": null
+   }
+  ],
+  "prev_date": null,
+  "snapshot": {
+   "date": "2026-08-29",
+   "mentions": {
+    "NVDA": 161,
+    "SPY": 102,
+    "IREN": 52,
+    "MU": 41,
+    "DTE": 40,
+    "AMD": 37,
+    "VOO": 32,
+    "MRVL": 32,
+    "QQQ": 29,
+    "NKE": 24,
+    "SNDK": 19,
+    "NBIS": 19,
+    "TSLA": 17,
+    "RDDT": 16,
+    "EU": 16,
+    "APP": 16,
+    "META": 15,
+    "GOOG": 13,
+    "MAGA": 12,
+    "SPCX": 12,
+    "MSFT": 12,
+    "AM": 11,
+    "NOW": 11,
+    "AMZN": 11,
+    "RR": 10,
+    "ASTS": 10,
+    "SOFI": 10,
+    "GLD": 10,
+    "BE": 10,
+    "CRM": 10,
+    "HPE": 9,
+    "AVGO": 9,
+    "AAPL": 9,
+    "OPEN": 8,
+    "VTI": 8,
+    "YOU": 7,
+    "VXUS": 7,
+    "SMA": 6,
+    "CRWV": 6,
+    "RKLB": 6,
+    "SLS": 6,
+    "TLT": 6,
+    "USO": 6,
+    "DELL": 6,
+    "LULU": 6,
+    "SMCI": 6,
+    "INTC": 6,
+    "JOBY": 5,
+    "CAN": 5,
+    "HP": 5
+   }
+  }
  }
 }
