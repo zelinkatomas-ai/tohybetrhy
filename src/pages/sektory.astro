@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
 import MomentumTable from '../components/MomentumTable.astro';
 import Methodology from '../components/Methodology.astro';
 import sectors from '../data/sectors.json';
+import crypto from '../data/crypto.json';
 ---
 <Base title="Momentum sektorů – To hýbe trhy" description="Momentum amerických sektorů: kde se trend rodí a kam rotuje kapitál mezi technologiemi, financemi, zdravotnictvím a dalšími sektory.">
   <h1>Momentum sektorů</h1>
@@ -14,6 +16,24 @@ import sectors from '../data/sectors.json';
   </p>
 
   <MomentumTable data={sectors} title="Momentum amerických sektorů" />
+
+  <h2 class="sub">Mimo akcie: Bitcoin</h2>
+  <p class="lead">
+    Bitcoin není sektor, ale k rotaci kapitálu patří – je to jeden
+    z nejčistších barometrů retailového apetitu k riziku. Proto ho vedeme
+    odděleně od sektorové tabulky, stejnou metodikou.
+  </p>
+
+  <MomentumTable data={crypto} title="Momentum Bitcoinu" />
+
+  {crypto.chart && (
+    <LineChart
+      title="Bitcoin od 1. 1. 2024 (indexováno na 100)"
+      note={crypto.note}
+      dates={crypto.chart.dates}
+      series={crypto.chart.series}
+    />
+  )}
 
   <Methodology>
     <p>
@@ -29,10 +49,18 @@ import sectors from '../data/sectors.json';
       průměrem. Evropské sektorové rozpady zatím nesledujeme – likvidita
       evropských sektorových ETF je řádově nižší.
     </p>
+    <p>
+      <strong>Bitcoin:</strong> spotová cena BTC-USD (Yahoo Finance). Není
+      součástí sektorové tabulky, protože nejde o sektor indexu S&P 500
+      a jeho volatilita by deformovala řazení; sledujeme ho jako samostatný
+      barometr rizikového apetitu. Obchoduje se nepřetržitě, vzorkujeme
+      týdně stejně jako ostatní data.
+    </p>
   </Methodology>
 </Base>
 
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .sub { font-size: 1.25rem; margin: 2.25rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
 </style>

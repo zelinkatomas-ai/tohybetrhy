@@ -9,6 +9,7 @@ určení toho, "co jede", by přepočet měn jen přidával šum.
 Výstupy (src/data/):
   - regions.json         ... regiony (tabulka + graf hlavních čtyř)
   - sectors.json         ... americké sektory, SPDR (tabulka, řazeno dle 3M)
+  - crypto.json          ... Bitcoin (tabulka + graf)
   - momentum_etfs.json   ... momentum ETF vs benchmarky (tabulka + graf)
   - smart_money.json     ... chytré peníze vs retail (CoT, NAAIM, pákové ETF)
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
@@ -68,6 +69,13 @@ GROUPS: dict[str, dict] = {
             {"ticker": "XLP",  "name": "Základní spotřeba"},
             {"ticker": "XLU",  "name": "Utility"},
             {"ticker": "XLRE", "name": "Reality"},
+        ],
+    },
+    "crypto": {
+        "file": "crypto.json",
+        "note": "Bitcoin, spotová cena v USD. Obchoduje se nonstop; vzorkujeme týdně jako ostatní data.",
+        "items": [
+            {"ticker": "BTC-USD", "name": "Bitcoin", "chart": True},
         ],
     },
     "momentum_etfs": {
@@ -218,34 +226,65 @@ def fetch_cot() -> dict:
 
 def fetch_naaim() -> dict:
     """NAAIM Exposure Index – průměrná akciová expozice aktivních správců
-    (0 = mimo trh, 100 = plně zainvestováno). Odkaz na xlsx se na stránce
-    mění, proto ho pokaždé vyhledáme."""
+    (0 = mimo trh, 100 = plně zainvestováno).
+
+    Primárně hledáme xlsx s historií na stránce programu (NAAIM ho občas
+    publikuje, občas ne); záložně čteme data z jejich vloženého grafu
+    (index.naaim.org/embeddable/chart). Pokud je poslední hodnota starší
+    než 60 dní, indikátor raději vynecháme, než abychom ukazovali
+    zastaralá čísla."""
+    import html as html_mod
     import io
     import re
 
-    from openpyxl import load_workbook
+    points: dict[str, float] = {}
 
-    page = requests.get("https://naaim.org/programs/naaim-exposure-index/",
-                        headers=HEADERS, timeout=30)
-    m = re.search(r'href="([^"]+\.xlsx)"', page.text)
-    if not m:
-        raise RuntimeError("NAAIM: odkaz na xlsx nenalezen")
-    xlsx = requests.get(m.group(1), headers=HEADERS, timeout=60)
-    wb = load_workbook(io.BytesIO(xlsx.content), read_only=True)
-    ws = wb.active
-    rows = ws.iter_rows(values_only=True)
-    header = next(rows)
-    i_date = header.index("Date")
-    i_mean = next(i for i, h in enumerate(header) if h and "Mean" in str(h))
-    points = {}
-    for row in rows:
-        d, v = row[i_date], row[i_mean]
-        if d is None or v is None:
-            continue
-        iso = d.date().isoformat() if hasattr(d, "date") else str(d)[:10]
-        if iso >= CHART_START:
-            points[iso] = round(float(v), 1)
+    # 1) xlsx s kompletní historií (pokud je odkaz na stránce)
+    try:
+        page = requests.get("https://naaim.org/programs/naaim-exposure-index/",
+                            headers=HEADERS, timeout=30)
+        m = re.search(r'href="([^"]+\.xlsx)"', page.text)
+        if m:
+            from openpyxl import load_workbook
+            xlsx = requests.get(m.group(1), headers=HEADERS, timeout=60)
+            wb = load_workbook(io.BytesIO(xlsx.content), read_only=True)
+            ws = wb.active
+            rows = ws.iter_rows(values_only=True)
+            header = next(rows)
+            i_date = header.index("Date")
+            i_mean = next(i for i, h in enumerate(header) if h and "Mean" in str(h))
+            for row in rows:
+                d, v = row[i_date], row[i_mean]
+                if d is None or v is None:
+                    continue
+                iso = d.date().isoformat() if hasattr(d, "date") else str(d)[:10]
+                if iso >= CHART_START:
+                    points[iso] = round(float(v), 1)
+    except Exception as e:
+        print(f"[smart_money] NAAIM xlsx nedostupné ({e}), zkouším embed")
+
+    # 2) záloha: data z vloženého grafu
+    if not points:
+        t = requests.get("https://index.naaim.org/embeddable/chart",
+                         headers=HEADERS, timeout=30).text
+        u = html_mod.unescape(t)
+        lab = re.search(r'"labels":(\[[^\]]*\])', u)
+        dat = re.search(r'"data":(\[[^\]]*\])', u)
+        if not (lab and dat):
+            raise RuntimeError("NAAIM: data nenalezena ani v embedu")
+        labels = json.loads(lab.group(1))
+        values = json.loads(dat.group(1))
+        for d, v in zip(labels, values):
+            if str(d)[:10] >= CHART_START:
+                points[str(d)[:10]] = round(float(v), 1)
+
     dates = sorted(points)
+    if not dates:
+        raise RuntimeError("NAAIM: žádná data")
+    # kontrola čerstvosti – zastaralý indikátor je horší než žádný
+    age_days = (date.today() - date.fromisoformat(dates[-1])).days
+    if age_days > 60:
+        raise RuntimeError(f"NAAIM: poslední hodnota je {age_days} dní stará, vynechávám")
     return {
         "dates": dates,
         "series": [{"name": "NAAIM Exposure Index", "values": [points[d] for d in dates]}],
@@ -376,18 +415,22 @@ def build_summary() -> None:
         vals = chart["series"][idx]["values"]
         return vals[-1], vals[-1] - (vals[-5] if len(vals) >= 5 else vals[0])
 
-    s_smart = None
-    if smart.get("naaim") and smart.get("retail") and smart.get("cot"):
+    # věta se skládá z indikátorů, které jsou zrovna k dispozici
+    trend = lambda d, up, down, flat, lim=1: (up if d > lim else down if d < -lim else flat)
+    parts = []
+    if smart.get("naaim"):
         naaim, d_naaim = last_and_delta(smart["naaim"])
-        retail, d_retail = last_and_delta(smart["retail"])
-        _, d_inst = last_and_delta(smart["cot"], 0)
-        trend = lambda d, up, down, flat, lim=1: (up if d > lim else down if d < -lim else flat)
-        s_smart = (
-            f"Aktivní správci drží akciovou expozici {naaim:.0f} % "
-            f"({trend(d_naaim, 'a za poslední měsíc ji zvyšují', 'a za poslední měsíc ji snižují', 'beze změny za poslední měsíc', 3)}), "
-            f"apetit retailu podle objemu pákových ETF {trend(d_retail, 'roste', 'klesá', 'stagnuje')}, "
-            f"instituce ve futures na S&P 500 {trend(d_inst, 'pozice přidávají', 'pozice ubírají', 'pozice drží')}."
+        parts.append(
+            f"aktivní správci drží akciovou expozici {naaim:.0f} % "
+            f"({trend(d_naaim, 'a za poslední měsíc ji zvyšují', 'a za poslední měsíc ji snižují', 'beze změny za poslední měsíc', 3)})"
         )
+    if smart.get("retail"):
+        _, d_retail = last_and_delta(smart["retail"])
+        parts.append(f"apetit retailu podle objemu pákových ETF {trend(d_retail, 'roste', 'klesá', 'stagnuje')}")
+    if smart.get("cot"):
+        _, d_inst = last_and_delta(smart["cot"], 0)
+        parts.append(f"instituce ve futures na S&P 500 {trend(d_inst, 'pozice přidávají', 'pozice ubírají', 'pozice drží')}")
+    s_smart = (parts[0][0].upper() + ", ".join(parts)[1:] + ".") if parts else None
 
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

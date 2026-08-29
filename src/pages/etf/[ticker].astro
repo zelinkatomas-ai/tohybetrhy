@@ -7,6 +7,7 @@ import Base from '../../layouts/Base.astro';
 import Methodology from '../../components/Methodology.astro';
 import regions from '../../data/regions.json';
 import sectors from '../../data/sectors.json';
+import crypto from '../../data/crypto.json';
 import momentumEtfs from '../../data/momentum_etfs.json';
 import info from '../../config/etf-info.json';
 import { etfSlug, fmtPct } from '../../lib/utils';
@@ -15,6 +16,7 @@ export function getStaticPaths() {
   const all = [
     ...regions.rows.map((r) => ({ ...r, group: 'Regiony', backHref: '/regiony/', backLabel: 'Momentum regionů' })),
     ...sectors.rows.map((r) => ({ ...r, group: 'Sektory', backHref: '/sektory/', backLabel: 'Momentum sektorů' })),
+    ...crypto.rows.map((r) => ({ ...r, group: 'Krypto', backHref: '/sektory/', backLabel: 'Momentum sektorů' })),
     ...momentumEtfs.rows.map((r) => ({ ...r, group: 'Momentum ETF', backHref: '/momentum-etf/', backLabel: 'Momentum ETF' })),
   ];
   // stejný ticker může být jen v jedné skupině; kdyby ne, vyhraje první výskyt
@@ -26,7 +28,11 @@ export function getStaticPaths() {
 
 const { row } = Astro.props;
 const meta = (info as Record<string, any>)[row.ticker] ?? {};
-const updatedSource = row.core !== undefined ? regions : row.group === 'Sektory' ? sectors : momentumEtfs;
+const updatedSource =
+  row.group === 'Regiony' ? regions
+  : row.group === 'Sektory' ? sectors
+  : row.group === 'Krypto' ? crypto
+  : momentumEtfs;
 const updated = new Date(updatedSource.updated).toLocaleDateString('cs-CZ');
 const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 const windows = [
@@ -35,7 +41,8 @@ const windows = [
   { key: 'r6', label: '6 měsíců' },
   { key: 'r12', label: '12 měsíců' },
 ] as const;
-const isUcits = row.ticker.includes('.');
+const isCrypto = row.group === 'Krypto';
+const isUcits = !isCrypto && row.ticker.includes('.');
 ---
 <Base title={`${row.name} (${row.ticker}) – To hýbe trhy`} description={meta.description}>
   <nav class="crumbs">
@@ -59,7 +66,7 @@ const isUcits = row.ticker.includes('.');
     {meta.provider && <div class="fact"><span class="k">Správce</span><span class="v">{meta.provider}</span></div>}
     {meta.index && <div class="fact"><span class="k">Index</span><span class="v">{meta.index}</span></div>}
     <div class="fact"><span class="k">Měna fondu</span><span class="v">{row.currency}</span></div>
-    <div class="fact"><span class="k">Typ</span><span class="v">{isUcits ? 'UCITS (evropský fond)' : 'US-listed ETF'}</span></div>
+    <div class="fact"><span class="k">Typ</span><span class="v">{isCrypto ? 'Spotový kurz (není ETF)' : isUcits ? 'UCITS (evropský fond)' : 'US-listed ETF'}</span></div>
   </div>
 
   <section class="momentum">
@@ -80,7 +87,7 @@ const isUcits = row.ticker.includes('.');
     </div>
   </section>
 
-  {!isUcits && !row.benchmark && (
+  {!isUcits && !isCrypto && !row.benchmark && (
     <p class="note">
       Americká ETF nejsou kvůli regulaci PRIIPs běžně dostupná evropským
       retailovým investorům – na tomto webu slouží především jako indikátor.

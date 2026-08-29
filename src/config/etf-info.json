@@ -43,6 +43,9 @@
   "XLRE": {"provider": "State Street SPDR", "index": "S&P 500 Real Estate", "category": "Sektory", "region": "USA",
     "description": "Reality – REIT fondy z indexu S&P 500. Kombinace nájemního výnosu a citlivosti na sazby."},
 
+  "BTC-USD": {"provider": "–", "index": "spotová cena BTC/USD", "category": "Krypto", "region": "Globální",
+    "description": "Největší kryptoměna a nejčistší barometr retailového apetitu k riziku. Sledujeme spotovou cenu v USD; nejde o ETF ani investiční produkt tohoto webu. Obchoduje se nepřetržitě, data vzorkujeme týdně."},
+
   "SPMO": {"provider": "Invesco", "index": "S&P 500 Momentum", "category": "Momentum ETF", "region": "USA",
     "description": "Zhruba stovka akcií S&P 500 s nejvyšším momentum skóre, rebalancováno dvakrát ročně. V posledních letech jedno z nejúspěšnějších faktorových ETF vůbec."},
   "MTUM": {"provider": "iShares", "index": "MSCI USA Momentum SR Variant", "category": "Momentum ETF", "region": "USA",
