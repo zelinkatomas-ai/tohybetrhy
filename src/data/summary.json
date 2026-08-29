@@ -1,10 +1,10 @@
 {
- "updated": "2026-07-27T19:46:06+00:00",
+ "updated": "2026-08-29T01:23:56+00:00",
  "sentences": {
-  "global": "Globální momentum zůstává pozitivní – světový index se drží nad 52týdenním průměrem a za poslední tři měsíce přidal +6,6 %.",
-  "rotation": "V posledních čtyřech týdnech se relativní síla přesouvá z rozvíjejících se trhů směrem k USA a Evropě.",
-  "sectors": "Nejlepší sektorové momentum mají zdravotnictví, finance a technologie.",
-  "etfs": "Z momentum ETF se nejvíce daří SPMO – S&P 500 Momentum (+21,0 % za šest měsíců).",
-  "smart": "Aktivní správci drží akciovou expozici 84 % (a za poslední měsíc ji snižují), apetit retailu podle objemu pákových ETF roste, instituce ve futures na S&P 500 pozice ubírají."
+  "global": "Globální momentum zůstává pozitivní – světový index se drží nad 52týdenním průměrem a za poslední tři měsíce přidal +4,0 %.",
+  "rotation": "V posledních čtyřech týdnech se relativní síla přesouvá z Evropy směrem k rozvíjejícím se trhům.",
+  "sectors": "Nejlepší sektorové momentum mají zdravotnictví, finance a energie.",
+  "etfs": "Z momentum ETF se nejvíce daří PIE – Emerging Markets Momentum (+31,4 % za šest měsíců).",
+  "smart": null
  }
 }
