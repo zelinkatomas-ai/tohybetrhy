@@ -549,12 +549,13 @@ def fetch_money_vs_inflation_us() -> dict:
 
 def fetch_money_vs_inflation_ea() -> dict:
     """Eurozóna: totéž s M3 a HICP z ECB Data Portalu."""
-    # inflaci počítáme z cenového indexu (INX) stejně jako růst M3 – hotová
-    # meziroční řada (…4.ANR) přestala po rebasi HICP na 2025=100 navazovat
+    # HICP: dimenzi „instituce" necháváme prázdnou (SDMX wildcard) – po rebasi
+    # HICP na 2025=100 stará varianta klíče (…4.ANR/INX) zamrzla na 2025-12;
+    # wildcard stáhne všechny varianty a parser je sloučí do jedné řady.
     m3_raw = fetch_ecb_csv("BSI.M.U2.Y.V.M30.X.1.U2.2300.Z01.E", YOY_START[:7])
-    hicp_raw = fetch_ecb_csv("ICP.M.U2.N.000000.4.INX", YOY_START[:7])
-    print(f"[liquidity] money_ea: M3 do {max(m3_raw)}, HICP do {max(hicp_raw)}")
-    m3, hicp = yoy(m3_raw), yoy(hicp_raw)
+    hicp = fetch_ecb_csv("ICP.M.U2.N.000000..ANR", CHART_START[:7])  # už meziroční
+    print(f"[liquidity] money_ea: M3 do {max(m3_raw)}, HICP do {max(hicp)}")
+    m3 = yoy(m3_raw)
     dates = sorted(d for d in m3 if d in hicp and d >= CHART_START)
     return {
         "dates": dates,
