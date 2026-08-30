@@ -24,6 +24,12 @@ jobs:
 
       - name: Stažení dat a výpočet momenta
         run: python pipeline/fetch_data.py
+        timeout-minutes: 10 # zamrzlý zdroj nesmí držet job hodiny
+        env:
+          PYTHONUNBUFFERED: "1" # průběžný výstup v logu (kvůli diagnostice)
+          # Volitelný bezplatný klíč pro FRED API (záloha, když CSV endpoint
+          # blokuje IP runneru): https://fred.stlouisfed.org/docs/api/api_key.html
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
       - name: Commit nových dat
         run: |

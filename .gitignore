@@ -5,3 +5,5 @@ __pycache__/
 .DS_Store
 .env
 .env.production
+pipeline/sources_proposals.json
+pipeline/sources_seen.json

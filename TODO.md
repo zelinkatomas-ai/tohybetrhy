@@ -44,21 +44,64 @@
 
 ## Fronta vývoje (v pořadí priorit)
 
-- [ ] **Automat na plnění Zdrojů**: RSS feedy (Reuters, FT, Bloomberg…) →
-      filtr klíčových slov dle regionů/sektorů → návrh shrnutí → ruční
-      schválení (kurátorský krok zůstává lidský). Výstup = `sources.json`.
-- [ ] **Reddit sentiment**: ApeWisdom má veřejné API (apewisdom.io/api),
-      alternativa AltIndex. Metrika: top tickery, zmínky, změna t/t.
-      Zobrazit jako dlaždici v Chytrých penězích + detail.
-- [ ] **Směrový retail flow**: pákové ETF měří aktivitu, ne směr. Prozkoumat
-      veřejnou stránku Fidelity s denními top obchody klientů (poměr
-      buy/sell příkazů). Inspirace: VandaTrack (placené, nereplikovatelné).
-- [ ] **BTC do generovaného vzkazu** na homepage (věta o signálu vs 52t průměr).
+- [x] **Automat na plnění Zdrojů**: `pipeline/fetch_sources.py` — RSS feedy
+      (MarketWatch, FT, Yahoo Finance, Investing.com; CNBC blokuje některé IP,
+      Reuters/Bloomberg veřejné RSS nemají) → filtr klíčových slov dle
+      regionů/sektorů → návrhy do `pipeline/sources_proposals.json` →
+      `--approve 1,3` přesune vybrané do `sources.json` (kurátor pak doladí
+      summary + why). Cache viděných URL v `pipeline/sources_seen.json`
+      (obojí v .gitignore). Spouští se ručně, ne v CI.
+- [x] **Reddit sentiment**: ApeWisdom API napojeno v pipeline
+      (`fetch_reddit`) → `smart_money.json` klíč `reddit`. Top 10 tickerů,
+      zmínky/24 h, upvoty; změna t/t proti snapshotu z minulého běhu
+      (top 50 se ukládá přímo do JSON, první běh změnu nemá). Dlaždice
+      na homepage + tabulka a metodika na /chytre-penize/.
+- [x] **Směrový retail flow — prozkoumáno (2026-08-29)**: stará veřejná
+      stránka Fidelity (eresearch…fidelityTopOrders.jhtml) už neexistuje —
+      302 na SPA (digital.fidelity.com/prgw/digital/research/src), data se
+      dotahují JS/za loginem → **nereplikovatelné bez skládání s jejich
+      interním API, neriskovat**. Lepší kandidát: **Nasdaq Retail Trading
+      Activity Tracker (RTAT)** — free tier `NDAQ/RTAT10` na data.nasdaq.com:
+      denně top 10 retailových tickerů s aktivitou a *směrovým* net
+      sentimentem; stačí bezplatný API klíč (do GitHub Actions jako secret
+      `NASDAQ_DATA_LINK_API_KEY`). Endpoint ověřen (bez klíče vrací
+      QEPx04 = existuje, chce klíč). Až bude klíč, přidat `fetch_rtat()`
+      vedle `fetch_reddit()`.
+- [x] **BTC do generovaného vzkazu** na homepage — věta o signálu vs 52t
+      průměr (`sentences.btc` v summary.json, skládá se z crypto.json).
+- [x] **Stránka Likvidita** (/likvidita/): hromadí se v systému volná
+      hotovost? Pět teploměrů v `build_liquidity()` → `liquidity.json`:
+      čistá likvidita Fedu (WALCL − TGA − ON RRP, FRED), peníze vs inflace
+      USA (M2 vs CPI) i eurozóna (M3 vs HICP, ECB Data Portal), zaparkovaná
+      hotovost (vklady H.8 + retail MMF, podíl MMF na M2), S&P 500 / M2
+      a dolarový index. Vše FRED/ECB/Yahoo CSV bez API klíče. Dlaždice
+      na homepage + `sentences.liquidity` ve vzkazu. Záměrně teploměry
+      s metodikou, ne Risk-On/Off semafor (prahy bez backtestů neslibovat).
+- [ ] Likvidita – kandidáti na rozšíření: AAII Asset Allocation Survey
+      (podíl hotovosti v portfoliích; data za free registrací – ověřit
+      replikovatelnost), týdenní MMF od ICI (xls, křehké, licence?).
+- [ ] **Denní aktualizace rychlých dat** (rozmyšleno 2026-08-30, odloženo):
+      druhý lehký workflow, cron `30 21 * * 1-5` (po uzavření NYSE, funguje
+      v EDT i EST), `fetch_data.py --daily` aktualizuje jen `reddit`
+      v smart_money.json (popisky t/t → d/d). Momentum zůstává týdenní
+      (denní přepočet částečných týdenních barů = šum, proti metodice).
+      Až bude klíč NASDAQ_DATA_LINK_API_KEY, přidat do denního běhu RTAT.
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 
 ## Známé věci / hlídat
 
+- **FRED blokuje IP GitHub Actions runnerů** (CSV endpoint visí do timeoutu,
+  browser hlavičky nepomáhají). Vyřešeno bezplatným klíčem v secretu
+  `FRED_API_KEY` (nastaven 2026-08-30) — s klíčem jde oficiální API první,
+  CSV zůstává fallback. Kdyby klíč přestal platit: nový na
+  https://fred.stlouisfed.org/docs/api/api_key.html, FRED grafy/dlaždice
+  se do té doby samy skryjí.
+- **HICP po rebasi na 2025=100**: staré řady (ECB ICP…4.ANR/INX i Eurostat
+  prc_hicp_manr) zamrzly na 2025-12. Pipeline zkouší i kandidátní nový kod
+  `prc_hicp25_manr`; pokud nezabere, dohledat skutečný nový kód datasetu na
+  ec.europa.eu/eurostat a doplnit do `fetch_eurostat_hicp()`. Graf zatím
+  poctivě ukazuje M3 čerstvé a čáru HICP končící u posledních dat.
 - **NAAIM**: přestal publikovat xlsx; fallback čte jejich embed graf, ale data
   jsou ~3 měsíce stará → indikátor se automaticky skrývá (guard >60 dní).
   Občas zkontrolovat, jestli NAAIM nezačal publikovat znovu.

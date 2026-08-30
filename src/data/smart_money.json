@@ -1,6 +1,6 @@
 {
- "updated": "2026-08-29T01:23:56+00:00",
- "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu.",
+ "updated": "2026-08-30T13:23:19+00:00",
+ "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu. Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu.",
  "cot": {
   "dates": [
    "2024-01-02",
@@ -864,10 +864,160 @@
      12.6,
      11.3,
      10.3,
-     12.0,
+     12.2,
      12.8
     ]
    }
   ]
+ },
+ "reddit": {
+  "top": [
+   {
+    "rank": 1,
+    "ticker": "SPY",
+    "name": "SPDR S&P 500 ETF Trust",
+    "mentions": 63,
+    "upvotes": 125,
+    "prev_mentions": 64,
+    "change_pct": -1.6
+   },
+   {
+    "rank": 2,
+    "ticker": "VOO",
+    "name": "Vanguard S&P 500 ETF",
+    "mentions": 53,
+    "upvotes": 1011,
+    "prev_mentions": 53,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 3,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 44,
+    "upvotes": 128,
+    "prev_mentions": 44,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 4,
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 40,
+    "upvotes": 70,
+    "prev_mentions": 40,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 5,
+    "ticker": "DTE",
+    "name": "DTE Energy",
+    "mentions": 29,
+    "upvotes": 73,
+    "prev_mentions": 30,
+    "change_pct": -3.3
+   },
+   {
+    "rank": 6,
+    "ticker": "SNDK",
+    "name": "Sandisk",
+    "mentions": 22,
+    "upvotes": 36,
+    "prev_mentions": 22,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 7,
+    "ticker": "AMD",
+    "name": "AMD",
+    "mentions": 18,
+    "upvotes": 211,
+    "prev_mentions": 18,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 8,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 15,
+    "upvotes": 32,
+    "prev_mentions": 15,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 9,
+    "ticker": "MRVL",
+    "name": "Marvell Technology Group",
+    "mentions": 14,
+    "upvotes": 33,
+    "prev_mentions": 14,
+    "change_pct": 0.0
+   },
+   {
+    "rank": 10,
+    "ticker": "RDDT",
+    "name": "Reddit",
+    "mentions": 14,
+    "upvotes": 38,
+    "prev_mentions": 14,
+    "change_pct": 0.0
+   }
+  ],
+  "prev_date": "2026-08-30",
+  "snapshot": {
+   "date": "2026-08-30",
+   "mentions": {
+    "SPY": 63,
+    "VOO": 53,
+    "NVDA": 44,
+    "MU": 40,
+    "DTE": 29,
+    "SNDK": 22,
+    "AMD": 18,
+    "QQQ": 15,
+    "MRVL": 14,
+    "RDDT": 14,
+    "FA": 13,
+    "MSFT": 12,
+    "RR": 12,
+    "SPCX": 11,
+    "YOU": 11,
+    "META": 11,
+    "BE": 10,
+    "IREN": 10,
+    "EU": 10,
+    "VTI": 9,
+    "ES": 8,
+    "AM": 8,
+    "SGOV": 8,
+    "AVGO": 7,
+    "HPE": 7,
+    "TTWO": 7,
+    "VT": 7,
+    "ALL": 6,
+    "ASTS": 6,
+    "CD": 6,
+    "NOW": 5,
+    "ATR": 5,
+    "IGV": 5,
+    "LINK": 5,
+    "AAPL": 4,
+    "TSLA": 4,
+    "VC": 4,
+    "DELL": 4,
+    "WTI": 4,
+    "PLTR": 4,
+    "OPEN": 4,
+    "CAN": 4,
+    "API": 4,
+    "NBIS": 4,
+    "AMZN": 3,
+    "MCD": 3,
+    "IP": 3,
+    "NKE": 3,
+    "LULU": 3,
+    "IQ": 3
+   }
+  }
  }
 }
