@@ -410,23 +410,58 @@ def build_smart_money() -> None:
 YOY_START = "2023-01-01"  # měsíční série tahame o rok dřív kvůli meziročním změnám
 
 
+# FRED z datacenter IP (GitHub Actions) často blokuje ne-browser klienty
+# (request visí do timeoutu), proto plné browser hlavičky + retry. Záloha:
+# oficiální API, pokud je v prostředí bezplatný klíč FRED_API_KEY
+# (https://fred.stlouisfed.org/docs/api/api_key.html, secret v GitHub Actions).
+FRED_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Accept": "text/csv,text/plain,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer": "https://fred.stlouisfed.org/",
+}
+
+
 def fetch_fred_csv(series_id: str, start: str = CHART_START) -> dict[str, float]:
-    """Série z FRED přes veřejný CSV endpoint (bez API klíče).
-    Vrací {ISO datum: hodnota}; chybějící pozorování (".") vynechává."""
+    """Série z FRED. Primárně veřejný CSV endpoint (bez API klíče),
+    záložně oficiální API s klíčem. Vrací {ISO datum: hodnota};
+    chybějící pozorování (".") vynechává."""
     import csv
     import io
+    import os
 
-    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&cosd={start}"
-    r = requests.get(url, headers=HEADERS, timeout=30)
-    r.raise_for_status()
     out: dict[str, float] = {}
-    rows = csv.reader(io.StringIO(r.text))
-    next(rows)  # hlavička: datum + id série (jméno sloupce se v čase měnilo)
-    for row in rows:
-        if len(row) >= 2 and row[1] not in (".", ""):
-            out[row[0][:10]] = float(row[1])
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&cosd={start}"
+    for attempt in (1, 2):
+        try:
+            r = requests.get(url, headers=FRED_HEADERS, timeout=30)
+            r.raise_for_status()
+            rows = csv.reader(io.StringIO(r.text))
+            next(rows)  # hlavička: datum + id série (jméno sloupce se v čase měnilo)
+            for row in rows:
+                if len(row) >= 2 and row[1] not in (".", ""):
+                    out[row[0][:10]] = float(row[1])
+            break
+        except Exception as e:
+            print(f"[liquidity] FRED {series_id} CSV pokus {attempt} selhal: {e}")
+            time.sleep(2)
+
+    api_key = os.environ.get("FRED_API_KEY")
+    if not out and api_key:
+        r = requests.get(
+            "https://api.stlouisfed.org/fred/series/observations",
+            params={"series_id": series_id, "api_key": api_key,
+                    "file_type": "json", "observation_start": start},
+            headers=HEADERS, timeout=30)
+        r.raise_for_status()
+        for obs in r.json()["observations"]:
+            if obs["value"] not in (".", ""):
+                out[obs["date"]] = float(obs["value"])
+
     if not out:
-        raise RuntimeError(f"FRED {series_id}: prázdná odpověď")
+        raise RuntimeError(f"FRED {series_id}: nedostupné (CSV endpoint"
+                           + (", API klíč není nastaven)" if not api_key else " i API)"))
     return out
 
 
@@ -514,8 +549,10 @@ def fetch_money_vs_inflation_us() -> dict:
 
 def fetch_money_vs_inflation_ea() -> dict:
     """Eurozóna: totéž s M3 a HICP z ECB Data Portalu."""
-    m3 = yoy(fetch_ecb_csv("BSI.M.U2.Y.V.M30.X.1.U2.2300.Z01.E", YOY_START[:7]))
+    m3_raw = fetch_ecb_csv("BSI.M.U2.Y.V.M30.X.1.U2.2300.Z01.E", YOY_START[:7])
     hicp = fetch_ecb_csv("ICP.M.U2.N.000000.4.ANR", CHART_START[:7])  # už meziroční
+    print(f"[liquidity] money_ea: M3 do {max(m3_raw)}, HICP do {max(hicp)}")
+    m3 = yoy(m3_raw)
     dates = sorted(d for d in m3 if d in hicp and d >= CHART_START)
     return {
         "dates": dates,
