@@ -423,46 +423,63 @@ FRED_HEADERS = {
 }
 
 
+def _fred_api(series_id: str, start: str, api_key: str) -> dict[str, float]:
+    r = requests.get(
+        "https://api.stlouisfed.org/fred/series/observations",
+        params={"series_id": series_id, "api_key": api_key,
+                "file_type": "json", "observation_start": start},
+        headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    return {obs["date"]: float(obs["value"])
+            for obs in r.json()["observations"] if obs["value"] not in (".", "")}
+
+
 def fetch_fred_csv(series_id: str, start: str = CHART_START) -> dict[str, float]:
-    """Série z FRED. Primárně veřejný CSV endpoint (bez API klíče),
-    záložně oficiální API s klíčem. Vrací {ISO datum: hodnota};
-    chybějící pozorování (".") vynechává."""
+    """Série z FRED. S klíčem (FRED_API_KEY) jde první oficiální API –
+    veřejný CSV endpoint z IP GitHub runnerů visí do timeoutu, takže by
+    jen zdržoval; bez klíče zkoušíme CSV (funguje z běžných IP).
+    Vrací {ISO datum: hodnota}; chybějící pozorování (".") vynechává."""
     import csv
     import io
     import os
 
     out: dict[str, float] = {}
-    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&cosd={start}"
-    for attempt in (1, 2):
-        try:
-            r = requests.get(url, headers=FRED_HEADERS, timeout=30)
-            r.raise_for_status()
-            rows = csv.reader(io.StringIO(r.text))
-            next(rows)  # hlavička: datum + id série (jméno sloupce se v čase měnilo)
-            for row in rows:
-                if len(row) >= 2 and row[1] not in (".", ""):
-                    out[row[0][:10]] = float(row[1])
-            break
-        except Exception as e:
-            print(f"[liquidity] FRED {series_id} CSV pokus {attempt} selhal: {e}")
-            time.sleep(2)
-
     api_key = os.environ.get("FRED_API_KEY")
-    if not out and api_key:
-        r = requests.get(
-            "https://api.stlouisfed.org/fred/series/observations",
-            params={"series_id": series_id, "api_key": api_key,
-                    "file_type": "json", "observation_start": start},
-            headers=HEADERS, timeout=30)
-        r.raise_for_status()
-        for obs in r.json()["observations"]:
-            if obs["value"] not in (".", ""):
-                out[obs["date"]] = float(obs["value"])
+    if api_key:
+        try:
+            out = _fred_api(series_id, start, api_key)
+        except Exception as e:
+            print(f"[liquidity] FRED {series_id} API selhalo: {e}")
 
     if not out:
-        raise RuntimeError(f"FRED {series_id}: nedostupné (CSV endpoint"
-                           + (", API klíč není nastaven)" if not api_key else " i API)"))
+        url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&cosd={start}"
+        for attempt in (1, 2):
+            try:
+                r = requests.get(url, headers=FRED_HEADERS, timeout=30)
+                r.raise_for_status()
+                rows = csv.reader(io.StringIO(r.text))
+                next(rows)  # hlavička: datum + id série (jméno sloupce se měnilo)
+                for row in rows:
+                    if len(row) >= 2 and row[1] not in (".", ""):
+                        out[row[0][:10]] = float(row[1])
+                break
+            except Exception as e:
+                print(f"[liquidity] FRED {series_id} CSV pokus {attempt} selhal: {e}")
+                time.sleep(2)
+
+    if not out:
+        raise RuntimeError(f"FRED {series_id}: nedostupné"
+                           + ("" if api_key else " (API klíč není nastaven)"))
     return out
+
+
+def to_trillions(points: dict[str, float]) -> dict[str, float]:
+    """Převod na biliony USD. FRED udává různé série v milionech, jiné
+    v miliardách; jednotku poznáme z řádu hodnot (TGA/RRP/bilance Fedu
+    se reálně pohybují v řádu stovek miliard až jednotek bilionů USD)."""
+    peak = max(abs(v) for v in points.values())
+    scale = 1e6 if peak >= 1e5 else 1e3 if peak >= 1e2 else 1
+    return {d: v / scale for d, v in points.items()}
 
 
 def fetch_ecb_csv(series_key: str, start: str) -> dict[str, float]:
@@ -507,9 +524,9 @@ def fetch_net_liquidity() -> dict:
     """Čistá likvidita Fedu = bilance − účet ministerstva financí (TGA)
     − reverzní repo (ON RRP). Peníze v TGA a RRP jsou z trhu fakticky
     odčerpané; zbytek jsou volné rezervy bank – palivo pro riziková aktiva."""
-    fed = fetch_fred_csv("WALCL")        # bilance Fedu, mil. USD, týdně (středa)
-    tga = fetch_fred_csv("WTREGEN")      # pokladna, mld. USD, týdně (středa)
-    rrp = fetch_fred_csv("RRPONTSYD")    # reverzní repo, mld. USD, denně
+    fed = to_trillions(fetch_fred_csv("WALCL"))      # bilance Fedu, týdně (středa)
+    tga = to_trillions(fetch_fred_csv("WTREGEN"))    # pokladna, týdně (středa)
+    rrp = to_trillions(fetch_fred_csv("RRPONTSYD"))  # reverzní repo, denně
 
     def last_upto(points: dict[str, float], d: str) -> float | None:
         cands = [k for k in points if k <= d]
@@ -521,8 +538,8 @@ def fetch_net_liquidity() -> dict:
         if t is None or rr is None:
             continue
         dates.append(d)
-        bal.append(round(fed[d] / 1e6, 2))                        # bil. USD
-        net.append(round(fed[d] / 1e6 - t / 1e3 - rr / 1e3, 2))
+        bal.append(round(fed[d], 2))                              # bil. USD
+        net.append(round(fed[d] - t - rr, 2))
     return {
         "dates": dates,
         "series": [
@@ -597,12 +614,15 @@ def fetch_cash_parked() -> dict:
     fondy peněžního trhu (suchý prach investorů), meziroční růst. K tomu
     podíl retail MMF na M2 – kolik peněžní zásoby sedí „na parkovišti"."""
     dep = monthly_last(fetch_fred_csv("DPSACBW027SBOG", YOY_START))  # vklady, týdně
-    mmf = fetch_fred_csv("WRMFSL", YOY_START)                        # retail MMF, měsíčně
+    # RMFSL = měsíční retail MMF; týdenní WRMFSL skončila s přechodem H.6
+    # na měsíční frekvenci (2021)
+    mmf = fetch_fred_csv("RMFSL", YOY_START)
     m2 = fetch_fred_csv("M2SL", YOY_START)
     dep_yoy, mmf_yoy = yoy(dep), yoy(mmf)
 
+    mmf_t, m2_t = to_trillions(mmf), to_trillions(m2)  # kvůli podílu srovnat jednotky
     dates = sorted(d for d in dep_yoy if d in mmf_yoy and d >= CHART_START)
-    share = {d: round(mmf[d] / m2[d] * 100, 2) for d in mmf if d in m2}
+    share = {d: round(mmf_t[d] / m2_t[d] * 100, 2) for d in mmf_t if d in m2_t}
     sdates = sorted(share)
     return {
         "dates": dates,
