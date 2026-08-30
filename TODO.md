@@ -80,18 +80,23 @@
 - [ ] Likvidita – kandidáti na rozšíření: AAII Asset Allocation Survey
       (podíl hotovosti v portfoliích; data za free registrací – ověřit
       replikovatelnost), týdenní MMF od ICI (xls, křehké, licence?).
+- [ ] **Denní aktualizace rychlých dat** (rozmyšleno 2026-08-30, odloženo):
+      druhý lehký workflow, cron `30 21 * * 1-5` (po uzavření NYSE, funguje
+      v EDT i EST), `fetch_data.py --daily` aktualizuje jen `reddit`
+      v smart_money.json (popisky t/t → d/d). Momentum zůstává týdenní
+      (denní přepočet částečných týdenních barů = šum, proti metodice).
+      Až bude klíč NASDAQ_DATA_LINK_API_KEY, přidat do denního běhu RTAT.
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 
 ## Známé věci / hlídat
 
 - **FRED blokuje IP GitHub Actions runnerů** (CSV endpoint visí do timeoutu,
-  browser hlavičky nepomáhají). Čtyři FRED indikátory na /likvidita/ (čistá
-  likvidita, USA peníze vs inflace, hotovost, trh vs M2) se naplní až po
-  nastavení bezplatného klíče: vytvořit na
-  https://fred.stlouisfed.org/docs/api/api_key.html a uložit jako secret
-  `FRED_API_KEY` (Settings → Secrets and variables → Actions), pak spustit
-  workflow Aktualizace dat ručně. Do té doby se grafy/dlaždice samy skrývají.
+  browser hlavičky nepomáhají). Vyřešeno bezplatným klíčem v secretu
+  `FRED_API_KEY` (nastaven 2026-08-30) — s klíčem jde oficiální API první,
+  CSV zůstává fallback. Kdyby klíč přestal platit: nový na
+  https://fred.stlouisfed.org/docs/api/api_key.html, FRED grafy/dlaždice
+  se do té doby samy skryjí.
 - **HICP po rebasi na 2025=100**: staré řady (ECB ICP…4.ANR/INX i Eurostat
   prc_hicp_manr) zamrzly na 2025-12. Pipeline zkouší i kandidátní nový kod
   `prc_hicp25_manr`; pokud nezabere, dohledat skutečný nový kód datasetu na
