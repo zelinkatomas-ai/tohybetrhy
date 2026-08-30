@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-30T12:03:45+00:00",
+ "updated": "2026-08-30T12:11:01+00:00",
  "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu. Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu.",
  "cot": {
   "dates": [
@@ -894,10 +894,10 @@
     "rank": 3,
     "ticker": "NVDA",
     "name": "NVIDIA",
-    "mentions": 45,
-    "upvotes": 136,
+    "mentions": 44,
+    "upvotes": 135,
     "prev_mentions": 45,
-    "change_pct": 0.0
+    "change_pct": -2.2
    },
    {
     "rank": 4,
@@ -914,8 +914,8 @@
     "name": "DTE Energy",
     "mentions": 30,
     "upvotes": 75,
-    "prev_mentions": 31,
-    "change_pct": -3.2
+    "prev_mentions": 30,
+    "change_pct": 0.0
    },
    {
     "rank": 6,
@@ -930,10 +930,10 @@
     "rank": 7,
     "ticker": "AMD",
     "name": "AMD",
-    "mentions": 20,
-    "upvotes": 199,
+    "mentions": 19,
+    "upvotes": 198,
     "prev_mentions": 20,
-    "change_pct": 0.0
+    "change_pct": -5.0
    },
    {
     "rank": 8,
@@ -969,11 +969,11 @@
    "mentions": {
     "SPY": 67,
     "VOO": 55,
-    "NVDA": 45,
+    "NVDA": 44,
     "MU": 36,
     "DTE": 30,
     "SNDK": 21,
-    "AMD": 20,
+    "AMD": 19,
     "RDDT": 16,
     "QQQ": 15,
     "EU": 14,
