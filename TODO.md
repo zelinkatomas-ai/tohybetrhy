@@ -69,6 +69,17 @@
       vedle `fetch_reddit()`.
 - [x] **BTC do generovaného vzkazu** na homepage — věta o signálu vs 52t
       průměr (`sentences.btc` v summary.json, skládá se z crypto.json).
+- [x] **Stránka Likvidita** (/likvidita/): hromadí se v systému volná
+      hotovost? Pět teploměrů v `build_liquidity()` → `liquidity.json`:
+      čistá likvidita Fedu (WALCL − TGA − ON RRP, FRED), peníze vs inflace
+      USA (M2 vs CPI) i eurozóna (M3 vs HICP, ECB Data Portal), zaparkovaná
+      hotovost (vklady H.8 + retail MMF, podíl MMF na M2), S&P 500 / M2
+      a dolarový index. Vše FRED/ECB/Yahoo CSV bez API klíče. Dlaždice
+      na homepage + `sentences.liquidity` ve vzkazu. Záměrně teploměry
+      s metodikou, ne Risk-On/Off semafor (prahy bez backtestů neslibovat).
+- [ ] Likvidita – kandidáti na rozšíření: AAII Asset Allocation Survey
+      (podíl hotovosti v portfoliích; data za free registrací – ověřit
+      replikovatelnost), týdenní MMF od ICI (xls, křehké, licence?).
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 

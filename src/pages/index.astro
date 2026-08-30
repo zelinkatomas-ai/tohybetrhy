@@ -5,6 +5,7 @@ import regions from '../data/regions.json';
 import sectors from '../data/sectors.json';
 import momentumEtfs from '../data/momentum_etfs.json';
 import smartMoney from '../data/smart_money.json';
+import liquidity from '../data/liquidity.json';
 import summary from '../data/summary.json';
 import sources from '../config/sources.json';
 import { etfSlug, fmtPct } from '../lib/utils';
@@ -30,6 +31,19 @@ const retail = smartMoney.retail ? lastDelta(smartMoney.retail) : null;
 const redditTop = (smartMoney as any).reddit?.top?.[0] ?? null;
 const trendArrow = (d: number, lim = 0.5) => (d > lim ? '↗' : d < -lim ? '↘' : '→');
 
+// likvidita: čistá likvidita Fedu (posun za ~3 měsíce), mezera M2 − inflace,
+// podíl retail MMF na M2 (posun za rok)
+const liq = liquidity as any;
+const netLiq = liq.net_liquidity ? lastDelta(liq.net_liquidity) : null;
+if (netLiq && liq.net_liquidity.series[0].values.length >= 13) {
+  const v = liq.net_liquidity.series[0].values;
+  netLiq.delta = v[v.length - 1] - v[v.length - 13];
+}
+const moneyGap = liq.money_us
+  ? (liq.money_us.series[0].values.at(-1) ?? 0) - (liq.money_us.series[1].values.at(-1) ?? 0)
+  : null;
+const mmfShare = liq.cash?.mmf_share ?? null;
+
 const latestSources = sources.items.slice(0, 3);
 const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 ---
@@ -44,6 +58,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
     <p class="secondary">{s.sectors} {s.etfs}</p>
     {s.smart && <p class="tertiary">{s.smart}</p>}
     {s.btc && <p class="tertiary">{s.btc}</p>}
+    {s.liquidity && <p class="tertiary">{s.liquidity}</p>}
   </section>
 
   <section class="block">
@@ -133,6 +148,35 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
       )}
     </div>
   </section>
+
+  {(netLiq || moneyGap != null || mmfShare) && (
+    <section class="block">
+      <div class="block-head">
+        <h2>Likvidita</h2>
+        <a class="more" href="/likvidita/">Grafy a souvislosti →</a>
+      </div>
+      <div class="tiles three">
+        {netLiq && (
+          <div class="tile stat">
+            <span class="tile-name">Čistá likvidita Fedu</span>
+            <span class="stat-val">{trendArrow(netLiq.delta, 0.05)} {netLiq.last.toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} bil. $<small>bilance − TGA − reverzní repo</small></span>
+          </div>
+        )}
+        {moneyGap != null && (
+          <div class="tile stat">
+            <span class="tile-name">Peníze vs inflace (USA)</span>
+            <span class="stat-val">{fmtPct(moneyGap)}<small>růst M2 minus inflace, meziročně</small></span>
+          </div>
+        )}
+        {mmfShare?.last != null && (
+          <div class="tile stat">
+            <span class="tile-name">Suchý prach (retail MMF)</span>
+            <span class="stat-val">{mmfShare.prev_year != null && trendArrow(mmfShare.last - mmfShare.prev_year, 0.2)} {mmfShare.last.toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} %<small>podíl fondů peněžního trhu na M2</small></span>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
 
   <section class="block">
     <div class="block-head">

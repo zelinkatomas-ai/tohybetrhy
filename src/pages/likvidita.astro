@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
+import Methodology from '../components/Methodology.astro';
+import liquidity from '../data/liquidity.json';
+
+const liq = liquidity as any;
+---
+<Base title="Likvidita – To hýbe trhy" description="Hromadí se v systému volná hotovost? Čistá likvidita Fedu, peníze vs inflace v USA a eurozóně, zaparkovaná hotovost a dolar.">
+  <h1>Likvidita</h1>
+  <p class="lead">
+    Akcie dlouhodobě rostou tam, kam přitékají volné peníze. Tahle stránka
+    sleduje, jestli se ve finančním systému hotovost hromadí, nebo z něj mizí –
+    od rezerv bank u Fedu přes růst peněžní zásoby proti inflaci až po „suchý
+    prach“ zaparkovaný ve fondech peněžního trhu. Žádný z ukazatelů není
+    obchodní signál; dohromady ale říkají, jestli trhu fouká do plachet.
+  </p>
+
+  {liq.net_liquidity && (
+    <LineChart
+      title="Čistá likvidita ve finančním systému USA (bil. USD)"
+      note="Bilance Fedu minus účet ministerstva financí (TGA) a reverzní repo (ON RRP), týdně. Peníze v TGA a RRP jsou z trhu odčerpané – čára ukazuje skutečně volné rezervy. Čárkovaně celková bilance Fedu pro srovnání."
+      dates={liq.net_liquidity.dates}
+      series={liq.net_liquidity.series}
+      yLabel="bil. USD"
+    />
+  )}
+  {liq.money_us && (
+    <LineChart
+      title="USA: růst peněz vs inflace (meziročně, %)"
+      note="Roste-li peněžní zásoba M2 rychleji než spotřebitelské ceny (plná čára nad čárkovanou), reálné likvidity přibývá a přebytek historicky teče do finančních aktiv. Opačná situace (2022) likviditu z trhu vysává."
+      dates={liq.money_us.dates}
+      series={liq.money_us.series}
+      yLabel="%"
+    />
+  )}
+  {liq.money_ea && (
+    <LineChart
+      title="Eurozóna: růst peněz vs inflace (meziročně, %)"
+      note="Totéž pro eurozónu: peněžní zásoba M3 vs inflace HICP. Evropská a americká likvidita se občas rozejdou – pak se rozcházejí i trhy."
+      dates={liq.money_ea.dates}
+      series={liq.money_ea.series}
+      yLabel="%"
+    />
+  )}
+  {liq.cash && (
+    <LineChart
+      title="Kde se hromadí hotovost (meziroční růst, %)"
+      note="Vklady v amerických bankách (celá ekonomika) a retailové fondy peněžního trhu (hotovost investorů „na parkovišti“). Zrychlující růst obou = hotovost se hromadí; jejich rozestup ukazuje rotaci mezi bankou a brokerem."
+      dates={liq.cash.dates}
+      series={liq.cash.series}
+      yLabel="%"
+    />
+  )}
+  {liq.market_m2 && (
+    <LineChart
+      title="Trh vs peněžní zásoba: S&P 500 / M2 (index, od 2015)"
+      note="Jak daleko utekl trh svému peněžnímu krytí. Poměr vysoko nad pětiletým průměrem (čárkovaně) znamená, že růst stojí na vyšších valuacích, ne na nových penězích – trh je pak citlivější na výpadek likvidity."
+      dates={liq.market_m2.dates}
+      series={liq.market_m2.series}
+    />
+  )}
+  {liq.dollar && (
+    <LineChart
+      title="Dolar jako globální likvidita (DXY)"
+      note="Většina světového financování běží v dolarech: silný dolar = utažené podmínky pro zbytek světa (tlak na rozvíjející se trhy), slabý dolar = uvolněné. Čárkovaně 52týdenní průměr."
+      dates={liq.dollar.dates}
+      series={liq.dollar.series}
+    />
+  )}
+
+  <Methodology>
+    <p>
+      <strong>Čistá likvidita (Fed):</strong> celková aktiva Fedu minus
+      zůstatek státní pokladny (TGA) a využití reverzního repa (ON RRP);
+      všechna tři čísla publikuje Fed, resp. FRED, týdně. Ukazatel dobře
+      vysvětloval trh v letech 2020–2023, kdy QE a QT hýbaly rezervami
+      o biliony; po vyprázdnění ON RRP je jeho výkyv menší – čtěte trend,
+      ne týdenní šum.
+    </p>
+    <p>
+      <strong>Peníze vs inflace:</strong> meziroční růst peněžní zásoby
+      (M2 pro USA z FREDu, M3 pro eurozónu z ECB) proti meziroční inflaci
+      (CPI, HICP). Kladná mezera = reálné peněžní zásoby přibývá. Měsíční
+      data vycházejí se zpožděním dvou až tří týdnů.
+    </p>
+    <p>
+      <strong>Zaparkovaná hotovost:</strong> vklady v komerčních bankách
+      (výkaz H.8) a retailové fondy peněžního trhu (součást publikace M2),
+      obojí FRED. Extrémní příliv do fondů peněžního trhu bývá známkou
+      averze k riziku; jeho obrat naopak signálem, že se hotovost dává do
+      pohybu. Pozor: od roku 2022 část přílivu vysvětluje prostě vyšší úrok,
+      ne strach.
+    </p>
+    <p>
+      <strong>Trh vs M2 a dolar:</strong> poměr S&P 500 k M2 je strukturální
+      měřítko, jestli valuace předběhly množství peněz v systému; dolarový
+      index je nejjednodušší volně dostupná proxy globálních (dolarových)
+      podmínek financování. Obojí je kontext pro předchozí grafy, ne signál
+      sám o sobě.
+    </p>
+    <p>
+      Všechna data jsou z veřejných bezplatných zdrojů (FRED, ECB Data
+      Portal, Yahoo Finance) a aktualizují se týdně spolu se zbytkem webu.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+</style>

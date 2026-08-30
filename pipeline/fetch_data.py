@@ -12,6 +12,8 @@ Výstupy (src/data/):
   - crypto.json          ... Bitcoin (tabulka + graf)
   - momentum_etfs.json   ... momentum ETF vs benchmarky (tabulka + graf)
   - smart_money.json     ... chytré peníze vs retail (CoT, NAAIM, pákové ETF)
+  - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
+                             zaparkovaná hotovost, trh vs M2, dolar
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
 
 Spouštění:  python3 pipeline/fetch_data.py
@@ -401,6 +403,238 @@ def build_smart_money() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Likvidita – hromadí se v systému volná hotovost?
+# Zdroje: FRED (CSV bez klíče), ECB Data Portal (CSV bez klíče), Yahoo Finance.
+# ---------------------------------------------------------------------------
+
+YOY_START = "2023-01-01"  # měsíční série tahame o rok dřív kvůli meziročním změnám
+
+
+def fetch_fred_csv(series_id: str, start: str = CHART_START) -> dict[str, float]:
+    """Série z FRED přes veřejný CSV endpoint (bez API klíče).
+    Vrací {ISO datum: hodnota}; chybějící pozorování (".") vynechává."""
+    import csv
+    import io
+
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}&cosd={start}"
+    r = requests.get(url, headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    out: dict[str, float] = {}
+    rows = csv.reader(io.StringIO(r.text))
+    next(rows)  # hlavička: datum + id série (jméno sloupce se v čase měnilo)
+    for row in rows:
+        if len(row) >= 2 and row[1] not in (".", ""):
+            out[row[0][:10]] = float(row[1])
+    if not out:
+        raise RuntimeError(f"FRED {series_id}: prázdná odpověď")
+    return out
+
+
+def fetch_ecb_csv(series_key: str, start: str) -> dict[str, float]:
+    """Série z ECB Data Portal (SDMX-CSV, bez API klíče). Měsíční periody
+    „2024-01" normalizuje na první den měsíce, ať sedí k FRED datům."""
+    import csv
+    import io
+
+    flow, key = series_key.split(".", 1)
+    url = (f"https://data-api.ecb.europa.eu/service/data/{flow}/{key}"
+           f"?format=csvdata&startPeriod={start}")
+    r = requests.get(url, headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    out: dict[str, float] = {}
+    for row in csv.DictReader(io.StringIO(r.text)):
+        period, val = row.get("TIME_PERIOD"), row.get("OBS_VALUE")
+        if period and val:
+            out[period if len(period) == 10 else f"{period}-01"] = float(val)
+    if not out:
+        raise RuntimeError(f"ECB {series_key}: prázdná odpověď")
+    return out
+
+
+def yoy(points: dict[str, float]) -> dict[str, float]:
+    """Meziroční změna v % z měsíční série klíčované {YYYY-MM-01: hodnota}."""
+    return {
+        d: round((v / points[prev] - 1) * 100, 2)
+        for d, v in points.items()
+        if (prev := f"{int(d[:4]) - 1}{d[4:]}") in points and points[prev]
+    }
+
+
+def monthly_last(points: dict[str, float]) -> dict[str, float]:
+    """Denní/týdenní sérii převede na měsíční (poslední pozorování v měsíci)."""
+    out: dict[str, float] = {}
+    for d in sorted(points):
+        out[d[:7] + "-01"] = points[d]
+    return out
+
+
+def fetch_net_liquidity() -> dict:
+    """Čistá likvidita Fedu = bilance − účet ministerstva financí (TGA)
+    − reverzní repo (ON RRP). Peníze v TGA a RRP jsou z trhu fakticky
+    odčerpané; zbytek jsou volné rezervy bank – palivo pro riziková aktiva."""
+    fed = fetch_fred_csv("WALCL")        # bilance Fedu, mil. USD, týdně (středa)
+    tga = fetch_fred_csv("WTREGEN")      # pokladna, mld. USD, týdně (středa)
+    rrp = fetch_fred_csv("RRPONTSYD")    # reverzní repo, mld. USD, denně
+
+    def last_upto(points: dict[str, float], d: str) -> float | None:
+        cands = [k for k in points if k <= d]
+        return points[max(cands)] if cands else None
+
+    dates, net, bal = [], [], []
+    for d in sorted(fed):
+        t, rr = last_upto(tga, d), last_upto(rrp, d)
+        if t is None or rr is None:
+            continue
+        dates.append(d)
+        bal.append(round(fed[d] / 1e6, 2))                        # bil. USD
+        net.append(round(fed[d] / 1e6 - t / 1e3 - rr / 1e3, 2))
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "Čistá likvidita", "values": net},
+            {"name": "Bilance Fedu celkem", "values": bal, "benchmark": True},
+        ],
+    }
+
+
+def fetch_money_vs_inflation_us() -> dict:
+    """USA: růst peněžní zásoby M2 vs inflace CPI, obojí meziročně. Kladná
+    mezera = reálné peněžní zásoby přibývá (přebytečná likvidita)."""
+    m2 = yoy(fetch_fred_csv("M2SL", YOY_START))
+    cpi = yoy(fetch_fred_csv("CPIAUCSL", YOY_START))
+    dates = sorted(d for d in m2 if d in cpi and d >= CHART_START)
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "Peněžní zásoba M2 (meziročně)", "values": [m2[d] for d in dates]},
+            {"name": "Inflace CPI (meziročně)", "values": [cpi[d] for d in dates], "benchmark": True},
+        ],
+    }
+
+
+def fetch_money_vs_inflation_ea() -> dict:
+    """Eurozóna: totéž s M3 a HICP z ECB Data Portalu."""
+    m3 = yoy(fetch_ecb_csv("BSI.M.U2.Y.V.M30.X.1.U2.2300.Z01.E", YOY_START[:7]))
+    hicp = fetch_ecb_csv("ICP.M.U2.N.000000.4.ANR", CHART_START[:7])  # už meziroční
+    dates = sorted(d for d in m3 if d in hicp and d >= CHART_START)
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "Peněžní zásoba M3 (meziročně)", "values": [m3[d] for d in dates]},
+            {"name": "Inflace HICP (meziročně)", "values": [hicp[d] for d in dates], "benchmark": True},
+        ],
+    }
+
+
+def fetch_cash_parked() -> dict:
+    """Kde se hromadí hotovost: bankovní vklady (celý sektor) a retailové
+    fondy peněžního trhu (suchý prach investorů), meziroční růst. K tomu
+    podíl retail MMF na M2 – kolik peněžní zásoby sedí „na parkovišti"."""
+    dep = monthly_last(fetch_fred_csv("DPSACBW027SBOG", YOY_START))  # vklady, týdně
+    mmf = fetch_fred_csv("WRMFSL", YOY_START)                        # retail MMF, měsíčně
+    m2 = fetch_fred_csv("M2SL", YOY_START)
+    dep_yoy, mmf_yoy = yoy(dep), yoy(mmf)
+
+    dates = sorted(d for d in dep_yoy if d in mmf_yoy and d >= CHART_START)
+    share = {d: round(mmf[d] / m2[d] * 100, 2) for d in mmf if d in m2}
+    sdates = sorted(share)
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "Vklady v bankách (meziročně)", "values": [dep_yoy[d] for d in dates]},
+            {"name": "Retail fondy peněžního trhu (meziročně)", "values": [mmf_yoy[d] for d in dates]},
+        ],
+        "mmf_share": {
+            "last": share[sdates[-1]],
+            "prev_year": share[sdates[-13]] if len(sdates) >= 13 else None,
+        },
+    }
+
+
+def fetch_market_vs_m2() -> dict:
+    """Trh vs peněžní zásoba: S&P 500 dělený M2, indexováno. Dlouhé okno
+    (od 2015) – jde o strukturální ukazatel, ne o momentum. Čárkovaně
+    pětiletý klouzavý průměr poměru jako trend."""
+    url = ("https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC"
+           "?range=15y&interval=1mo")
+    r = requests.get(url, headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    res = r.json()["chart"]["result"][0]
+    closes = res["indicators"]["quote"][0]["close"]
+    spx = {}
+    for t, c in zip(res["timestamp"], closes):
+        if c is not None:
+            spx[date.fromtimestamp(t).isoformat()[:7] + "-01"] = float(c)
+
+    m2 = fetch_fred_csv("M2SL", "2010-01-01")
+    common = sorted(d for d in spx if d in m2)
+    base = spx[common[0]] / m2[common[0]]
+    ratio = [round(spx[d] / m2[d] / base * 100, 1) for d in common]
+    # trend: klouzavý průměr přes posledních až 60 měsíců (min. 36 kvůli rozjezdu)
+    trend = [
+        round(sum(ratio[max(0, i - 59):i + 1]) / len(ratio[max(0, i - 59):i + 1]), 1)
+        if i >= 35 else None
+        for i in range(len(ratio))
+    ]
+    keep = [i for i, d in enumerate(common) if d >= "2015-01-01"]
+    return {
+        "dates": [common[i] for i in keep],
+        "series": [
+            {"name": "S&P 500 / M2 (index)", "values": [ratio[i] for i in keep]},
+            {"name": "Pětiletý průměr poměru", "values": [trend[i] for i in keep], "benchmark": True},
+        ],
+    }
+
+
+def fetch_dollar() -> dict:
+    """Dolarový index jako teploměr globální likvidity: silný dolar = utažené
+    dolarové financování ve světě, slabý dolar = uvolněné."""
+    prices, _ = fetch_yahoo_weekly("DX-Y.NYB")
+    dates_all = sorted(prices)
+    vals = [prices[d] for d in dates_all]
+    sma = [
+        round(sum(vals[i - SMA_WEEKS + 1:i + 1]) / SMA_WEEKS, 2)
+        if i >= SMA_WEEKS - 1 else None
+        for i in range(len(vals))
+    ]
+    keep = [i for i, d in enumerate(dates_all) if d >= CHART_START]
+    return {
+        "dates": [dates_all[i] for i in keep],
+        "series": [
+            {"name": "Dolarový index (DXY)", "values": [round(vals[i], 2) for i in keep]},
+            {"name": "52týdenní průměr", "values": [sma[i] for i in keep], "benchmark": True},
+        ],
+    }
+
+
+def build_liquidity() -> None:
+    charts = {}
+    for key, fn in [("net_liquidity", fetch_net_liquidity),
+                    ("money_us", fetch_money_vs_inflation_us),
+                    ("money_ea", fetch_money_vs_inflation_ea),
+                    ("cash", fetch_cash_parked),
+                    ("market_m2", fetch_market_vs_m2),
+                    ("dollar", fetch_dollar)]:
+        try:
+            print(f"[liquidity] {key} ...")
+            charts[key] = fn()
+            time.sleep(1)
+        except Exception as e:  # jeden rozbitý zdroj nesmí shodit celý build
+            print(f"[liquidity] {key} SELHALO: {e}")
+            charts[key] = None
+
+    (OUT_DIR / "liquidity.json").write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "Čistá likvidita: bilance Fedu − TGA − ON RRP (bil. USD, týdně). "
+                "Peníze vs inflace: M2/M3 a CPI/HICP meziročně (FRED, ECB). "
+                "Hotovost: vklady a retail MMF meziročně, podíl MMF na M2. "
+                "Trh vs M2: S&P 500 / M2, index. Dolar: DXY vs 52t průměr.",
+        **charts,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[liquidity] -> liquidity.json")
+
+
+# ---------------------------------------------------------------------------
 # Generovaný slovní vzkaz pro hlavní stránku
 # ---------------------------------------------------------------------------
 
@@ -504,6 +738,30 @@ def build_summary() -> None:
                      "52týdenním průměrem"
                      + (f" a za tři měsíce ztrácí {_fmt(b3)}." if b3 is not None else "."))
 
+    # 7) likvidita – čistá likvidita Fedu + peníze vs inflace
+    try:
+        liq = json.loads((OUT_DIR / "liquidity.json").read_text(encoding="utf-8"))
+    except Exception:
+        liq = {}
+    liq_parts = []
+    if liq.get("net_liquidity"):
+        v = liq["net_liquidity"]["series"][0]["values"]
+        d12 = (v[-1] - v[-13]) if len(v) >= 13 else 0  # posun za ~3 měsíce (týdenní data)
+        liq_parts.append("čistá likvidita ve finančním systému USA za poslední tři měsíce "
+                         + ("roste" if d12 > 0.05 else "klesá" if d12 < -0.05 else "stagnuje"))
+    if liq.get("money_us"):
+        m2v = liq["money_us"]["series"][0]["values"][-1]
+        cpiv = liq["money_us"]["series"][1]["values"][-1]
+        if m2v is not None and cpiv is not None:
+            gap = m2v - cpiv
+            liq_parts.append("peněžní zásoba " + ("roste rychleji než inflace"
+                             if gap > 0.5 else "zaostává za inflací"
+                             if gap < -0.5 else "zhruba drží krok s inflací"))
+    s_liq = None
+    if liq_parts:
+        joined = " a ".join(liq_parts)
+        s_liq = joined[0].upper() + joined[1:] + "."
+
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sentences": {
@@ -513,6 +771,7 @@ def build_summary() -> None:
             "etfs": s_etfs,
             "smart": s_smart,
             "btc": s_btc,
+            "liquidity": s_liq,
         },
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[summary] -> summary.json")
@@ -523,6 +782,7 @@ def main() -> None:
     for key, cfg in GROUPS.items():
         build_group(key, cfg)
     build_smart_money()
+    build_liquidity()
     build_summary()
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")
 
