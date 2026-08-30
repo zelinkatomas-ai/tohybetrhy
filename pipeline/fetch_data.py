@@ -547,13 +547,29 @@ def fetch_money_vs_inflation_us() -> dict:
     }
 
 
+def fetch_eurostat_hicp(start: str) -> dict[str, float]:
+    """Meziroční inflace HICP pro eurozónu přímo od Eurostatu (JSON-stat,
+    bez klíče). Eurostat je primární zdroj HICP – řady u ECB zamrzly na
+    2025-12 po rebasi indexu na 2025=100."""
+    url = ("https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/"
+           "data/prc_hicp_manr?format=JSON&lang=EN&coicop=CP00&geo=EA"
+           f"&sinceTimePeriod={start}")
+    r = requests.get(url, headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    js = r.json()
+    # jediná proměnná dimenze je čas -> pozice v "value" odpovídá indexu času
+    idx = js["dimension"]["time"]["category"]["index"]
+    vals = js["value"]
+    out = {f"{p}-01": float(vals[str(i)]) for p, i in idx.items() if str(i) in vals}
+    if not out:
+        raise RuntimeError("Eurostat HICP: prázdná odpověď")
+    return out
+
+
 def fetch_money_vs_inflation_ea() -> dict:
-    """Eurozóna: totéž s M3 a HICP z ECB Data Portalu."""
-    # HICP: dimenzi „instituce" necháváme prázdnou (SDMX wildcard) – po rebasi
-    # HICP na 2025=100 stará varianta klíče (…4.ANR/INX) zamrzla na 2025-12;
-    # wildcard stáhne všechny varianty a parser je sloučí do jedné řady.
+    """Eurozóna: totéž s M3 (ECB Data Portal) a HICP (Eurostat)."""
     m3_raw = fetch_ecb_csv("BSI.M.U2.Y.V.M30.X.1.U2.2300.Z01.E", YOY_START[:7])
-    hicp = fetch_ecb_csv("ICP.M.U2.N.000000..ANR", CHART_START[:7])  # už meziroční
+    hicp = fetch_eurostat_hicp(CHART_START[:7])  # už meziroční
     print(f"[liquidity] money_ea: M3 do {max(m3_raw)}, HICP do {max(hicp)}")
     m3 = yoy(m3_raw)
     dates = sorted(d for d in m3 if d in hicp and d >= CHART_START)
