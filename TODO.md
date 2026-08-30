@@ -85,6 +85,13 @@
 
 ## Známé věci / hlídat
 
+- **FRED blokuje IP GitHub Actions runnerů** (CSV endpoint visí do timeoutu,
+  browser hlavičky nepomáhají). Čtyři FRED indikátory na /likvidita/ (čistá
+  likvidita, USA peníze vs inflace, hotovost, trh vs M2) se naplní až po
+  nastavení bezplatného klíče: vytvořit na
+  https://fred.stlouisfed.org/docs/api/api_key.html a uložit jako secret
+  `FRED_API_KEY` (Settings → Secrets and variables → Actions), pak spustit
+  workflow Aktualizace dat ručně. Do té doby se grafy/dlaždice samy skrývají.
 - **NAAIM**: přestal publikovat xlsx; fallback čte jejich embed graf, ale data
   jsou ~3 měsíce stará → indikátor se automaticky skrývá (guard >60 dní).
   Občas zkontrolovat, jestli NAAIM nezačal publikovat znovu.
