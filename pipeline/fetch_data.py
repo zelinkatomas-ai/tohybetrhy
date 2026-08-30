@@ -550,34 +550,44 @@ def fetch_money_vs_inflation_us() -> dict:
 def fetch_eurostat_hicp(start: str) -> dict[str, float]:
     """Meziroční inflace HICP pro eurozónu přímo od Eurostatu (JSON-stat,
     bez klíče). Eurostat je primární zdroj HICP – řady u ECB zamrzly na
-    2025-12 po rebasi indexu na 2025=100."""
-    url = ("https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/"
-           "data/prc_hicp_manr?format=JSON&lang=EN&coicop=CP00&geo=EA"
-           f"&sinceTimePeriod={start}")
-    r = requests.get(url, headers=HEADERS, timeout=30)
-    r.raise_for_status()
-    js = r.json()
-    # jediná proměnná dimenze je čas -> pozice v "value" odpovídá indexu času
-    idx = js["dimension"]["time"]["category"]["index"]
-    vals = js["value"]
-    out = {f"{p}-01": float(vals[str(i)]) for p, i in idx.items() if str(i) in vals}
+    2025-12 po rebasi indexu na 2025=100. Zkoušíme starý i kandidátní nový
+    kód datasetu po rebasi a řady sloučíme (meziroční míra na bázi nezávisí)."""
+    out: dict[str, float] = {}
+    for dataset in ("prc_hicp_manr", "prc_hicp25_manr"):
+        url = ("https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/"
+               f"data/{dataset}?format=JSON&lang=EN&coicop=CP00&geo=EA"
+               f"&sinceTimePeriod={start}")
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=30)
+            r.raise_for_status()
+            js = r.json()
+            # jediná proměnná dimenze je čas -> pozice v "value" = index času
+            idx = js["dimension"]["time"]["category"]["index"]
+            vals = js["value"]
+            got = {f"{p}-01": float(vals[str(i)]) for p, i in idx.items() if str(i) in vals}
+            print(f"[liquidity] Eurostat {dataset}: do {max(got) if got else '–'}")
+            out.update(got)
+        except Exception as e:
+            print(f"[liquidity] Eurostat {dataset} nedostupný: {e}")
     if not out:
-        raise RuntimeError("Eurostat HICP: prázdná odpověď")
+        raise RuntimeError("Eurostat HICP: žádná data")
     return out
 
 
 def fetch_money_vs_inflation_ea() -> dict:
-    """Eurozóna: totéž s M3 (ECB Data Portal) a HICP (Eurostat)."""
+    """Eurozóna: totéž s M3 (ECB Data Portal) a HICP (Eurostat). Osa jede
+    podle M3; pokud HICP po rebasi na 2025=100 zaostává, jeho čára končí
+    dřív (poctivější než osekávat obojí na průnik)."""
     m3_raw = fetch_ecb_csv("BSI.M.U2.Y.V.M30.X.1.U2.2300.Z01.E", YOY_START[:7])
     hicp = fetch_eurostat_hicp(CHART_START[:7])  # už meziroční
     print(f"[liquidity] money_ea: M3 do {max(m3_raw)}, HICP do {max(hicp)}")
     m3 = yoy(m3_raw)
-    dates = sorted(d for d in m3 if d in hicp and d >= CHART_START)
+    dates = sorted(d for d in m3 if d >= CHART_START)
     return {
         "dates": dates,
         "series": [
             {"name": "Peněžní zásoba M3 (meziročně)", "values": [m3[d] for d in dates]},
-            {"name": "Inflace HICP (meziročně)", "values": [hicp[d] for d in dates], "benchmark": True},
+            {"name": "Inflace HICP (meziročně)", "values": [hicp.get(d) for d in dates], "benchmark": True},
         ],
     }
 

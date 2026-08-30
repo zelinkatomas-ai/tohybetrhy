@@ -92,6 +92,11 @@
   https://fred.stlouisfed.org/docs/api/api_key.html a uložit jako secret
   `FRED_API_KEY` (Settings → Secrets and variables → Actions), pak spustit
   workflow Aktualizace dat ručně. Do té doby se grafy/dlaždice samy skrývají.
+- **HICP po rebasi na 2025=100**: staré řady (ECB ICP…4.ANR/INX i Eurostat
+  prc_hicp_manr) zamrzly na 2025-12. Pipeline zkouší i kandidátní nový kod
+  `prc_hicp25_manr`; pokud nezabere, dohledat skutečný nový kód datasetu na
+  ec.europa.eu/eurostat a doplnit do `fetch_eurostat_hicp()`. Graf zatím
+  poctivě ukazuje M3 čerstvé a čáru HICP končící u posledních dat.
 - **NAAIM**: přestal publikovat xlsx; fallback čte jejich embed graf, ale data
   jsou ~3 měsíce stará → indikátor se automaticky skrývá (guard >60 dní).
   Občas zkontrolovat, jestli NAAIM nezačal publikovat znovu.
