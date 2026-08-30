@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-30T11:46:22+00:00",
+ "updated": "2026-08-30T11:55:16+00:00",
  "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu. Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu.",
  "cot": {
   "dates": [
@@ -877,7 +877,7 @@
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
     "mentions": 67,
-    "upvotes": 192,
+    "upvotes": 193,
     "prev_mentions": 67,
     "change_pct": 0.0
    },
@@ -885,19 +885,19 @@
     "rank": 2,
     "ticker": "VOO",
     "name": "Vanguard S&P 500 ETF",
-    "mentions": 54,
-    "upvotes": 939,
+    "mentions": 55,
+    "upvotes": 948,
     "prev_mentions": 54,
-    "change_pct": 0.0
+    "change_pct": 1.9
    },
    {
     "rank": 3,
     "ticker": "NVDA",
     "name": "NVIDIA",
-    "mentions": 46,
-    "upvotes": 141,
+    "mentions": 45,
+    "upvotes": 137,
     "prev_mentions": 46,
-    "change_pct": 0.0
+    "change_pct": -2.2
    },
    {
     "rank": 4,
@@ -919,28 +919,28 @@
    },
    {
     "rank": 6,
-    "ticker": "AMD",
-    "name": "AMD",
+    "ticker": "SNDK",
+    "name": "Sandisk",
     "mentions": 21,
-    "upvotes": 194,
+    "upvotes": 38,
     "prev_mentions": 21,
     "change_pct": 0.0
    },
    {
     "rank": 7,
-    "ticker": "SNDK",
-    "name": "Sandisk",
-    "mentions": 21,
-    "upvotes": 39,
+    "ticker": "AMD",
+    "name": "AMD",
+    "mentions": 20,
+    "upvotes": 198,
     "prev_mentions": 21,
-    "change_pct": 0.0
+    "change_pct": -4.8
    },
    {
     "rank": 8,
     "ticker": "RDDT",
     "name": "Reddit",
     "mentions": 16,
-    "upvotes": 51,
+    "upvotes": 52,
     "prev_mentions": 16,
     "change_pct": 0.0
    },
@@ -949,18 +949,18 @@
     "ticker": "QQQ",
     "name": "Invesco QQQ ETF",
     "mentions": 15,
-    "upvotes": 31,
+    "upvotes": 30,
     "prev_mentions": 15,
     "change_pct": 0.0
    },
    {
     "rank": 10,
-    "ticker": "MRVL",
-    "name": "Marvell Technology Group",
-    "mentions": 13,
-    "upvotes": 28,
+    "ticker": "EU",
+    "name": "enCore Energy",
+    "mentions": 14,
+    "upvotes": 18,
     "prev_mentions": 13,
-    "change_pct": 0.0
+    "change_pct": 7.7
    }
   ],
   "prev_date": "2026-08-30",
@@ -968,16 +968,16 @@
    "date": "2026-08-30",
    "mentions": {
     "SPY": 67,
-    "VOO": 54,
-    "NVDA": 46,
+    "VOO": 55,
+    "NVDA": 45,
     "MU": 36,
     "DTE": 31,
-    "AMD": 21,
     "SNDK": 21,
+    "AMD": 20,
     "RDDT": 16,
     "QQQ": 15,
+    "EU": 14,
     "MRVL": 13,
-    "EU": 13,
     "RR": 12,
     "MSFT": 11,
     "YOU": 11,
@@ -988,16 +988,16 @@
     "AM": 9,
     "TTWO": 8,
     "SPCX": 8,
+    "VTI": 8,
     "SGOV": 8,
     "AVGO": 7,
     "ES": 7,
     "HPE": 7,
     "VT": 7,
-    "VTI": 7,
     "ALL": 6,
     "NOW": 6,
+    "ASTS": 6,
     "IGV": 5,
-    "ASTS": 5,
     "LINK": 5,
     "NBIS": 5,
     "AAPL": 4,
@@ -1005,11 +1005,11 @@
     "DELL": 4,
     "WTI": 4,
     "PLTR": 4,
-    "SMH": 4,
     "OPEN": 4,
     "CAN": 4,
     "CD": 4,
     "API": 4,
+    "SMA": 4,
     "MCD": 3,
     "GL": 3,
     "IP": 3,
