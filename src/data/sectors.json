@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-30T13:22:59+00:00",
+ "updated": "2026-08-31T18:24:46+00:00",
  "note": "Americké sektory (Select Sector SPDR), výnosy v USD. Řazeno podle 3M momenta.",
  "rows": [
   {
@@ -8,22 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 3.31,
-   "r3": 12.36,
-   "r6": 13.05,
-   "r12": 26.29,
-   "signal": "above"
-  },
-  {
-   "ticker": "XLF",
-   "name": "Finance",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": 0.87,
-   "r3": 11.48,
-   "r6": 15.89,
-   "r12": 11.18,
+   "r1": 2.95,
+   "r3": 11.96,
+   "r6": 12.65,
+   "r12": 25.84,
    "signal": "above"
   },
   {
@@ -32,10 +20,22 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 9.01,
-   "r3": 9.47,
-   "r6": 12.33,
-   "r12": 47.97,
+   "r1": 10.66,
+   "r3": 11.13,
+   "r6": 14.03,
+   "r12": 50.21,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLF",
+   "name": "Finance",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 0.37,
+   "r3": 10.93,
+   "r6": 15.32,
+   "r12": 10.63,
    "signal": "above"
   },
   {
@@ -44,22 +44,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 0.61,
-   "r3": 5.43,
-   "r6": 7.53,
-   "r12": 17.77,
-   "signal": "above"
-  },
-  {
-   "ticker": "XLP",
-   "name": "Základní spotřeba",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": 0.39,
-   "r3": 3.12,
-   "r6": 0.87,
-   "r12": 8.59,
+   "r1": -0.22,
+   "r3": 4.56,
+   "r6": 6.65,
+   "r12": 16.8,
    "signal": "above"
   },
   {
@@ -68,10 +56,22 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -1.21,
-   "r3": 3.11,
-   "r6": 35.58,
-   "r12": 42.03,
+   "r1": -0.86,
+   "r3": 3.48,
+   "r6": 36.07,
+   "r12": 42.54,
+   "signal": "above"
+  },
+  {
+   "ticker": "XLP",
+   "name": "Základní spotřeba",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -0.04,
+   "r3": 2.68,
+   "r6": 0.44,
+   "r12": 8.13,
    "signal": "above"
   },
   {
@@ -80,11 +80,11 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -2.21,
-   "r3": 2.25,
-   "r6": 2.83,
-   "r12": 0.48,
-   "signal": "above"
+   "r1": -2.79,
+   "r3": 1.65,
+   "r6": 2.23,
+   "r12": -0.11,
+   "signal": "below"
   },
   {
    "ticker": "XLI",
@@ -92,10 +92,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -4.34,
-   "r3": 1.95,
-   "r6": 4.79,
-   "r12": 18.88,
+   "r1": -5.34,
+   "r3": 0.88,
+   "r6": 3.69,
+   "r12": 17.63,
    "signal": "above"
   },
   {
@@ -104,10 +104,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 1.56,
-   "r3": 1.45,
-   "r6": -3.25,
-   "r12": -0.24,
+   "r1": 0.28,
+   "r3": 0.16,
+   "r6": -4.47,
+   "r12": -1.51,
    "signal": "below"
   },
   {
@@ -116,10 +116,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -1.11,
-   "r3": 0.38,
-   "r6": 5.32,
-   "r12": 9.09,
+   "r1": -1.92,
+   "r3": -0.44,
+   "r6": 4.45,
+   "r12": 8.19,
    "signal": "above"
   },
   {
@@ -128,10 +128,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -2.02,
-   "r3": -3.04,
-   "r6": -7.35,
-   "r12": 5.24,
+   "r1": -3.13,
+   "r3": -4.14,
+   "r6": -8.4,
+   "r12": 4.04,
    "signal": "below"
   }
  ],
