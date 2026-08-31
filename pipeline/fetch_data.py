@@ -330,18 +330,51 @@ def fetch_retail_proxy() -> dict:
 
 
 def fetch_reddit() -> dict:
-    """Reddit sentiment (ApeWisdom, veřejné API): top tickery podle počtu
-    zmínek za posledních 24 h napříč investičními subreddity (WSB, r/stocks…).
+    """Reddit sentiment ze dvou veřejných API bez klíče:
 
-    Změna t/t se počítá proti snapshotu z minulého běhu pipeline (typicky
-    před týdnem) uloženému přímo v smart_money.json; při prvním běhu změna
-    není k dispozici a dopočítá se od druhého týdne."""
+    - ApeWisdom (primární): top tickery podle počtu zmínek za 24 h napříč
+      investičními subreddity (WSB, r/stocks…) + upvoty.
+    - Tradestie (doplněk + záloha): směr sentimentu z analýzy komentářů na
+      WSB (bullish/bearish) – ApeWisdom měří jen hlasitost, ne směr. Když
+      ApeWisdom vypadne, sestaví se žebříček z tradestie (počet komentářů).
+
+    Změna t/t se počítá proti snapshotu z minulého běhu pipeline uloženému
+    přímo v smart_money.json – jen pokud snapshot pochází ze stejného zdroje
+    (zmínky ApeWisdom a komentáře tradestie nejsou srovnatelné)."""
     import html as html_mod
 
-    r = requests.get("https://apewisdom.io/api/v1.0/filter/all-stocks/page/1",
-                     headers=HEADERS, timeout=30)
-    r.raise_for_status()
-    results = r.json()["results"]
+    # tradestie: {ticker: {"sentiment": "bullish"/"bearish", "score": float, ...}}
+    tradestie: dict[str, dict] = {}
+    try:
+        r = requests.get("https://tradestie.com/api/v1/apps/reddit",
+                         headers=HEADERS, timeout=30)
+        r.raise_for_status()
+        for row in r.json():
+            tradestie[row["ticker"]] = {
+                "sentiment": (row.get("sentiment") or "").lower() or None,
+                "score": row.get("sentiment_score"),
+                "comments": int(row.get("no_of_comments") or 0),
+            }
+    except Exception as e:
+        print(f"[smart_money] tradestie nedostupné ({e}), pojedeme bez sentimentu")
+
+    # ApeWisdom -> jednotný tvar [(rank, ticker, name, mentions, upvotes)]
+    source, rows = "apewisdom", []
+    try:
+        r = requests.get("https://apewisdom.io/api/v1.0/filter/all-stocks/page/1",
+                         headers=HEADERS, timeout=30)
+        r.raise_for_status()
+        rows = [(int(x["rank"]), x["ticker"], html_mod.unescape(x["name"]),
+                 int(x["mentions"]), int(x["upvotes"]))
+                for x in r.json()["results"]]
+    except Exception as e:
+        print(f"[smart_money] ApeWisdom nedostupné ({e}), záloha: tradestie")
+        source = "tradestie"
+        ranked = sorted(tradestie.items(), key=lambda kv: -kv[1]["comments"])
+        rows = [(i + 1, t, t, v["comments"], None)
+                for i, (t, v) in enumerate(ranked)]
+    if not rows:
+        raise RuntimeError("Reddit: ApeWisdom ani tradestie nevrátily data")
 
     # předchozí snapshot (kvůli změně t/t) – čteme starý soubor před přepisem
     prev_mentions: dict[str, int] = {}
@@ -349,33 +382,37 @@ def fetch_reddit() -> dict:
     try:
         old = json.loads((OUT_DIR / "smart_money.json").read_text(encoding="utf-8"))
         snap = (old.get("reddit") or {}).get("snapshot") or {}
-        prev_mentions = snap.get("mentions") or {}
-        prev_date = snap.get("date")
+        if snap.get("source", "apewisdom") == source:  # jen srovnatelné zdroje
+            prev_mentions = snap.get("mentions") or {}
+            prev_date = snap.get("date")
     except Exception:
         pass
 
     top = []
-    for row in results[:10]:
-        ticker = row["ticker"]
-        mentions = int(row["mentions"])
+    for rank, ticker, name, mentions, upvotes in rows[:10]:
         prev = prev_mentions.get(ticker)
+        sent = tradestie.get(ticker) or {}
         top.append({
-            "rank": int(row["rank"]),
+            "rank": rank,
             "ticker": ticker,
-            "name": html_mod.unescape(row["name"]),
+            "name": name,
             "mentions": mentions,
-            "upvotes": int(row["upvotes"]),
+            "upvotes": upvotes,
             "prev_mentions": prev,
             "change_pct": round((mentions / prev - 1) * 100, 1) if prev else None,
+            "sentiment": sent.get("sentiment"),
+            "sentiment_score": sent.get("score"),
         })
 
     return {
         "top": top,
         "prev_date": prev_date,
+        "source": source,
         # snapshot top 50, aby měly změnu i tituly, které se do top 10 teprve dostanou
         "snapshot": {
             "date": date.today().isoformat(),
-            "mentions": {r_["ticker"]: int(r_["mentions"]) for r_ in results[:50]},
+            "source": source,
+            "mentions": {t: m for _, t, _, m, _ in rows[:50]},
         },
     }
 
@@ -396,7 +433,8 @@ def build_smart_money() -> None:
         "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). "
                 "NAAIM: průměrná akciová expozice aktivních správců. "
                 "Retail proxy: podíl pákových ETF na dolarovém objemu. "
-                "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu.",
+                "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, "
+                "směr sentimentu (bullish/bearish) dle tradestie.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[smart_money] -> smart_money.json")
