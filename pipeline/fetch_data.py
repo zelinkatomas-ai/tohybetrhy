@@ -422,6 +422,41 @@ def fetch_reddit() -> dict:
     }
 
 
+def fetch_vix() -> dict:
+    """VIX – implikovaná volatilita S&P 500, tedy cena pojistky proti
+    poklesu. K tomu termínová struktura VIX3M/VIX: normálně nad 1
+    (tříměsíční ochrana dražší než okamžitá, contango); pod 1 znamená,
+    že trh platí za okamžitou ochranu víc než za budoucí – akutní stres
+    (backwardace). Obojí týdně z Yahoo, jako ostatní ceny."""
+    vix, _ = fetch_yahoo_weekly("^VIX")
+    time.sleep(1)
+    vix3m, _ = fetch_yahoo_weekly("^VIX3M")
+
+    dates_all = sorted(vix)
+    vals = [vix[d] for d in dates_all]
+    sma = [
+        round(sum(vals[i - SMA_WEEKS + 1:i + 1]) / SMA_WEEKS, 2)
+        if i >= SMA_WEEKS - 1 else None
+        for i in range(len(vals))
+    ]
+    keep = [i for i, d in enumerate(dates_all) if d >= CHART_START]
+    common = [d for d in dates_all if d in vix3m and d >= CHART_START]
+    return {
+        "level": {
+            "dates": [dates_all[i] for i in keep],
+            "series": [
+                {"name": "VIX", "values": [round(vals[i], 2) for i in keep]},
+                {"name": "52týdenní průměr", "values": [sma[i] for i in keep], "benchmark": True},
+            ],
+        },
+        "term": {
+            "dates": common,
+            "series": [{"name": "VIX3M / VIX",
+                        "values": [round(vix3m[d] / vix[d], 3) for d in common]}],
+        },
+    }
+
+
 def fetch_stocktwits() -> dict:
     """StockTwits trending: symboly, o kterých se na platformě právě nejvíc
     mluví (jejich trending algoritmus), plus počet sledujících (watchers)
@@ -441,7 +476,7 @@ def fetch_stocktwits() -> dict:
 def build_smart_money() -> None:
     charts = {}
     for key, fn in [("cot", fetch_cot), ("naaim", fetch_naaim),
-                    ("retail", fetch_retail_proxy)]:
+                    ("retail", fetch_retail_proxy), ("vix", fetch_vix)]:
         try:
             print(f"[smart_money] {key} ...")
             charts[key] = fn()
@@ -453,7 +488,8 @@ def build_smart_money() -> None:
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). "
                 "NAAIM: průměrná akciová expozice aktivních správců. "
-                "Retail proxy: podíl pákových ETF na dolarovém objemu.",
+                "Retail proxy: podíl pákových ETF na dolarovém objemu. "
+                "VIX: implikovaná volatilita S&P 500 + termínová struktura VIX3M/VIX.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[smart_money] -> smart_money.json")
@@ -882,6 +918,11 @@ def build_summary() -> None:
     if smart.get("cot"):
         _, d_inst = last_and_delta(smart["cot"], 0)
         parts.append(f"instituce ve futures na S&P 500 {trend(d_inst, 'pozice přidávají', 'pozice ubírají', 'pozice drží')}")
+    # VIX zmiňujeme jen při skutečném stresu (backwardace termínové struktury)
+    if smart.get("vix"):
+        term = smart["vix"]["term"]["series"][0]["values"]
+        if term and term[-1] is not None and term[-1] < 1:
+            parts.append("opční trh signalizuje akutní stres (termínová struktura VIXu je převrácená)")
     s_smart = (parts[0][0].upper() + ", ".join(parts)[1:] + ".") if parts else None
 
     # 6) Bitcoin jako barometr rizikového apetitu (signál vs 52t průměr)
