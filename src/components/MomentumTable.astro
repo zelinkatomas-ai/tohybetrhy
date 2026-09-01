@@ -1,6 +1,8 @@
 ---
 /**
- * Tabulka momenta – vykresluje se na serveru (dobré pro SEO).
+ * Tabulka momenta – vykresluje se na serveru (dobré pro SEO), řazení
+ * kliknutím na záhlaví je progresivní vylepšení v prohlížeči. Benchmarky
+ * zůstávají při řazení vždy dole (stejná konvence jako v pipeline).
  * Použití: <MomentumTable data={group} /> kde data = obsah assets.json,
  * sectors.json nebo momentum_etfs.json (vygenerované pipeline).
  */
@@ -35,23 +37,34 @@ const windows: { key: keyof Pick<Row, 'r1' | 'r3' | 'r6' | 'r12'>; label: string
   { key: 'r12', label: '12 měsíců' },
 ];
 ---
-<figure class="viz">
+<figure class="viz" data-momentum-table>
   <figcaption>
     <strong>{title}</strong>
-    <span class="note">Aktualizováno {updated}{data.note ? ` · ${data.note}` : ''}</span>
+    <span class="note">Aktualizováno {updated}{data.note ? ` · ${data.note}` : ''} · Kliknutím na záhlaví seřadíte.</span>
   </figcaption>
   <div class="scroll">
     <table>
       <thead>
         <tr>
-          <th>Titul</th>
-          {windows.map((w) => <th>{w.label}</th>)}
-          <th>Signál <span class="hint">(vs 52t průměr)</span></th>
+          <th><button type="button" class="sort" data-key="name" title="Seřadit podle názvu">Titul</button></th>
+          {windows.map((w) => (
+            <th><button type="button" class="sort" data-key={w.key} title="Seřadit podle výnosu">{w.label}</button></th>
+          ))}
+          <th><button type="button" class="sort" data-key="signal" title="Seřadit podle signálu">Signál <span class="hint">(vs 52t průměr)</span></button></th>
         </tr>
       </thead>
       <tbody>
         {data.rows.map((row) => (
-          <tr class={row.benchmark ? 'benchmark' : ''}>
+          <tr
+            class={row.benchmark ? 'benchmark' : ''}
+            data-benchmark={row.benchmark ? '1' : undefined}
+            data-name={row.name.toLocaleLowerCase('cs')}
+            data-r1={row.r1 ?? undefined}
+            data-r3={row.r3 ?? undefined}
+            data-r6={row.r6 ?? undefined}
+            data-r12={row.r12 ?? undefined}
+            data-signal={row.signal === 'above' ? 2 : row.signal === 'below' ? 1 : 0}
+          >
             <td class="asset">
               <span class="name">
                 {linkDetails
@@ -93,6 +106,14 @@ const windows: { key: keyof Pick<Row, 'r1' | 'r3' | 'r6' | 'r12'>; label: string
   th, td { padding: 0.55rem 0.7rem; text-align: right; border-bottom: 1px solid var(--gridline); white-space: nowrap; }
   th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; }
   th:first-child, td:first-child { text-align: left; }
+  th .sort {
+    background: none; border: 0; padding: 0; margin: 0;
+    font: inherit; color: inherit; cursor: pointer;
+  }
+  th .sort:hover { color: var(--text-primary); }
+  th[aria-sort] .sort { color: var(--accent); }
+  th[aria-sort='ascending'] .sort::after { content: ' ▲'; font-size: 0.65rem; }
+  th[aria-sort='descending'] .sort::after { content: ' ▼'; font-size: 0.65rem; }
   tbody tr:hover { background: color-mix(in srgb, var(--gridline) 35%, transparent); }
   tr.benchmark { background: color-mix(in srgb, var(--gridline) 20%, transparent); }
   .bench-tag { font-size: 0.75rem; color: var(--text-muted); font-style: normal; }
@@ -110,3 +131,49 @@ const windows: { key: keyof Pick<Row, 'r1' | 'r3' | 'r6' | 'r12'>; label: string
   .badge.good { color: var(--delta-up); background: var(--badge-good-bg); }
   .badge.bad { color: var(--delta-down); background: var(--badge-bad-bg); }
 </style>
+
+<script>
+  // Řazení kliknutím na záhlaví. Benchmarky drží vždy dole, chybějící
+  // hodnoty také; první klik řadí čísla sestupně (nejlepší nahoře),
+  // název vzestupně. Bez JS zůstává serverové pořadí.
+  function initTable(fig: Element) {
+    const tbody = fig.querySelector('tbody');
+    if (!tbody) return;
+    fig.querySelectorAll<HTMLButtonElement>('th .sort').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.key as string;
+        const th = btn.closest('th')!;
+        const numeric = key !== 'name';
+        const prev = th.getAttribute('aria-sort');
+        const dir =
+          prev === 'descending' ? 'ascending'
+          : prev === 'ascending' ? 'descending'
+          : numeric ? 'descending' : 'ascending';
+        fig.querySelectorAll('th[aria-sort]').forEach((t) => t.removeAttribute('aria-sort'));
+        th.setAttribute('aria-sort', dir);
+        const sign = dir === 'ascending' ? 1 : -1;
+
+        const rows = Array.from(tbody.querySelectorAll<HTMLTableRowElement>('tr'));
+        const normal = rows.filter((r) => !r.dataset.benchmark);
+        const bench = rows.filter((r) => r.dataset.benchmark);
+        normal.sort((a, b) => {
+          if (numeric) {
+            const va = a.dataset[key] != null ? parseFloat(a.dataset[key]!) : null;
+            const vb = b.dataset[key] != null ? parseFloat(b.dataset[key]!) : null;
+            if (va == null && vb == null) return 0;
+            if (va == null) return 1;
+            if (vb == null) return -1;
+            return sign * (va - vb);
+          }
+          return sign * (a.dataset[key] ?? '').localeCompare(b.dataset[key] ?? '', 'cs');
+        });
+        tbody.append(...normal, ...bench);
+      });
+    });
+  }
+
+  const init = () => document.querySelectorAll('[data-momentum-table]').forEach(initTable);
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
+</script>
