@@ -84,6 +84,11 @@
       (data nově v `social.json`, klíč `reddit`) + nový StockTwits trending
       (`fetch_stocktwits`, veřejné API bez klíče). Chytré peníze zpět u tří
       původních pohledů (CoT, NAAIM, retail proxy).
+- [x] **VIX do Chytrých peněz**: `fetch_vix` (Yahoo ^VIX + ^VIX3M) —
+      graf VIX vs 52t průměr + termínová struktura VIX3M/VIX (pod 1 =
+      backwardace = akutní stres; věta do `sentences.smart` jen v tom
+      případě). Dlaždice na homepage. Případná budoucí stránka „Nálada
+      trhu" (VIX + put/call ratio z CBOE + AAII survey) — zatím netříštit.
 - [ ] **Sítě – kandidáti na rozšíření**: YouTube Data API (zdarma s klíčem,
       secret `YOUTUBE_API_KEY`; metrika: videa + zhlédnutí k top tickerům
       z Redditu = pozornost napříč platformami). Wikipedia pageviews API

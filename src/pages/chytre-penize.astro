@@ -3,14 +3,17 @@ import Base from '../layouts/Base.astro';
 import LineChart from '../components/LineChart.astro';
 import Methodology from '../components/Methodology.astro';
 import smartMoney from '../data/smart_money.json';
+
+const vix = (smartMoney as any).vix ?? null;
 ---
-<Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců a apetit retailu.">
+<Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců, apetit retailu a cena strachu (VIX).">
   <h1>Chytré peníze vs retail</h1>
   <p class="lead">
-    Kdo teď do trhu přitéká a kdo utíká? Tři nezávislé pohledy: oficiální
+    Kdo teď do trhu přitéká a kdo utíká? Čtyři nezávislé pohledy: oficiální
     data CFTC o pozicích ve futures na S&P 500, expozice aktivních správců
-    (NAAIM) a apetit retailu měřený objemem pákových ETF. Žádný z nich není
-    neomylný – nejcennější informace vzniká, když se rozejdou.
+    (NAAIM), apetit retailu měřený objemem pákových ETF a cena strachu
+    z opčního trhu (VIX). Žádný z nich není neomylný – nejcennější
+    informace vzniká, když se rozejdou.
   </p>
 
   {smartMoney.cot && (
@@ -37,6 +40,22 @@ import smartMoney from '../data/smart_money.json';
       series={smartMoney.retail.series}
     />
   )}
+  {vix?.level && (
+    <LineChart
+      title="Cena strachu: VIX"
+      note="Implikovaná volatilita S&P 500 z cen opcí – kolik trh platí za pojistku proti poklesu. Pod ~15 klid, nad ~25 nervozita, nad ~30 panika; extrémy bývají kontrariánský signál. Čárkovaně 52týdenní průměr."
+      dates={vix.level.dates}
+      series={vix.level.series}
+    />
+  )}
+  {vix?.term && (
+    <LineChart
+      title="Termínová struktura: VIX3M / VIX"
+      note="Poměr tříměsíčního a okamžitého VIXu. Normálně nad 1 (budoucí ochrana je dražší, contango); pád pod 1 znamená, že trh platí za okamžitou ochranu víc než za budoucí – historicky spolehlivá známka akutního stresu."
+      dates={vix.term.dates}
+      series={vix.term.series}
+    />
+  )}
 
   <Methodology>
     <p>
@@ -57,8 +76,16 @@ import smartMoney from '../data/smart_money.json';
       <strong>Retail proxy:</strong> podíl dolarového objemu pákových ETF
       (TQQQ, SQQQ, SPXL, SPXS) vůči SPY + QQQ. Pákové ETF obchoduje převážně
       retail, takže rostoucí podíl znamená rostoucí spekulativní apetit.
-      Skutečné toky fondů (fund flows) jsou placená data; tyto tři ukazatele
+      Skutečné toky fondů (fund flows) jsou placená data; tyto ukazatele
       jsou nejlepší bezplatné aproximace.
+    </p>
+    <p>
+      <strong>VIX a termínová struktura:</strong> VIX měří implikovanou
+      volatilitu S&P 500 z cen opcí – čím vyšší, tím dražší je pojistka
+      proti poklesu. Extrémní hodnoty bývají kontrariánské (panika ≈ dno).
+      Poměr VIX3M/VIX srovnává cenu tříměsíční a okamžité ochrany: pokles
+      pod 1 (backwardace) historicky doprovázel akutní fáze výprodejů
+      spolehlivěji než samotná úroveň VIXu.
     </p>
     <p>
       Co právě řeší dav na Redditu a StockTwits najdete na stránce

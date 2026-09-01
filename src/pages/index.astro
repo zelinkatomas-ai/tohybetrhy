@@ -31,6 +31,7 @@ const naaim = smartMoney.naaim ? lastDelta(smartMoney.naaim) : null;
 const retail = smartMoney.retail ? lastDelta(smartMoney.retail) : null;
 const redditTop = (social as any).reddit?.top?.[0] ?? null;
 const stTop = (social as any).stocktwits?.top?.[0] ?? null;
+const vix = (smartMoney as any).vix?.level ? lastDelta((smartMoney as any).vix.level) : null;
 const trendArrow = (d: number, lim = 0.5) => (d > lim ? '↗' : d < -lim ? '↘' : '→');
 
 // likvidita: čistá likvidita Fedu (posun za ~3 měsíce), mezera M2 − inflace,
@@ -137,6 +138,12 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
         <div class="tile stat">
           <span class="tile-name">Apetit retailu</span>
           <span class="stat-val">{trendArrow(retail.delta)} {retail.last.toFixed(1)} %<small>podíl pákových ETF na objemu</small></span>
+        </div>
+      )}
+      {vix && (
+        <div class="tile stat">
+          <span class="tile-name">Cena strachu (VIX)</span>
+          <span class="stat-val">{trendArrow(vix.delta, 1)} {vix.last.toFixed(1)}<small>implikovaná volatilita S&P 500</small></span>
         </div>
       )}
     </div>
