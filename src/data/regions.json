@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-31T18:55:38+00:00",
+ "updated": "2026-09-01T06:42:37+00:00",
  "note": "Regiony přes ETF, výnosy v měně fondu. Hlavní čtyři regiony i v grafu.",
  "rows": [
   {
@@ -56,10 +56,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -3.05,
-   "r3": 1.41,
-   "r6": -2.66,
-   "r12": -8.91,
+   "r1": -3.27,
+   "r3": 1.18,
+   "r6": -2.89,
+   "r12": -9.12,
    "signal": "below"
   },
   {
@@ -92,10 +92,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 0.56,
-   "r3": 6.39,
-   "r6": 4.29,
-   "r12": 31.98,
+   "r1": 0.81,
+   "r3": 6.65,
+   "r6": 4.54,
+   "r12": 32.3,
    "signal": "above"
   },
   {
@@ -104,10 +104,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 0.95,
-   "r3": 11.62,
-   "r6": 1.89,
-   "r12": 30.84,
+   "r1": 1.22,
+   "r3": 11.92,
+   "r6": 2.16,
+   "r12": 31.19,
    "signal": "above"
   }
  ],
