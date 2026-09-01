@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-01T14:36:41+00:00",
+ "updated": "2026-09-01T14:40:40+00:00",
  "note": "Americké sektory (Select Sector SPDR), výnosy v USD. Řazeno podle 3M momenta.",
  "rows": [
   {
@@ -8,10 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 3.82,
-   "r3": 12.49,
-   "r6": 12.93,
-   "r12": 49.61,
+   "r1": 3.88,
+   "r3": 12.55,
+   "r6": 12.99,
+   "r12": 49.69,
    "signal": "above"
   },
   {
@@ -20,10 +20,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 2.68,
-   "r3": 12.22,
-   "r6": 15.71,
-   "r12": 26.6,
+   "r1": 2.7,
+   "r3": 12.25,
+   "r6": 15.73,
+   "r12": 26.63,
    "signal": "above"
   },
   {
@@ -32,10 +32,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.46,
-   "r3": 8.91,
-   "r6": 19.43,
-   "r12": 9.27,
+   "r1": -0.52,
+   "r3": 8.84,
+   "r6": 19.36,
+   "r12": 9.21,
    "signal": "above"
   },
   {
@@ -44,10 +44,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.09,
-   "r3": 0.92,
-   "r6": 2.78,
-   "r12": 10.05,
+   "r1": -0.16,
+   "r3": 0.85,
+   "r6": 2.71,
+   "r12": 9.98,
    "signal": "above"
   },
   {
@@ -56,10 +56,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.26,
-   "r3": 0.81,
-   "r6": 7.41,
-   "r12": 16.4,
+   "r1": -0.33,
+   "r3": 0.73,
+   "r6": 7.33,
+   "r12": 16.32,
    "signal": "above"
   },
   {
@@ -68,10 +68,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -1.2,
-   "r3": 0.21,
-   "r6": -1.93,
-   "r12": -3.71,
+   "r1": -1.27,
+   "r3": 0.14,
+   "r6": -1.99,
+   "r12": -3.77,
    "signal": "below"
   },
   {
@@ -83,7 +83,7 @@
    "r1": -3.21,
    "r3": -0.36,
    "r6": 34.77,
-   "r12": 36.51,
+   "r12": 36.5,
    "signal": "above"
   },
   {
@@ -92,10 +92,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -2.23,
-   "r3": -0.69,
-   "r6": 4.66,
-   "r12": -2.39,
+   "r1": -2.28,
+   "r3": -0.75,
+   "r6": 4.6,
+   "r12": -2.45,
    "signal": "below"
   },
   {
@@ -104,10 +104,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -6.76,
-   "r3": -1.05,
-   "r6": 6.18,
-   "r12": 16.2,
+   "r1": -6.86,
+   "r3": -1.16,
+   "r6": 6.06,
+   "r12": 16.08,
    "signal": "above"
   },
   {
@@ -116,10 +116,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -2.34,
-   "r3": -1.68,
-   "r6": 6.27,
-   "r12": 7.99,
+   "r1": -2.39,
+   "r3": -1.73,
+   "r6": 6.22,
+   "r12": 7.94,
    "signal": "above"
   },
   {
@@ -128,10 +128,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -4.4,
-   "r3": -4.27,
-   "r6": -8.58,
-   "r12": 1.85,
+   "r1": -4.43,
+   "r3": -4.3,
+   "r6": -8.62,
+   "r12": 1.81,
    "signal": "below"
   }
  ],
