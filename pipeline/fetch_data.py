@@ -12,6 +12,7 @@ Výstupy (src/data/):
   - crypto.json          ... Bitcoin (tabulka + graf)
   - momentum_etfs.json   ... momentum ETF vs benchmarky (tabulka + graf)
   - smart_money.json     ... chytré peníze vs retail (CoT, NAAIM, pákové ETF)
+  - social.json          ... sítě: Reddit (ApeWisdom + tradestie), StockTwits
   - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
                              zaparkovaná hotovost, trh vs M2, dolar
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
@@ -376,17 +377,21 @@ def fetch_reddit() -> dict:
     if not rows:
         raise RuntimeError("Reddit: ApeWisdom ani tradestie nevrátily data")
 
-    # předchozí snapshot (kvůli změně t/t) – čteme starý soubor před přepisem
+    # předchozí snapshot (kvůli změně t/t) – čteme starý soubor před přepisem;
+    # fallback na smart_money.json kvůli migraci (reddit tam bydlel dřív)
     prev_mentions: dict[str, int] = {}
     prev_date: str | None = None
-    try:
-        old = json.loads((OUT_DIR / "smart_money.json").read_text(encoding="utf-8"))
-        snap = (old.get("reddit") or {}).get("snapshot") or {}
-        if snap.get("source", "apewisdom") == source:  # jen srovnatelné zdroje
-            prev_mentions = snap.get("mentions") or {}
-            prev_date = snap.get("date")
-    except Exception:
-        pass
+    for prev_file in ("social.json", "smart_money.json"):
+        try:
+            old = json.loads((OUT_DIR / prev_file).read_text(encoding="utf-8"))
+            snap = (old.get("reddit") or {}).get("snapshot") or {}
+            if snap and snap.get("source", "apewisdom") == source:  # jen srovnatelné zdroje
+                prev_mentions = snap.get("mentions") or {}
+                prev_date = snap.get("date")
+            if snap:
+                break
+        except Exception:
+            pass
 
     top = []
     for rank, ticker, name, mentions, upvotes in rows[:10]:
@@ -417,10 +422,26 @@ def fetch_reddit() -> dict:
     }
 
 
+def fetch_stocktwits() -> dict:
+    """StockTwits trending: symboly, o kterých se na platformě právě nejvíc
+    mluví (jejich trending algoritmus), plus počet sledujících (watchers)
+    jako měřítko trvalejší popularity. Veřejné API bez klíče."""
+    r = requests.get("https://api.stocktwits.com/api/2/trending/symbols.json",
+                     headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    return {
+        "top": [
+            {"rank": i + 1, "ticker": s["symbol"], "name": s["title"],
+             "watchers": int(s.get("watchlist_count") or 0)}
+            for i, s in enumerate(r.json()["symbols"][:10])
+        ],
+    }
+
+
 def build_smart_money() -> None:
     charts = {}
     for key, fn in [("cot", fetch_cot), ("naaim", fetch_naaim),
-                    ("retail", fetch_retail_proxy), ("reddit", fetch_reddit)]:
+                    ("retail", fetch_retail_proxy)]:
         try:
             print(f"[smart_money] {key} ...")
             charts[key] = fn()
@@ -432,12 +453,31 @@ def build_smart_money() -> None:
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). "
                 "NAAIM: průměrná akciová expozice aktivních správců. "
-                "Retail proxy: podíl pákových ETF na dolarovém objemu. "
-                "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, "
-                "směr sentimentu (bullish/bearish) dle tradestie.",
+                "Retail proxy: podíl pákových ETF na dolarovém objemu.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[smart_money] -> smart_money.json")
+
+
+def build_social() -> None:
+    """Sekce Sítě: o čem se mluví na investičních sociálních sítích."""
+    charts = {}
+    for key, fn in [("reddit", fetch_reddit), ("stocktwits", fetch_stocktwits)]:
+        try:
+            print(f"[social] {key} ...")
+            charts[key] = fn()
+        except Exception as e:  # jeden rozbitý zdroj nesmí shodit celý build
+            print(f"[social] {key} SELHALO: {e}")
+            charts[key] = None
+
+    (OUT_DIR / "social.json").write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, "
+                "směr sentimentu (bullish/bearish) dle tradestie. "
+                "StockTwits: trending symboly + počet sledujících.",
+        **charts,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[social] -> social.json")
 
 
 # ---------------------------------------------------------------------------
@@ -906,6 +946,7 @@ def main() -> None:
     for key, cfg in GROUPS.items():
         build_group(key, cfg)
     build_smart_money()
+    build_social()
     build_liquidity()
     build_summary()
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")

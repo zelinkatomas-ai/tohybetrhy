@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import Methodology from '../components/Methodology.astro';
+import social from '../data/social.json';
+import { fmtPct } from '../lib/utils';
+
+const reddit = (social as any).reddit ?? null;
+const stocktwits = (social as any).stocktwits ?? null;
+const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
+const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
+---
+<Base title="Sítě – To hýbe trhy" description="O čem mluví investoři na sociálních sítích: nejzmiňovanější tickery na Redditu a trending symboly na StockTwits.">
+  <h1>Sítě</h1>
+  <p class="lead">
+    Kam se právě dívá dav? Nejzmiňovanější tickery napříč investičními
+    subreddity a trending symboly na StockTwits. Pozornost davu není
+    doporučení – extrémy bývají spíš kontrariánský signál – ale je to
+    nejrychlejší teploměr toho, co retail právě řeší.
+  </p>
+
+  {reddit?.top?.length > 0 && (
+    <section class="net">
+      <h2>O čem mluví Reddit</h2>
+      <p class="note">
+        Nejzmiňovanější tickery napříč investičními subreddity (WallStreetBets,
+        r/stocks…) za posledních 24 hodin. Zdroj: ApeWisdom; směr sentimentu
+        tradestie. Změna t/t srovnává s minulou týdenní aktualizací{reddit.prev_date ? ` (${new Date(reddit.prev_date).toLocaleDateString('cs-CZ')})` : ''}.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Zmínky/24 h</th><th class="num">Změna t/t</th><th>Sentiment</th><th class="num">Upvoty</th></tr>
+          </thead>
+          <tbody>
+            {reddit.top.map((r: any) => (
+              <tr>
+                <td>{r.rank}</td>
+                <td class="ticker">{r.ticker}</td>
+                <td>{r.name}</td>
+                <td class="num">{r.mentions}</td>
+                <td class={`num ${cls(r.change_pct)}`}>{r.change_pct != null ? fmtPct(r.change_pct) : '–'}</td>
+                <td class={r.sentiment === 'bullish' ? 'up' : r.sentiment === 'bearish' ? 'down' : ''}>
+                  {r.sentiment === 'bullish' ? '▲ býčí' : r.sentiment === 'bearish' ? '▼ medvědí' : '–'}
+                </td>
+                <td class="num">{r.upvotes ?? '–'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  {stocktwits?.top?.length > 0 && (
+    <section class="net">
+      <h2>Trending na StockTwits</h2>
+      <p class="note">
+        Symboly, o kterých se na StockTwits právě nejvíc diskutuje (jejich
+        trending algoritmus). Počet sledujících ukazuje trvalejší popularitu –
+        nový titul s málo sledujícími vysoko v trendech = čerstvý příběh.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Sledující</th></tr>
+          </thead>
+          <tbody>
+            {stocktwits.top.map((s: any) => (
+              <tr>
+                <td>{s.rank}</td>
+                <td class="ticker">{s.ticker}</td>
+                <td>{s.name}</td>
+                <td class="num">{fmtNum(s.watchers)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  <Methodology>
+    <p>
+      <strong>Reddit (ApeWisdom + tradestie):</strong> počet zmínek tickerů
+      napříč investičními subreddity za posledních 24 hodin (ApeWisdom);
+      směr sentimentu (býčí/medvědí) doplňuje tradestie z analýzy komentářů
+      na WallStreetBets – hlasitost a směr jsou dvě různé věci. Změna t/t
+      se počítá proti minulé týdenní aktualizaci dat. Když jeden zdroj
+      vypadne, tabulka se sestaví z druhého.
+    </p>
+    <p>
+      <strong>StockTwits:</strong> sociální síť čistě o trzích; trending
+      seznam vybírá algoritmus StockTwits podle aktuální aktivity diskuzí.
+      Na rozdíl od Redditu tu jde o okamžitý stav („co žije právě teď"),
+      ne o 24hodinový součet.
+    </p>
+    <p>
+      Vysoká pozornost davu bývá u jednotlivých akcií spíše kontrariánský
+      signál; pro trh jako celek ji čtěte spolu s ukazateli na stránce
+      <a href="/chytre-penize/">Chytré peníze</a>. Data se aktualizují
+      týdně spolu se zbytkem webu.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+
+  .net { margin: 2rem 0; }
+  .net h2 { font-size: 1.2rem; margin: 0 0 0.35rem; }
+  .net .note { margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--text-secondary); max-width: 46rem; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid var(--gridline); white-space: nowrap; }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; }
+  th.num, td.num { text-align: right; }
+  td.ticker { font-weight: 600; }
+  .up { color: var(--delta-up); }
+  .down { color: var(--delta-down); }
+</style>
