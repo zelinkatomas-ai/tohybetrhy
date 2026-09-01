@@ -3,10 +3,6 @@ import Base from '../layouts/Base.astro';
 import LineChart from '../components/LineChart.astro';
 import Methodology from '../components/Methodology.astro';
 import smartMoney from '../data/smart_money.json';
-import { fmtPct } from '../lib/utils';
-
-const reddit = (smartMoney as any).reddit ?? null;
-const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 ---
 <Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců a apetit retailu.">
   <h1>Chytré peníze vs retail</h1>
@@ -42,40 +38,6 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
     />
   )}
 
-  {reddit?.top?.length > 0 && (
-    <section class="reddit">
-      <h2>O čem mluví Reddit</h2>
-      <p class="note">
-        Nejzmiňovanější tickery napříč investičními subreddity (WallStreetBets,
-        r/stocks…) za posledních 24 hodin. Zdroj: ApeWisdom. Změna t/t srovnává
-        s minulou týdenní aktualizací{reddit.prev_date ? ` (${new Date(reddit.prev_date).toLocaleDateString('cs-CZ')})` : ''}.
-        Vysoké zmínky nejsou doporučení – spíš teploměr toho, kam se dívá dav.
-      </p>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Zmínky/24 h</th><th class="num">Změna t/t</th><th>Sentiment</th><th class="num">Upvoty</th></tr>
-          </thead>
-          <tbody>
-            {reddit.top.map((r: any) => (
-              <tr>
-                <td>{r.rank}</td>
-                <td class="ticker">{r.ticker}</td>
-                <td>{r.name}</td>
-                <td class="num">{r.mentions}</td>
-                <td class={`num ${cls(r.change_pct)}`}>{r.change_pct != null ? fmtPct(r.change_pct) : '–'}</td>
-                <td class={r.sentiment === 'bullish' ? 'up' : r.sentiment === 'bearish' ? 'down' : ''}>
-                  {r.sentiment === 'bullish' ? '▲ býčí' : r.sentiment === 'bearish' ? '▼ medvědí' : '–'}
-                </td>
-                <td class="num">{r.upvotes ?? '–'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  )}
-
   <Methodology>
     <p>
       <strong>CFTC Commitments of Traders:</strong> americký regulátor každý
@@ -99,13 +61,8 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
       jsou nejlepší bezplatné aproximace.
     </p>
     <p>
-      <strong>Reddit (ApeWisdom + tradestie):</strong> počet zmínek tickerů
-      napříč investičními subreddity za posledních 24 hodin (ApeWisdom);
-      směr sentimentu (býčí/medvědí) doplňuje tradestie z analýzy komentářů
-      na WallStreetBets – hlasitost a směr jsou dvě různé věci. Extrémní
-      pozornost davu bývá spíše kontrariánský signál a týká se jednotlivých
-      akcií, ne trhu jako celku; změna t/t se počítá proti minulé týdenní
-      aktualizaci dat. Když jeden zdroj vypadne, tabulka se sestaví z druhého.
+      Co právě řeší dav na Redditu a StockTwits najdete na stránce
+      <a href="/socialni-site/">Sítě</a>.
     </p>
   </Methodology>
 </Base>
@@ -113,16 +70,4 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
-
-  .reddit { margin: 2rem 0; }
-  .reddit h2 { font-size: 1.2rem; margin: 0 0 0.35rem; }
-  .reddit .note { margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--text-secondary); max-width: 46rem; }
-  .table-wrap { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
-  th, td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid var(--gridline); white-space: nowrap; }
-  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; }
-  th.num, td.num { text-align: right; }
-  td.ticker { font-weight: 600; }
-  .up { color: var(--delta-up); }
-  .down { color: var(--delta-down); }
 </style>

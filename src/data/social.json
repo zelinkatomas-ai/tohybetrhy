@@ -1,0 +1,240 @@
+{
+ "updated": "2026-09-01T06:43:13+00:00",
+ "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, směr sentimentu (bullish/bearish) dle tradestie. StockTwits: trending symboly + počet sledujících.",
+ "reddit": {
+  "top": [
+   {
+    "rank": 1,
+    "ticker": "SPY",
+    "name": "SPDR S&P 500 ETF Trust",
+    "mentions": 236,
+    "upvotes": 631,
+    "prev_mentions": 220,
+    "change_pct": 7.3,
+    "sentiment": "bullish",
+    "sentiment_score": 0.001
+   },
+   {
+    "rank": 2,
+    "ticker": "TSLA",
+    "name": "Tesla",
+    "mentions": 169,
+    "upvotes": 294,
+    "prev_mentions": 139,
+    "change_pct": 21.6,
+    "sentiment": "bearish",
+    "sentiment_score": 0.0
+   },
+   {
+    "rank": 3,
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 109,
+    "upvotes": 268,
+    "prev_mentions": 109,
+    "change_pct": 0.0,
+    "sentiment": "bullish",
+    "sentiment_score": 0.159
+   },
+   {
+    "rank": 4,
+    "ticker": "SNDK",
+    "name": "Sandisk",
+    "mentions": 106,
+    "upvotes": 242,
+    "prev_mentions": 51,
+    "change_pct": 107.8,
+    "sentiment": "bearish",
+    "sentiment_score": -0.011
+   },
+   {
+    "rank": 5,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 71,
+    "upvotes": 575,
+    "prev_mentions": 78,
+    "change_pct": -9.0,
+    "sentiment": "bearish",
+    "sentiment_score": 0.0
+   },
+   {
+    "rank": 6,
+    "ticker": "AMZN",
+    "name": "Amazon",
+    "mentions": 57,
+    "upvotes": 100,
+    "prev_mentions": 44,
+    "change_pct": 29.5,
+    "sentiment": "bearish",
+    "sentiment_score": -0.234
+   },
+   {
+    "rank": 7,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 56,
+    "upvotes": 100,
+    "prev_mentions": 62,
+    "change_pct": -9.7,
+    "sentiment": "bearish",
+    "sentiment_score": -0.027
+   },
+   {
+    "rank": 8,
+    "ticker": "GOOGL",
+    "name": "Alphabet (Google)",
+    "mentions": 55,
+    "upvotes": 160,
+    "prev_mentions": 55,
+    "change_pct": 0.0,
+    "sentiment": "bearish",
+    "sentiment_score": -0.117
+   },
+   {
+    "rank": 9,
+    "ticker": "GOOG",
+    "name": "Alphabet (Google)",
+    "mentions": 49,
+    "upvotes": 135,
+    "prev_mentions": 40,
+    "change_pct": 22.5,
+    "sentiment": "bearish",
+    "sentiment_score": -0.043
+   },
+   {
+    "rank": 10,
+    "ticker": "DTE",
+    "name": "DTE Energy",
+    "mentions": 46,
+    "upvotes": 186,
+    "prev_mentions": 48,
+    "change_pct": -4.2,
+    "sentiment": null,
+    "sentiment_score": null
+   }
+  ],
+  "prev_date": "2026-08-31",
+  "source": "apewisdom",
+  "snapshot": {
+   "date": "2026-09-01",
+   "source": "apewisdom",
+   "mentions": {
+    "SPY": 236,
+    "TSLA": 169,
+    "MU": 109,
+    "SNDK": 106,
+    "NVDA": 71,
+    "AMZN": 57,
+    "QQQ": 56,
+    "GOOGL": 55,
+    "GOOG": 49,
+    "DTE": 46,
+    "META": 46,
+    "MRVL": 34,
+    "VOO": 34,
+    "RDDT": 34,
+    "AAPL": 32,
+    "TTWO": 31,
+    "AVGO": 27,
+    "NOW": 24,
+    "MSFT": 23,
+    "SLS": 22,
+    "EU": 22,
+    "HTZ": 21,
+    "CRWD": 18,
+    "PLTR": 18,
+    "GPRO": 17,
+    "HOOD": 17,
+    "IT": 16,
+    "IREN": 16,
+    "NBIS": 16,
+    "PYPL": 15,
+    "SPCX": 15,
+    "TLT": 15,
+    "SOFI": 15,
+    "EIX": 14,
+    "TTD": 14,
+    "FTC": 14,
+    "ASTS": 14,
+    "AMD": 13,
+    "ORCL": 13,
+    "GLD": 13,
+    "API": 13,
+    "INFQ": 13,
+    "AM": 12,
+    "MSTR": 12,
+    "RKLB": 12,
+    "INTC": 11,
+    "BE": 11,
+    "UP": 11,
+    "PCG": 10,
+    "CRDO": 10
+   }
+  }
+ },
+ "stocktwits": {
+  "top": [
+   {
+    "rank": 1,
+    "ticker": "BONK.X",
+    "name": "BONK",
+    "watchers": 15233
+   },
+   {
+    "rank": 2,
+    "ticker": "HOOD",
+    "name": "Robinhood Markets Inc",
+    "watchers": 100162
+   },
+   {
+    "rank": 3,
+    "ticker": "KODK",
+    "name": "Eastman Kodak Co.",
+    "watchers": 37319
+   },
+   {
+    "rank": 4,
+    "ticker": "ASST",
+    "name": "Strive Inc.",
+    "watchers": 19886
+   },
+   {
+    "rank": 5,
+    "ticker": "TSLA",
+    "name": "Tesla Inc",
+    "watchers": 1063475
+   },
+   {
+    "rank": 6,
+    "ticker": "XPEV",
+    "name": "XPeng Inc - ADR",
+    "watchers": 57075
+   },
+   {
+    "rank": 7,
+    "ticker": "SHIB.X",
+    "name": "Shiba Inu",
+    "watchers": 188268
+   },
+   {
+    "rank": 8,
+    "ticker": "SEZL",
+    "name": "Sezzle Inc.",
+    "watchers": 4475
+   },
+   {
+    "rank": 9,
+    "ticker": "VTI",
+    "name": "Vanguard Total Stock Market ETF",
+    "watchers": 28812
+   },
+   {
+    "rank": 10,
+    "ticker": "UBER",
+    "name": "Uber Technologies Inc",
+    "watchers": 130567
+   }
+  ]
+ }
+}

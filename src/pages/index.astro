@@ -5,6 +5,7 @@ import regions from '../data/regions.json';
 import sectors from '../data/sectors.json';
 import momentumEtfs from '../data/momentum_etfs.json';
 import smartMoney from '../data/smart_money.json';
+import social from '../data/social.json';
 import liquidity from '../data/liquidity.json';
 import summary from '../data/summary.json';
 import sources from '../config/sources.json';
@@ -28,7 +29,8 @@ const lastDelta = (chart: any, i = 0) => {
 const inst = smartMoney.cot ? lastDelta(smartMoney.cot, 0) : null;
 const naaim = smartMoney.naaim ? lastDelta(smartMoney.naaim) : null;
 const retail = smartMoney.retail ? lastDelta(smartMoney.retail) : null;
-const redditTop = (smartMoney as any).reddit?.top?.[0] ?? null;
+const redditTop = (social as any).reddit?.top?.[0] ?? null;
+const stTop = (social as any).stocktwits?.top?.[0] ?? null;
 const trendArrow = (d: number, lim = 0.5) => (d > lim ? '↗' : d < -lim ? '↘' : '→');
 
 // likvidita: čistá likvidita Fedu (posun za ~3 měsíce), mezera M2 − inflace,
@@ -137,17 +139,37 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
           <span class="stat-val">{trendArrow(retail.delta)} {retail.last.toFixed(1)} %<small>podíl pákových ETF na objemu</small></span>
         </div>
       )}
-      {redditTop && (
-        <div class="tile stat">
-          <span class="tile-name">Nejzmiňovanější na Redditu</span>
-          <span class="stat-val">
-            {redditTop.change_pct != null && trendArrow(redditTop.change_pct, 10)} {redditTop.ticker}
-            <small>{redditTop.mentions} zmínek za 24 h{redditTop.change_pct != null ? ` · ${fmtPct(redditTop.change_pct)} t/t` : ''}</small>
-          </span>
-        </div>
-      )}
     </div>
   </section>
+
+  {(redditTop || stTop) && (
+    <section class="block">
+      <div class="block-head">
+        <h2>Sítě</h2>
+        <a class="more" href="/socialni-site/">Co řeší dav →</a>
+      </div>
+      <div class="tiles three">
+        {redditTop && (
+          <div class="tile stat">
+            <span class="tile-name">Nejzmiňovanější na Redditu</span>
+            <span class="stat-val">
+              {redditTop.change_pct != null && trendArrow(redditTop.change_pct, 10)} {redditTop.ticker}
+              <small>{redditTop.mentions} zmínek za 24 h{redditTop.change_pct != null ? ` · ${fmtPct(redditTop.change_pct)} t/t` : ''}</small>
+            </span>
+          </div>
+        )}
+        {stTop && (
+          <div class="tile stat">
+            <span class="tile-name">Trending na StockTwits</span>
+            <span class="stat-val">
+              {stTop.ticker}
+              <small>{stTop.name} · {stTop.watchers.toLocaleString('cs-CZ')} sledujících</small>
+            </span>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
 
   {(netLiq || moneyGap != null || mmfShare) && (
     <section class="block">

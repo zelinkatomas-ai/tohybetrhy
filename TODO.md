@@ -80,6 +80,17 @@
 - [ ] Likvidita – kandidáti na rozšíření: AAII Asset Allocation Survey
       (podíl hotovosti v portfoliích; data za free registrací – ověřit
       replikovatelnost), týdenní MMF od ICI (xls, křehké, licence?).
+- [x] **Sekce Sítě** (/socialni-site/): Reddit přesunut z Chytrých peněz
+      (data nově v `social.json`, klíč `reddit`) + nový StockTwits trending
+      (`fetch_stocktwits`, veřejné API bez klíče). Chytré peníze zpět u tří
+      původních pohledů (CoT, NAAIM, retail proxy).
+- [ ] **Sítě – kandidáti na rozšíření**: YouTube Data API (zdarma s klíčem,
+      secret `YOUTUBE_API_KEY`; metrika: videa + zhlédnutí k top tickerům
+      z Redditu = pozornost napříč platformami). Wikipedia pageviews API
+      (bez klíče; návštěvnost článků firem = akademicky ověřená proxy
+      retailové pozornosti; chce mapování ticker→článek). Twitter/X jen
+      s placeným API (od ~100 USD/měs.) – bez něj nereplikovatelné.
+      Google Trends: neoficiální API, z cloudových IP blokuje – neriskovat.
 - [ ] **Denní aktualizace rychlých dat** (rozmyšleno 2026-08-30, odloženo):
       druhý lehký workflow, cron `30 21 * * 1-5` (po uzavření NYSE, funguje
       v EDT i EST), `fetch_data.py --daily` aktualizuje jen `reddit`
