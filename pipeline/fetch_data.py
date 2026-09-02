@@ -1053,6 +1053,8 @@ def fetch_polymarket() -> dict:
             # jediný trh = binární otázka; u vícetrhových událostí (volby
             # apod.) ukazujeme lídra, ne nejobchodovanější dílčí trh
             best = cands[0] if len(cands) == 1 else max(cands, key=lambda c: c["prob"])
+            if best["prob"] >= 0.995:  # prakticky rozhodnuto, čeká na vypořádání
+                continue
             rows.append({
                 "question": (ev.get("title") if len(cands) == 1 else best["question"])
                             or ev.get("title") or best["question"],
