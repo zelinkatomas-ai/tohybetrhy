@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02T09:27:12+00:00",
+ "updated": "2026-09-02T09:31:35+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
@@ -10,46 +10,46 @@
    "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
   },
   {
-   "question": "Will Carlos Roberto Massa Júnior win the 2026 Brazilian presidential election?",
+   "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
    "outcome": "Yes",
-   "prob": 0.1,
+   "prob": 55.5,
    "volume24h": 491025.0,
    "url": "https://polymarket.com/event/brazil-presidential-election"
   },
   {
-   "question": "US announces end of Iranian blockade by August 31, 2026?",
+   "question": "US announces end of Iranian blockade by December 31, 2026?",
    "outcome": "Yes",
-   "prob": 0.0,
+   "prob": 61.0,
    "volume24h": 448781.0,
    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
   },
   {
-   "question": "Israel x Iran ceasefire continues through July 31?",
+   "question": "Israel x Iran ceasefire continues through August 31?",
    "outcome": "Yes",
    "prob": 100.0,
    "volume24h": 361641.0,
    "url": "https://polymarket.com/event/israel-x-iran-ceasefire-continues-throughptptpt-20260716224448963"
   },
   {
-   "question": "Will Raphaël Glucksmann win the 2027 French presidential election?",
+   "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
-   "prob": 2.1,
+   "prob": 33.1,
    "volume24h": 333115.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
   },
   {
-   "question": "Will Tropical Storm Saudel make landfall in Japan?",
+   "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
    "outcome": "Yes",
-   "prob": 0.2,
-   "volume24h": 265207.0,
-   "url": "https://polymarket.com/event/where-will-tropical-storm-saudel-make-landfall-1787177922936"
+   "prob": 50.4,
+   "volume24h": 243604.0,
+   "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election"
   }
  ],
  "macro": [
   {
-   "question": "Will there be no change in Fed interest rates after the September 2026 meeting?",
+   "question": "Will the Fed increase interest rates by 25 bps after the September 2026 meeting?",
    "outcome": "Yes",
-   "prob": 39.5,
+   "prob": 59.5,
    "volume24h": 3827854.0,
    "url": "https://polymarket.com/event/fed-decision-in-september-762"
   },
@@ -82,9 +82,9 @@
    "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31"
   },
   {
-   "question": "Will the Bank of Japan announce a 25 bps decrease at the September 2026 meeting?",
+   "question": "Will the Bank of Japan announce a 25 bps increase at the September 2026 meeting?",
    "outcome": "Yes",
-   "prob": 0.1,
+   "prob": 98.4,
    "volume24h": 61570.0,
    "url": "https://polymarket.com/event/bank-of-japan-decision-in-september-20260616002734979"
   }
