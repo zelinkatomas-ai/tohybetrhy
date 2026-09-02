@@ -15,6 +15,7 @@ Výstupy (src/data/):
   - social.json          ... sítě: Reddit (ApeWisdom + tradestie), StockTwits
   - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
                              zaparkovaná hotovost, trh vs M2, dolar
+  - risks.json           ... rizika: index GPR, nejistota EPU, obranný sektor
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
 
 Spouštění:  python3 pipeline/fetch_data.py
@@ -835,6 +836,165 @@ def build_liquidity() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Rizika – kvantifikovaná geopolitika a nejistota
+# ---------------------------------------------------------------------------
+
+def _read_table(content: bytes) -> list[list]:
+    """Načte tabulku z xlsx/xls/CSV podle skutečného obsahu souboru
+    (přípona na akademických webech nemusí odpovídat formátu)."""
+    import io
+
+    if content[:2] == b"PK":  # xlsx (zip)
+        from openpyxl import load_workbook
+        ws = load_workbook(io.BytesIO(content), read_only=True).active
+        return [list(r) for r in ws.iter_rows(values_only=True)]
+    if content[:4] == b"\xd0\xcf\x11\xe0":  # starý binární .xls
+        import xlrd
+        from xlrd.xldate import xldate_as_datetime
+        book = xlrd.open_workbook(file_contents=content)
+        sh = book.sheet_by_index(0)
+        return [
+            [xldate_as_datetime(sh.cell(r, c).value, book.datemode)
+             if sh.cell(r, c).ctype == xlrd.XL_CELL_DATE else sh.cell(r, c).value
+             for c in range(sh.ncols)]
+            for r in range(sh.nrows)
+        ]
+    import csv  # poslední záchrana: prostý CSV
+    return [r for r in csv.reader(io.StringIO(content.decode("utf-8", "replace")))]
+
+
+def weekly_mean(points: dict[str, float]) -> dict[str, float]:
+    """Denní sérii zprůměruje po týdnech (klíč = pondělí daného týdne) –
+    denní hodnoty novinových indexů jsou příliš rozeskákané."""
+    from datetime import timedelta
+
+    buckets: dict[str, list[float]] = {}
+    for d, v in points.items():
+        day = date.fromisoformat(d)
+        monday = day - timedelta(days=day.weekday())
+        buckets.setdefault(monday.isoformat(), []).append(v)
+    return {k: sum(vs) / len(vs) for k, vs in buckets.items()}
+
+
+def fetch_gpr() -> dict:
+    """Geopolitical Risk Index (Caldara–Iacoviello, Fed): podíl novinových
+    článků o geopolitickém napětí v 10 velkých denících. Akademický
+    standard; autoři publikují denní řadu zdarma na svém webu."""
+    content = None
+    for url in ("https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls",
+                "https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xlsx"):
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=60)
+            r.raise_for_status()
+            content = r.content
+            break
+        except Exception as e:
+            print(f"[risks] GPR {url.rsplit('/', 1)[-1]} nedostupný: {e}")
+    if content is None:
+        raise RuntimeError("GPR: soubor nedostupný")
+
+    rows = _read_table(content)
+    header = [str(h).strip().lower() if h is not None else "" for h in rows[0]]
+    i_date = next(i for i, h in enumerate(header) if h in ("date", "day", "yyyymmdd"))
+    i_val = next(i for i, h in enumerate(header) if h == "gprd")
+
+    points: dict[str, float] = {}
+    for row in rows[1:]:
+        d, v = row[i_date], row[i_val]
+        if d is None or v in (None, ""):
+            continue
+        iso = d.date().isoformat() if hasattr(d, "date") else str(d).strip()[:10]
+        if iso[:8].isdigit() and len(iso.strip()) == 8:  # tvar YYYYMMDD
+            iso = f"{iso[:4]}-{iso[4:6]}-{iso[6:8]}"
+        try:
+            points[iso] = float(v)
+        except (TypeError, ValueError):
+            continue
+    if not points:
+        raise RuntimeError("GPR: v souboru nejsou čitelná data")
+
+    wk = weekly_mean(points)
+    avg = sum(points.values()) / len(points)
+    dates = sorted(d for d in wk if d >= CHART_START)
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "GPR (týdenní průměr)", "values": [round(wk[d], 1) for d in dates]},
+            {"name": f"Průměr od {min(points)[:4]}", "values": [round(avg, 1)] * len(dates),
+             "benchmark": True},
+        ],
+        "avg": round(avg, 1),
+    }
+
+
+def fetch_epu() -> dict:
+    """Economic Policy Uncertainty (Baker–Bloom–Davis): nejistota
+    z hospodářské politiky (cla, sankce, rozpočty) z novinových textů.
+    Denní řada pro USA je přímo na FREDu."""
+    daily = fetch_fred_csv("USEPUINDXD", "2015-01-01")
+    wk = weekly_mean(daily)
+    avg = sum(daily.values()) / len(daily)
+    dates = sorted(d for d in wk if d >= CHART_START)
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "EPU (týdenní průměr)", "values": [round(wk[d], 1) for d in dates]},
+            {"name": "Průměr od 2015", "values": [round(avg, 1)] * len(dates), "benchmark": True},
+        ],
+        "avg": round(avg, 1),
+    }
+
+
+def fetch_defense() -> dict:
+    """Trh hlasuje o zbrojení: relativní síla obranných ETF vůči S&P 500
+    (poměr cen, indexováno). Trvalý růst poměru = trh oceňuje strukturální
+    geopolitické riziko bez ohledu na titulky."""
+    spy, _ = fetch_yahoo_weekly("SPY")
+    time.sleep(1)
+    ita, _ = fetch_yahoo_weekly("ITA")    # iShares U.S. Aerospace & Defense
+    time.sleep(1)
+    euad, _ = fetch_yahoo_weekly("EUAD")  # Select STOXX Europe Aerospace & Defense
+
+    def rel(etf: dict[str, float]) -> dict[str, float]:
+        common = [d for d in sorted(etf) if d in spy and d >= CHART_START]
+        if not common:
+            return {}
+        base = etf[common[0]] / spy[common[0]]
+        return {d: round(etf[d] / spy[d] / base * 100, 1) for d in common}
+
+    us, eu = rel(ita), rel(euad)
+    dates = sorted(set(us) | set(eu))
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "USA: obrana vs S&P 500 (ITA)", "values": [us.get(d) for d in dates]},
+            {"name": "Evropa: obrana vs S&P 500 (EUAD)", "values": [eu.get(d) for d in dates]},
+        ],
+    }
+
+
+def build_risks() -> None:
+    charts = {}
+    for key, fn in [("gpr", fetch_gpr), ("epu", fetch_epu), ("defense", fetch_defense)]:
+        try:
+            print(f"[risks] {key} ...")
+            charts[key] = fn()
+            time.sleep(1)
+        except Exception as e:  # jeden rozbitý zdroj nesmí shodit celý build
+            print(f"[risks] {key} SELHALO: {e}")
+            charts[key] = None
+
+    (OUT_DIR / "risks.json").write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "GPR: novinový index geopolitického rizika (Caldara–Iacoviello), týdenní průměr. "
+                "EPU: nejistota z hospodářské politiky (FRED). "
+                "Obrana: relativní síla obranných ETF vůči S&P 500.",
+        **charts,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[risks] -> risks.json")
+
+
+# ---------------------------------------------------------------------------
 # Generovaný slovní vzkaz pro hlavní stránku
 # ---------------------------------------------------------------------------
 
@@ -967,6 +1127,19 @@ def build_summary() -> None:
         joined = " a ".join(liq_parts)
         s_liq = joined[0].upper() + joined[1:] + "."
 
+    # 8) rizika – věta jen při výrazně zvýšeném geopolitickém napětí
+    s_risks = None
+    try:
+        risks = json.loads((OUT_DIR / "risks.json").read_text(encoding="utf-8"))
+        gpr = risks.get("gpr")
+        if gpr:
+            last, avg = gpr["series"][0]["values"][-1], gpr["avg"]
+            if last is not None and avg and last > 1.5 * avg:
+                s_risks = (f"Geopolitické napětí je výrazně nad dlouhodobým průměrem "
+                           f"(index GPR {last:.0f} vs obvyklých ~{avg:.0f}).")
+    except Exception:
+        pass
+
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sentences": {
@@ -977,6 +1150,7 @@ def build_summary() -> None:
             "smart": s_smart,
             "btc": s_btc,
             "liquidity": s_liq,
+            "risks": s_risks,
         },
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[summary] -> summary.json")
@@ -989,6 +1163,7 @@ def main() -> None:
     build_smart_money()
     build_social()
     build_liquidity()
+    build_risks()
     build_summary()
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")
 

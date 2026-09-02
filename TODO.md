@@ -89,6 +89,19 @@
       backwardace = akutní stres; věta do `sentences.smart` jen v tom
       případě). Dlaždice na homepage. Případná budoucí stránka „Nálada
       trhu" (VIX + put/call ratio z CBOE + AAII survey) — zatím netříštit.
+- [x] **Sekce Rizika** (/rizika/): kvantifikovaná geopolitika —
+      `build_risks()` → `risks.json`: index GPR (Caldara–Iacoviello,
+      denní řada z webu autorů, týdenní průměr vs dlouhodobý průměr),
+      EPU (FRED `USEPUINDXD`) a relativní síla obranných ETF (ITA, EUAD)
+      vůči S&P 500. Věta `sentences.risks` jen při GPR > 1,5× průměr.
+      Metodika poctivě říká, že čisté geopolitické šoky trhy vstřebávají
+      rychle — je to kontext, ne signál.
+- [ ] **Polymarket** (kandidát, širší využití než jen Rizika): veřejné
+      gamma API — pravděpodobnosti konkrétních otázek oceněné penězi
+      sázkařů. Kurátorský výběr market ID v configu (jako u Zdrojů),
+      čísla pak mechanicky. Hodí se pro Rizika (eskalace, příměří),
+      ale i makro (sazby Fedu, recese) či volby. Prozkoumat strukturu
+      API a stabilitu ID před napojením.
 - [ ] **Sítě – kandidáti na rozšíření**: YouTube Data API (zdarma s klíčem,
       secret `YOUTUBE_API_KEY`; metrika: videa + zhlédnutí k top tickerům
       z Redditu = pozornost napříč platformami). Wikipedia pageviews API

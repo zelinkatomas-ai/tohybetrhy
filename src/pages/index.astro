@@ -7,6 +7,7 @@ import momentumEtfs from '../data/momentum_etfs.json';
 import smartMoney from '../data/smart_money.json';
 import social from '../data/social.json';
 import liquidity from '../data/liquidity.json';
+import risks from '../data/risks.json';
 import summary from '../data/summary.json';
 import sources from '../config/sources.json';
 import { etfSlug, fmtPct } from '../lib/utils';
@@ -47,6 +48,12 @@ const moneyGap = liq.money_us
   : null;
 const mmfShare = liq.cash?.mmf_share ?? null;
 
+// rizika: poslední GPR vs dlouhodobý průměr, relativní síla obrany (ITA)
+const rsk = risks as any;
+const gpr = rsk.gpr?.series?.[0]?.values?.at(-1) ?? null;
+const gprAvg = rsk.gpr?.avg ?? null;
+const defense = rsk.defense ? lastDelta(rsk.defense) : null;
+
 const latestSources = sources.items.slice(0, 3);
 const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 ---
@@ -62,6 +69,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
     {s.smart && <p class="tertiary">{s.smart}</p>}
     {s.btc && <p class="tertiary">{s.btc}</p>}
     {s.liquidity && <p class="tertiary">{s.liquidity}</p>}
+    {s.risks && <p class="tertiary">{s.risks}</p>}
   </section>
 
   <section class="block">
@@ -172,6 +180,29 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
               {stTop.ticker}
               <small>{stTop.name} · {stTop.watchers.toLocaleString('cs-CZ')} sledujících</small>
             </span>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {(gpr != null || defense) && (
+    <section class="block">
+      <div class="block-head">
+        <h2>Rizika</h2>
+        <a class="more" href="/rizika/">Kvantifikovaná geopolitika →</a>
+      </div>
+      <div class="tiles three">
+        {gpr != null && (
+          <div class="tile stat">
+            <span class="tile-name">Geopolitické napětí (GPR)</span>
+            <span class="stat-val">{gprAvg != null && trendArrow(gpr - gprAvg, gprAvg * 0.25)} {gpr.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}<small>{gprAvg != null ? `dlouhodobý průměr ~${gprAvg.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}` : 'novinový index'}</small></span>
+          </div>
+        )}
+        {defense && defense.last != null && (
+          <div class="tile stat">
+            <span class="tile-name">Trh a zbrojení</span>
+            <span class="stat-val">{trendArrow(defense.delta)} {defense.last.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}<small>obrana (ITA) vs S&P 500, index od 1/2024</small></span>
           </div>
         )}
       </div>
