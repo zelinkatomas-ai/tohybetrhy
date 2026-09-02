@@ -1,0 +1,28 @@
+name: Návrhy do Radaru
+
+# Ruční spuštění: stáhne RSS feedy a vypíše návrhy zpráv do logu.
+# Kurátorský krok zůstává lidský – návrhy se ručně (nebo přes Claude,
+# s revizí v PR) přenášejí do src/config/sources.json. Nic necommituje.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  navrhy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalace závislostí
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Stažení feedů a výpis návrhů
+        run: |
+          python pipeline/fetch_sources.py
+          echo "===== PLNÉ NÁVRHY (JSON) ====="
+          cat pipeline/sources_proposals.json
+        env:
+          PYTHONUNBUFFERED: "1"

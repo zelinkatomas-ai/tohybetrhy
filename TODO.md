@@ -37,8 +37,10 @@
 - [ ] Koupit doménu **tohybetrhy.cz** a přesměrovat na Pages.
 - [ ] Založit **Umami** (Cloud free tier nebo self-host) a nastavit
       env proměnné v Cloudflare Pages. Zapnout Bot Fight Mode.
-- [ ] Registrace do **affiliate programů** (XTB, Portu, DEGIRO…) a doplnění
-      skutečných URL do `src/config/links.json`.
+- [ ] **IBKR referral**: v `src/config/links.json` je u klíče `ibkr`
+      placeholder – nahradit skutečným referral odkazem. (XTB a DEGIRO
+      odstraněny – referral je k dispozici jen u IBKR; Portu ponecháno
+      jako neprovizní odkaz.)
 - [ ] Nahradit ukázkové položky v `src/config/sources.json` skutečnými
       (mají `demo: true`; první kandidát: Vanda retail flows graf z X).
 

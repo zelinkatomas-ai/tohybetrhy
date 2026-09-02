@@ -5,6 +5,8 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tohybetrhy.cz',
+  // sekce Zdroje se přejmenovala na Radar; staré URL přesměrujeme
+  redirects: { '/zdroje/': '/radar/' },
   integrations: [
     mdx(),
     sitemap({
