@@ -1021,33 +1021,43 @@ def fetch_polymarket() -> dict:
         except (TypeError, ValueError):
             return 0.0
 
+    def parsed(m: dict) -> dict | None:
+        o, p = m.get("outcomes"), m.get("outcomePrices")
+        if isinstance(o, str):
+            o = json.loads(o)
+        if isinstance(p, str):
+            p = json.loads(p)
+        if not o or not p:
+            return None
+        probs = [num(x) for x in p]
+        # binární trh: bereme cenu "Yes"; jinak nejpravděpodobnější výstup
+        try:
+            i = [str(x).lower() for x in o].index("yes")
+        except ValueError:
+            i = probs.index(max(probs))
+        return {"question": m.get("question"), "outcome": str(o[i]), "prob": probs[i]}
+
     rows = []
     for ev in events:
         try:
+            # otázky s prošlým deadlinem jen čekají na vypořádání – vynechat
+            end = str(ev.get("endDate") or "")
+            if end and end[:10] < date.today().isoformat():
+                continue
             tags = {str(t.get("slug") or t.get("label") or "").strip().lower()
                     for t in (ev.get("tags") or [])}
-            markets = ev.get("markets") or []
-            if not markets:
+            cands = [c for c in (parsed(m) for m in (ev.get("markets") or [])
+                                 if not m.get("closed")) if c]
+            if not cands:
                 continue
-            best = max(markets, key=lambda m: num(m.get("volume24hr") or m.get("volume")))
-            outcomes, prices = best.get("outcomes"), best.get("outcomePrices")
-            if isinstance(outcomes, str):
-                outcomes = json.loads(outcomes)
-            if isinstance(prices, str):
-                prices = json.loads(prices)
-            if not outcomes or not prices:
-                continue
-            probs = [num(p) for p in prices]
-            # binární trh: bereme cenu "Yes"; jinak nejpravděpodobnější výstup
-            try:
-                i = [str(o).lower() for o in outcomes].index("yes")
-            except ValueError:
-                i = probs.index(max(probs))
+            # jediný trh = binární otázka; u vícetrhových událostí (volby
+            # apod.) ukazujeme lídra, ne nejobchodovanější dílčí trh
+            best = cands[0] if len(cands) == 1 else max(cands, key=lambda c: c["prob"])
             rows.append({
-                "question": (best.get("question") if len(markets) > 1 else None)
-                            or ev.get("title") or best.get("question"),
-                "outcome": str(outcomes[i]),
-                "prob": round(probs[i] * 100, 1),
+                "question": (ev.get("title") if len(cands) == 1 else best["question"])
+                            or ev.get("title") or best["question"],
+                "outcome": best["outcome"],
+                "prob": round(best["prob"] * 100, 1),
                 "volume24h": round(num(ev.get("volume24hr")), 0),
                 "url": f"https://polymarket.com/event/{ev['slug']}" if ev.get("slug") else None,
                 "_tags": tags,
