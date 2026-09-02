@@ -79,6 +79,25 @@ Rozdíl obou čísel ≈ botí provoz.
 - `extras/go-click-counter/` – volitelný Cloudflare Worker: serverové
   počítání affiliate prokliků imunní vůči ad-blokerům (návod uvnitř).
 
+## Zpětná vazba (formulář /napiste-mi/)
+
+Formulář běží bez vlastního backendu: Cloudflare Pages Function
+(`functions/api/feedback.js`) ověří [Turnstile](https://developers.cloudflare.com/turnstile/)
+(neviditelná ochrana proti spamu, bez cookies lišty) a zprávu přepošle
+e-mailem přes [Resend](https://resend.com) (free tier). Zprovoznění:
+
+1. Cloudflare dashboard → **Turnstile** → Add widget (doména
+   `tohybetrhy.pages.dev`, později i `tohybetrhy.cz`) → opsat **Site Key**
+   a **Secret Key**.
+2. Účet na **resend.com** (zdarma) → API klíč. Bez vlastní ověřené domény
+   posílá Resend jen na e-mail vlastního účtu – pro zpětnou vazbu sobě
+   to přesně stačí (`FEEDBACK_TO` = e-mail účtu Resend).
+3. Cloudflare Pages → Settings → **Environment variables** (Production):
+   - `PUBLIC_TURNSTILE_SITE_KEY` (plain, používá se při buildu)
+   - `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `FEEDBACK_TO` (Secrets)
+4. Redeploy. Bez nastaveného site key stránka zobrazuje „formulář se
+   připravuje" a nic se neděje.
+
 ## Datové zdroje a limity
 
 - Ceny ETF: veřejné chart API Yahoo Finance (bez klíče; pro osobní projekt OK,

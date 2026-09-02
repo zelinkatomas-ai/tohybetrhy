@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Formulář se zobrazí jen s nastaveným Turnstile klíčem (viz README,
+// sekce Zpětná vazba) – bez něj by nešlo ověřovat proti spamu.
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+<Base title="Napište mi – To hýbe trhy" description="Zpětná vazba k webu To hýbe trhy: co funguje, co chybí, co měřit jinak.">
+  <h1>Napište mi</h1>
+  <p class="lead">
+    Web je v začátcích a zpětná vazba je to nejcennější, co mu můžete dát.
+    Co vám dává smysl, co chybí, který ukazatel byste měřili jinak? Napište
+    pár vět – čtu všechno. E-mail je nepovinný; vyplňte ho, jen pokud
+    stojíte o odpověď.
+  </p>
+
+  {siteKey ? (
+    <form id="fb" novalidate>
+      <label>
+        Jméno <span class="opt">(nepovinné)</span>
+        <input type="text" name="name" maxlength="200" autocomplete="name" />
+      </label>
+      <label>
+        E-mail <span class="opt">(nepovinný, jen pro odpověď)</span>
+        <input type="email" name="email" maxlength="200" autocomplete="email" />
+      </label>
+      <label>
+        Zpráva
+        <textarea name="message" rows="7" maxlength="5000" required></textarea>
+      </label>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <div class="cf-turnstile" data-sitekey={siteKey}></div>
+      <button type="submit">Odeslat</button>
+      <p id="fb-status" role="status" hidden></p>
+    </form>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+    <script is:inline>
+      document.getElementById('fb').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const st = document.getElementById('fb-status');
+        const fd = new FormData(form);
+        st.hidden = false;
+        st.textContent = 'Odesílám…';
+        try {
+          const r = await fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              name: fd.get('name'),
+              email: fd.get('email'),
+              message: fd.get('message'),
+              website: fd.get('website'),
+              turnstile: fd.get('cf-turnstile-response'),
+            }),
+          });
+          const out = await r.json();
+          if (out.ok) {
+            form.reset();
+            if (window.turnstile) window.turnstile.reset();
+            st.textContent = 'Díky! Zpráva je odeslaná.';
+          } else {
+            st.textContent = out.error || 'Něco se pokazilo, zkuste to prosím znovu.';
+          }
+        } catch {
+          st.textContent = 'Něco se pokazilo, zkuste to prosím později.';
+        }
+      });
+    </script>
+  ) : (
+    <p class="pending">Formulář se právě připravuje – zkuste to prosím za pár dní.</p>
+  )}
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+  .pending { color: var(--text-secondary); }
+
+  form { max-width: 34rem; display: grid; gap: 0.9rem; margin: 1.5rem 0; }
+  label { display: grid; gap: 0.3rem; font-size: 0.9rem; font-weight: 600; }
+  .opt { font-weight: 400; color: var(--text-muted); }
+  input, textarea {
+    font: inherit; color: var(--text-primary);
+    padding: 0.55rem 0.7rem; background: var(--surface-1);
+    border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hp { position: absolute; left: -9999px; height: 0; width: 0; border: 0; padding: 0; }
+  button {
+    justify-self: start; font: inherit; font-weight: 600; cursor: pointer;
+    padding: 0.55rem 1.4rem; color: #fff; background: var(--accent);
+    border: 0; border-radius: 999px;
+  }
+  button:hover { filter: brightness(1.08); }
+  #fb-status { font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
+</style>
