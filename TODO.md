@@ -41,8 +41,9 @@
       placeholder – nahradit skutečným referral odkazem. (XTB a DEGIRO
       odstraněny – referral je k dispozici jen u IBKR; Portu ponecháno
       jako neprovizní odkaz.)
-- [ ] Nahradit ukázkové položky v `src/config/sources.json` skutečnými
-      (mají `demo: true`; první kandidát: Vanda retail flows graf z X).
+- [x] Nahradit ukázkové položky v `src/config/sources.json` skutečnými —
+      hotovo 2026-09-02 (5 kurátorovaných zpráv z RSS návrhů; nové návrhy
+      kdykoli přes workflow „Návrhy do Radaru" v Actions).
 
 ## Fronta vývoje (v pořadí priorit)
 

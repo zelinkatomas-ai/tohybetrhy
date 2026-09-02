@@ -31,12 +31,6 @@ jobs:
           # blokuje IP runneru): https://fred.stlouisfed.org/docs/api/api_key.html
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
-      - name: "DOCASNE: navrhy do Radaru (smazat po sklizeni)"
-        run: |
-          python pipeline/fetch_sources.py || true
-          echo "===== PLNE NAVRHY (JSON) ====="
-          cat pipeline/sources_proposals.json || true
-
       - name: Commit nových dat
         run: |
           git config user.name "data-bot"
