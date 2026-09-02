@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02T09:34:56+00:00",
+ "updated": "2026-09-02T17:34:39+00:00",
  "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). NAAIM: průměrná akciová expozice aktivních správců. Retail proxy: podíl pákových ETF na dolarovém objemu. VIX: implikovaná volatilita S&P 500 + termínová struktura VIX3M/VIX.",
  "cot": {
   "dates": [
@@ -721,7 +721,7 @@
    "2026-08-17",
    "2026-08-24",
    "2026-08-31",
-   "2026-09-01"
+   "2026-09-02"
   ],
   "series": [
    {
@@ -867,7 +867,7 @@
      10.3,
      11.8,
      10.7,
-     12.2
+     17.1
     ]
    }
   ]
@@ -1161,7 +1161,7 @@
       15.13,
       14.51,
       16.34,
-      16.63
+      15.44
      ]
     },
     {
@@ -1307,7 +1307,7 @@
       18.21,
       18.19,
       18.21,
-      18.25
+      18.23
      ],
      "benchmark": true
     }
@@ -1447,7 +1447,8 @@
     "2026-06-22",
     "2026-06-29",
     "2026-07-06",
-    "2026-07-13"
+    "2026-07-13",
+    "2026-09-02"
    ],
    "series": [
     {
@@ -1585,7 +1586,8 @@
       1.093,
       1.179,
       1.236,
-      1.094
+      1.094,
+      1.158
      ]
     }
    ]

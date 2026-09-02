@@ -1,35 +1,62 @@
 {
-  "_comment": "Kurátorované zahraniční zdroje. Žádné kopírování článků – jen nadpis, zdroj, odkaz, vlastní shrnutí a vysvětlení relevance pro momentum. Položky s demo:true jsou ukázkové a před spuštěním je nahraďte skutečnými.",
   "items": [
     {
-      "title": "Evropské banky posilují po výsledcích",
-      "source": "Reuters",
-      "url": "#",
-      "date": "2026-07-24",
-      "tags": ["Finance", "Evropa"],
-      "summary": "Lepší výsledky a rostoucí výhled úrokových marží podporují relativní sílu evropského finančního sektoru.",
-      "why": "Potvrzuje sektorové momentum financí a přispívá k rotaci kapitálu směrem k Evropě.",
-      "demo": true
-    },
-    {
-      "title": "Zdravotnictví táhnou výsledky farmaceutických firem",
-      "source": "Bloomberg",
-      "url": "#",
-      "date": "2026-07-23",
-      "tags": ["Zdravotnictví", "USA"],
-      "summary": "Silná výsledková sezóna farmaceutického sektoru vrací kapitál do defenzivních částí trhu.",
-      "why": "Vysvětluje, proč má zdravotnictví aktuálně nejlepší 3měsíční momentum mezi americkými sektory.",
-      "demo": true
-    },
-    {
-      "title": "Čínské akcie zažívají nejsilnější měsíc v roce",
+      "title": "Dražší plyn v Evropě zvedá výnosy dluhopisů",
       "source": "Financial Times",
-      "url": "#",
-      "date": "2026-07-22",
-      "tags": ["Regiony", "Čína"],
-      "summary": "Stimulační opatření a levné valuace přitahují zahraniční kapitál zpět na čínský trh.",
-      "why": "Krátkodobý obrat čínského momenta může předznamenat širší rotaci v rámci rozvíjejících se trhů.",
-      "demo": true
+      "url": "https://www.ft.com/content/f73c2c95-5c73-4b2f-9f00-9fa8c12c10c9",
+      "date": "2026-09-02",
+      "tags": [
+        "Evropa",
+        "Energie"
+      ],
+      "summary": "Evropský plyn je nejdražší za tři roky a výprodej dluhopisů poslal výnosy amerických desetiletek nejvýš od roku 2023 – trh se bojí návratu plnohodnotného konfliktu s Íránem.",
+      "why": "Dražší energie → vyšší inflační očekávání → vyšší sazby. Přesně kanál, kterým se geopolitika přelévá do valuací akcií; sazby jsou hlavní protivítr momenta."
+    },
+    {
+      "title": "Nvidia táhne čipové akcie vzhůru, důvěra v AI investice se vrací",
+      "source": "Investor's Business Daily (via Yahoo)",
+      "url": "https://www.investors.com/news/technology/nvidia-stock-buy-point-chip-stocks-rally/",
+      "date": "2026-09-02",
+      "tags": [
+        "Technologie"
+      ],
+      "summary": "Čipový sektor posiluje v čele s Nvidií poté, co se na trh vrátila důvěra v pokračování investic do AI infrastruktury.",
+      "why": "Technologie jsou největší váhou amerického trhu – dokud drží AI capex, drží i sektorové momentum USA."
+    },
+    {
+      "title": "Si Ťin-pching sbírá diplomatické body před summitem s Trumpem",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/08/31/china-xi-us-trump-visit-sco-brics-modi-india.html",
+      "date": "2026-09-01",
+      "tags": [
+        "Čína",
+        "Indie"
+      ],
+      "summary": "Čínský prezident míří poprvé do Indie a poté do USA na jednání s Trumpem; sérií státních návštěv si buduje pozici před klíčovým summitem.",
+      "why": "Vztahy USA–Čína jsou hlavní katalyzátor pro čínské akcie a rotaci kapitálu do rozvíjejících se trhů, která právě běží v našich datech."
+    },
+    {
+      "title": "Krypto padá s novou eskalací konfliktu s Íránem",
+      "source": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-wednesday-september-2-2026-crypto-prices-tumble-as-iran-war-reignites-112639522.html",
+      "date": "2026-09-02",
+      "tags": [
+        "Krypto"
+      ],
+      "summary": "Bitcoin i ethereum oslabily poté, co se znovu rozhořel konflikt s Íránem – krypto se chová jako rizikové aktivum, ne jako bezpečný přístav.",
+      "why": "Bitcoin sledujeme jako barometr rizikového apetitu; risk-off reakce potvrzuje, proč je stále pod 52týdenním průměrem."
+    },
+    {
+      "title": "Goldman Sachs: čekejte v příštím roce nižší výnosy akcií",
+      "source": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/markets/article/goldman-sachs-warns-investors-to-expect-lower-returns-over-the-next-year-171050637.html",
+      "date": "2026-09-02",
+      "tags": [
+        "USA",
+        "Sentiment"
+      ],
+      "summary": "Goldman Sachs varuje, že výnosy akcií budou v příštím roce znatelně nižší než v uplynulých letech.",
+      "why": "Ladí s naším poměrem S&P 500 vs peněžní zásoba, který je vysoko nad pětiletým trendem – další růst by musel stát na dražších valuacích, ne na nových penězích."
     }
   ]
 }
