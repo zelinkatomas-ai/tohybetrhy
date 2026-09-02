@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02T09:31:11+00:00",
+ "updated": "2026-09-02T09:34:57+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, směr sentimentu (bullish/bearish) dle tradestie. StockTwits: trending symboly + počet sledujících.",
  "reddit": {
   "top": [
@@ -8,9 +8,9 @@
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
     "mentions": 339,
-    "upvotes": 974,
-    "prev_mentions": 341,
-    "change_pct": -0.6,
+    "upvotes": 973,
+    "prev_mentions": 339,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.216
    },
@@ -22,8 +22,8 @@
     "upvotes": 2976,
     "prev_mentions": 127,
     "change_pct": 0.0,
-    "sentiment": "bearish",
-    "sentiment_score": 0.0
+    "sentiment": null,
+    "sentiment_score": null
    },
    {
     "rank": 3,
@@ -64,8 +64,8 @@
     "name": "NVIDIA",
     "mentions": 86,
     "upvotes": 2868,
-    "prev_mentions": 88,
-    "change_pct": -2.3,
+    "prev_mentions": 86,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.467
    },
@@ -85,7 +85,7 @@
     "ticker": "ASTS",
     "name": "AST SpaceMobile",
     "mentions": 84,
-    "upvotes": 930,
+    "upvotes": 932,
     "prev_mentions": 84,
     "change_pct": 0.0,
     "sentiment": "bullish",
@@ -99,8 +99,8 @@
     "upvotes": 133,
     "prev_mentions": 73,
     "change_pct": 0.0,
-    "sentiment": "bullish",
-    "sentiment_score": 0.361
+    "sentiment": null,
+    "sentiment_score": null
    },
    {
     "rank": 10,
@@ -189,9 +189,9 @@
    },
    {
     "rank": 3,
-    "ticker": "GTLB",
-    "name": "Gitlab Inc",
-    "watchers": 8526
+    "ticker": "DJT",
+    "name": "Trump Media & Technology Group Corp.",
+    "watchers": 115674
    },
    {
     "rank": 4,
@@ -201,39 +201,39 @@
    },
    {
     "rank": 5,
-    "ticker": "DJT",
-    "name": "Trump Media & Technology Group Corp.",
-    "watchers": 115674
+    "ticker": "GTLB",
+    "name": "Gitlab Inc",
+    "watchers": 8526
    },
    {
     "rank": 6,
-    "ticker": "ONON",
-    "name": "On Holding AG",
-    "watchers": 6968
-   },
-   {
-    "rank": 7,
-    "ticker": "GME",
-    "name": "GameStop Corp",
-    "watchers": 307296
-   },
-   {
-    "rank": 8,
-    "ticker": "CIFR",
-    "name": "Cipher Digital Inc.",
-    "watchers": 23366
-   },
-   {
-    "rank": 9,
     "ticker": "SOXL",
     "name": "Direxion Daily Semiconductor Bull 3X Shares",
     "watchers": 39943
    },
    {
+    "rank": 7,
+    "ticker": "CIFR",
+    "name": "Cipher Digital Inc.",
+    "watchers": 23366
+   },
+   {
+    "rank": 8,
+    "ticker": "FRVO",
+    "name": "Fervo Energy Co",
+    "watchers": 1542
+   },
+   {
+    "rank": 9,
+    "ticker": "HPE",
+    "name": "Hewlett Packard Enterprise Co",
+    "watchers": 12897
+   },
+   {
     "rank": 10,
-    "ticker": "FCEL",
-    "name": "Fuelcell Energy Inc",
-    "watchers": 144060
+    "ticker": "PL",
+    "name": "Planet Labs PBC",
+    "watchers": 15810
    }
   ]
  }
