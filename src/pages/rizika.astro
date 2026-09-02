@@ -3,8 +3,13 @@ import Base from '../layouts/Base.astro';
 import LineChart from '../components/LineChart.astro';
 import Methodology from '../components/Methodology.astro';
 import risks from '../data/risks.json';
+import polymarket from '../data/polymarket.json';
 
 const r = risks as any;
+const bets = (polymarket as any).geopolitics ?? null;
+const fmtVol = (v: number) =>
+  v >= 1e6 ? `${(v / 1e6).toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} mil. $`
+           : `${Math.round(v / 1e3).toLocaleString('cs-CZ')} tis. $`;
 ---
 <Base title="Rizika – To hýbe trhy" description="Kvantifikovaná geopolitika: novinový index GPR, nejistota z hospodářské politiky (EPU) a jak zbrojení oceňuje trh.">
   <h1>Rizika</h1>
@@ -20,7 +25,7 @@ const r = risks as any;
   {r.gpr && (
     <LineChart
       title="Geopolitické napětí: index GPR"
-      note="Podíl novinových článků o geopolitickém napětí v 10 velkých světových denících (Caldara–Iacoviello, akademický standard). Týdenní průměr denní řady; čárkovaně dlouhodobý průměr – hodnoty výrazně nad ním značí eskalaci."
+      note="Podíl novinových článků o geopolitickém napětí v 10 velkých světových denících (Caldara–Iacoviello, akademický standard). Týdenní průměr denní řady. Klíčové je srovnání s ročním klouzavým průměrem – úrovní, na kterou si trhy zvykly; čárkovaně dlouhodobý průměr pro historický kontext."
       dates={r.gpr.dates}
       series={r.gpr.series}
     />
@@ -28,7 +33,7 @@ const r = risks as any;
   {r.epu && (
     <LineChart
       title="Nejistota z hospodářské politiky: index EPU (USA)"
-      note="Baker–Bloom–Davis: novinový index nejistoty kolem cel, sankcí, daní a rozpočtů. Doplněk ke GPR – obchodní válka se projeví tady dřív než v geopolitickém indexu. Týdenní průměr denní řady z FREDu; čárkovaně průměr od 2015."
+      note="Baker–Bloom–Davis: novinový index nejistoty kolem cel, sankcí, daní a rozpočtů. Doplněk ke GPR – obchodní válka se projeví tady dřív než v geopolitickém indexu. Týdenní průměr denní řady z FREDu, roční klouzavý průměr jako aktuální normál; čárkovaně průměr od 2015."
       dates={r.epu.dates}
       series={r.epu.series}
     />
@@ -40,6 +45,35 @@ const r = risks as any;
       dates={r.defense.dates}
       series={r.defense.series}
     />
+  )}
+
+  {bets?.length > 0 && (
+    <section class="bets">
+      <h2>Sázkové trhy: geopolitika</h2>
+      <p class="note">
+        Nejobchodovanější otevřené geopolitické otázky na Polymarketu –
+        pravděpodobnosti oceněné skutečnými penězi sázkařů. Výběr je čistě
+        mechanický (objem za 24 hodin), týdenní snímek; živé kurzy po
+        prokliku.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Otázka</th><th>Odpověď trhu</th><th class="num">Šance</th><th class="num">Objem 24 h</th></tr>
+          </thead>
+          <tbody>
+            {bets.map((b: any) => (
+              <tr>
+                <td class="q">{b.url ? <a href={b.url} rel="nofollow noopener" target="_blank">{b.question}</a> : b.question}</td>
+                <td>{b.outcome}</td>
+                <td class="num prob">{b.prob.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })} %</td>
+                <td class="num">{fmtVol(b.volume24h)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   )}
 
   <Methodology>
@@ -64,6 +98,14 @@ const r = risks as any;
       přeceňuje riziko, tam teče kapitál do zbrojení.
     </p>
     <p>
+      <strong>Polymarket:</strong> sázkové trhy oceňují pravděpodobnosti
+      konkrétních událostí penězi – historicky bývají přesnější než průzkumy
+      i experti, protože omyl něco stojí. Výběr otázek je mechanický
+      (nejvyšší objem s geopolitickými tagy), takže se sám obměňuje s děním;
+      šance = cena kontraktu. Makro otázky (sazby, recese) najdete na
+      stránce <a href="/likvidita/">Likvidita</a>.
+    </p>
+    <p>
       <strong>Jak to číst:</strong> výzkum opakovaně ukazuje, že izolované
       geopolitické šoky mají na akciové trhy krátkodobý dopad a rychle
       odeznívají; dlouhodobě škodí až jejich přeliv do inflace, sazeb
@@ -77,4 +119,16 @@ const r = risks as any;
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+
+  .bets { margin: 2rem 0; }
+  .bets h2 { font-size: 1.2rem; margin: 0 0 0.35rem; }
+  .bets .note { margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--text-secondary); max-width: 46rem; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid var(--gridline); }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+  th.num, td.num { text-align: right; white-space: nowrap; }
+  td.prob { font-weight: 600; }
+  td.q a { color: var(--text-primary); text-decoration: none; border-bottom: 1px dotted var(--baseline); }
+  td.q a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 </style>

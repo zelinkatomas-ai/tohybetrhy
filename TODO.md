@@ -96,12 +96,12 @@
       vůči S&P 500. Věta `sentences.risks` jen při GPR > 1,5× průměr.
       Metodika poctivě říká, že čisté geopolitické šoky trhy vstřebávají
       rychle — je to kontext, ne signál.
-- [ ] **Polymarket** (kandidát, širší využití než jen Rizika): veřejné
-      gamma API — pravděpodobnosti konkrétních otázek oceněné penězi
-      sázkařů. Kurátorský výběr market ID v configu (jako u Zdrojů),
-      čísla pak mechanicky. Hodí se pro Rizika (eskalace, příměří),
-      ale i makro (sazby Fedu, recese) či volby. Prozkoumat strukturu
-      API a stabilitu ID před napojením.
+- [x] **Polymarket** (`fetch_polymarket` → `polymarket.json`): veřejné
+      gamma API, výběr mechanicky — nejobchodovanější otevřené otázky
+      (objem 24 h) tříděné podle tagů do skupin `geopolitics` (tabulka
+      na /rizika/) a `macro` (tabulka na /likvidita/). Seznam se sám
+      obměňuje s děním, žádná ruční kurátorská volba. Další skupiny
+      (volby, krypto…) = jen přidat tagy do POLYMARKET_GROUPS.
 - [ ] **Sítě – kandidáti na rozšíření**: YouTube Data API (zdarma s klíčem,
       secret `YOUTUBE_API_KEY`; metrika: videa + zhlédnutí k top tickerům
       z Redditu = pozornost napříč platformami). Wikipedia pageviews API

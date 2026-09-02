@@ -51,7 +51,7 @@ const mmfShare = liq.cash?.mmf_share ?? null;
 // rizika: poslední GPR vs dlouhodobý průměr, relativní síla obrany (ITA)
 const rsk = risks as any;
 const gpr = rsk.gpr?.series?.[0]?.values?.at(-1) ?? null;
-const gprAvg = rsk.gpr?.avg ?? null;
+const gprAvg = rsk.gpr?.avg_1y ?? rsk.gpr?.avg ?? null;
 const defense = rsk.defense ? lastDelta(rsk.defense) : null;
 
 const latestSources = sources.items.slice(0, 3);
@@ -196,7 +196,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
         {gpr != null && (
           <div class="tile stat">
             <span class="tile-name">Geopolitické napětí (GPR)</span>
-            <span class="stat-val">{gprAvg != null && trendArrow(gpr - gprAvg, gprAvg * 0.25)} {gpr.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}<small>{gprAvg != null ? `dlouhodobý průměr ~${gprAvg.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}` : 'novinový index'}</small></span>
+            <span class="stat-val">{gprAvg != null && trendArrow(gpr - gprAvg, gprAvg * 0.25)} {gpr.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}<small>{gprAvg != null ? `roční průměr ~${gprAvg.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })}` : 'novinový index'}</small></span>
           </div>
         )}
         {defense && defense.last != null && (

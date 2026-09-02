@@ -1,0 +1,92 @@
+{
+ "updated": "2026-09-02T09:35:17+00:00",
+ "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
+ "geopolitics": [
+  {
+   "question": "Will the U.S. invade Iran before 2027?",
+   "outcome": "Yes",
+   "prob": 16.5,
+   "volume24h": 645431.0,
+   "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
+  },
+  {
+   "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
+   "outcome": "Yes",
+   "prob": 55.5,
+   "volume24h": 491025.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election"
+  },
+  {
+   "question": "US announces end of Iranian blockade by December 31, 2026?",
+   "outcome": "Yes",
+   "prob": 61.0,
+   "volume24h": 448781.0,
+   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+  },
+  {
+   "question": "Will Marine Le Pen win the 2027 French presidential election?",
+   "outcome": "Yes",
+   "prob": 33.1,
+   "volume24h": 333115.0,
+   "url": "https://polymarket.com/event/next-french-presidential-election"
+  },
+  {
+   "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
+   "outcome": "Yes",
+   "prob": 50.4,
+   "volume24h": 243604.0,
+   "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election"
+  },
+  {
+   "question": "Strait of Hormuz traffic returns to normal by September 30?",
+   "outcome": "Yes",
+   "prob": 2.8,
+   "volume24h": 209122.0,
+   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-september-30-20260702154339440"
+  }
+ ],
+ "macro": [
+  {
+   "question": "Will the Fed increase interest rates by 25 bps after the September 2026 meeting?",
+   "outcome": "Yes",
+   "prob": 59.5,
+   "volume24h": 3827854.0,
+   "url": "https://polymarket.com/event/fed-decision-in-september-762"
+  },
+  {
+   "question": "Will no Fed rate cuts happen in 2026?",
+   "outcome": "Yes",
+   "prob": 88.8,
+   "volume24h": 179531.0,
+   "url": "https://polymarket.com/event/how-many-fed-rate-cuts-in-2026"
+  },
+  {
+   "question": "Fed rate hike in 2026?",
+   "outcome": "Yes",
+   "prob": 71.5,
+   "volume24h": 102885.0,
+   "url": "https://polymarket.com/event/fed-rate-hike-in-2026"
+  },
+  {
+   "question": "Will NVIDIA be the largest company in the world by market cap on September 30?",
+   "outcome": "Yes",
+   "prob": 90.5,
+   "volume24h": 87171.0,
+   "url": "https://polymarket.com/event/largest-company-end-of-september-1785358369147"
+  },
+  {
+   "question": "Strait of Hormuz traffic returns to normal by December 31?",
+   "outcome": "Yes",
+   "prob": 26.5,
+   "volume24h": 68668.0,
+   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31"
+  },
+  {
+   "question": "Will the Bank of Japan announce a 25 bps increase at the September 2026 meeting?",
+   "outcome": "Yes",
+   "prob": 98.4,
+   "volume24h": 61570.0,
+   "url": "https://polymarket.com/event/bank-of-japan-decision-in-september-20260616002734979"
+  }
+ ]
+}
