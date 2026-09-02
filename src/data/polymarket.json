@@ -1,6 +1,92 @@
 {
- "updated": null,
- "note": "Zatím bez dat – naplní pipeline (fetch_data.py).",
- "geopolitics": null,
- "macro": null
+ "updated": "2026-09-02T09:27:12+00:00",
+ "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
+ "geopolitics": [
+  {
+   "question": "Will the U.S. invade Iran before 2027?",
+   "outcome": "Yes",
+   "prob": 16.5,
+   "volume24h": 645431.0,
+   "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
+  },
+  {
+   "question": "Will Carlos Roberto Massa Júnior win the 2026 Brazilian presidential election?",
+   "outcome": "Yes",
+   "prob": 0.1,
+   "volume24h": 491025.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election"
+  },
+  {
+   "question": "US announces end of Iranian blockade by August 31, 2026?",
+   "outcome": "Yes",
+   "prob": 0.0,
+   "volume24h": 448781.0,
+   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+  },
+  {
+   "question": "Israel x Iran ceasefire continues through July 31?",
+   "outcome": "Yes",
+   "prob": 100.0,
+   "volume24h": 361641.0,
+   "url": "https://polymarket.com/event/israel-x-iran-ceasefire-continues-throughptptpt-20260716224448963"
+  },
+  {
+   "question": "Will Raphaël Glucksmann win the 2027 French presidential election?",
+   "outcome": "Yes",
+   "prob": 2.1,
+   "volume24h": 333115.0,
+   "url": "https://polymarket.com/event/next-french-presidential-election"
+  },
+  {
+   "question": "Will Tropical Storm Saudel make landfall in Japan?",
+   "outcome": "Yes",
+   "prob": 0.2,
+   "volume24h": 265207.0,
+   "url": "https://polymarket.com/event/where-will-tropical-storm-saudel-make-landfall-1787177922936"
+  }
+ ],
+ "macro": [
+  {
+   "question": "Will there be no change in Fed interest rates after the September 2026 meeting?",
+   "outcome": "Yes",
+   "prob": 39.5,
+   "volume24h": 3827854.0,
+   "url": "https://polymarket.com/event/fed-decision-in-september-762"
+  },
+  {
+   "question": "Will no Fed rate cuts happen in 2026?",
+   "outcome": "Yes",
+   "prob": 88.8,
+   "volume24h": 179531.0,
+   "url": "https://polymarket.com/event/how-many-fed-rate-cuts-in-2026"
+  },
+  {
+   "question": "Fed rate hike in 2026?",
+   "outcome": "Yes",
+   "prob": 71.5,
+   "volume24h": 102885.0,
+   "url": "https://polymarket.com/event/fed-rate-hike-in-2026"
+  },
+  {
+   "question": "Will NVIDIA be the largest company in the world by market cap on September 30?",
+   "outcome": "Yes",
+   "prob": 90.5,
+   "volume24h": 87171.0,
+   "url": "https://polymarket.com/event/largest-company-end-of-september-1785358369147"
+  },
+  {
+   "question": "Strait of Hormuz traffic returns to normal by December 31?",
+   "outcome": "Yes",
+   "prob": 26.5,
+   "volume24h": 68668.0,
+   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31"
+  },
+  {
+   "question": "Will the Bank of Japan announce a 25 bps decrease at the September 2026 meeting?",
+   "outcome": "Yes",
+   "prob": 0.1,
+   "volume24h": 61570.0,
+   "url": "https://polymarket.com/event/bank-of-japan-decision-in-september-20260616002734979"
+  }
+ ]
 }

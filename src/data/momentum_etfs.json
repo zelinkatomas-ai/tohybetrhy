@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02T07:29:48+00:00",
+ "updated": "2026-09-02T09:26:45+00:00",
  "note": "ETF stavěná na momentum faktoru vs široký trh (čárkovaně). Výnosy v měně fondu.",
  "rows": [
   {
@@ -68,10 +68,10 @@
    "currency": "EUR",
    "benchmark": false,
    "core": false,
-   "r1": -0.99,
-   "r3": -0.15,
-   "r6": 9.06,
-   "r12": 15.15,
+   "r1": -1.66,
+   "r3": -0.83,
+   "r6": 8.32,
+   "r12": 14.36,
    "signal": "above"
   },
   {
