@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
+import Methodology from '../components/Methodology.astro';
+import risks from '../data/risks.json';
+
+const r = risks as any;
+---
+<Base title="Rizika – To hýbe trhy" description="Kvantifikovaná geopolitika: novinový index GPR, nejistota z hospodářské politiky (EPU) a jak zbrojení oceňuje trh.">
+  <h1>Rizika</h1>
+  <p class="lead">
+    Geopolitika se dá měřit – ne pocitem z titulků, ale mechanicky: kolik
+    prostoru zabírá napětí v novinách (GPR), jak velká je nejistota kolem
+    hospodářské politiky (EPU) a jak strukturální riziko oceňuje trh přes
+    obranný sektor. Důležitý kontext: čisté geopolitické šoky trhy většinou
+    vstřebají rychleji, než se čeká – tyhle teploměry jsou kontext
+    k momentu a likviditě, ne důvod k panice.
+  </p>
+
+  {r.gpr && (
+    <LineChart
+      title="Geopolitické napětí: index GPR"
+      note="Podíl novinových článků o geopolitickém napětí v 10 velkých světových denících (Caldara–Iacoviello, akademický standard). Týdenní průměr denní řady; čárkovaně dlouhodobý průměr – hodnoty výrazně nad ním značí eskalaci."
+      dates={r.gpr.dates}
+      series={r.gpr.series}
+    />
+  )}
+  {r.epu && (
+    <LineChart
+      title="Nejistota z hospodářské politiky: index EPU (USA)"
+      note="Baker–Bloom–Davis: novinový index nejistoty kolem cel, sankcí, daní a rozpočtů. Doplněk ke GPR – obchodní válka se projeví tady dřív než v geopolitickém indexu. Týdenní průměr denní řady z FREDu; čárkovaně průměr od 2015."
+      dates={r.epu.dates}
+      series={r.epu.series}
+    />
+  )}
+  {r.defense && (
+    <LineChart
+      title="Trh hlasuje: obranný sektor vs S&P 500"
+      note="Poměr ceny obranných ETF k S&P 500, indexováno na 100 na začátku grafu (evropská řada od startu EUAD v říjnu 2024). Trvalý růst poměru = trh oceňuje strukturální zbrojení, bez ohledu na jednotlivé titulky."
+      dates={r.defense.dates}
+      series={r.defense.series}
+    />
+  )}
+
+  <Methodology>
+    <p>
+      <strong>GPR (Geopolitical Risk Index):</strong> Dario Caldara a Matteo
+      Iacoviello (Fed) počítají od roku 1900 podíl článků o geopolitickém
+      napětí – válkách, hrozbách, terorismu – v 10 velkých denících. Index
+      je standardem akademické literatury; denní řadu autoři publikují
+      zdarma. Ukazujeme týdenní průměr proti dlouhodobému průměru celé
+      dostupné řady.
+    </p>
+    <p>
+      <strong>EPU (Economic Policy Uncertainty):</strong> stejná novinová
+      metoda pro nejistotu z hospodářské politiky (cla, sankce, daně,
+      rozpočtové krize). Denní řadu pro USA přebíráme z FREDu. GPR a EPU se
+      doplňují: horká válka zvedá první, obchodní druhé.
+    </p>
+    <p>
+      <strong>Obranný sektor vs trh:</strong> relativní síla ETF ITA (americká
+      obrana a letectví) a EUAD (evropská obrana) vůči S&P 500. Novinové
+      indexy měří slova; tenhle poměr měří peníze – kam trh dlouhodobě
+      přeceňuje riziko, tam teče kapitál do zbrojení.
+    </p>
+    <p>
+      <strong>Jak to číst:</strong> výzkum opakovaně ukazuje, že izolované
+      geopolitické šoky mají na akciové trhy krátkodobý dopad a rychle
+      odeznívají; dlouhodobě škodí až jejich přeliv do inflace, sazeb
+      a likvidity. Proto tuhle stránku čtěte spolu se stránkou
+      <a href="/likvidita/">Likvidita</a> – a věta o rizicích se do vzkazu
+      na hlavní stránce propisuje jen při výrazné eskalaci.
+    </p>
+  </Methodology>
+</Base>
+
+<style>
+  h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+</style>
