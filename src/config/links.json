@@ -1,18 +1,13 @@
 {
   "_comment": "Centrální správa externích/affiliate odkazů. Na webu odkazuj vždy na /go/<klíč>/ – při změně affiliate podmínek se mění jen tento soubor.",
-  "xtb": {
-    "url": "https://www.xtb.com/cz",
-    "label": "XTB",
+  "ibkr": {
+    "url": "https://ibkr.com/referral/tomas5967",
+    "label": "Interactive Brokers",
     "sponsored": true
   },
   "portu": {
-    "url": "https://www.portu.cz/",
+    "url": "https://www.portu.cz/?reference=zelinkat53D9",
     "label": "Portu",
-    "sponsored": true
-  },
-  "degiro": {
-    "url": "https://www.degiro.cz/",
-    "label": "DEGIRO",
     "sponsored": true
   },
   "justetf": {

@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02T09:34:57+00:00",
+ "updated": "2026-09-02T17:34:40+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, směr sentimentu (bullish/bearish) dle tradestie. StockTwits: trending symboly + počet sledujících.",
  "reddit": {
   "top": [
@@ -7,111 +7,111 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 339,
-    "upvotes": 973,
+    "mentions": 287,
+    "upvotes": 987,
     "prev_mentions": 339,
-    "change_pct": 0.0,
+    "change_pct": -15.3,
     "sentiment": "bullish",
-    "sentiment_score": 0.216
+    "sentiment_score": 0.045
    },
    {
     "rank": 2,
-    "ticker": "MU",
-    "name": "Micron Technology",
-    "mentions": 127,
-    "upvotes": 2976,
-    "prev_mentions": 127,
-    "change_pct": 0.0,
-    "sentiment": null,
-    "sentiment_score": null
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 209,
+    "upvotes": 3165,
+    "prev_mentions": 86,
+    "change_pct": 143.0,
+    "sentiment": "bullish",
+    "sentiment_score": 0.339
    },
    {
     "rank": 3,
     "ticker": "DELL",
     "name": "Dell",
-    "mentions": 119,
-    "upvotes": 3036,
+    "mentions": 150,
+    "upvotes": 3104,
     "prev_mentions": 119,
-    "change_pct": 0.0,
-    "sentiment": null,
-    "sentiment_score": null
+    "change_pct": 26.1,
+    "sentiment": "bullish",
+    "sentiment_score": 0.191
    },
    {
     "rank": 4,
     "ticker": "AVGO",
     "name": "Broadcom",
-    "mentions": 88,
-    "upvotes": 210,
+    "mentions": 148,
+    "upvotes": 380,
     "prev_mentions": 88,
-    "change_pct": 0.0,
+    "change_pct": 68.2,
     "sentiment": "bearish",
-    "sentiment_score": -0.082
+    "sentiment_score": -0.137
    },
    {
     "rank": 5,
-    "ticker": "AAPL",
-    "name": "Apple",
-    "mentions": 86,
-    "upvotes": 138,
-    "prev_mentions": 86,
-    "change_pct": 0.0,
-    "sentiment": null,
-    "sentiment_score": null
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 146,
+    "upvotes": 3033,
+    "prev_mentions": 127,
+    "change_pct": 15.0,
+    "sentiment": "bearish",
+    "sentiment_score": -0.029
    },
    {
     "rank": 6,
-    "ticker": "NVDA",
-    "name": "NVIDIA",
-    "mentions": 86,
-    "upvotes": 2868,
-    "prev_mentions": 86,
-    "change_pct": 0.0,
+    "ticker": "ASTS",
+    "name": "AST SpaceMobile",
+    "mentions": 101,
+    "upvotes": 856,
+    "prev_mentions": 84,
+    "change_pct": 20.2,
     "sentiment": "bullish",
-    "sentiment_score": 0.467
+    "sentiment_score": 0.112
    },
    {
     "rank": 7,
     "ticker": "META",
     "name": "Meta Platforms (Facebook)",
-    "mentions": 86,
-    "upvotes": 178,
+    "mentions": 71,
+    "upvotes": 108,
     "prev_mentions": 86,
-    "change_pct": 0.0,
-    "sentiment": "bullish",
-    "sentiment_score": 0.195
+    "change_pct": -17.4,
+    "sentiment": "bearish",
+    "sentiment_score": -0.019
    },
    {
     "rank": 8,
-    "ticker": "ASTS",
-    "name": "AST SpaceMobile",
-    "mentions": 84,
-    "upvotes": 932,
-    "prev_mentions": 84,
-    "change_pct": 0.0,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 67,
+    "upvotes": 182,
+    "prev_mentions": 72,
+    "change_pct": -6.9,
     "sentiment": "bullish",
-    "sentiment_score": 0.199
+    "sentiment_score": 0.514
    },
    {
     "rank": 9,
-    "ticker": "SNDK",
-    "name": "Sandisk",
-    "mentions": 73,
-    "upvotes": 133,
-    "prev_mentions": 73,
-    "change_pct": 0.0,
+    "ticker": "CRDO",
+    "name": "Credo Technology",
+    "mentions": 64,
+    "upvotes": 124,
+    "prev_mentions": 38,
+    "change_pct": 68.4,
     "sentiment": null,
     "sentiment_score": null
    },
    {
     "rank": 10,
-    "ticker": "QQQ",
-    "name": "Invesco QQQ ETF",
-    "mentions": 72,
-    "upvotes": 209,
-    "prev_mentions": 72,
-    "change_pct": 0.0,
-    "sentiment": "bullish",
-    "sentiment_score": 0.514
+    "ticker": "AM",
+    "name": "Antero Midstream",
+    "mentions": 62,
+    "upvotes": 97,
+    "prev_mentions": 20,
+    "change_pct": 210.0,
+    "sentiment": null,
+    "sentiment_score": null
    }
   ],
   "prev_date": "2026-09-02",
@@ -120,56 +120,56 @@
    "date": "2026-09-02",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 339,
-    "MU": 127,
-    "DELL": 119,
-    "AVGO": 88,
-    "AAPL": 86,
-    "NVDA": 86,
-    "META": 86,
-    "ASTS": 84,
-    "SNDK": 73,
-    "QQQ": 72,
-    "RDDT": 58,
-    "GOOGL": 53,
-    "DTE": 52,
-    "USO": 43,
-    "VOO": 42,
-    "TLT": 39,
-    "CRDO": 38,
-    "SPCX": 36,
-    "NBIS": 35,
-    "AMZN": 34,
-    "MRVL": 34,
-    "GOOG": 33,
+    "SPY": 287,
+    "NVDA": 209,
+    "DELL": 150,
+    "AVGO": 148,
+    "MU": 146,
+    "ASTS": 101,
+    "META": 71,
+    "QQQ": 67,
+    "CRDO": 64,
+    "AM": 62,
+    "GOOGL": 54,
+    "USO": 53,
+    "SNDK": 52,
+    "HTZ": 51,
+    "DTE": 51,
+    "AAPL": 50,
+    "RDDT": 46,
+    "VOO": 43,
+    "GOOG": 42,
+    "RKLB": 41,
+    "PLTR": 39,
+    "MSFT": 36,
+    "SPCX": 35,
+    "AMZN": 35,
     "PANW": 33,
-    "RKLB": 31,
-    "TSLA": 24,
-    "HPE": 24,
-    "SOXL": 24,
-    "ES": 23,
+    "TSLA": 31,
+    "HPE": 30,
+    "AMD": 30,
+    "TLT": 26,
+    "NBIS": 24,
+    "VIVK": 24,
+    "MRVL": 24,
     "BE": 23,
-    "SOFI": 23,
-    "AMD": 22,
-    "AM": 20,
-    "PLTR": 20,
-    "GLD": 20,
-    "MDB": 18,
-    "GPRO": 17,
+    "SOXL": 21,
+    "ES": 20,
+    "MDB": 19,
     "VT": 17,
-    "MSFT": 16,
-    "YOU": 16,
-    "HTZ": 16,
-    "VIVK": 16,
-    "TTWO": 15,
-    "INTC": 14,
-    "ORCL": 14,
-    "SMCI": 14,
-    "IT": 13,
-    "MRNA": 13,
-    "HOOD": 13,
-    "CRM": 12,
-    "WEN": 12
+    "SNOW": 16,
+    "GTLB": 15,
+    "SOFI": 15,
+    "TTD": 14,
+    "IWM": 13,
+    "GLD": 13,
+    "DB": 13,
+    "NKE": 13,
+    "INTC": 13,
+    "YOU": 12,
+    "FCF": 12,
+    "FTC": 12,
+    "SOXS": 12
    }
   }
  },
@@ -177,63 +177,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "DELL",
-    "name": "Dell Technologies Inc",
-    "watchers": 30220
+    "ticker": "CRDO",
+    "name": "Credo Technology Group Holding Ltd",
+    "watchers": 12022
    },
    {
     "rank": 2,
-    "ticker": "NZDUSD",
-    "name": "New Zealand Dollar / US Dollar",
-    "watchers": 4096
+    "ticker": "NLST",
+    "name": "Netlist Inc",
+    "watchers": 27228
    },
    {
     "rank": 3,
-    "ticker": "DJT",
-    "name": "Trump Media & Technology Group Corp.",
-    "watchers": 115674
+    "ticker": "DELL",
+    "name": "Dell Technologies Inc",
+    "watchers": 30418
    },
    {
     "rank": 4,
-    "ticker": "SPY",
-    "name": "SPDR S&P 500 ETF Trust",
-    "watchers": 636755
+    "ticker": "FCEL",
+    "name": "Fuelcell Energy Inc",
+    "watchers": 144165
    },
    {
     "rank": 5,
-    "ticker": "GTLB",
-    "name": "Gitlab Inc",
-    "watchers": 8526
+    "ticker": "PANW",
+    "name": "Palo Alto Networks Inc",
+    "watchers": 39493
    },
    {
     "rank": 6,
-    "ticker": "SOXL",
-    "name": "Direxion Daily Semiconductor Bull 3X Shares",
-    "watchers": 39943
+    "ticker": "PLTR",
+    "name": "Palantir Technologies Inc",
+    "watchers": 324669
    },
    {
     "rank": 7,
-    "ticker": "CIFR",
-    "name": "Cipher Digital Inc.",
-    "watchers": 23366
+    "ticker": "LPTH",
+    "name": "Lightpath Technologies, Inc. - Ordinary Shares - Class A",
+    "watchers": 8715
    },
    {
     "rank": 8,
-    "ticker": "FRVO",
-    "name": "Fervo Energy Co",
-    "watchers": 1542
+    "ticker": "MGNI",
+    "name": "Magnite Inc",
+    "watchers": 12001
    },
    {
     "rank": 9,
-    "ticker": "HPE",
-    "name": "Hewlett Packard Enterprise Co",
-    "watchers": 12897
+    "ticker": "MSOS",
+    "name": "AdvisorShares Pure US Cannabis ETF",
+    "watchers": 13157
    },
    {
     "rank": 10,
-    "ticker": "PL",
-    "name": "Planet Labs PBC",
-    "watchers": 15810
+    "ticker": "MDB",
+    "name": "MongoDB Inc",
+    "watchers": 21503
    }
   ]
  }

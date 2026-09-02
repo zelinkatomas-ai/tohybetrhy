@@ -44,6 +44,12 @@
       skutečných URL do `src/config/links.json`.
 - [ ] Nahradit ukázkové položky v `src/config/sources.json` skutečnými
       (mají `demo: true`; první kandidát: Vanda retail flows graf z X).
+- [x] **Affiliate odkazy** — hotovo 2026-09-02: v `links.json` skutečné
+      referraly IBKR i Portu (obojí `sponsored: true`), XTB a DEGIRO
+      odstraněny, justETF neprovizní.
+- [x] Nahradit ukázkové položky v `src/config/sources.json` skutečnými —
+      hotovo 2026-09-02 (5 kurátorovaných zpráv z RSS návrhů; nové návrhy
+      kdykoli přes workflow „Návrhy do Radaru" v Actions).
 
 ## Fronta vývoje (v pořadí priorit)
 

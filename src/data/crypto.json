@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02T09:34:34+00:00",
+ "updated": "2026-09-02T17:34:19+00:00",
  "note": "Bitcoin, spotová cena v USD. Obchoduje se nonstop; vzorkujeme týdně jako ostatní data.",
  "rows": [
   {
@@ -8,10 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 22.09,
-   "r3": 16.72,
-   "r6": 5.37,
-   "r12": -33.54,
+   "r1": 22.85,
+   "r3": 17.44,
+   "r6": 6.02,
+   "r12": -33.13,
    "signal": "below"
   }
  ],
@@ -304,7 +304,7 @@
      176.95,
      176.75,
      176.15,
-     174.53
+     175.62
     ]
    }
   ]
