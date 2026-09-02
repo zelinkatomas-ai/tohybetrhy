@@ -16,6 +16,7 @@ Výstupy (src/data/):
   - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
                              zaparkovaná hotovost, trh vs M2, dolar
   - risks.json           ... rizika: index GPR, nejistota EPU, obranný sektor
+  - polymarket.json      ... sázkové trhy: geopolitika + makro (top dle objemu)
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
 
 Spouštění:  python3 pipeline/fetch_data.py
@@ -876,6 +877,17 @@ def weekly_mean(points: dict[str, float]) -> dict[str, float]:
     return {k: sum(vs) / len(vs) for k, vs in buckets.items()}
 
 
+def rolling_year(wk: dict[str, float]) -> dict[str, float]:
+    """Roční klouzavý průměr týdenní série – „na co si trhy zvykly
+    za poslední rok". Eskalace se pozná proti němu, ne proti průměru
+    za celé dekády."""
+    weeks = sorted(wk)
+    return {
+        k: sum(wk[w] for w in weeks[i - 51:i + 1]) / 52
+        for i, k in enumerate(weeks) if i >= 51
+    }
+
+
 def fetch_gpr() -> dict:
     """Geopolitical Risk Index (Caldara–Iacoviello, Fed): podíl novinových
     článků o geopolitickém napětí v 10 velkých denících. Akademický
@@ -914,16 +926,19 @@ def fetch_gpr() -> dict:
         raise RuntimeError("GPR: v souboru nejsou čitelná data")
 
     wk = weekly_mean(points)
+    roll = rolling_year(wk)
     avg = sum(points.values()) / len(points)
     dates = sorted(d for d in wk if d >= CHART_START)
     return {
         "dates": dates,
         "series": [
             {"name": "GPR (týdenní průměr)", "values": [round(wk[d], 1) for d in dates]},
+            {"name": "Roční klouzavý průměr", "values": [round(roll[d], 1) if d in roll else None for d in dates]},
             {"name": f"Průměr od {min(points)[:4]}", "values": [round(avg, 1)] * len(dates),
              "benchmark": True},
         ],
         "avg": round(avg, 1),
+        "avg_1y": round(roll[dates[-1]], 1) if dates and dates[-1] in roll else None,
     }
 
 
@@ -933,15 +948,18 @@ def fetch_epu() -> dict:
     Denní řada pro USA je přímo na FREDu."""
     daily = fetch_fred_csv("USEPUINDXD", "2015-01-01")
     wk = weekly_mean(daily)
+    roll = rolling_year(wk)
     avg = sum(daily.values()) / len(daily)
     dates = sorted(d for d in wk if d >= CHART_START)
     return {
         "dates": dates,
         "series": [
             {"name": "EPU (týdenní průměr)", "values": [round(wk[d], 1) for d in dates]},
+            {"name": "Roční klouzavý průměr", "values": [round(roll[d], 1) if d in roll else None for d in dates]},
             {"name": "Průměr od 2015", "values": [round(avg, 1)] * len(dates), "benchmark": True},
         ],
         "avg": round(avg, 1),
+        "avg_1y": round(roll[dates[-1]], 1) if dates and dates[-1] in roll else None,
     }
 
 
@@ -971,6 +989,99 @@ def fetch_defense() -> dict:
             {"name": "Evropa: obrana vs S&P 500 (EUAD)", "values": [eu.get(d) for d in dates]},
         ],
     }
+
+
+# tagy Polymarketu -> naše skupiny; výběr otázek je mechanický (top objem),
+# žádná ruční kurátorská volba, takže se seznam sám obměňuje s děním
+POLYMARKET_GROUPS: dict[str, set[str]] = {
+    "geopolitics": {"geopolitics", "world", "war", "ukraine", "russia", "israel",
+                    "middle-east", "china", "iran", "nato", "north-korea", "taiwan"},
+    "macro": {"economy", "macro", "fed", "fed-rates", "interest-rates", "rates",
+              "inflation", "recession", "tariffs", "trade-war", "treasury"},
+}
+
+
+def fetch_polymarket() -> dict:
+    """Sázkové trhy Polymarket: pravděpodobnosti konkrétních otázek oceněné
+    penězi sázkařů (veřejné gamma API bez klíče). Bereme nejobchodovanější
+    otevřené otázky za 24 h a třídíme je podle tagů do skupin – geopolitika
+    pro Rizika, makro (sazby, recese, cla) pro Likviditu."""
+    r = requests.get("https://gamma-api.polymarket.com/events",
+                     params={"closed": "false", "limit": "300",
+                             "order": "volume24hr", "ascending": "false"},
+                     headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    events = r.json()
+    if isinstance(events, dict):  # některé verze API balí seznam do obálky
+        events = events.get("events") or events.get("data") or []
+
+    def num(x) -> float:
+        try:
+            return float(x)
+        except (TypeError, ValueError):
+            return 0.0
+
+    rows = []
+    for ev in events:
+        try:
+            tags = {str(t.get("slug") or t.get("label") or "").strip().lower()
+                    for t in (ev.get("tags") or [])}
+            markets = ev.get("markets") or []
+            if not markets:
+                continue
+            best = max(markets, key=lambda m: num(m.get("volume24hr") or m.get("volume")))
+            outcomes, prices = best.get("outcomes"), best.get("outcomePrices")
+            if isinstance(outcomes, str):
+                outcomes = json.loads(outcomes)
+            if isinstance(prices, str):
+                prices = json.loads(prices)
+            if not outcomes or not prices:
+                continue
+            probs = [num(p) for p in prices]
+            # binární trh: bereme cenu "Yes"; jinak nejpravděpodobnější výstup
+            try:
+                i = [str(o).lower() for o in outcomes].index("yes")
+            except ValueError:
+                i = probs.index(max(probs))
+            rows.append({
+                "question": (best.get("question") if len(markets) > 1 else None)
+                            or ev.get("title") or best.get("question"),
+                "outcome": str(outcomes[i]),
+                "prob": round(probs[i] * 100, 1),
+                "volume24h": round(num(ev.get("volume24hr")), 0),
+                "url": f"https://polymarket.com/event/{ev['slug']}" if ev.get("slug") else None,
+                "_tags": tags,
+            })
+        except Exception:
+            continue  # jedna rozbitá otázka nesmí shodit celý výběr
+
+    rows.sort(key=lambda x: -x["volume24h"])
+    groups: dict[str, list] = {}
+    for gname, gtags in POLYMARKET_GROUPS.items():
+        groups[gname] = [{k: v for k, v in r_.items() if k != "_tags"}
+                         for r_ in rows if r_["_tags"] & gtags][:6]
+    if not any(groups.values()):
+        raise RuntimeError(f"Polymarket: z {len(rows)} otázek žádná neprošla filtrem tagů")
+    print(f"[polymarket] {len(rows)} otázek, "
+          + ", ".join(f"{k}: {len(v)}" for k, v in groups.items()))
+    return groups
+
+
+def build_polymarket() -> None:
+    try:
+        groups = fetch_polymarket()
+    except Exception as e:
+        print(f"[polymarket] SELHALO: {e}")
+        groups = {k: None for k in POLYMARKET_GROUPS}
+
+    (OUT_DIR / "polymarket.json").write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – "
+                "nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. "
+                "Týdenní snímek; živé kurzy na polymarket.com.",
+        **groups,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[polymarket] -> polymarket.json")
 
 
 def build_risks() -> None:
@@ -1127,16 +1238,17 @@ def build_summary() -> None:
         joined = " a ".join(liq_parts)
         s_liq = joined[0].upper() + joined[1:] + "."
 
-    # 8) rizika – věta jen při výrazně zvýšeném geopolitickém napětí
+    # 8) rizika – věta jen při eskalaci proti poslednímu roku (na trvale
+    # zvýšenou hladinu si trhy zvyknou, srovnání s věčným průměrem by ječelo pořád)
     s_risks = None
     try:
         risks = json.loads((OUT_DIR / "risks.json").read_text(encoding="utf-8"))
         gpr = risks.get("gpr")
         if gpr:
-            last, avg = gpr["series"][0]["values"][-1], gpr["avg"]
-            if last is not None and avg and last > 1.5 * avg:
-                s_risks = (f"Geopolitické napětí je výrazně nad dlouhodobým průměrem "
-                           f"(index GPR {last:.0f} vs obvyklých ~{avg:.0f}).")
+            last, base = gpr["series"][0]["values"][-1], gpr.get("avg_1y") or gpr.get("avg")
+            if last is not None and base and last > 1.5 * base:
+                s_risks = (f"Geopolitické napětí eskaluje nad úroveň posledního roku "
+                           f"(index GPR {last:.0f} vs ~{base:.0f}, na které si trhy zvykly).")
     except Exception:
         pass
 
@@ -1164,6 +1276,7 @@ def main() -> None:
     build_social()
     build_liquidity()
     build_risks()
+    build_polymarket()
     build_summary()
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")
 

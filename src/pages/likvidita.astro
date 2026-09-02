@@ -3,8 +3,13 @@ import Base from '../layouts/Base.astro';
 import LineChart from '../components/LineChart.astro';
 import Methodology from '../components/Methodology.astro';
 import liquidity from '../data/liquidity.json';
+import polymarket from '../data/polymarket.json';
 
 const liq = liquidity as any;
+const bets = (polymarket as any).macro ?? null;
+const fmtVol = (v: number) =>
+  v >= 1e6 ? `${(v / 1e6).toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} mil. $`
+           : `${Math.round(v / 1e3).toLocaleString('cs-CZ')} tis. $`;
 ---
 <Base title="Likvidita – To hýbe trhy" description="Hromadí se v systému volná hotovost? Čistá likvidita Fedu, peníze vs inflace v USA a eurozóně, zaparkovaná hotovost a dolar.">
   <h1>Likvidita</h1>
@@ -69,6 +74,34 @@ const liq = liquidity as any;
     />
   )}
 
+  {bets?.length > 0 && (
+    <section class="bets">
+      <h2>Sázkové trhy: makro</h2>
+      <p class="note">
+        Nejobchodovanější otevřené makro otázky na Polymarketu (sazby Fedu,
+        recese, cla) – pravděpodobnosti oceněné penězi sázkařů. Výběr je
+        mechanický podle objemu za 24 hodin, týdenní snímek.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Otázka</th><th>Odpověď trhu</th><th class="num">Šance</th><th class="num">Objem 24 h</th></tr>
+          </thead>
+          <tbody>
+            {bets.map((b: any) => (
+              <tr>
+                <td class="q">{b.url ? <a href={b.url} rel="nofollow noopener" target="_blank">{b.question}</a> : b.question}</td>
+                <td>{b.outcome}</td>
+                <td class="num prob">{b.prob.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })} %</td>
+                <td class="num">{fmtVol(b.volume24h)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
   <Methodology>
     <p>
       <strong>Čistá likvidita (Fed):</strong> celková aktiva Fedu minus
@@ -100,8 +133,15 @@ const liq = liquidity as any;
       sám o sobě.
     </p>
     <p>
+      <strong>Polymarket:</strong> sázkové trhy oceňují pravděpodobnosti
+      penězi – šance = cena kontraktu. Výběr otázek je mechanický (nejvyšší
+      objem s makro tagy). Geopolitické otázky jsou na stránce
+      <a href="/rizika/">Rizika</a>.
+    </p>
+    <p>
       Všechna data jsou z veřejných bezplatných zdrojů (FRED, ECB Data
-      Portal, Yahoo Finance) a aktualizují se týdně spolu se zbytkem webu.
+      Portal, Yahoo Finance, Polymarket) a aktualizují se týdně spolu se
+      zbytkem webu.
     </p>
   </Methodology>
 </Base>
@@ -109,4 +149,16 @@ const liq = liquidity as any;
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+
+  .bets { margin: 2rem 0; }
+  .bets h2 { font-size: 1.2rem; margin: 0 0 0.35rem; }
+  .bets .note { margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--text-secondary); max-width: 46rem; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid var(--gridline); }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+  th.num, td.num { text-align: right; white-space: nowrap; }
+  td.prob { font-weight: 600; }
+  td.q a { color: var(--text-primary); text-decoration: none; border-bottom: 1px dotted var(--baseline); }
+  td.q a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 </style>
