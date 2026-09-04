@@ -1,0 +1,41 @@
+name: Denní aktualizace Sítí
+
+# Sítě (Reddit + StockTwits) mají jako jediná sekce denní vypovídací
+# hodnotu, proto se aktualizují každý všední den po uzavření NYSE
+# (21:30 UTC pokrývá letní i zimní čas). Zbytek dat zůstává týdenní
+# (update-data.yml) – denní přepočet momenta by byl šum, viz metodika.
+on:
+  schedule:
+    - cron: "30 21 * * 1-5"
+  workflow_dispatch: {} # ruční spuštění z GitHubu
+
+permissions:
+  contents: write
+
+jobs:
+  denni-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalace závislostí
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Aktualizace Sítí
+        run: python pipeline/fetch_data.py --daily
+        timeout-minutes: 5
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit nových dat
+        run: |
+          git config user.name "data-bot"
+          git config user.email "actions@github.com"
+          git add src/data/social.json
+          git diff --cached --quiet || git commit -m "Denní aktualizace Sítí ($(date -u +%F))"
+          git push
+      # Push spustí build & deploy stejně jako týdenní aktualizace.

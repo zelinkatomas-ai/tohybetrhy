@@ -17,18 +17,18 @@ import crypto from '../data/crypto.json';
 
   <MomentumTable data={sectors} title="Momentum amerických sektorů" />
 
-  <h2 class="sub">Mimo akcie: Bitcoin</h2>
+  <h2 class="sub">Mimo akcie: krypto</h2>
   <p class="lead">
-    Bitcoin není sektor, ale k rotaci kapitálu patří – je to jeden
-    z nejčistších barometrů retailového apetitu k riziku. Proto ho vedeme
-    odděleně od sektorové tabulky, stejnou metodikou.
+    Bitcoin a Ethereum nejsou sektor, ale k rotaci kapitálu patří – jsou
+    to jedny z nejčistších barometrů retailového apetitu k riziku. Proto
+    je vedeme odděleně od sektorové tabulky, stejnou metodikou.
   </p>
 
-  <MomentumTable data={crypto} title="Momentum Bitcoinu" />
+  <MomentumTable data={crypto} title="Momentum kryptoměn" />
 
   {crypto.chart && (
     <LineChart
-      title="Bitcoin od 1. 1. 2024 (indexováno na 100)"
+      title="Bitcoin a Ethereum od 1. 1. 2024 (indexováno na 100)"
       note={crypto.note}
       dates={crypto.chart.dates}
       series={crypto.chart.series}
