@@ -1,12 +1,12 @@
 {
- "updated": "2026-09-04T11:17:42+00:00",
+ "updated": "2026-09-04T20:10:51+00:00",
  "sentences": {
-  "global": "Globální momentum zůstává pozitivní – světový index se drží nad 52týdenním průměrem a za poslední tři měsíce přidal +4,2 %.",
-  "rotation": "V posledních čtyřech týdnech se relativní síla přesouvá z Evropy směrem k rozvíjejícím se trhům.",
-  "sectors": "Nejlepší sektorové momentum mají zdravotnictví, energie a finance.",
-  "etfs": "Z momentum ETF se nejvíce daří PIE – Emerging Markets Momentum (+32,3 % za šest měsíců).",
-  "smart": "Apetit retailu podle objemu pákových ETF stagnuje, instituce ve futures na S&P 500 pozice ubírají.",
-  "btc": "Bitcoin, barometr rizikového apetitu, se drží nad svým 52týdenním průměrem (+23,6 % za tři měsíce).",
+  "global": "Globální momentum zůstává pozitivní – světový index se drží nad 52týdenním průměrem a za poslední tři měsíce přidal +3,8 %.",
+  "rotation": "V posledních čtyřech týdnech se relativní síla přesouvá z USA směrem k rozvíjejícím se trhům.",
+  "sectors": "Nejlepší sektorové momentum mají energie, zdravotnictví a finance.",
+  "etfs": "Z momentum ETF se nejvíce daří PIE – Emerging Markets Momentum (+34,0 % za šest měsíců).",
+  "smart": "Apetit retailu podle objemu pákových ETF stagnuje, instituce ve futures na S&P 500 pozice přidávají.",
+  "btc": "Bitcoin, barometr rizikového apetitu, je stále pod svým 52týdenním průměrem, krátkodobé momentum ale sílí (+21,5 % za tři měsíce).",
   "liquidity": "Čistá likvidita ve finančním systému USA za poslední tři měsíce klesá a peněžní zásoba roste rychleji než inflace.",
   "risks": null
  }

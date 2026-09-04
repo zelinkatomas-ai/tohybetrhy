@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-04T11:16:56+00:00",
+ "updated": "2026-09-04T20:10:10+00:00",
  "note": "Bitcoin a Ethereum, spotové ceny v USD. Obchodují se nonstop; vzorkujeme týdně jako ostatní data.",
  "rows": [
   {
@@ -8,11 +8,11 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 29.29,
-   "r3": 23.6,
-   "r6": 11.58,
-   "r12": -29.63,
-   "signal": "above"
+   "r1": 27.07,
+   "r3": 21.48,
+   "r6": 9.67,
+   "r12": -30.83,
+   "signal": "below"
   },
   {
    "ticker": "ETH-USD",
@@ -20,10 +20,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 34.73,
-   "r3": 46.4,
-   "r6": 15.95,
-   "r12": -45.23,
+   "r1": 31.01,
+   "r3": 42.35,
+   "r6": 12.75,
+   "r12": -46.74,
    "signal": "below"
   }
  ],
@@ -315,8 +315,8 @@
      142.95,
      176.95,
      176.75,
-     175.91,
-     184.82
+     184.95,
+     181.66
     ]
    },
    {
@@ -462,8 +462,8 @@
      84.3,
      110.84,
      108.78,
-     107.59,
-     113.58
+     112.83,
+     110.44
     ]
    }
   ]

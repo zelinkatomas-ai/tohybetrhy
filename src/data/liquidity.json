@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-04T11:17:36+00:00",
+ "updated": "2026-09-04T20:10:44+00:00",
  "note": "Čistá likvidita: bilance Fedu − TGA − ON RRP (bil. USD, týdně). Peníze vs inflace: M2/M3 a CPI/HICP meziročně (FRED, ECB). Hotovost: vklady a retail MMF meziročně, podíl MMF na M2. Trh vs M2: S&P 500 / M2, index. Dolar: DXY vs 52t průměr.",
  "net_liquidity": {
   "dates": [
@@ -1490,7 +1490,7 @@
      98.8,
      99.7,
      99.0,
-     99.09
+     99.15
     ]
    },
    {
