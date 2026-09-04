@@ -40,10 +40,6 @@
 - [ ] Zprovoznit **formulář zpětné vazby** (/napiste-mi/): Turnstile widget
       + Resend účet + 4 env proměnné v Pages — přesný postup v README,
       sekce Zpětná vazba. Do té doby stránka ukazuje „připravuje se".
-- [ ] Registrace do **affiliate programů** (XTB, Portu, DEGIRO…) a doplnění
-      skutečných URL do `src/config/links.json`.
-- [ ] Nahradit ukázkové položky v `src/config/sources.json` skutečnými
-      (mají `demo: true`; první kandidát: Vanda retail flows graf z X).
 - [x] **Affiliate odkazy** — hotovo 2026-09-02: v `links.json` skutečné
       referraly IBKR i Portu (obojí `sponsored: true`), XTB a DEGIRO
       odstraněny, justETF neprovizní.
@@ -118,11 +114,14 @@
       retailové pozornosti; chce mapování ticker→článek). Twitter/X jen
       s placeným API (od ~100 USD/měs.) – bez něj nereplikovatelné.
       Google Trends: neoficiální API, z cloudových IP blokuje – neriskovat.
-- [ ] **Denní aktualizace rychlých dat** (rozmyšleno 2026-08-30, odloženo):
-      druhý lehký workflow, cron `30 21 * * 1-5` (po uzavření NYSE, funguje
-      v EDT i EST), `fetch_data.py --daily` aktualizuje jen `reddit`
-      v smart_money.json (popisky t/t → d/d). Momentum zůstává týdenní
-      (denní přepočet částečných týdenních barů = šum, proti metodice).
+- [x] **Denní aktualizace Sítí** — hotovo 2026-09-03: workflow
+      `denni-site.yml` (cron `30 21 * * 1-5`, po uzavření NYSE) spouští
+      `fetch_data.py --daily` = jen `build_social()` (Reddit + StockTwits),
+      commituje social.json. Popisky změněny z t/t na neutrální „změna
+      proti předchozí aktualizaci". Momentum zůstává týdenní (denní
+      přepočet částečných týdenních barů = šum, proti metodice). Radar se
+      plní týdně: sobotní cron na workflow „Návrhy do Radaru" vysype
+      návrhy za týden do logu, kurátorský výběr zůstává lidský.
       Až bude klíč NASDAQ_DATA_LINK_API_KEY, přidat do denního běhu RTAT.
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).

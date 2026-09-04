@@ -1,9 +1,12 @@
 name: Návrhy do Radaru
 
-# Ruční spuštění: stáhne RSS feedy a vypíše návrhy zpráv do logu.
-# Kurátorský krok zůstává lidský – návrhy se ručně (nebo přes Claude,
-# s revizí v PR) přenášejí do src/config/sources.json. Nic necommituje.
+# Sobotní sběr týdne: stáhne RSS feedy a vypíše návrhy zpráv do logu.
+# Radar se plní jednou týdně jen kvalitními kousky – kurátorský krok
+# zůstává lidský (návrhy se ručně, nebo přes Claude s revizí v PR,
+# přenášejí do src/config/sources.json). Nic necommituje.
 on:
+  schedule:
+    - cron: "0 7 * * 6" # sobota ráno, po páteční aktualizaci dat
   workflow_dispatch: {}
 
 jobs:

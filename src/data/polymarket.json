@@ -1,85 +1,92 @@
 {
- "updated": "2026-09-02T17:34:57+00:00",
+ "updated": "2026-09-04T11:17:42+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
+   "question": "Will Marine Le Pen win the 2027 French presidential election?",
+   "outcome": "Yes",
+   "prob": 35.2,
+   "volume24h": 940694.0,
+   "url": "https://polymarket.com/event/next-french-presidential-election"
+  },
+  {
+   "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
+   "outcome": "Yes",
+   "prob": 54.5,
+   "volume24h": 601515.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election"
+  },
+  {
    "question": "US announces end of Iranian blockade by December 31, 2026?",
    "outcome": "Yes",
-   "prob": 60.3,
-   "volume24h": 578969.0,
+   "prob": 59.7,
+   "volume24h": 344462.0,
    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
   },
   {
    "question": "Will the U.S. invade Iran before 2027?",
    "outcome": "Yes",
-   "prob": 15.5,
-   "volume24h": 517337.0,
+   "prob": 13.5,
+   "volume24h": 270480.0,
    "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
-  },
-  {
-   "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
-   "outcome": "Yes",
-   "prob": 55.5,
-   "volume24h": 505212.0,
-   "url": "https://polymarket.com/event/brazil-presidential-election"
-  },
-  {
-   "question": "Will Marine Le Pen win the 2027 French presidential election?",
-   "outcome": "Yes",
-   "prob": 34.5,
-   "volume24h": 441018.0,
-   "url": "https://polymarket.com/event/next-french-presidential-election"
   },
   {
    "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
    "outcome": "Yes",
-   "prob": 50.4,
-   "volume24h": 376270.0,
+   "prob": 50.3,
+   "volume24h": 213804.0,
    "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election"
   },
   {
-   "question": "Will United Russia (ER) gain the most seats in the next Russian parliamentary election?",
+   "question": "Israel x Iran ceasefire continues through September 30?",
    "outcome": "Yes",
-   "prob": 70.5,
-   "volume24h": 341497.0,
-   "url": "https://polymarket.com/event/which-party-will-gain-most-seats-in-russian-parliamentary-election"
+   "prob": 85.5,
+   "volume24h": 171099.0,
+   "url": "https://polymarket.com/event/israel-x-iran-ceasefire-continues-throughptptpt-20260716224448963"
   }
  ],
  "macro": [
   {
-   "question": "Will the Fed increase interest rates by 25 bps after the September 2026 meeting?",
+   "question": "Will there be no change in Fed interest rates after the September 2026 meeting?",
    "outcome": "Yes",
-   "prob": 56.5,
-   "volume24h": 2883687.0,
+   "prob": 57.5,
+   "volume24h": 6730176.0,
    "url": "https://polymarket.com/event/fed-decision-in-september-762"
-  },
-  {
-   "question": "Will the Bank of Japan announce a 25 bps increase at the September 2026 meeting?",
-   "outcome": "Yes",
-   "prob": 98.0,
-   "volume24h": 104068.0,
-   "url": "https://polymarket.com/event/bank-of-japan-decision-in-september-20260616002734979"
   },
   {
    "question": "Will no Fed rate cuts happen in 2026?",
    "outcome": "Yes",
-   "prob": 88.9,
-   "volume24h": 94901.0,
+   "prob": 92.2,
+   "volume24h": 451892.0,
    "url": "https://polymarket.com/event/how-many-fed-rate-cuts-in-2026"
   },
   {
    "question": "Fed rate hike in 2026?",
    "outcome": "Yes",
-   "prob": 71.5,
-   "volume24h": 87935.0,
+   "prob": 68.5,
+   "volume24h": 227814.0,
    "url": "https://polymarket.com/event/fed-rate-hike-in-2026"
+  },
+  {
+   "question": "Will there be no change in Fed interest rates after the October 2026 meeting?",
+   "outcome": "Yes",
+   "prob": 69.5,
+   "volume24h": 97515.0,
+   "url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537"
   },
   {
    "question": "Will NVIDIA be the largest company in the world by market cap on September 30?",
    "outcome": "Yes",
-   "prob": 92.5,
-   "volume24h": 77965.0,
+   "prob": 93.5,
+   "volume24h": 60656.0,
    "url": "https://polymarket.com/event/largest-company-end-of-september-1785358369147"
+  },
+  {
+   "question": "Fed Rate Hike by October 2026 Meeting?",
+   "outcome": "Yes",
+   "prob": 54.5,
+   "volume24h": 57455.0,
+   "url": "https://polymarket.com/event/fed-rate-hike-by"
   }
  ]
 }

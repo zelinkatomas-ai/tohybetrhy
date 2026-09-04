@@ -78,9 +78,10 @@ GROUPS: dict[str, dict] = {
     },
     "crypto": {
         "file": "crypto.json",
-        "note": "Bitcoin, spotová cena v USD. Obchoduje se nonstop; vzorkujeme týdně jako ostatní data.",
+        "note": "Bitcoin a Ethereum, spotové ceny v USD. Obchodují se nonstop; vzorkujeme týdně jako ostatní data.",
         "items": [
             {"ticker": "BTC-USD", "name": "Bitcoin", "chart": True},
+            {"ticker": "ETH-USD", "name": "Ethereum", "chart": True},
         ],
     },
     "momentum_etfs": {
@@ -90,6 +91,7 @@ GROUPS: dict[str, dict] = {
             {"ticker": "SPMO",    "name": "SPMO – S&P 500 Momentum",            "chart": True},
             {"ticker": "MTUM",    "name": "MTUM – MSCI USA Momentum",           "chart": True},
             {"ticker": "XSMO",    "name": "XSMO – S&P SmallCap Momentum",       "chart": True},
+            {"ticker": "XMMO",    "name": "XMMO – S&P MidCap Momentum",         "chart": True},
             {"ticker": "FMTM",    "name": "FMTM – Focused U.S. Momentum",       "chart": True},
             {"ticker": "IDMO",    "name": "IDMO – Intl Developed Momentum",     "chart": True},
             {"ticker": "IEMO.MI", "name": "IEMO – Europe Momentum (UCITS)"},
@@ -510,9 +512,9 @@ def build_social() -> None:
 
     (OUT_DIR / "social.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna t/t proti minulému běhu, "
+        "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, "
                 "směr sentimentu (bullish/bearish) dle tradestie. "
-                "StockTwits: trending symboly + počet sledujících.",
+                "StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[social] -> social.json")
@@ -1293,5 +1295,22 @@ def main() -> None:
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")
 
 
+def main_daily() -> None:
+    """Denní běh: jen Sítě (Reddit + StockTwits) – jediná data s denní
+    vypovídací hodnotou. Momentum zůstává týdenní záměrně (denní přepočet
+    částečných týdenních barů je šum, viz metodika)."""
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    build_social()
+    print(f"Hotovo (denní běh). Vygenerováno do {OUT_DIR}")
+
+
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--daily", action="store_true",
+                    help="aktualizovat jen denní data (Sítě)")
+    if ap.parse_args().daily:
+        main_daily()
+    else:
+        main()

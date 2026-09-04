@@ -24,12 +24,12 @@ const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
       <p class="note">
         Nejzmiňovanější tickery napříč investičními subreddity (WallStreetBets,
         r/stocks…) za posledních 24 hodin. Zdroj: ApeWisdom; směr sentimentu
-        tradestie. Změna t/t srovnává s minulou týdenní aktualizací{reddit.prev_date ? ` (${new Date(reddit.prev_date).toLocaleDateString('cs-CZ')})` : ''}.
+        tradestie. Změna srovnává s předchozí aktualizací{reddit.prev_date ? ` (${new Date(reddit.prev_date).toLocaleDateString('cs-CZ')})` : ''}.
       </p>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Zmínky/24 h</th><th class="num">Změna t/t</th><th>Sentiment</th><th class="num">Upvoty</th></tr>
+            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Zmínky/24 h</th><th class="num">Změna</th><th>Sentiment</th><th class="num">Upvoty</th></tr>
           </thead>
           <tbody>
             {reddit.top.map((r: any) => (
@@ -84,8 +84,8 @@ const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
       <strong>Reddit (ApeWisdom + tradestie):</strong> počet zmínek tickerů
       napříč investičními subreddity za posledních 24 hodin (ApeWisdom);
       směr sentimentu (býčí/medvědí) doplňuje tradestie z analýzy komentářů
-      na WallStreetBets – hlasitost a směr jsou dvě různé věci. Změna t/t
-      se počítá proti minulé týdenní aktualizaci dat. Když jeden zdroj
+      na WallStreetBets – hlasitost a směr jsou dvě různé věci. Změna
+      se počítá proti předchozí aktualizaci dat. Když jeden zdroj
       vypadne, tabulka se sestaví z druhého.
     </p>
     <p>
@@ -97,8 +97,9 @@ const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
     <p>
       Vysoká pozornost davu bývá u jednotlivých akcií spíše kontrariánský
       signál; pro trh jako celek ji čtěte spolu s ukazateli na stránce
-      <a href="/chytre-penize/">Chytré peníze</a>. Data se aktualizují
-      týdně spolu se zbytkem webu.
+      <a href="/chytre-penize/">Chytré peníze</a>. Sítě se jako jediná
+      sekce aktualizují denně (po uzavření amerických trhů) – zbytek webu
+      týdně.
     </p>
   </Methodology>
 </Base>

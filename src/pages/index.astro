@@ -59,7 +59,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 ---
 <Base title="To hýbe trhy – kde je momentum, kam teče kapitál, jaký je sentiment">
   <section class="hero">
-    <p class="kicker">Aktualizováno {updated} · data týdně, grafy od 1. 1. 2024</p>
+    <p class="kicker">Aktualizováno {updated} · data týdně, Sítě denně, grafy od 1. 1. 2024</p>
     <h1>Kde je momentum, kam se přesouvá kapitál<br />a jaký je sentiment.</h1>
   </section>
 
@@ -169,7 +169,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
             <span class="tile-name">Nejzmiňovanější na Redditu</span>
             <span class="stat-val">
               {redditTop.change_pct != null && trendArrow(redditTop.change_pct, 10)} {redditTop.ticker}
-              <small>{redditTop.mentions} zmínek za 24 h{redditTop.change_pct != null ? ` · ${fmtPct(redditTop.change_pct)} t/t` : ''}</small>
+              <small>{redditTop.mentions} zmínek za 24 h{redditTop.change_pct != null ? ` · ${fmtPct(redditTop.change_pct)} změna` : ''}</small>
             </span>
           </div>
         )}
