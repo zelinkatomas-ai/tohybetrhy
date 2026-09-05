@@ -1,6 +1,67 @@
 {
- "updated": "2026-09-05T08:20:04+00:00",
- "note": "Asie v detailu po zemích.",
- "rows": [],
+ "updated": "2026-09-05T08:21:19+00:00",
+ "note": "Asie v detailu po zemích; Čína, Indie a Japonsko mají řádky v hlavní tabulce regionů. Americká iShares/VanEck ETF jako indikátor, výnosy v USD.",
+ "rows": [
+  {
+   "ticker": "EWS",
+   "name": "Singapur",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 2.64,
+   "r3": 20.73,
+   "r6": 29.72,
+   "r12": 24.31,
+   "signal": "above"
+  },
+  {
+   "ticker": "EWT",
+   "name": "Tchaj-wan",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 4.77,
+   "r3": 9.32,
+   "r6": 60.28,
+   "r12": 86.75,
+   "signal": "above"
+  },
+  {
+   "ticker": "EIDO",
+   "name": "Indonésie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 3.65,
+   "r3": 7.83,
+   "r6": -14.27,
+   "r12": -24.65,
+   "signal": "below"
+  },
+  {
+   "ticker": "VNM",
+   "name": "Vietnam",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 5.83,
+   "r3": 1.97,
+   "r6": 8.68,
+   "r12": 1.27,
+   "signal": "below"
+  },
+  {
+   "ticker": "EWY",
+   "name": "Jižní Korea",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 5.08,
+   "r3": -4.35,
+   "r6": 52.13,
+   "r12": 145.5,
+   "signal": "above"
+  }
+ ],
  "chart": null
 }
