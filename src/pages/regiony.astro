@@ -4,6 +4,8 @@ import LineChart from '../components/LineChart.astro';
 import MomentumTable from '../components/MomentumTable.astro';
 import Methodology from '../components/Methodology.astro';
 import regions from '../data/regions.json';
+import regionsEurope from '../data/regions_europe.json';
+import regionsAsia from '../data/regions_asia.json';
 ---
 <Base title="Momentum regionů – To hýbe trhy" description="Momentum světových akciových regionů: svět, USA, Evropa, rozvíjející se trhy, Čína, Indie, Japonsko a další.">
   <h1>Momentum regionů</h1>
@@ -22,6 +24,28 @@ import regions from '../data/regions.json';
     series={regions.chart.series}
   />
 
+  {regionsEurope.rows.length > 0 && (
+    <>
+      <h2 class="sub">Evropa v detailu</h2>
+      <p class="lead">
+        Rozpad evropského regionu na jednotlivé země – kde uvnitř Evropy
+        momentum skutečně vzniká. Řazeno podle tříměsíčního výnosu.
+      </p>
+      <MomentumTable data={regionsEurope} title="Momentum evropských zemí" />
+    </>
+  )}
+
+  {regionsAsia.rows.length > 0 && (
+    <>
+      <h2 class="sub">Asie v detailu</h2>
+      <p class="lead">
+        Menší asijské trhy nad rámec Číny, Indie a Japonska z hlavní tabulky.
+        Tchaj-wan a Korea jsou zároveň teploměrem čipového cyklu.
+      </p>
+      <MomentumTable data={regionsAsia} title="Momentum asijských zemí" />
+    </>
+  )}
+
   <Methodology>
     <p>
       Momentum měříme jako klouzavý výnos za 1, 3, 6 a 12 měsíců (4/13/26/52
@@ -31,9 +55,11 @@ import regions from '../data/regions.json';
     </p>
     <p>
       Kde existuje kvalitní UCITS fond, používáme ten (svět, USA, Evropa,
-      rozvíjející se trhy, Indie, Japonsko). Pro Čínu, Jižní Ameriku a Afriku
-      slouží jako indikátor likvidnější americká ETF; Afriku zastupuje
-      jihoafrický trh, protože širší africké ETF na trhu prakticky neexistuje.
+      rozvíjející se trhy, Indie, Japonsko, Německo, Francie, V. Británie).
+      Pro menší trhy slouží jako indikátor likvidnější americká ETF; Afriku
+      zastupuje jihoafrický trh, protože širší africké ETF na trhu prakticky
+      neexistuje, a Česko sledujeme přes index PX, protože likvidní ETF na
+      český trh neexistuje vůbec.
       Měnový přepočet záměrně neděláme – přidával by k trendu regionu šum
       měnového páru. Zlato a dluhopisy zatím nesledujeme; web se soustředí na
       akciové momentum.
@@ -43,5 +69,6 @@ import regions from '../data/regions.json';
 
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .sub { font-size: 1.25rem; margin: 2.2rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
 </style>

@@ -76,6 +76,32 @@ GROUPS: dict[str, dict] = {
             {"ticker": "XLRE", "name": "Reality"},
         ],
     },
+    "regions_europe": {
+        "file": "regions_europe.json",
+        "note": "Evropa v detailu po zemích. U menších trhů americká iShares ETF jako indikátor, Česko přes index PX (likvidní ETF neexistuje). Výnosy v měně fondu.",
+        "items": [
+            {"ticker": "EXS1.DE", "name": "Německo (DAX)"},
+            {"ticker": "CAC.PA",  "name": "Francie (CAC 40)"},
+            {"ticker": "ISF.L",   "name": "Velká Británie (FTSE 100)"},
+            {"ticker": "EWL",     "name": "Švýcarsko"},
+            {"ticker": "EWI",     "name": "Itálie"},
+            {"ticker": "EPOL",    "name": "Polsko"},
+            {"ticker": "^PX",     "name": "Česko (index PX)"},
+        ],
+        "sort_by": "r3",
+    },
+    "regions_asia": {
+        "file": "regions_asia.json",
+        "note": "Asie v detailu po zemích; Čína, Indie a Japonsko mají řádky v hlavní tabulce regionů. Americká iShares/VanEck ETF jako indikátor, výnosy v USD.",
+        "items": [
+            {"ticker": "EWT",  "name": "Tchaj-wan"},
+            {"ticker": "EWY",  "name": "Jižní Korea"},
+            {"ticker": "EWS",  "name": "Singapur"},
+            {"ticker": "VNM",  "name": "Vietnam"},
+            {"ticker": "EIDO", "name": "Indonésie"},
+        ],
+        "sort_by": "r3",
+    },
     "crypto": {
         "file": "crypto.json",
         "note": "Bitcoin a Ethereum, spotové ceny v USD. Obchodují se nonstop; vzorkujeme týdně jako ostatní data.",
@@ -141,7 +167,11 @@ def build_group(key: str, cfg: dict) -> None:
 
     for item in cfg["items"]:
         print(f"[{key}] Stahuji {item['ticker']} ({item['name']}) ...")
-        prices, currency = fetch_yahoo_weekly(item["ticker"])
+        try:
+            prices, currency = fetch_yahoo_weekly(item["ticker"])
+        except Exception as e:  # jeden mrtvý ticker nesmí shodit celou skupinu
+            print(f"[{key}] {item['ticker']} SELHALO: {e}")
+            continue
         time.sleep(1)  # ohleduplnost k API
 
         dates = sorted(prices)
