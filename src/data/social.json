@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-05T08:21:43+00:00",
+ "updated": "2026-09-05T08:34:19+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,10 +7,10 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 261,
-    "upvotes": 621,
-    "prev_mentions": 282,
-    "change_pct": -7.4,
+    "mentions": 260,
+    "upvotes": 620,
+    "prev_mentions": 261,
+    "change_pct": -0.4,
     "sentiment": "bullish",
     "sentiment_score": 0.121
    },
@@ -19,9 +19,9 @@
     "ticker": "MU",
     "name": "Micron Technology",
     "mentions": 249,
-    "upvotes": 544,
-    "prev_mentions": 270,
-    "change_pct": -7.8,
+    "upvotes": 545,
+    "prev_mentions": 249,
+    "change_pct": 0.0,
     "sentiment": "bearish",
     "sentiment_score": -0.064
    },
@@ -29,10 +29,10 @@
     "rank": 3,
     "ticker": "NVDA",
     "name": "NVIDIA",
-    "mentions": 163,
-    "upvotes": 844,
-    "prev_mentions": 183,
-    "change_pct": -10.9,
+    "mentions": 162,
+    "upvotes": 442,
+    "prev_mentions": 163,
+    "change_pct": -0.6,
     "sentiment": null,
     "sentiment_score": null
    },
@@ -41,31 +41,31 @@
     "ticker": "SNDK",
     "name": "Sandisk",
     "mentions": 129,
-    "upvotes": 455,
-    "prev_mentions": 128,
-    "change_pct": 0.8,
+    "upvotes": 463,
+    "prev_mentions": 129,
+    "change_pct": 0.0,
     "sentiment": "bearish",
     "sentiment_score": 0.0
    },
    {
     "rank": 5,
-    "ticker": "LULU",
-    "name": "lululemon athletica",
-    "mentions": 112,
-    "upvotes": 320,
-    "prev_mentions": 181,
-    "change_pct": -38.1,
+    "ticker": "TSLA",
+    "name": "Tesla",
+    "mentions": 111,
+    "upvotes": 276,
+    "prev_mentions": 110,
+    "change_pct": 0.9,
     "sentiment": null,
     "sentiment_score": null
    },
    {
     "rank": 6,
-    "ticker": "TSLA",
-    "name": "Tesla",
-    "mentions": 110,
-    "upvotes": 256,
-    "prev_mentions": 117,
-    "change_pct": -6.0,
+    "ticker": "LULU",
+    "name": "lululemon athletica",
+    "mentions": 111,
+    "upvotes": 316,
+    "prev_mentions": 112,
+    "change_pct": -0.9,
     "sentiment": null,
     "sentiment_score": null
    },
@@ -74,9 +74,9 @@
     "ticker": "QQQ",
     "name": "Invesco QQQ ETF",
     "mentions": 98,
-    "upvotes": 199,
-    "prev_mentions": 108,
-    "change_pct": -9.3,
+    "upvotes": 198,
+    "prev_mentions": 98,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.494
    },
@@ -85,9 +85,9 @@
     "ticker": "BE",
     "name": "Bloom Energy",
     "mentions": 88,
-    "upvotes": 228,
-    "prev_mentions": 76,
-    "change_pct": 15.8,
+    "upvotes": 240,
+    "prev_mentions": 88,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null
    },
@@ -95,9 +95,9 @@
     "rank": 9,
     "ticker": "DTE",
     "name": "DTE Energy",
-    "mentions": 71,
+    "mentions": 72,
     "upvotes": 242,
-    "prev_mentions": 70,
+    "prev_mentions": 71,
     "change_pct": 1.4,
     "sentiment": null,
     "sentiment_score": null
@@ -107,28 +107,28 @@
     "ticker": "FICO",
     "name": "FICO",
     "mentions": 39,
-    "upvotes": 1887,
-    "prev_mentions": 34,
-    "change_pct": 14.7,
+    "upvotes": 1926,
+    "prev_mentions": 39,
+    "change_pct": 0.0,
     "sentiment": "bearish",
     "sentiment_score": -0.339
    }
   ],
-  "prev_date": "2026-09-04",
+  "prev_date": "2026-09-05",
   "source": "apewisdom",
   "snapshot": {
    "date": "2026-09-05",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 261,
+    "SPY": 260,
     "MU": 249,
-    "NVDA": 163,
+    "NVDA": 162,
     "SNDK": 129,
-    "LULU": 112,
-    "TSLA": 110,
+    "TSLA": 111,
+    "LULU": 111,
     "QQQ": 98,
     "BE": 88,
-    "DTE": 71,
+    "DTE": 72,
     "FICO": 39,
     "META": 37,
     "NBIS": 37,
@@ -144,15 +144,15 @@
     "GOOGL": 25,
     "AVGO": 22,
     "IWM": 21,
-    "DELL": 20,
     "ASTS": 20,
     "MSFT": 19,
     "ORCL": 19,
     "TTD": 19,
+    "DELL": 18,
     "ES": 17,
-    "NKE": 17,
     "UUUU": 17,
     "OPEN": 17,
+    "NKE": 16,
     "AM": 16,
     "HOOD": 16,
     "YOU": 16,
@@ -161,9 +161,9 @@
     "RKLB": 15,
     "RDDT": 15,
     "ADP": 14,
+    "VOO": 14,
     "ALAB": 14,
     "ALL": 13,
-    "VOO": 13,
     "UP": 13,
     "MP": 13,
     "PL": 13,
@@ -179,61 +179,61 @@
     "rank": 1,
     "ticker": "DASH.X",
     "name": "Dash",
-    "watchers": 8922
+    "watchers": 8924
    },
    {
     "rank": 2,
-    "ticker": "DOT.X",
-    "name": "Polkadot",
-    "watchers": 25012
+    "ticker": "PATH",
+    "name": "UiPath Inc",
+    "watchers": 33521
    },
    {
     "rank": 3,
-    "ticker": "PATH",
-    "name": "UiPath Inc",
-    "watchers": 33519
+    "ticker": "ALAB",
+    "name": "Astera Labs Inc",
+    "watchers": 12870
    },
    {
     "rank": 4,
-    "ticker": "ZEC.X",
-    "name": "Zcash",
-    "watchers": 11239
+    "ticker": "UUUU",
+    "name": "Energy Fuels Inc",
+    "watchers": 23404
    },
    {
     "rank": 5,
-    "ticker": "ICP.X",
-    "name": "Internet Computer",
-    "watchers": 11997
+    "ticker": "XCN.X",
+    "name": "Onyxcoin",
+    "watchers": 8107
    },
    {
     "rank": 6,
-    "ticker": "ALAB",
-    "name": "Astera Labs Inc",
-    "watchers": 12869
+    "ticker": "ZEC.X",
+    "name": "Zcash",
+    "watchers": 11240
    },
    {
     "rank": 7,
-    "ticker": "DJT",
-    "name": "Trump Media & Technology Group Corp.",
-    "watchers": 115645
+    "ticker": "AVAV",
+    "name": "AeroVironment Inc.",
+    "watchers": 13363
    },
    {
     "rank": 8,
-    "ticker": "AAL",
-    "name": "American Airlines Group Inc",
-    "watchers": 109766
+    "ticker": "RIG",
+    "name": "Transocean Ltd",
+    "watchers": 25012
    },
    {
     "rank": 9,
-    "ticker": "SLN",
-    "name": "Silence Therapeutics Plc - ADR",
-    "watchers": 565
+    "ticker": "F",
+    "name": "Ford Motor Co",
+    "watchers": 186240
    },
    {
     "rank": 10,
-    "ticker": "NU",
-    "name": "Nu Holdings Ltd",
-    "watchers": 16354
+    "ticker": "ICP.X",
+    "name": "Internet Computer",
+    "watchers": 11998
    }
   ]
  }

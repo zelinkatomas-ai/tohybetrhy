@@ -6,6 +6,8 @@ import Methodology from '../components/Methodology.astro';
 import regions from '../data/regions.json';
 import regionsEurope from '../data/regions_europe.json';
 import regionsAsia from '../data/regions_asia.json';
+import regionsNA from '../data/regions_north_america.json';
+import regionsLatam from '../data/regions_latam.json';
 ---
 <Base title="Momentum regionů – To hýbe trhy" description="Momentum světových akciových regionů: svět, USA, Evropa, rozvíjející se trhy, Čína, Indie, Japonsko a další.">
   <h1>Momentum regionů</h1>
@@ -39,10 +41,32 @@ import regionsAsia from '../data/regions_asia.json';
     <>
       <h2 class="sub">Asie v detailu</h2>
       <p class="lead">
-        Menší asijské trhy nad rámec Číny, Indie a Japonska z hlavní tabulky.
-        Tchaj-wan a Korea jsou zároveň teploměrem čipového cyklu.
+        Od velké trojky (Čína, Indie, Japonsko) po menší trhy. Tchaj-wan
+        a Korea jsou zároveň teploměrem čipového cyklu.
       </p>
       <MomentumTable data={regionsAsia} title="Momentum asijských zemí" />
+    </>
+  )}
+
+  {regionsNA.rows.length > 0 && (
+    <>
+      <h2 class="sub">Severní Amerika v detailu</h2>
+      <p class="lead">
+        USA a Kanada vedle sebe – kanadský trh je těžký na banky, energii
+        a těžaře, takže rozestup vůči USA často kopíruje komoditní cyklus.
+      </p>
+      <MomentumTable data={regionsNA} title="Momentum Severní Ameriky" />
+    </>
+  )}
+
+  {regionsLatam.rows.length > 0 && (
+    <>
+      <h2 class="sub">Latinská Amerika v detailu</h2>
+      <p class="lead">
+        Rozpad jihoamerického regionu (plus Mexiko). Venezuela chybí záměrně –
+        nemá investovatelný trh ani ETF.
+      </p>
+      <MomentumTable data={regionsLatam} title="Momentum Latinské Ameriky" />
     </>
   )}
 

@@ -1,6 +1,6 @@
 {
- "updated": "2026-09-05T08:21:19+00:00",
- "note": "Asie v detailu po zemích; Čína, Indie a Japonsko mají řádky v hlavní tabulce regionů. Americká iShares/VanEck ETF jako indikátor, výnosy v USD.",
+ "updated": "2026-09-05T08:33:46+00:00",
+ "note": "Asie v detailu po zemích (velká trojka stejnými fondy jako v hlavní tabulce). U menších trhů americká iShares/VanEck ETF jako indikátor, výnosy v měně fondu.",
  "rows": [
   {
    "ticker": "EWS",
@@ -39,6 +39,30 @@
    "signal": "below"
   },
   {
+   "ticker": "CSJP.MI",
+   "name": "Japonsko",
+   "currency": "EUR",
+   "benchmark": false,
+   "core": false,
+   "r1": -0.26,
+   "r3": 5.97,
+   "r6": 16.47,
+   "r12": 28.59,
+   "signal": "above"
+  },
+  {
+   "ticker": "QDV5.DE",
+   "name": "Indie",
+   "currency": "EUR",
+   "benchmark": false,
+   "core": false,
+   "r1": -0.77,
+   "r3": 3.24,
+   "r6": 2.62,
+   "r12": -6.76,
+   "signal": "below"
+  },
+  {
    "ticker": "VNM",
    "name": "Vietnam",
    "currency": "USD",
@@ -48,6 +72,18 @@
    "r3": 1.97,
    "r6": 8.68,
    "r12": 1.27,
+   "signal": "below"
+  },
+  {
+   "ticker": "MCHI",
+   "name": "Čína",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 0.51,
+   "r3": 0.81,
+   "r6": -4.34,
+   "r12": -12.51,
    "signal": "below"
   },
   {
