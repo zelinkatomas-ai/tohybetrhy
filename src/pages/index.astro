@@ -47,6 +47,7 @@ const moneyGap = liq.money_us
   ? (liq.money_us.series[0].values.at(-1) ?? 0) - (liq.money_us.series[1].values.at(-1) ?? 0)
   : null;
 const mmfShare = liq.cash?.mmf_share ?? null;
+const curve = liq.curve?.series?.[0]?.values?.at(-1) ?? null;
 
 // rizika: poslední GPR vs dlouhodobý průměr, relativní síla obrany (ITA)
 const rsk = risks as any;
@@ -67,6 +68,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
     <p class="main">{s.global} {s.rotation}</p>
     <p class="secondary">{s.sectors} {s.etfs}</p>
     {(s as any).factor && <p class="tertiary">{(s as any).factor}</p>}
+    {(s as any).cycdef && <p class="tertiary">{(s as any).cycdef}</p>}
     {s.smart && <p class="tertiary">{s.smart}</p>}
     {s.btc && <p class="tertiary">{s.btc}</p>}
     {s.liquidity && <p class="tertiary">{s.liquidity}</p>}
@@ -233,6 +235,12 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
           <div class="tile stat">
             <span class="tile-name">Suchý prach (retail MMF)</span>
             <span class="stat-val">{mmfShare.prev_year != null && trendArrow(mmfShare.last - mmfShare.prev_year, 0.2)} {mmfShare.last.toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} %<small>podíl fondů peněžního trhu na M2</small></span>
+          </div>
+        )}
+        {curve != null && (
+          <div class="tile stat">
+            <span class="tile-name">Výnosová křivka USA</span>
+            <span class={`stat-val ${curve < 0 ? 'down' : ''}`}>{curve > 0 ? '+' : ''}{curve.toLocaleString('cs-CZ', { maximumFractionDigits: 2 })} p. b.<small>10letý − 2letý výnos{curve < 0 ? ' · inverze' : ''}</small></span>
           </div>
         )}
       </div>

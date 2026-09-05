@@ -17,6 +17,7 @@ Výstupy (src/data/):
                              zaparkovaná hotovost, trh vs M2, dolar
   - risks.json           ... rizika: index GPR, nejistota EPU, obranný sektor
   - factor.json          ... momentum vs hodnota: poměr MTUM/VLUE + 26t průměr
+  - cycdef.json          ... cyklické vs defenzivní sektory: koše SPDR + poměr
   - polymarket.json      ... sázkové trhy: geopolitika + makro (top dle objemu)
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
 
@@ -288,6 +289,51 @@ def fetch_cot() -> dict:
     }
 
 
+def fetch_cot_vix() -> dict:
+    """VIX futures z téhož CFTC reportu: nejčistší bezplatné měření
+    spekulativních short pozic, které existuje. Hedge fondy jsou ve VIX
+    futures typicky short (sázka na klid, inkaso „pojistného"); extrémní
+    short = samolibost trhu (viz únor 2018), prudký obrat směrem k longu =
+    panické zajišťování. Klasický short interest akcií vychází jen 2×
+    měsíčně se zpožděním, tohle je týdenní a oficiální."""
+    import urllib.parse
+    where = urllib.parse.quote(
+        f"contract_market_name LIKE 'VIX%' AND "
+        f"report_date_as_yyyy_mm_dd >= '{CHART_START}'"
+    )
+    url = ("https://publicreporting.cftc.gov/resource/gpe5-46if.json"
+           f"?$where={where}&$order=report_date_as_yyyy_mm_dd&$limit=5000")
+    r = requests.get(url, headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    # kdyby API vrátilo víc VIX kontraktů, bereme pro každé datum ten
+    # s největším open interestem (hlavní kontrakt)
+    by_date: dict[str, dict] = {}
+    for row in r.json():
+        oi = float(row["open_interest_all"])
+        if oi <= 0:
+            continue
+        d = row["report_date_as_yyyy_mm_dd"][:10]
+        if d not in by_date or oi > float(by_date[d]["open_interest_all"]):
+            by_date[d] = row
+    dates, hedge, inst = [], [], []
+    for d in sorted(by_date):
+        row = by_date[d]
+        oi = float(row["open_interest_all"])
+        net = lambda l, s: round((float(row[l]) - float(row[s])) / oi * 100, 2)
+        dates.append(d)
+        hedge.append(net("lev_money_positions_long", "lev_money_positions_short"))
+        inst.append(net("asset_mgr_positions_long", "asset_mgr_positions_short"))
+    if not dates:
+        raise RuntimeError("CoT VIX: žádná data")
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "Hedge fondy (leveraged funds)", "values": hedge},
+            {"name": "Instituce (asset manažeři)", "values": inst},
+        ],
+    }
+
+
 def fetch_naaim() -> dict:
     """NAAIM Exposure Index – průměrná akciová expozice aktivních správců
     (0 = mimo trh, 100 = plně zainvestováno).
@@ -536,7 +582,8 @@ def fetch_stocktwits() -> dict:
 
 def build_smart_money() -> None:
     charts = {}
-    for key, fn in [("cot", fetch_cot), ("naaim", fetch_naaim),
+    for key, fn in [("cot", fetch_cot), ("cot_vix", fetch_cot_vix),
+                    ("naaim", fetch_naaim),
                     ("retail", fetch_retail_proxy), ("vix", fetch_vix)]:
         try:
             print(f"[smart_money] {key} ...")
@@ -548,6 +595,7 @@ def build_smart_money() -> None:
     (OUT_DIR / "smart_money.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "note": "CoT: čisté pozice v E-mini S&P 500 futures jako % open interestu (CFTC, týdně). "
+                "CoT VIX: totéž pro VIX futures – měření spekulativních short pozic na volatilitu. "
                 "NAAIM: průměrná akciová expozice aktivních správců. "
                 "Retail proxy: podíl pákových ETF na dolarovém objemu. "
                 "VIX: implikovaná volatilita S&P 500 + termínová struktura VIX3M/VIX.",
@@ -868,6 +916,60 @@ def fetch_dollar() -> dict:
     }
 
 
+def fetch_yields_us() -> dict:
+    """Výnosová křivka USA: 2letý výnos = co trh čeká od Fedu, 10letý =
+    diskontní sazba pro akcie (a hypotéky). Denní data z FREDu průměrujeme
+    po týdnech."""
+    dgs10 = weekly_mean(fetch_fred_csv("DGS10"))
+    dgs2 = weekly_mean(fetch_fred_csv("DGS2"))
+    dates = sorted(set(dgs10) & set(dgs2))
+    if not dates:
+        raise RuntimeError("prázdná data DGS10/DGS2")
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "10letý výnos USA", "values": [round(dgs10[d], 2) for d in dates]},
+            {"name": "2letý výnos USA", "values": [round(dgs2[d], 2) for d in dates]},
+        ],
+    }
+
+
+def fetch_curve() -> dict:
+    """Sklon křivky 10y − 2y: pod nulou = inverze, nejslavnější recesní
+    indikátor. Zajímavá je hlavně změna – odinvertování (strmění) často
+    přichází až těsně před zpomalením."""
+    t = weekly_mean(fetch_fred_csv("T10Y2Y"))
+    dates = sorted(t)
+    if not dates:
+        raise RuntimeError("prázdná data T10Y2Y")
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "10letý − 2letý výnos (p. b.)", "values": [round(t[d], 2) for d in dates]},
+            {"name": "Nula (pod ní inverze)", "values": [0.0] * len(dates), "benchmark": True},
+        ],
+    }
+
+
+def fetch_policy_rates() -> dict:
+    """Sazby centrálních bank: efektivní sazba Fedu (DFF) a depozitní sazba
+    ECB (ECBDFR, přes FRED) – přímý regulátor ceny peněz na obou stranách."""
+    dff = weekly_mean(fetch_fred_csv("DFF"))
+    ecb = weekly_mean(fetch_fred_csv("ECBDFR"))
+    dates = sorted(set(dff) | set(ecb))
+    if not dates:
+        raise RuntimeError("prázdná data DFF/ECBDFR")
+    return {
+        "dates": dates,
+        "series": [
+            {"name": "Fed (efektivní sazba)",
+             "values": [round(dff[d], 2) if d in dff else None for d in dates]},
+            {"name": "ECB (depozitní sazba)",
+             "values": [round(ecb[d], 2) if d in ecb else None for d in dates]},
+        ],
+    }
+
+
 def build_liquidity() -> None:
     charts = {}
     for key, fn in [("net_liquidity", fetch_net_liquidity),
@@ -875,7 +977,10 @@ def build_liquidity() -> None:
                     ("money_ea", fetch_money_vs_inflation_ea),
                     ("cash", fetch_cash_parked),
                     ("market_m2", fetch_market_vs_m2),
-                    ("dollar", fetch_dollar)]:
+                    ("dollar", fetch_dollar),
+                    ("yields", fetch_yields_us),
+                    ("curve", fetch_curve),
+                    ("policy", fetch_policy_rates)]:
         try:
             print(f"[liquidity] {key} ...")
             charts[key] = fn()
@@ -889,7 +994,8 @@ def build_liquidity() -> None:
         "note": "Čistá likvidita: bilance Fedu − TGA − ON RRP (bil. USD, týdně). "
                 "Peníze vs inflace: M2/M3 a CPI/HICP meziročně (FRED, ECB). "
                 "Hotovost: vklady a retail MMF meziročně, podíl MMF na M2. "
-                "Trh vs M2: S&P 500 / M2, index. Dolar: DXY vs 52t průměr.",
+                "Trh vs M2: S&P 500 / M2, index. Dolar: DXY vs 52t průměr. "
+                "Sazby: výnosy 2y/10y USA, sklon křivky 10y−2y, Fed vs ECB (FRED, týdenní průměry).",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[liquidity] -> liquidity.json")
@@ -1240,6 +1346,95 @@ def fetch_factor() -> dict:
     }
 
 
+CYCLICAL = ["XLY", "XLI", "XLF", "XLB"]    # zbytná spotřeba, průmysl, finance, materiály
+DEFENSIVE = ["XLP", "XLU", "XLV"]          # základní spotřeba, utility, zdravotnictví
+
+
+def fetch_cycdef() -> dict:
+    """Cyklické vs defenzivní sektory: nejjednodušší risk-on/off teploměr.
+    Když má trh chuť riskovat, kupuje sektory závislé na konjunktuře;
+    když se bojí, schovává se tam, kde se utrácí i v recesi (zubní pasta,
+    elektřina, léky). Rovnovážné koše SPDR sektorů, poměr vs 26t průměr –
+    stejná mechanika jako momentum vs hodnota. Klasika žánru je poměr
+    XLY/XLP („consumer check"); koše jsou jeho robustnější verze."""
+    prices: dict[str, dict[str, float]] = {}
+    for t in CYCLICAL + DEFENSIVE:
+        prices[t], _ = fetch_yahoo_weekly(t)
+        time.sleep(1)
+    common = sorted(set.intersection(*(set(p) for p in prices.values())))
+    if not common:
+        raise RuntimeError("prázdný průnik dat sektorových ETF")
+
+    def basket(tickers: list[str]) -> list[float]:
+        # rovnovážný koš: průměr cen indexovaných k prvnímu společnému týdnu
+        return [sum(prices[t][d] / prices[t][common[0]] for t in tickers) / len(tickers)
+                for d in common]
+
+    cyc, dfn = basket(CYCLICAL), basket(DEFENSIVE)
+    ratio = [c / d for c, d in zip(cyc, dfn)]
+    sma = [
+        sum(ratio[i - FACTOR_SMA_WEEKS + 1:i + 1]) / FACTOR_SMA_WEEKS
+        if i >= FACTOR_SMA_WEEKS - 1 else None
+        for i in range(len(ratio))
+    ]
+    keep = [i for i, d in enumerate(common) if d >= CHART_START]
+    if not keep:
+        raise RuntimeError("žádná data od CHART_START")
+    i0 = keep[0]
+    base_c, base_d, base_r = cyc[i0], dfn[i0], ratio[i0]
+
+    # kolik týdnů v kuse je poměr pod průměrem (0 = cyklické vedou, risk-on)
+    weeks_below = 0
+    for i in range(len(ratio) - 1, -1, -1):
+        if sma[i] is None or ratio[i] >= sma[i]:
+            break
+        weeks_below += 1
+
+    dates = [common[i] for i in keep]
+    return {
+        "perf": {
+            "dates": dates,
+            "series": [
+                {"name": "Cyklické (XLY+XLI+XLF+XLB)",
+                 "values": [round(cyc[i] / base_c * 100, 1) for i in keep]},
+                {"name": "Defenzivní (XLP+XLU+XLV)",
+                 "values": [round(dfn[i] / base_d * 100, 1) for i in keep]},
+            ],
+        },
+        "ratio": {
+            "dates": dates,
+            "series": [
+                {"name": "Poměr cyklické / defenzivní",
+                 "values": [round(ratio[i] / base_r * 100, 1) for i in keep]},
+                {"name": "26týdenní průměr",
+                 "values": [round(sma[i] / base_r * 100, 1) if sma[i] is not None else None
+                            for i in keep],
+                 "benchmark": True},
+            ],
+        },
+        "weeks_below": weeks_below,
+    }
+
+
+def build_cycdef() -> None:
+    data = {}
+    try:
+        print("[cycdef] cyklické vs defenzivní ...")
+        data = fetch_cycdef()
+    except Exception as e:  # rozbitý zdroj nesmí shodit celý build
+        print(f"[cycdef] SELHALO: {e}")
+
+    (OUT_DIR / "cycdef.json").write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "Rovnovážné koše SPDR sektorů: cyklické (XLY, XLI, XLF, XLB) vs "
+                "defenzivní (XLP, XLU, XLV), týdně, indexováno na 100 k 1. 1. 2024. "
+                "Poměr košů vs 26týdenní klouzavý průměr; poměr pod průměrem = "
+                "defenziva vede (risk-off).",
+        **data,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[cycdef] -> cycdef.json")
+
+
 def build_factor() -> None:
     data = {}
     try:
@@ -1386,6 +1581,12 @@ def build_summary() -> None:
             liq_parts.append("peněžní zásoba " + ("roste rychleji než inflace"
                              if gap > 0.5 else "zaostává za inflací"
                              if gap < -0.5 else "zhruba drží krok s inflací"))
+    # inverze výnosové křivky – zmínka jen dokud trvá, po odinvertování mlčí
+    if liq.get("curve"):
+        cv = liq["curve"]["series"][0]["values"][-1]
+        if cv is not None and cv < 0:
+            liq_parts.append("výnosová křivka USA je invertovaná "
+                             "(10letý výnos pod 2letým)")
     s_liq = None
     if liq_parts:
         joined = " a ".join(liq_parts)
@@ -1428,6 +1629,23 @@ def build_summary() -> None:
     except Exception:
         pass
 
+    # 10) cyklické vs defenzivní – stejná dvoustupňová logika jako u faktoru
+    s_cycdef = None
+    try:
+        cyc = json.loads((OUT_DIR / "cycdef.json").read_text(encoding="utf-8"))
+        wb = cyc.get("weeks_below")
+        if wb is not None and wb >= 4:
+            weeks = f"{wb} " + ("týdny" if wb < 5 else "týdnů")
+            if wb < 26:
+                s_cycdef = (f"Trh hraje defenzivu: necyklické sektory (základní spotřeba, "
+                            f"utility, zdravotnictví) porážejí cyklické už {weeks} v kuse – "
+                            f"kapitál se schovává, místo aby útočil.")
+            else:
+                s_cycdef = (f"Trh zůstává v defenzivním režimu – necyklické sektory "
+                            f"porážejí cyklické už {weeks} v kuse.")
+    except Exception:
+        pass
+
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sentences": {
@@ -1440,6 +1658,7 @@ def build_summary() -> None:
             "liquidity": s_liq,
             "risks": s_risks,
             "factor": s_factor,
+            "cycdef": s_cycdef,
         },
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[summary] -> summary.json")
@@ -1454,6 +1673,7 @@ def main() -> None:
     build_liquidity()
     build_risks()
     build_factor()
+    build_cycdef()
     build_polymarket()
     build_summary()
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")

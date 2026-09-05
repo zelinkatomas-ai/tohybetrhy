@@ -74,6 +74,46 @@ const fmtVol = (v: number) =>
     />
   )}
 
+  {(liq.yields || liq.curve || liq.policy) && (
+    <>
+      <h2 class="sub">Úrokové sazby: cena peněz</h2>
+      <p class="lead">
+        Sazby jsou druhá strana likvidity – neurčují, kolik peněz v systému
+        je, ale kolik stojí. Dvouletý výnos říká, co trh čeká od Fedu;
+        desetiletý je diskontní sazba pro akcie: čím vyšší, tím míň jsou
+        dnes hodné budoucí zisky – a tím hůř se dýchá růstovým a momentum
+        akciím s dlouhou durací.
+      </p>
+      {liq.yields && (
+        <LineChart
+          title="Výnosy amerických dluhopisů: 2 roky vs 10 let (%)"
+          note="2letý výnos kopíruje očekávané sazby Fedu, 10letý v sobě nese i růst a inflační prémii. FRED, týdenní průměry denních dat."
+          dates={liq.yields.dates}
+          series={liq.yields.series}
+          yLabel="%"
+        />
+      )}
+      {liq.curve && (
+        <LineChart
+          title="Sklon výnosové křivky: 10 let − 2 roky (p. b.)"
+          note="Pod nulou = inverze, nejslavnější recesní indikátor (krátké peníze dražší než dlouhé). Pozor na paradox: samotná inverze trhy nebolí – zpomalení historicky přicházelo až po odinvertování, když Fed začal panicky snižovat."
+          dates={liq.curve.dates}
+          series={liq.curve.series}
+          yLabel="p. b."
+        />
+      )}
+      {liq.policy && (
+        <LineChart
+          title="Sazby centrálních bank: Fed vs ECB (%)"
+          note="Efektivní sazba Fedu a depozitní sazba ECB. Rozestup obou sazeb pohání i kurz eura a dolaru – propojuje se s grafem DXY výše."
+          dates={liq.policy.dates}
+          series={liq.policy.series}
+          yLabel="%"
+        />
+      )}
+    </>
+  )}
+
   {bets?.length > 0 && (
     <section class="bets">
       <h2>Sázkové trhy: makro</h2>
@@ -133,6 +173,13 @@ const fmtVol = (v: number) =>
       sám o sobě.
     </p>
     <p>
+      <strong>Úrokové sazby:</strong> výnosy DGS2 a DGS10, sklon křivky
+      T10Y2Y, efektivní sazba Fedu (DFF) a depozitní sazba ECB (ECBDFR) –
+      vše FRED, denní data průměrovaná po týdnech. Věta ve shrnutí na
+      hlavní stránce zmiňuje křivku jen po dobu inverze; v normálním stavu
+      mlčí.
+    </p>
+    <p>
       <strong>Polymarket:</strong> sázkové trhy oceňují pravděpodobnosti
       penězi – šance = cena kontraktu. Výběr otázek je mechanický (nejvyšší
       objem s makro tagy). Geopolitické otázky jsou na stránce
@@ -148,6 +195,7 @@ const fmtVol = (v: number) =>
 
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .sub { font-size: 1.25rem; margin: 2.25rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
 
   .bets { margin: 2rem 0; }

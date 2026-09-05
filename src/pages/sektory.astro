@@ -5,6 +5,12 @@ import MomentumTable from '../components/MomentumTable.astro';
 import Methodology from '../components/Methodology.astro';
 import sectors from '../data/sectors.json';
 import crypto from '../data/crypto.json';
+import cycdef from '../data/cycdef.json';
+
+const cd = cycdef as any;
+const cdLast = cd.ratio?.series?.[0]?.values?.at(-1) ?? null;
+const defenseLeads = (cd.weeks_below ?? 0) > 0;
+const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' : 'týdnů';
 ---
 <Base title="Momentum sektorů – To hýbe trhy" description="Momentum amerických sektorů: kde se trend rodí a kam rotuje kapitál mezi technologiemi, financemi, zdravotnictvím a dalšími sektory.">
   <h1>Momentum sektorů</h1>
@@ -16,6 +22,43 @@ import crypto from '../data/crypto.json';
   </p>
 
   <MomentumTable data={sectors} title="Momentum amerických sektorů" />
+
+  {cd.perf && (
+    <>
+      <h2 class="sub">Cyklické vs. defenzivní: risk-on/off teploměr</h2>
+      <p class="lead">
+        Nejjednodušší čtení nálady trhu: když má chuť riskovat, kupuje sektory
+        závislé na konjunktuře (zbytná spotřeba, průmysl, finance, materiály);
+        když se bojí, schovává se tam, kde se utrácí i v recesi – zubní pasta,
+        elektřina, léky. Poměr obou košů proto funguje jako teploměr apetitu
+        k riziku, který nejde okecat: jsou to skutečné peníze v skutečných
+        sektorech.
+      </p>
+
+      {cdLast != null && (
+        <p class={`regime ${defenseLeads ? 'warn' : 'calm'}`}>
+          {defenseLeads
+            ? `Defenziva aktuálně vede – poměr cyklické/defenzivní je ${cd.weeks_below} ${cdWeeks} v kuse pod svým půlročním průměrem (risk-off).`
+            : 'Cyklické sektory aktuálně vedou – poměr se drží nad svým půlročním průměrem (risk-on).'}
+        </p>
+      )}
+
+      <LineChart
+        title="Cyklické vs. defenzivní sektory od 1. 1. 2024 (indexováno na 100)"
+        note="Rovnovážné koše: cyklické = XLY + XLI + XLF + XLB, defenzivní = XLP + XLU + XLV."
+        dates={cd.perf.dates}
+        series={cd.perf.series}
+      />
+      {cd.ratio && (
+        <LineChart
+          title="Poměr cyklické / defenzivní vs 26týdenní průměr"
+          note="Rostoucí čára = trh útočí (risk-on). Pokles pod čárkovaný průměr = kapitál se stěhuje do krytu – historicky často dřív, než se zhorší titulky."
+          dates={cd.ratio.dates}
+          series={cd.ratio.series}
+        />
+      )}
+    </>
+  )}
 
   <h2 class="sub">Mimo akcie: krypto</h2>
   <p class="lead">
@@ -50,6 +93,16 @@ import crypto from '../data/crypto.json';
       evropských sektorových ETF je řádově nižší.
     </p>
     <p>
+      <strong>Cyklické vs. defenzivní:</strong> rovnovážné koše (průměr
+      indexovaných cen) – cyklické XLY, XLI, XLF, XLB; defenzivní XLP, XLU,
+      XLV. Energie, technologie, komunikace a reality necháváme stranou:
+      energie žije komoditním cyklem a technologie s komunikacemi jsou dnes
+      spíš vlastní faktor než klasická cyklika. Poměr košů srovnáváme
+      s 26týdenním klouzavým průměrem; věta ve shrnutí na hlavní stránce se
+      generuje až po čtyřech týdnech defenzivy v kuse. Klasika žánru je
+      poměr XLY/XLP („consumer check“) – koše jsou jeho robustnější verze.
+    </p>
+    <p>
       <strong>Bitcoin:</strong> spotová cena BTC-USD (Yahoo Finance). Není
       součástí sektorové tabulky, protože nejde o sektor indexu S&P 500
       a jeho volatilita by deformovala řazení; sledujeme ho jako samostatný
@@ -63,4 +116,11 @@ import crypto from '../data/crypto.json';
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
   .sub { font-size: 1.25rem; margin: 2.25rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+  .regime {
+    max-width: 46rem; padding: 0.7rem 1rem; font-size: 0.92rem; font-weight: 600;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface-1);
+  }
+  .regime.calm { color: var(--delta-up); background: var(--badge-good-bg); }
+  .regime.warn { color: var(--delta-down); background: var(--badge-bad-bg); }
 </style>
