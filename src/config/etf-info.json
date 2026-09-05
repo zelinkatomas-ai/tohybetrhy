@@ -273,13 +273,6 @@
   "region": "Evropa",
   "description": "Polský trh – největší burza regionu střední Evropy, těžké váhy bank a energetiky. Americké ETF, na webu slouží jako indikátor."
  },
- "^PX": {
-  "provider": "–",
-  "index": "PX (Burza cenných papírů Praha)",
-  "category": "Země",
-  "region": "Evropa",
-  "description": "Index pražské burzy – ČEZ, Erste, Komerční banka, Moneta. Likvidní ETF na český trh neexistuje, sledujeme proto přímo index (cenový, bez dividend – české dividendy jsou vysoké, mějte na paměti)."
- },
  "EWT": {
   "provider": "iShares",
   "index": "MSCI Taiwan",

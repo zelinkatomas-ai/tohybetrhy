@@ -139,6 +139,10 @@
   `prc_hicp25_manr`; pokud nezabere, dohledat skutečný nový kód datasetu na
   ec.europa.eu/eurostat a doplnit do `fetch_eurostat_hicp()`. Graf zatím
   poctivě ukazuje M3 čerstvé a čáru HICP končící u posledních dat.
+- **Česko v regionech chybí**: likvidní ETF na český trh neexistuje
+  a index PX není na Yahoo (ověřeno 2026-09-05). Kdyby se objevil
+  replikovatelný zdroj (např. Expat Czech PX UCITS na Yahoo), přidat
+  do `regions_europe`.
 - **NAAIM**: přestal publikovat xlsx; fallback čte jejich embed graf, ale data
   jsou ~3 měsíce stará → indikátor se automaticky skrývá (guard >60 dní).
   Občas zkontrolovat, jestli NAAIM nezačal publikovat znovu.

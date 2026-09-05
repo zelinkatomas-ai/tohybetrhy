@@ -78,7 +78,7 @@ GROUPS: dict[str, dict] = {
     },
     "regions_europe": {
         "file": "regions_europe.json",
-        "note": "Evropa v detailu po zemích. U menších trhů americká iShares ETF jako indikátor, Česko přes index PX (likvidní ETF neexistuje). Výnosy v měně fondu.",
+        "note": "Evropa v detailu po zemích. U menších trhů americká iShares ETF jako indikátor. Výnosy v měně fondu.",
         "items": [
             {"ticker": "EXS1.DE", "name": "Německo (DAX)"},
             {"ticker": "CAC.PA",  "name": "Francie (CAC 40)"},
@@ -86,7 +86,8 @@ GROUPS: dict[str, dict] = {
             {"ticker": "EWL",     "name": "Švýcarsko"},
             {"ticker": "EWI",     "name": "Itálie"},
             {"ticker": "EPOL",    "name": "Polsko"},
-            {"ticker": "^PX",     "name": "Česko (index PX)"},
+            # Česko: likvidní ETF neexistuje a index PX není na Yahoo
+            # (ověřeno 2026-09-05) – viz TODO, Známé věci
         ],
         "sort_by": "r3",
     },
