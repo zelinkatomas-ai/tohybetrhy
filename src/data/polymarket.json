@@ -1,47 +1,47 @@
 {
- "updated": "2026-09-05T08:22:01+00:00",
+ "updated": "2026-09-05T08:34:35+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
    "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
    "outcome": "Yes",
    "prob": 56.5,
-   "volume24h": 883924.0,
+   "volume24h": 886572.0,
    "url": "https://polymarket.com/event/brazil-presidential-election"
   },
   {
    "question": "Russia x Ukraine ceasefire agreement by June 30, 2027?",
    "outcome": "Yes",
    "prob": 62.5,
-   "volume24h": 583338.0,
+   "volume24h": 606698.0,
    "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-agreement-by"
   },
   {
    "question": "Israel closes its airspace by...?",
    "outcome": "Yes",
-   "prob": 65.5,
-   "volume24h": 475010.0,
+   "prob": 66.5,
+   "volume24h": 482583.0,
    "url": "https://polymarket.com/event/israel-closes-its-airspace-by"
   },
   {
    "question": "US announces end of Iranian blockade by December 31, 2026?",
    "outcome": "Yes",
-   "prob": 59.9,
-   "volume24h": 320951.0,
+   "prob": 60.1,
+   "volume24h": 320734.0,
    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
   },
   {
    "question": "Russia x Ukraine ceasefire by December 31, 2026?",
    "outcome": "Yes",
    "prob": 16.5,
-   "volume24h": 292344.0,
+   "volume24h": 293730.0,
    "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-by"
   },
   {
    "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
    "prob": 35.2,
-   "volume24h": 241210.0,
+   "volume24h": 241431.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
   }
  ],
@@ -50,21 +50,21 @@
    "question": "Will the Fed increase interest rates by 25 bps after the September 2026 meeting?",
    "outcome": "Yes",
    "prob": 50.5,
-   "volume24h": 9089157.0,
+   "volume24h": 9070727.0,
    "url": "https://polymarket.com/event/fed-decision-in-september-762"
   },
   {
    "question": "Will no Fed rate cuts happen in 2026?",
    "outcome": "Yes",
    "prob": 93.2,
-   "volume24h": 527763.0,
+   "volume24h": 527723.0,
    "url": "https://polymarket.com/event/how-many-fed-rate-cuts-in-2026"
   },
   {
    "question": "Fed rate hike in 2026?",
    "outcome": "Yes",
    "prob": 71.5,
-   "volume24h": 237427.0,
+   "volume24h": 234173.0,
    "url": "https://polymarket.com/event/fed-rate-hike-in-2026"
   },
   {
@@ -78,7 +78,7 @@
    "question": "Fed Rate Hike by October 2026 Meeting?",
    "outcome": "Yes",
    "prob": 61.5,
-   "volume24h": 68540.0,
+   "volume24h": 65355.0,
    "url": "https://polymarket.com/event/fed-rate-hike-by"
   },
   {
