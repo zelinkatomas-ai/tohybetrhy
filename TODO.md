@@ -124,6 +124,14 @@
       plní týdně: sobotní cron na workflow „Návrhy do Radaru" vysype
       návrhy za týden do logu, kurátorský výběr zůstává lidský.
       Až bude klíč NASDAQ_DATA_LINK_API_KEY, přidat do denního běhu RTAT.
+- [ ] **Short interest akcií/sektorů**: odloženo, dokud není použitelný
+      bezplatný zdroj. FINRA/burzovní short interest vychází jen 2× měsíčně
+      se zpožděním ~týden a je per-akcie (sektorová agregace = udržovat
+      složení indexů); short interest na samotných ETF je většinou hedging
+      a market-making, ne směrová sázka – zavádějící. Denní FINRA short
+      volume soubory jsou zdarma, ale většinu tvoří technické shorty
+      market makerů. Místo toho nasazen CoT VIX futures (viz Chytré peníze)
+      jako nejčistší týdenní měření spekulativních short pozic.
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 

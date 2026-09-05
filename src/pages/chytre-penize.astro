@@ -9,11 +9,11 @@ const vix = (smartMoney as any).vix ?? null;
 <Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců, apetit retailu a cena strachu (VIX).">
   <h1>Chytré peníze vs retail</h1>
   <p class="lead">
-    Kdo teď do trhu přitéká a kdo utíká? Čtyři nezávislé pohledy: oficiální
-    data CFTC o pozicích ve futures na S&P 500, expozice aktivních správců
-    (NAAIM), apetit retailu měřený objemem pákových ETF a cena strachu
-    z opčního trhu (VIX). Žádný z nich není neomylný – nejcennější
-    informace vzniká, když se rozejdou.
+    Kdo teď do trhu přitéká a kdo utíká? Pět nezávislých pohledů: oficiální
+    data CFTC o pozicích ve futures na S&P 500 i na VIX (short sázky na
+    klid), expozice aktivních správců (NAAIM), apetit retailu měřený objemem
+    pákových ETF a cena strachu z opčního trhu (VIX). Žádný z nich není
+    neomylný – nejcennější informace vzniká, když se rozejdou.
   </p>
 
   {smartMoney.cot && (
@@ -22,6 +22,14 @@ const vix = (smartMoney as any).vix ?? null;
       note="CFTC Traders in Financial Futures, týdně. Instituce bývají trvale long, hedge fondy short (hedging) – hodnotu má změna trendu, ne absolutní číslo. Malí obchodníci = nejbližší oficiální proxy retailu."
       dates={smartMoney.cot.dates}
       series={smartMoney.cot.series}
+    />
+  )}
+  {(smartMoney as any).cot_vix && (
+    <LineChart
+      title="Short pozice na klid: futures na VIX (čisté pozice, % open interestu)"
+      note="Tentýž CFTC report pro VIX futures – nejčistší bezplatné měření spekulativních short pozic. Hedge fondy jsou typicky short (sázka na klid trhu, inkaso „pojistného“); čím hlouběji v záporu, tím větší samolibost – extrém předcházel únoru 2018. Prudký obrat vzhůru = panické zajišťování."
+      dates={(smartMoney as any).cot_vix.dates}
+      series={(smartMoney as any).cot_vix.series}
     />
   )}
   {smartMoney.naaim && (
@@ -65,6 +73,14 @@ const vix = (smartMoney as any).vix ?? null;
       malí obchodníci = nejbližší oficiální proxy retailu. Ukazujeme čisté
       pozice (long − short) jako procento open interestu; podstatná je změna
       trendu, ne absolutní úroveň.
+    </p>
+    <p>
+      <strong>VIX futures (CoT):</strong> stejný report pro futures na
+      volatilitu. Klasický short interest akcií vychází jen dvakrát měsíčně
+      a se zpožděním; pozice ve VIX futures jsou týdenní, oficiální
+      a měří tu nejzajímavější short sázku ze všech – sázku na klid.
+      Hluboký short hedge fondů = trh nepočítá s ničím zlým (kontrariánsky
+      nebezpečné), rychlé zavírání shortů = zajišťování ve stresu.
     </p>
     <p>
       <strong>NAAIM Exposure Index:</strong> aktivní správci aktiv každý týden
