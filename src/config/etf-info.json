@@ -230,5 +230,82 @@
   "category": "Momentum ETF",
   "region": "USA",
   "description": "Momentum mezi americkými středně velkými firmami (S&P MidCap 400). Doplňuje velké (SPMO) a malé (XSMO) tituly – dohromady pokrývají celé velikostní spektrum amerického trhu."
+ },
+ "EXS1.DE": {
+  "provider": "iShares",
+  "index": "DAX 40",
+  "category": "Země",
+  "region": "Evropa",
+  "description": "Německý akciový index DAX přes UCITS fond – největší evropská ekonomika, těžká váha průmyslu, automobilek a softwaru (SAP)."
+ },
+ "CAC.PA": {
+  "provider": "Amundi",
+  "index": "CAC 40",
+  "category": "Země",
+  "region": "Evropa",
+  "description": "Francouzský index CAC 40 přes UCITS fond – luxusní zboží (LVMH, Hermès), energetika a banky."
+ },
+ "ISF.L": {
+  "provider": "iShares",
+  "index": "FTSE 100",
+  "category": "Země",
+  "region": "Evropa",
+  "description": "Britský index FTSE 100 přes UCITS fond – globální těžaři, energetika, banky a spotřební giganti; kotace v pencích (GBp)."
+ },
+ "EWL": {
+  "provider": "iShares",
+  "index": "MSCI Switzerland",
+  "category": "Země",
+  "region": "Evropa",
+  "description": "Švýcarský trh – defenzivní váhy Nestlé, Novartis a Roche. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWI": {
+  "provider": "iShares",
+  "index": "MSCI Italy",
+  "category": "Země",
+  "region": "Evropa",
+  "description": "Italský trh – banky, energetika (Enel, Eni) a Ferrari. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EPOL": {
+  "provider": "iShares",
+  "index": "MSCI Poland",
+  "category": "Země",
+  "region": "Evropa",
+  "description": "Polský trh – největší burza regionu střední Evropy, těžké váhy bank a energetiky. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWT": {
+  "provider": "iShares",
+  "index": "MSCI Taiwan",
+  "category": "Země",
+  "region": "Asie",
+  "description": "Tchajwanský trh s dominantní vahou TSMC – de facto teploměr globálního čipového cyklu. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWY": {
+  "provider": "iShares",
+  "index": "MSCI South Korea",
+  "category": "Země",
+  "region": "Asie",
+  "description": "Jihokorejský trh – Samsung, SK Hynix, Hyundai; polovodiče a exportní průmysl. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWS": {
+  "provider": "iShares",
+  "index": "MSCI Singapore",
+  "category": "Země",
+  "region": "Asie",
+  "description": "Singapurský trh – banky a reality finančního centra jihovýchodní Asie. Americké ETF, na webu slouží jako indikátor."
+ },
+ "VNM": {
+  "provider": "VanEck",
+  "index": "MarketVector Vietnam Local",
+  "category": "Země",
+  "region": "Asie",
+  "description": "Vietnamský trh – rychle rostoucí výrobní ekonomika, častý cíl přesunu výroby z Číny. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EIDO": {
+  "provider": "iShares",
+  "index": "MSCI Indonesia",
+  "category": "Země",
+  "region": "Asie",
+  "description": "Indonéský trh – největší ekonomika jihovýchodní Asie, banky a komodity (nikl pro baterie). Americké ETF, na webu slouží jako indikátor."
  }
 }

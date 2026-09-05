@@ -1,48 +1,48 @@
 {
- "updated": "2026-09-04T20:10:51+00:00",
+ "updated": "2026-09-05T08:22:01+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
    "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
    "outcome": "Yes",
-   "prob": 55.5,
-   "volume24h": 1149959.0,
+   "prob": 56.5,
+   "volume24h": 883924.0,
    "url": "https://polymarket.com/event/brazil-presidential-election"
+  },
+  {
+   "question": "Russia x Ukraine ceasefire agreement by June 30, 2027?",
+   "outcome": "Yes",
+   "prob": 62.5,
+   "volume24h": 583338.0,
+   "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-agreement-by"
+  },
+  {
+   "question": "Israel closes its airspace by...?",
+   "outcome": "Yes",
+   "prob": 65.5,
+   "volume24h": 475010.0,
+   "url": "https://polymarket.com/event/israel-closes-its-airspace-by"
+  },
+  {
+   "question": "US announces end of Iranian blockade by December 31, 2026?",
+   "outcome": "Yes",
+   "prob": 59.9,
+   "volume24h": 320951.0,
+   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+  },
+  {
+   "question": "Russia x Ukraine ceasefire by December 31, 2026?",
+   "outcome": "Yes",
+   "prob": 16.5,
+   "volume24h": 292344.0,
+   "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-by"
   },
   {
    "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
    "prob": 35.2,
-   "volume24h": 674912.0,
+   "volume24h": 241210.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
-  },
-  {
-   "question": "US announces end of Iranian blockade by December 31, 2026?",
-   "outcome": "Yes",
-   "prob": 60.4,
-   "volume24h": 363900.0,
-   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
-  },
-  {
-   "question": "Israel closes its airspace by...?",
-   "outcome": "Yes",
-   "prob": 60.0,
-   "volume24h": 264196.0,
-   "url": "https://polymarket.com/event/israel-closes-its-airspace-by"
-  },
-  {
-   "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
-   "outcome": "Yes",
-   "prob": 48.9,
-   "volume24h": 214883.0,
-   "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election"
-  },
-  {
-   "question": "Will the U.S. invade Iran before 2027?",
-   "outcome": "Yes",
-   "prob": 14.5,
-   "volume24h": 213824.0,
-   "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
   }
  ],
  "macro": [
@@ -50,29 +50,43 @@
    "question": "Will the Fed increase interest rates by 25 bps after the September 2026 meeting?",
    "outcome": "Yes",
    "prob": 50.5,
-   "volume24h": 10168425.0,
+   "volume24h": 9089157.0,
    "url": "https://polymarket.com/event/fed-decision-in-september-762"
   },
   {
    "question": "Will no Fed rate cuts happen in 2026?",
    "outcome": "Yes",
-   "prob": 93.0,
-   "volume24h": 540144.0,
+   "prob": 93.2,
+   "volume24h": 527763.0,
    "url": "https://polymarket.com/event/how-many-fed-rate-cuts-in-2026"
   },
   {
    "question": "Fed rate hike in 2026?",
    "outcome": "Yes",
    "prob": 71.5,
-   "volume24h": 252838.0,
+   "volume24h": 237427.0,
    "url": "https://polymarket.com/event/fed-rate-hike-in-2026"
   },
   {
    "question": "Will there be no change in Fed interest rates after the October 2026 meeting?",
    "outcome": "Yes",
    "prob": 67.5,
-   "volume24h": 170864.0,
+   "volume24h": 121747.0,
    "url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537"
+  },
+  {
+   "question": "Fed Rate Hike by October 2026 Meeting?",
+   "outcome": "Yes",
+   "prob": 61.5,
+   "volume24h": 68540.0,
+   "url": "https://polymarket.com/event/fed-rate-hike-by"
+  },
+  {
+   "question": "Fed rate cut by December 2026 meeting?",
+   "outcome": "Yes",
+   "prob": 6.5,
+   "volume24h": 60703.0,
+   "url": "https://polymarket.com/event/fed-rate-cut-by-629"
   }
  ]
 }

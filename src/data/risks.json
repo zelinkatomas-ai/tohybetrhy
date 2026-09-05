@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-04T20:10:51+00:00",
+ "updated": "2026-09-05T08:22:00+00:00",
  "note": "GPR: novinový index geopolitického rizika (Caldara–Iacoviello), týdenní průměr. EPU: nejistota z hospodářské politiky (FRED). Obrana: relativní síla obranných ETF vůči S&P 500.",
  "gpr": {
   "dates": [
@@ -1456,7 +1456,7 @@
      121.6,
      115.6,
      112.8,
-     109.0,
+     109.2,
      109.2
     ]
    },
@@ -1602,8 +1602,8 @@
      141.8,
      138.5,
      135.3,
-     130.2,
-     130.6
+     130.5,
+     130.5
     ]
    }
   ]
