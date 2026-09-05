@@ -1413,10 +1413,18 @@ def build_summary() -> None:
         wb = factor.get("weeks_below")
         if wb is not None and wb >= 4:
             weeks = f"{wb} " + ("týdny" if wb < 5 else "týdnů")
-            s_factor = (f"Kontrariánské varování: hodnota poráží momentum už {weeks} "
-                        f"v kuse (poměr faktorů MTUM/VLUE je pod svým půlročním "
-                        f"průměrem) – podobná rotace v minulosti často předcházela "
-                        f"změně režimu trhu.")
+            if wb < 26:
+                # čerstvá rotace = varování
+                s_factor = (f"Kontrariánské varování: hodnota poráží momentum už {weeks} "
+                            f"v kuse (poměr faktorů MTUM/VLUE je pod svým půlročním "
+                            f"průměrem) – podobná rotace v minulosti často předcházela "
+                            f"změně režimu trhu.")
+            else:
+                # po půl roce už to není varování, ale režim (trhy si zvyknou)
+                s_factor = (f"Trh zůstává v režimu hodnoty – hodnota poráží momentum už "
+                            f"{weeks} v kuse (poměr faktorů MTUM/VLUE je pod svým "
+                            f"půlročním průměrem), trendovým tabulkám proto věřte "
+                            f"s rezervou.")
     except Exception:
         pass
 

@@ -54,7 +54,7 @@ const valueLeads = (f.weeks_below ?? 0) > 0;
       {ratioLast != null && (
         <p class={`factor-verdict ${valueLeads ? 'warn' : 'calm'}`}>
           {valueLeads
-            ? `Hodnota aktuálně poráží momentum – poměr faktorů je ${f.weeks_below} ${f.weeks_below < 5 ? 'týdny' : 'týdnů'} v kuse pod svým půlročním průměrem.`
+            ? `Hodnota aktuálně poráží momentum – poměr faktorů je ${f.weeks_below} ${f.weeks_below === 1 ? 'týden' : f.weeks_below < 5 ? 'týdny' : 'týdnů'} v kuse pod svým půlročním průměrem.`
             : 'Momentum aktuálně vede – poměr faktorů se drží nad svým půlročním průměrem, žádné kontrariánské varování.'}
         </p>
       )}
