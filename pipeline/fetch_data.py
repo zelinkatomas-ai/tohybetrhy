@@ -16,7 +16,7 @@ Výstupy (src/data/):
   - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
                              zaparkovaná hotovost, trh vs M2, dolar
   - risks.json           ... rizika: index GPR, nejistota EPU, obranný sektor
-  - factor.json          ... momentum vs hodnota: poměr MTUM/VLUE + 26t průměr
+  - factor.json          ... momentum vs hodnota: poměr MTUM/VTV + 26t průměr
   - cycdef.json          ... cyklické vs defenzivní sektory: koše SPDR + poměr
   - polymarket.json      ... sázkové trhy: geopolitika + makro (top dle objemu)
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
@@ -1290,18 +1290,24 @@ FACTOR_SMA_WEEKS = 26  # půlroční průměr poměru: kratší okno šumí, del
 
 
 def fetch_factor() -> dict:
-    """Kontrariánská pojistka: poměr faktorových ETF MTUM/VLUE. Čistý
+    """Kontrariánská pojistka: poměr momentum vs hodnota (MTUM/VTV). Čistý
     anti-momentum fond na trhu neexistuje (QuantShares MOM zavřel pro
     chronickou ztrátovost) – nejbližší investovatelný kontrarián je value
     faktor. Když hodnota začne systematicky porážet momentum (poměr klesne
     pod svůj půlroční průměr), režim trhu se možná mění; právě v takových
     obratech mívá momentum historicky největší propady („momentum crash",
-    např. 2009 nebo rotace 2020/21)."""
+    např. 2009 nebo rotace 2020/21).
+
+    Nohou hodnoty je záměrně ŠIROKÉ value ETF (VTV, CRSP US Large Value,
+    stovky titulů), ne koncentrovaný MSCI Enhanced Value (VLUE): pár těžkých
+    pozic ve VLUE dokáže poměr utrhnout od stylu k příběhu jednotlivých
+    akcií (revize 2026-09: VLUE +72 % za rok vs široká hodnota VTV +25 %
+    a IVE +18 % – to nebyl souboj stylů, ale několik vystřelených sázek)."""
     mtum, _ = fetch_yahoo_weekly("MTUM")  # iShares MSCI USA Momentum Factor
     time.sleep(1)
-    vlue, _ = fetch_yahoo_weekly("VLUE")  # iShares MSCI USA Value Factor
-    common = [d for d in sorted(mtum) if d in vlue]
-    ratio = [mtum[d] / vlue[d] for d in common]
+    vtv, _ = fetch_yahoo_weekly("VTV")    # Vanguard Value ETF (široká hodnota)
+    common = [d for d in sorted(mtum) if d in vtv]
+    ratio = [mtum[d] / vtv[d] for d in common]
     sma = [
         sum(ratio[i - FACTOR_SMA_WEEKS + 1:i + 1]) / FACTOR_SMA_WEEKS
         if i >= FACTOR_SMA_WEEKS - 1 else None
@@ -1309,9 +1315,9 @@ def fetch_factor() -> dict:
     ]
     keep = [i for i, d in enumerate(common) if d >= CHART_START]
     if not keep:
-        raise RuntimeError("prázdný průnik dat MTUM/VLUE")
+        raise RuntimeError("prázdný průnik dat MTUM/VTV")
     i0 = keep[0]
-    base_m, base_v, base_r = mtum[common[i0]], vlue[common[i0]], ratio[i0]
+    base_m, base_v, base_r = mtum[common[i0]], vtv[common[i0]], ratio[i0]
 
     # kolik týdnů v kuse je poměr pod průměrem (0 = momentum vede, klid)
     weeks_below = 0
@@ -1327,8 +1333,8 @@ def fetch_factor() -> dict:
             "series": [
                 {"name": "Momentum (MTUM)",
                  "values": [round(mtum[common[i]] / base_m * 100, 1) for i in keep]},
-                {"name": "Hodnota (VLUE)",
-                 "values": [round(vlue[common[i]] / base_v * 100, 1) for i in keep]},
+                {"name": "Hodnota (VTV)",
+                 "values": [round(vtv[common[i]] / base_v * 100, 1) for i in keep]},
             ],
         },
         "ratio": {
@@ -1445,7 +1451,7 @@ def build_factor() -> None:
 
     (OUT_DIR / "factor.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "note": "Poměr cen MTUM/VLUE (iShares MSCI USA Momentum vs Value Factor), "
+        "note": "Poměr cen MTUM/VTV (iShares MSCI USA Momentum Factor vs Vanguard Value), "
                 "týdenně, indexováno na 100 k 1. 1. 2024, vs 26týdenní klouzavý "
                 "průměr poměru. Poměr pod průměrem = hodnota vede.",
         **data,
@@ -1617,13 +1623,13 @@ def build_summary() -> None:
             if wb < 26:
                 # čerstvá rotace = varování
                 s_factor = (f"Kontrariánské varování: hodnota poráží momentum už {weeks} "
-                            f"v kuse (poměr faktorů MTUM/VLUE je pod svým půlročním "
+                            f"v kuse (poměr faktorů MTUM/VTV je pod svým půlročním "
                             f"průměrem) – podobná rotace v minulosti často předcházela "
                             f"změně režimu trhu.")
             else:
                 # po půl roce už to není varování, ale režim (trhy si zvyknou)
                 s_factor = (f"Trh zůstává v režimu hodnoty – hodnota poráží momentum už "
-                            f"{weeks} v kuse (poměr faktorů MTUM/VLUE je pod svým "
+                            f"{weeks} v kuse (poměr faktorů MTUM/VTV je pod svým "
                             f"půlročním průměrem), trendovým tabulkám proto věřte "
                             f"s rezervou.")
     except Exception:

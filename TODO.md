@@ -15,7 +15,7 @@
   Sektory (11× SPDR, řazeno dle 3M) + **Bitcoin** jako oddělený barometr
   rizikového apetitu, Momentum ETF vs benchmarky (SPMO, MTUM, XSMO, FMTM,
   IDMO, IEMO, PIE, EEMO vs SPY/URTH) + kontrariánský teploměr momentum vs
-  hodnota (poměr MTUM/VLUE vs 26t průměr), Chytré peníze vs retail (CFTC CoT,
+  hodnota (poměr MTUM/VTV vs 26t průměr), Chytré peníze vs retail (CFTC CoT,
   NAAIM, podíl pákových ETF na objemu), Zdroje (kurátorované, zatím ukázkové).
 - **Detail každého titulu**: `/etf/<slug>/` generované z dat + popisů
   v `src/config/etf-info.json` (30+ titulů vč. BTC-USD).
@@ -136,6 +136,13 @@
       e-mailový digest při změně signálů (budoucí platený tier).
 
 ## Známé věci / hlídat
+
+- **Koncentrované faktorové ETF nepoužívat jako proxy stylu** (lekce
+  2026-09): původní noha hodnoty VLUE (MSCI Enhanced Value, úzký fond)
+  udělala +72 % za rok, zatímco široká hodnota VTV +25 % a IVE +18 % —
+  poměr MTUM/VLUE tak hlásil drtivou porážku momenta, která se stylově
+  nekonala (táhlo ji pár těžkých pozic fondu). Ověřeno diagnostikou
+  raw vs adjusted (nešlo o chybu dat Yahoo). Fix: noha hodnoty = VTV.
 
 - **FRED blokuje IP GitHub Actions runnerů** (CSV endpoint visí do timeoutu,
   browser hlavičky nepomáhají). Vyřešeno bezplatným klíčem v secretu
