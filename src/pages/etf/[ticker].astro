@@ -8,6 +8,8 @@ import Methodology from '../../components/Methodology.astro';
 import regions from '../../data/regions.json';
 import regionsEurope from '../../data/regions_europe.json';
 import regionsAsia from '../../data/regions_asia.json';
+import regionsNA from '../../data/regions_north_america.json';
+import regionsLatam from '../../data/regions_latam.json';
 import sectors from '../../data/sectors.json';
 import crypto from '../../data/crypto.json';
 import momentumEtfs from '../../data/momentum_etfs.json';
@@ -19,6 +21,8 @@ export function getStaticPaths() {
     ...regions.rows.map((r) => ({ ...r, group: 'Regiony', backHref: '/regiony/', backLabel: 'Momentum regionů' })),
     ...regionsEurope.rows.map((r) => ({ ...r, group: 'Regiony', backHref: '/regiony/', backLabel: 'Momentum regionů' })),
     ...regionsAsia.rows.map((r) => ({ ...r, group: 'Regiony', backHref: '/regiony/', backLabel: 'Momentum regionů' })),
+    ...regionsNA.rows.map((r) => ({ ...r, group: 'Regiony', backHref: '/regiony/', backLabel: 'Momentum regionů' })),
+    ...regionsLatam.rows.map((r) => ({ ...r, group: 'Regiony', backHref: '/regiony/', backLabel: 'Momentum regionů' })),
     ...sectors.rows.map((r) => ({ ...r, group: 'Sektory', backHref: '/sektory/', backLabel: 'Momentum sektorů' })),
     ...crypto.rows.map((r) => ({ ...r, group: 'Krypto', backHref: '/sektory/', backLabel: 'Momentum sektorů' })),
     ...momentumEtfs.rows.map((r) => ({ ...r, group: 'Momentum ETF', backHref: '/momentum-etf/', backLabel: 'Momentum ETF' })),

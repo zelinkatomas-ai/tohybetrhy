@@ -307,5 +307,54 @@
   "category": "Země",
   "region": "Asie",
   "description": "Indonéský trh – největší ekonomika jihovýchodní Asie, banky a komodity (nikl pro baterie). Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWC": {
+  "provider": "iShares",
+  "index": "MSCI Canada",
+  "category": "Země",
+  "region": "Severní Amerika",
+  "description": "Kanadský trh – banky, energetika a těžaři; rozestup vůči USA často kopíruje komoditní cyklus. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWZ": {
+  "provider": "iShares",
+  "index": "MSCI Brazil",
+  "category": "Země",
+  "region": "Latinská Amerika",
+  "description": "Brazilský trh – největší ekonomika Jižní Ameriky; komodity (Vale, Petrobras) a banky, vysoká citlivost na sazby a reál. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EWW": {
+  "provider": "iShares",
+  "index": "MSCI Mexico",
+  "category": "Země",
+  "region": "Latinská Amerika",
+  "description": "Mexický trh – průmysl navázaný na USA (nearshoring), telekomunikace a banky. Americké ETF, na webu slouží jako indikátor."
+ },
+ "ECH": {
+  "provider": "iShares",
+  "index": "MSCI Chile",
+  "category": "Země",
+  "region": "Latinská Amerika",
+  "description": "Chilský trh – největší světový producent mědi, k tomu lithium; de facto sázka na kovy energetické transformace. Americké ETF, na webu slouží jako indikátor."
+ },
+ "EPU": {
+  "provider": "iShares",
+  "index": "MSCI All Peru Capped",
+  "category": "Země",
+  "region": "Latinská Amerika",
+  "description": "Peruánský trh – měď, zlato a stříbro; těžařská ekonomika s vysokou betou na kovy. Americké ETF, na webu slouží jako indikátor."
+ },
+ "ARGT": {
+  "provider": "Global X",
+  "index": "MSCI Argentina 25/50",
+  "category": "Země",
+  "region": "Latinská Amerika",
+  "description": "Argentinský trh – energetika (Vista, YPF), banky a MercadoLibre; vysoká volatilita spjatá s reformním cyklem. Americké ETF, na webu slouží jako indikátor."
+ },
+ "GXG": {
+  "provider": "Global X",
+  "index": "MSCI Colombia Select 25/50",
+  "category": "Země",
+  "region": "Latinská Amerika",
+  "description": "Kolumbijský trh – ropa (Ecopetrol) a banky. Malé a méně likvidní ETF; americký fond, na webu slouží jako indikátor."
  }
 }
