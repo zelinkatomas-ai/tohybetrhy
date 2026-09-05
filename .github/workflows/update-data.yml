@@ -22,6 +22,51 @@ jobs:
       - name: Instalace závislostí
         run: pip install -r pipeline/requirements.txt
 
+      - name: DOCASNE - diagnostika dat VLUE (adjusted vs raw, kontrolni ETF)
+        run: |
+          python3 - <<'EOF'
+          import json, time
+          import requests
+
+          HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) tohybetrhy.cz data pipeline"}
+
+          def weekly(ticker):
+              url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
+                     f"?range=4y&interval=1wk&events=div%2Csplit")
+              r = requests.get(url, headers=HEADERS, timeout=30)
+              r.raise_for_status()
+              res = r.json()["chart"]["result"][0]
+              ts = res["timestamp"]
+              ind = res["indicators"]
+              raw = ind["quote"][0]["close"]
+              adj = ind.get("adjclose", [{}])[0].get("adjclose") or raw
+              events = res.get("events", {})
+              from datetime import date
+              rows = [(date.fromtimestamp(t).isoformat(), rc, ac)
+                      for t, rc, ac in zip(ts, raw, adj) if rc is not None and ac is not None]
+              return rows, events
+
+          def r52(vals):
+              return (vals[-1] / vals[-53] - 1) * 100 if len(vals) > 52 else None
+
+          for t in ("VLUE", "VTV", "IVE", "MTUM", "SPY"):
+              rows, events = weekly(t)
+              raw = [r[1] for r in rows]; adj = [r[2] for r in rows]
+              print(f"\n=== {t} ===")
+              print(f"r52 RAW {r52(raw):+.1f} %   r52 ADJ {r52(adj):+.1f} %")
+              print("posledni 3 tydny (datum, raw, adj):", [(d, round(rc,2), round(ac,2)) for d, rc, ac in rows[-3:]])
+              print("pred rokem (3 tydny):", [(d, round(rc,2), round(ac,2)) for d, rc, ac in rows[-55:-52]])
+              if "splits" in events:
+                  print("SPLITY:", [(v.get("date"), v.get("splitRatio")) for v in events["splits"].values()])
+              divs = events.get("dividends", {})
+              big = [(v["date"], v["amount"]) for v in divs.values() if v.get("amount", 0) > 2]
+              if big:
+                  print("VELKE DIVIDENDY (>2 USD):", big)
+              time.sleep(1)
+          EOF
+        env:
+          PYTHONUNBUFFERED: "1"
+
       - name: Stažení dat a výpočet momenta
         run: python pipeline/fetch_data.py
         timeout-minutes: 10 # zamrzlý zdroj nesmí držet job hodiny
