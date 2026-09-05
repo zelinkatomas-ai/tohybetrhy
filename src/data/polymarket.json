@@ -1,56 +1,56 @@
 {
- "updated": "2026-09-05T15:27:34+00:00",
+ "updated": "2026-09-05T18:18:17+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
-  {
-   "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
-   "outcome": "Yes",
-   "prob": 56.5,
-   "volume24h": 837239.0,
-   "url": "https://polymarket.com/event/brazil-presidential-election"
-  },
   {
    "question": "Russia x Ukraine ceasefire agreement by June 30, 2027?",
    "outcome": "Yes",
    "prob": 58.0,
-   "volume24h": 717474.0,
+   "volume24h": 720095.0,
    "url": "https://polymarket.com/event/russia-x-ukraine-ceasefire-agreement-by"
   },
   {
    "question": "Israel closes its airspace by...?",
    "outcome": "Yes",
-   "prob": 71.0,
-   "volume24h": 578561.0,
+   "prob": 68.0,
+   "volume24h": 606339.0,
    "url": "https://polymarket.com/event/israel-closes-its-airspace-by"
   },
   {
    "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
-   "prob": 35.6,
-   "volume24h": 514418.0,
+   "prob": 36.0,
+   "volume24h": 575394.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
+  },
+  {
+   "question": "US announces end of Iranian blockade by December 31, 2026?",
+   "outcome": "Yes",
+   "prob": 59.3,
+   "volume24h": 364923.0,
+   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+  },
+  {
+   "question": "Will Luiz Inácio Lula da Silva win the 2026 Brazilian presidential election?",
+   "outcome": "Yes",
+   "prob": 55.5,
+   "volume24h": 361707.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election"
   },
   {
    "question": "Iran leadership change by June 30, 2027?",
    "outcome": "Yes",
    "prob": 24.5,
-   "volume24h": 419809.0,
+   "volume24h": 322411.0,
    "url": "https://polymarket.com/event/iran-leadership-change-by"
-  },
-  {
-   "question": "US announces end of Iranian blockade by December 31, 2026?",
-   "outcome": "Yes",
-   "prob": 59.7,
-   "volume24h": 366401.0,
-   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
   }
  ],
  "macro": [
   {
    "question": "Will there be no change in Fed interest rates after the September 2026 meeting?",
    "outcome": "Yes",
-   "prob": 50.5,
-   "volume24h": 4598465.0,
+   "prob": 49.5,
+   "volume24h": 3422920.0,
    "url": "https://polymarket.com/event/fed-decision-in-september-762"
   }
  ]
