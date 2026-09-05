@@ -4,8 +4,13 @@ import LineChart from '../components/LineChart.astro';
 import MomentumTable from '../components/MomentumTable.astro';
 import Methodology from '../components/Methodology.astro';
 import momentumEtfs from '../data/momentum_etfs.json';
+import factor from '../data/factor.json';
+
+const f = factor as any;
+const ratioLast = f.ratio?.series?.[0]?.values?.at(-1) ?? null;
+const valueLeads = (f.weeks_below ?? 0) > 0;
 ---
-<Base title="Momentum ETF – To hýbe trhy" description="Jak se daří ETF postaveným na momentum faktoru proti širokému trhu: SPMO, MTUM, XSMO, IDMO a další.">
+<Base title="Momentum ETF – To hýbe trhy" description="Jak se daří ETF postaveným na momentum faktoru proti širokému trhu – a kontrariánský teploměr momentum vs hodnota jako systém včasného varování.">
   <h1>Momentum ETF vs široký trh</h1>
   <p class="lead">
     Momentum se dá koupit i jako balíček – ETF, která faktor systematicky
@@ -23,12 +28,68 @@ import momentumEtfs from '../data/momentum_etfs.json';
     series={momentumEtfs.chart.series}
   />
 
+  {f.perf && (
+    <>
+      <h2 class="sub">Momentum vs. hodnota: kontrariánská pojistka</h2>
+      <p class="lead">
+        Čistě „anti-momentum“ ETF na trhu prakticky neexistuje – a to samo
+        o sobě je cenná informace. Fond, který systematicky sázel proti
+        momentu (QuantShares MOM), zavřel pro chronickou ztrátovost; kdo chce
+        být kontrarián pořád, dlouhodobě platí. Nejbližší investovatelný
+        kontrarián je <strong>value faktor</strong>: kupuje to, co je levné,
+        protože to zrovna nikdo nechce.
+      </p>
+      <p class="lead">
+        Poměr obou faktorů je proto užitečný jako <strong>systém včasného
+        varování pro momentum samotné</strong>. Momentum má známou achillovku
+        – „momentum crash“: když se trh otočí, nejvíc rostou právě loňští
+        poražení (2009, rotace 2020/21) a trendové strategie dostávají
+        největší výprask. Chvíle, kdy hodnota začne systematicky porážet
+        momentum, je signál „režim se možná mění, věř trendovým tabulkám
+        míň“. Nekupujeme tedy kontrariánský produkt, ale sledujeme
+        kontrariánský signál – jediná forma kontrariánství, která momentum
+        web posiluje, místo aby ho popírala.
+      </p>
+
+      {ratioLast != null && (
+        <p class={`factor-verdict ${valueLeads ? 'warn' : 'calm'}`}>
+          {valueLeads
+            ? `Hodnota aktuálně poráží momentum – poměr faktorů je ${f.weeks_below} ${f.weeks_below === 1 ? 'týden' : f.weeks_below < 5 ? 'týdny' : 'týdnů'} v kuse pod svým půlročním průměrem.`
+            : 'Momentum aktuálně vede – poměr faktorů se drží nad svým půlročním průměrem, žádné kontrariánské varování.'}
+        </p>
+      )}
+
+      <LineChart
+        title="Momentum (MTUM) vs hodnota (VLUE) od 1. 1. 2024 (indexováno na 100)"
+        note="Dva faktorové fondy iShares nad stejným americkým trhem – liší se jen pravidlem výběru akcií."
+        dates={f.perf.dates}
+        series={f.perf.series}
+      />
+      {f.ratio && (
+        <LineChart
+          title="Poměr momentum / hodnota vs 26týdenní průměr"
+          note="Rostoucí čára = momentum vede (normální stav). Pokles pod čárkovaný průměr = hodnota přebírá vedení – historicky časté varování před změnou režimu trhu."
+          dates={f.ratio.dates}
+          series={f.ratio.series}
+        />
+      )}
+    </>
+  )}
+
   <Methodology>
     <p>
       Sledujeme nejvýznamnější ETF postavená na momentum faktoru: americká
       (SPMO, MTUM, XSMO, FMTM), mezinárodní (IDMO), evropské UCITS (IEMO)
       a emerging markets (PIE, EEMO). Benchmarky SPY a URTH ukazují, jestli
       momentum výběr přidává hodnotu proti prostému držení trhu.
+    </p>
+    <p>
+      Momentum vs. hodnota: poměr týdenních cen MTUM a VLUE (iShares MSCI USA
+      Momentum resp. Value Factor), indexováno na 100 k 1. 1. 2024, proti
+      26týdennímu klouzavému průměru poměru. Mechanické pravidlo: poměr pod
+      průměrem = hodnota vede; věta ve shrnutí na hlavní stránce se generuje
+      až po čtyřech týdnech v kuse, jeden týden je šum. V klidu indikátor
+      mlčí. Nejde o investiční doporučení.
     </p>
     <p>
       Výnosy v měně fondu, momentum jako klouzavý výnos za 1/3/6/12 měsíců
@@ -42,5 +103,14 @@ import momentumEtfs from '../data/momentum_etfs.json';
 
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
+  .sub { font-size: 1.25rem; margin: 2.2rem 0 0.25rem; }
   .lead { color: var(--text-secondary); max-width: 46rem; margin-top: 0; }
+  .lead + .lead { margin-top: 0.6rem; }
+  .factor-verdict {
+    max-width: 46rem; padding: 0.7rem 1rem; font-size: 0.92rem; font-weight: 600;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface-1);
+  }
+  .factor-verdict.calm { color: var(--delta-up); background: var(--badge-good-bg); }
+  .factor-verdict.warn { color: var(--delta-down); background: var(--badge-bad-bg); }
 </style>

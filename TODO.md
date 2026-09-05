@@ -14,7 +14,8 @@
 - **Sekce**: Regiony (4 hlavní + Čína, Indie, Japonsko, J. Amerika, Afrika/JAR),
   Sektory (11× SPDR, řazeno dle 3M) + **Bitcoin** jako oddělený barometr
   rizikového apetitu, Momentum ETF vs benchmarky (SPMO, MTUM, XSMO, FMTM,
-  IDMO, IEMO, PIE, EEMO vs SPY/URTH), Chytré peníze vs retail (CFTC CoT,
+  IDMO, IEMO, PIE, EEMO vs SPY/URTH) + kontrariánský teploměr momentum vs
+  hodnota (poměr MTUM/VLUE vs 26t průměr), Chytré peníze vs retail (CFTC CoT,
   NAAIM, podíl pákových ETF na objemu), Zdroje (kurátorované, zatím ukázkové).
 - **Detail každého titulu**: `/etf/<slug>/` generované z dat + popisů
   v `src/config/etf-info.json` (30+ titulů vč. BTC-USD).

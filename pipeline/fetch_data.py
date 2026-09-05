@@ -16,6 +16,7 @@ Výstupy (src/data/):
   - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
                              zaparkovaná hotovost, trh vs M2, dolar
   - risks.json           ... rizika: index GPR, nejistota EPU, obranný sektor
+  - factor.json          ... momentum vs hodnota: poměr MTUM/VLUE + 26t průměr
   - polymarket.json      ... sázkové trhy: geopolitika + makro (top dle objemu)
   - summary.json         ... generovaný slovní vzkaz pro hlavní stránku
 
@@ -1176,6 +1177,88 @@ def build_risks() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Faktor: momentum vs hodnota – zdravotní prohlídka momenta samotného
+# ---------------------------------------------------------------------------
+
+FACTOR_SMA_WEEKS = 26  # půlroční průměr poměru: kratší okno šumí, delší zaspí obrat
+
+
+def fetch_factor() -> dict:
+    """Kontrariánská pojistka: poměr faktorových ETF MTUM/VLUE. Čistý
+    anti-momentum fond na trhu neexistuje (QuantShares MOM zavřel pro
+    chronickou ztrátovost) – nejbližší investovatelný kontrarián je value
+    faktor. Když hodnota začne systematicky porážet momentum (poměr klesne
+    pod svůj půlroční průměr), režim trhu se možná mění; právě v takových
+    obratech mívá momentum historicky největší propady („momentum crash",
+    např. 2009 nebo rotace 2020/21)."""
+    mtum, _ = fetch_yahoo_weekly("MTUM")  # iShares MSCI USA Momentum Factor
+    time.sleep(1)
+    vlue, _ = fetch_yahoo_weekly("VLUE")  # iShares MSCI USA Value Factor
+    common = [d for d in sorted(mtum) if d in vlue]
+    ratio = [mtum[d] / vlue[d] for d in common]
+    sma = [
+        sum(ratio[i - FACTOR_SMA_WEEKS + 1:i + 1]) / FACTOR_SMA_WEEKS
+        if i >= FACTOR_SMA_WEEKS - 1 else None
+        for i in range(len(ratio))
+    ]
+    keep = [i for i, d in enumerate(common) if d >= CHART_START]
+    if not keep:
+        raise RuntimeError("prázdný průnik dat MTUM/VLUE")
+    i0 = keep[0]
+    base_m, base_v, base_r = mtum[common[i0]], vlue[common[i0]], ratio[i0]
+
+    # kolik týdnů v kuse je poměr pod průměrem (0 = momentum vede, klid)
+    weeks_below = 0
+    for i in range(len(ratio) - 1, -1, -1):
+        if sma[i] is None or ratio[i] >= sma[i]:
+            break
+        weeks_below += 1
+
+    dates = [common[i] for i in keep]
+    return {
+        "perf": {
+            "dates": dates,
+            "series": [
+                {"name": "Momentum (MTUM)",
+                 "values": [round(mtum[common[i]] / base_m * 100, 1) for i in keep]},
+                {"name": "Hodnota (VLUE)",
+                 "values": [round(vlue[common[i]] / base_v * 100, 1) for i in keep]},
+            ],
+        },
+        "ratio": {
+            "dates": dates,
+            "series": [
+                {"name": "Poměr momentum / hodnota",
+                 "values": [round(ratio[i] / base_r * 100, 1) for i in keep]},
+                {"name": "26týdenní průměr",
+                 "values": [round(sma[i] / base_r * 100, 1) if sma[i] is not None else None
+                            for i in keep],
+                 "benchmark": True},
+            ],
+        },
+        "weeks_below": weeks_below,
+    }
+
+
+def build_factor() -> None:
+    data = {}
+    try:
+        print("[factor] momentum vs hodnota ...")
+        data = fetch_factor()
+    except Exception as e:  # rozbitý zdroj nesmí shodit celý build
+        print(f"[factor] SELHALO: {e}")
+
+    (OUT_DIR / "factor.json").write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "Poměr cen MTUM/VLUE (iShares MSCI USA Momentum vs Value Factor), "
+                "týdenně, indexováno na 100 k 1. 1. 2024, vs 26týdenní klouzavý "
+                "průměr poměru. Poměr pod průměrem = hodnota vede.",
+        **data,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[factor] -> factor.json")
+
+
+# ---------------------------------------------------------------------------
 # Generovaný slovní vzkaz pro hlavní stránku
 # ---------------------------------------------------------------------------
 
@@ -1322,6 +1405,29 @@ def build_summary() -> None:
     except Exception:
         pass
 
+    # 9) momentum vs hodnota – kontrariánské varování jen při potvrzené rotaci
+    # (aspoň 4 týdny v kuse pod průměrem; jeden týden je šum, ne změna režimu)
+    s_factor = None
+    try:
+        factor = json.loads((OUT_DIR / "factor.json").read_text(encoding="utf-8"))
+        wb = factor.get("weeks_below")
+        if wb is not None and wb >= 4:
+            weeks = f"{wb} " + ("týdny" if wb < 5 else "týdnů")
+            if wb < 26:
+                # čerstvá rotace = varování
+                s_factor = (f"Kontrariánské varování: hodnota poráží momentum už {weeks} "
+                            f"v kuse (poměr faktorů MTUM/VLUE je pod svým půlročním "
+                            f"průměrem) – podobná rotace v minulosti často předcházela "
+                            f"změně režimu trhu.")
+            else:
+                # po půl roce už to není varování, ale režim (trhy si zvyknou)
+                s_factor = (f"Trh zůstává v režimu hodnoty – hodnota poráží momentum už "
+                            f"{weeks} v kuse (poměr faktorů MTUM/VLUE je pod svým "
+                            f"půlročním průměrem), trendovým tabulkám proto věřte "
+                            f"s rezervou.")
+    except Exception:
+        pass
+
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sentences": {
@@ -1333,6 +1439,7 @@ def build_summary() -> None:
             "btc": s_btc,
             "liquidity": s_liq,
             "risks": s_risks,
+            "factor": s_factor,
         },
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[summary] -> summary.json")
@@ -1346,6 +1453,7 @@ def main() -> None:
     build_social()
     build_liquidity()
     build_risks()
+    build_factor()
     build_polymarket()
     build_summary()
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")

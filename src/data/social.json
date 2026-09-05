@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-05T08:34:19+00:00",
+ "updated": "2026-09-05T09:13:07+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,10 +7,10 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 260,
-    "upvotes": 620,
-    "prev_mentions": 261,
-    "change_pct": -0.4,
+    "mentions": 261,
+    "upvotes": 610,
+    "prev_mentions": 260,
+    "change_pct": 0.4,
     "sentiment": "bullish",
     "sentiment_score": 0.121
    },
@@ -18,10 +18,10 @@
     "rank": 2,
     "ticker": "MU",
     "name": "Micron Technology",
-    "mentions": 249,
-    "upvotes": 545,
+    "mentions": 248,
+    "upvotes": 540,
     "prev_mentions": 249,
-    "change_pct": 0.0,
+    "change_pct": -0.4,
     "sentiment": "bearish",
     "sentiment_score": -0.064
    },
@@ -29,10 +29,10 @@
     "rank": 3,
     "ticker": "NVDA",
     "name": "NVIDIA",
-    "mentions": 162,
-    "upvotes": 442,
-    "prev_mentions": 163,
-    "change_pct": -0.6,
+    "mentions": 158,
+    "upvotes": 433,
+    "prev_mentions": 162,
+    "change_pct": -2.5,
     "sentiment": null,
     "sentiment_score": null
    },
@@ -40,10 +40,10 @@
     "rank": 4,
     "ticker": "SNDK",
     "name": "Sandisk",
-    "mentions": 129,
-    "upvotes": 463,
+    "mentions": 126,
+    "upvotes": 465,
     "prev_mentions": 129,
-    "change_pct": 0.0,
+    "change_pct": -2.3,
     "sentiment": "bearish",
     "sentiment_score": 0.0
    },
@@ -51,9 +51,9 @@
     "rank": 5,
     "ticker": "TSLA",
     "name": "Tesla",
-    "mentions": 111,
-    "upvotes": 276,
-    "prev_mentions": 110,
+    "mentions": 112,
+    "upvotes": 299,
+    "prev_mentions": 111,
     "change_pct": 0.9,
     "sentiment": null,
     "sentiment_score": null
@@ -62,10 +62,10 @@
     "rank": 6,
     "ticker": "LULU",
     "name": "lululemon athletica",
-    "mentions": 111,
-    "upvotes": 316,
-    "prev_mentions": 112,
-    "change_pct": -0.9,
+    "mentions": 109,
+    "upvotes": 312,
+    "prev_mentions": 111,
+    "change_pct": -1.8,
     "sentiment": null,
     "sentiment_score": null
    },
@@ -73,10 +73,10 @@
     "rank": 7,
     "ticker": "QQQ",
     "name": "Invesco QQQ ETF",
-    "mentions": 98,
-    "upvotes": 198,
+    "mentions": 99,
+    "upvotes": 206,
     "prev_mentions": 98,
-    "change_pct": 0.0,
+    "change_pct": 1.0,
     "sentiment": "bullish",
     "sentiment_score": 0.494
    },
@@ -85,7 +85,7 @@
     "ticker": "BE",
     "name": "Bloom Energy",
     "mentions": 88,
-    "upvotes": 240,
+    "upvotes": 237,
     "prev_mentions": 88,
     "change_pct": 0.0,
     "sentiment": null,
@@ -95,10 +95,10 @@
     "rank": 9,
     "ticker": "DTE",
     "name": "DTE Energy",
-    "mentions": 72,
-    "upvotes": 242,
-    "prev_mentions": 71,
-    "change_pct": 1.4,
+    "mentions": 70,
+    "upvotes": 179,
+    "prev_mentions": 72,
+    "change_pct": -2.8,
     "sentiment": null,
     "sentiment_score": null
    },
@@ -107,7 +107,7 @@
     "ticker": "FICO",
     "name": "FICO",
     "mentions": 39,
-    "upvotes": 1926,
+    "upvotes": 1937,
     "prev_mentions": 39,
     "change_pct": 0.0,
     "sentiment": "bearish",
@@ -120,15 +120,15 @@
    "date": "2026-09-05",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 260,
-    "MU": 249,
-    "NVDA": 162,
-    "SNDK": 129,
-    "TSLA": 111,
-    "LULU": 111,
-    "QQQ": 98,
+    "SPY": 261,
+    "MU": 248,
+    "NVDA": 158,
+    "SNDK": 126,
+    "TSLA": 112,
+    "LULU": 109,
+    "QQQ": 99,
     "BE": 88,
-    "DTE": 72,
+    "DTE": 70,
     "FICO": 39,
     "META": 37,
     "NBIS": 37,
@@ -141,35 +141,35 @@
     "SPCX": 26,
     "NFLX": 25,
     "IREN": 25,
-    "GOOGL": 25,
+    "GOOGL": 23,
     "AVGO": 22,
-    "IWM": 21,
     "ASTS": 20,
     "MSFT": 19,
     "ORCL": 19,
     "TTD": 19,
+    "IWM": 19,
     "DELL": 18,
     "ES": 17,
     "UUUU": 17,
     "OPEN": 17,
+    "MCD": 16,
     "NKE": 16,
     "AM": 16,
     "HOOD": 16,
     "YOU": 16,
     "AMZN": 15,
-    "MCD": 15,
+    "VOO": 15,
     "RKLB": 15,
     "RDDT": 15,
     "ADP": 14,
-    "VOO": 14,
     "ALAB": 14,
     "ALL": 13,
     "UP": 13,
-    "MP": 13,
-    "PL": 13,
-    "TSM": 12,
     "NOW": 12,
-    "SMCI": 12
+    "SMCI": 12,
+    "DJT": 12,
+    "ON": 11,
+    "OR": 11
    }
   }
  },
@@ -179,19 +179,19 @@
     "rank": 1,
     "ticker": "DASH.X",
     "name": "Dash",
-    "watchers": 8924
+    "watchers": 8927
    },
    {
     "rank": 2,
-    "ticker": "PATH",
-    "name": "UiPath Inc",
-    "watchers": 33521
+    "ticker": "BCRX",
+    "name": "Biocryst Pharmaceuticals Inc.",
+    "watchers": 36922
    },
    {
     "rank": 3,
-    "ticker": "ALAB",
-    "name": "Astera Labs Inc",
-    "watchers": 12870
+    "ticker": "IBIT",
+    "name": "iShares Bitcoin Trust ETF",
+    "watchers": 20464
    },
    {
     "rank": 4,
@@ -201,39 +201,39 @@
    },
    {
     "rank": 5,
-    "ticker": "XCN.X",
-    "name": "Onyxcoin",
-    "watchers": 8107
+    "ticker": "ALAB",
+    "name": "Astera Labs Inc",
+    "watchers": 12872
    },
    {
     "rank": 6,
-    "ticker": "ZEC.X",
-    "name": "Zcash",
-    "watchers": 11240
+    "ticker": "ICP.X",
+    "name": "Internet Computer",
+    "watchers": 11999
    },
    {
     "rank": 7,
-    "ticker": "AVAV",
-    "name": "AeroVironment Inc.",
-    "watchers": 13363
+    "ticker": "GLD.X",
+    "name": "GoldCoin",
+    "watchers": 306
    },
    {
     "rank": 8,
-    "ticker": "RIG",
-    "name": "Transocean Ltd",
-    "watchers": 25012
+    "ticker": "RUN",
+    "name": "Sunrun Inc",
+    "watchers": 22945
    },
    {
     "rank": 9,
-    "ticker": "F",
-    "name": "Ford Motor Co",
-    "watchers": 186240
+    "ticker": "DOG.X",
+    "name": "Dog (Bitcoin)",
+    "watchers": 2002
    },
    {
     "rank": 10,
-    "ticker": "ICP.X",
-    "name": "Internet Computer",
-    "watchers": 11998
+    "ticker": "ARM",
+    "name": "Arm Holdings Plc.",
+    "watchers": 33372
    }
   ]
  }
