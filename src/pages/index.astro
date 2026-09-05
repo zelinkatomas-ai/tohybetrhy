@@ -66,6 +66,7 @@ const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
   <section class="verdict" aria-label="Aktuální vzkaz">
     <p class="main">{s.global} {s.rotation}</p>
     <p class="secondary">{s.sectors} {s.etfs}</p>
+    {(s as any).factor && <p class="tertiary">{(s as any).factor}</p>}
     {s.smart && <p class="tertiary">{s.smart}</p>}
     {s.btc && <p class="tertiary">{s.btc}</p>}
     {s.liquidity && <p class="tertiary">{s.liquidity}</p>}
