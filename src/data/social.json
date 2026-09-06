@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-06T05:28:18+00:00",
+ "updated": "2026-09-06T05:38:18+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,10 +7,10 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 49,
-    "upvotes": 124,
-    "prev_mentions": 88,
-    "change_pct": -44.3,
+    "mentions": 50,
+    "upvotes": 125,
+    "prev_mentions": 49,
+    "change_pct": 2.0,
     "sentiment": "bullish",
     "sentiment_score": 0.223,
     "insiders": {
@@ -24,9 +24,9 @@
     "ticker": "DTE",
     "name": "DTE Energy",
     "mentions": 39,
-    "upvotes": 286,
-    "prev_mentions": 45,
-    "change_pct": -13.3,
+    "upvotes": 287,
+    "prev_mentions": 39,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.629,
     "insiders": {
@@ -41,8 +41,8 @@
     "name": "NVIDIA",
     "mentions": 30,
     "upvotes": 78,
-    "prev_mentions": 45,
-    "change_pct": -33.3,
+    "prev_mentions": 30,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.077,
     "insiders": {
@@ -53,28 +53,12 @@
    },
    {
     "rank": 4,
-    "ticker": "MU",
-    "name": "Micron Technology",
-    "mentions": 23,
-    "upvotes": 55,
-    "prev_mentions": 77,
-    "change_pct": -70.1,
-    "sentiment": "bullish",
-    "sentiment_score": 0.039,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 52798820,
-     "filings": 3
-    }
-   },
-   {
-    "rank": 5,
     "ticker": "TSLA",
     "name": "Tesla",
-    "mentions": 23,
-    "upvotes": 1060,
-    "prev_mentions": 47,
-    "change_pct": -51.1,
+    "mentions": 24,
+    "upvotes": 1064,
+    "prev_mentions": 23,
+    "change_pct": 4.3,
     "sentiment": "bullish",
     "sentiment_score": 0.361,
     "insiders": {
@@ -84,13 +68,29 @@
     }
    },
    {
+    "rank": 5,
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 23,
+    "upvotes": 55,
+    "prev_mentions": 23,
+    "change_pct": 0.0,
+    "sentiment": "bullish",
+    "sentiment_score": 0.039,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 52798820,
+     "filings": 3
+    }
+   },
+   {
     "rank": 6,
     "ticker": "BE",
     "name": "Bloom Energy",
     "mentions": 19,
-    "upvotes": 55,
-    "prev_mentions": 86,
-    "change_pct": -77.9,
+    "upvotes": 58,
+    "prev_mentions": 19,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -105,8 +105,8 @@
     "name": "Microsoft",
     "mentions": 19,
     "upvotes": 119,
-    "prev_mentions": 10,
-    "change_pct": 90.0,
+    "prev_mentions": 19,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.233,
     "insiders": {
@@ -120,9 +120,9 @@
     "ticker": "SNDK",
     "name": "Sandisk",
     "mentions": 13,
-    "upvotes": 113,
-    "prev_mentions": 41,
-    "change_pct": -68.3,
+    "upvotes": 115,
+    "prev_mentions": 13,
+    "change_pct": 0.0,
     "sentiment": "bearish",
     "sentiment_score": -0.286,
     "insiders": {
@@ -136,9 +136,9 @@
     "ticker": "NBIS",
     "name": "Nebius Group",
     "mentions": 13,
-    "upvotes": 55,
-    "prev_mentions": 30,
-    "change_pct": -56.7,
+    "upvotes": 54,
+    "prev_mentions": 13,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -153,8 +153,8 @@
     "name": "Opendoor",
     "mentions": 13,
     "upvotes": 30,
-    "prev_mentions": 19,
-    "change_pct": -31.6,
+    "prev_mentions": 13,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.171,
     "insiders": {
@@ -164,17 +164,17 @@
     }
    }
   ],
-  "prev_date": "2026-09-05",
+  "prev_date": "2026-09-06",
   "source": "apewisdom",
   "snapshot": {
    "date": "2026-09-06",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 49,
+    "SPY": 50,
     "DTE": 39,
     "NVDA": 30,
+    "TSLA": 24,
     "MU": 23,
-    "TSLA": 23,
     "BE": 19,
     "MSFT": 19,
     "SNDK": 13,
@@ -183,8 +183,8 @@
     "SPCX": 13,
     "AVGO": 13,
     "QQQ": 12,
-    "ES": 12,
     "ASTS": 11,
+    "ES": 11,
     "MSTR": 10,
     "VOO": 10,
     "CC": 10,
@@ -192,14 +192,14 @@
     "RKLB": 9,
     "INTC": 9,
     "AGI": 8,
+    "LULU": 8,
     "IT": 8,
     "AMD": 8,
     "META": 7,
-    "LULU": 7,
-    "UUUU": 6,
     "FICO": 6,
     "RDDT": 5,
     "NB": 5,
+    "UUUU": 5,
     "VST": 5,
     "AMZN": 5,
     "DJT": 4,
@@ -229,7 +229,7 @@
     "rank": 1,
     "ticker": "ZEC.X",
     "name": "Zcash",
-    "watchers": 11324
+    "watchers": 11326
    },
    {
     "rank": 2,
@@ -239,51 +239,51 @@
    },
    {
     "rank": 3,
-    "ticker": "ETH.X",
-    "name": "Ethereum",
-    "watchers": 336586
+    "ticker": "DASH.X",
+    "name": "Dash",
+    "watchers": 9009
    },
    {
     "rank": 4,
     "ticker": "MCD",
     "name": "McDonald's Corp",
-    "watchers": 40918
+    "watchers": 40919
    },
    {
     "rank": 5,
-    "ticker": "MSTR",
-    "name": "Strategy",
-    "watchers": 82956
-   },
-   {
-    "rank": 6,
     "ticker": "HYPE.X",
     "name": "Hype",
     "watchers": 3508
    },
    {
+    "rank": 6,
+    "ticker": "ETH.X",
+    "name": "Ethereum",
+    "watchers": 336586
+   },
+   {
     "rank": 7,
-    "ticker": "AXON",
-    "name": "Axon Enterprise Inc",
-    "watchers": 15254
+    "ticker": "APP",
+    "name": "Applovin Corp",
+    "watchers": 23968
    },
    {
     "rank": 8,
-    "ticker": "SGOV",
-    "name": "iShares 0-3 Month Treasury Bond ETF",
-    "watchers": 1984
+    "ticker": "PURR",
+    "name": "Hyperliquid Strategies Inc.",
+    "watchers": 26324
    },
    {
     "rank": 9,
-    "ticker": "MSTX",
-    "name": "Defiance Daily Target 2x Long MSTR ETF",
-    "watchers": 4000
+    "ticker": "MSTR",
+    "name": "Strategy",
+    "watchers": 82956
    },
    {
     "rank": 10,
-    "ticker": "SCHD",
-    "name": "Schwab US Dividend Equity ETF",
-    "watchers": 23547
+    "ticker": "GILD",
+    "name": "Gilead Sciences, Inc.",
+    "watchers": 77636
    }
   ]
  }
