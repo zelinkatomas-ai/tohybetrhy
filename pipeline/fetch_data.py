@@ -592,14 +592,23 @@ def fetch_politicians() -> dict:
     for t in ("NANC", "KRUZ", "SPY"):
         prices[t], _ = fetch_yahoo_weekly(t)
         time.sleep(1)
-    common = [d for d in sorted(prices["NANC"])
-              if d in prices["KRUZ"] and d in prices["SPY"] and d >= CHART_START]
-    if not common:
-        raise RuntimeError("prázdný průnik dat NANC/KRUZ/SPY")
-    base = {t: p[common[0]] for t, p in prices.items()}
+    # osa podle SPY; chybějící týdny NANC/KRUZ = mezera (null), ne useknutí
+    # všech řad průnikem (Yahoo občas u malých ETF pár posledních týdnů nemá)
+    common = [d for d in sorted(prices["SPY"]) if d >= CHART_START]
+    start = next((d for d in common
+                  if d in prices["NANC"] and d in prices["KRUZ"]), None)
+    if start is None:
+        raise RuntimeError("žádný společný týden NANC/KRUZ/SPY")
+    common = [d for d in common if d >= start]
+    base = {t: p[start] for t, p in prices.items()}
+    for t in ("NANC", "KRUZ"):
+        if max(prices[t]) < common[-1]:
+            print(f"[smart_money] pozor: {t} končí {max(prices[t])} "
+                  f"(Yahoo nemá novější týdny)")
 
-    def idx(t: str) -> list[float]:
-        return [round(prices[t][d] / base[t] * 100, 1) for d in common]
+    def idx(t: str) -> list[float | None]:
+        return [round(prices[t][d] / base[t] * 100, 1) if d in prices[t] else None
+                for d in common]
 
     return {
         "dates": common,
