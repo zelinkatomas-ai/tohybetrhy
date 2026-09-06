@@ -8,6 +8,10 @@ const reddit = (social as any).reddit ?? null;
 const stocktwits = (social as any).stocktwits ?? null;
 const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
+const fmtUsd = (v: number) =>
+  v >= 1e6 ? `${(v / 1e6).toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} mil. $`
+           : `${Math.round(v / 1e3).toLocaleString('cs-CZ')} tis. $`;
+const hasInsiders = reddit?.top?.some((r: any) => r.insiders != null) ?? false;
 ---
 <Base title="Sítě – To hýbe trhy" description="O čem mluví investoři na sociálních sítích: nejzmiňovanější tickery na Redditu a trending symboly na StockTwits.">
   <h1>Sítě</h1>
@@ -29,10 +33,13 @@ const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Zmínky/24 h</th><th class="num">Změna</th><th>Sentiment</th><th class="num">Upvoty</th></tr>
+            <tr><th>#</th><th>Ticker</th><th>Název</th><th class="num">Zmínky/24 h</th><th class="num">Změna</th><th>Sentiment</th><th class="num">Upvoty</th>{hasInsiders && <th>Insideři 30 d</th>}</tr>
           </thead>
           <tbody>
-            {reddit.top.map((r: any) => (
+            {reddit.top.map((r: any) => {
+              const ins = r.insiders;
+              const net = ins ? ins.buys_usd - ins.sells_usd : null;
+              return (
               <tr>
                 <td>{r.rank}</td>
                 <td class="ticker">{r.ticker}</td>
@@ -43,8 +50,20 @@ const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
                   {r.sentiment === 'bullish' ? '▲ býčí' : r.sentiment === 'bearish' ? '▼ medvědí' : '–'}
                 </td>
                 <td class="num">{r.upvotes ?? '–'}</td>
+                {hasInsiders && (
+                  <td class={ins == null ? '' : net! > 0 ? 'up' : net! < 0 ? 'down' : ''}>
+                    {ins == null
+                      ? '–'
+                      : ins.buys_usd === 0 && ins.sells_usd === 0
+                        ? 'bez obchodů'
+                        : net! >= 0
+                          ? `▲ nákupy ${fmtUsd(ins.buys_usd)}`
+                          : `▼ prodeje ${fmtUsd(ins.sells_usd)}`}
+                  </td>
+                )}
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -87,6 +106,17 @@ const fmtNum = (v: number) => v.toLocaleString('cs-CZ');
       na WallStreetBets – hlasitost a směr jsou dvě různé věci. Změna
       se počítá proti předchozí aktualizaci dat. Když jeden zdroj
       vypadne, tabulka se sestaví z druhého.
+    </p>
+    <p>
+      <strong>Insideři (SEC EDGAR):</strong> ke každému top tickeru sčítáme
+      z oficiálních formulářů 4 nákupy a prodeje insiderů (ředitelé, členové
+      představenstev, vlastníci nad 10 %) na volném trhu za posledních
+      30 dní. Počítají se jen dobrovolné obchody za vlastní peníze (kódy
+      P a S) – granty akcií, exercisy opcí a daňové srážky jsou šum.
+      Klasické pravidlo: insideři prodávají z tisíce důvodů, ale kupují jen
+      z jednoho. Nejzajímavější je křížení – když dav kupuje a insideři ve
+      stejné akcii prodávají (varování), nebo vzácný souběh obou nákupů.
+      U kryptoměn a indexů formuláře 4 neexistují (–).
     </p>
     <p>
       <strong>StockTwits:</strong> sociální síť čistě o trzích; trending

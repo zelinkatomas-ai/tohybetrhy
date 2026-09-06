@@ -9,11 +9,12 @@ const vix = (smartMoney as any).vix ?? null;
 <Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců, apetit retailu a cena strachu (VIX).">
   <h1>Chytré peníze vs retail</h1>
   <p class="lead">
-    Kdo teď do trhu přitéká a kdo utíká? Pět nezávislých pohledů: oficiální
+    Kdo teď do trhu přitéká a kdo utíká? Šest nezávislých pohledů: oficiální
     data CFTC o pozicích ve futures na S&P 500 i na VIX (short sázky na
     klid), expozice aktivních správců (NAAIM), apetit retailu měřený objemem
-    pákových ETF a cena strachu z opčního trhu (VIX). Žádný z nich není
-    neomylný – nejcennější informace vzniká, když se rozejdou.
+    pákových ETF, cena strachu z opčního trhu (VIX) a portfolia amerických
+    politiků. Žádný z nich není neomylný – nejcennější informace vzniká,
+    když se rozejdou.
   </p>
 
   {smartMoney.cot && (
@@ -54,6 +55,14 @@ const vix = (smartMoney as any).vix ?? null;
       note="Implikovaná volatilita S&P 500 z cen opcí – kolik trh platí za pojistku proti poklesu. Pod ~15 klid, nad ~25 nervozita, nad ~30 panika; extrémy bývají kontrariánský signál. Čárkovaně 52týdenní průměr."
       dates={vix.level.dates}
       series={vix.level.series}
+    />
+  )}
+  {(smartMoney as any).politicians && (
+    <LineChart
+      title="Politici jako chytré peníze? NANC a KRUZ vs S&P 500 (indexováno na 100)"
+      note="ETF NANC a KRUZ mechanicky kopírují obchody, které členové Kongresu (demokraté, resp. republikáni) povinně přiznávají podle STOCK Act. Přiznání chodí s až 45denním zpožděním – fondy kupují pozdě. Rozestup obou čar je zároveň sektorová sázka stran: demokratická portfolia jsou těžká na technologie."
+      dates={(smartMoney as any).politicians.dates}
+      series={(smartMoney as any).politicians.series}
     />
   )}
   {vix?.term && (
@@ -104,8 +113,17 @@ const vix = (smartMoney as any).vix ?? null;
       spolehlivěji než samotná úroveň VIXu.
     </p>
     <p>
+      <strong>Politici (NANC, KRUZ):</strong> členové Kongresu musí obchody
+      přiznávat podle STOCK Act do 45 dnů; oba fondy Unusual Whales tato
+      přiznání mechanicky kopírují. Není to kouzlo – nakupují se zpožděním
+      a většinu náskoku NANC historicky vysvětluje prostě těžká technologická
+      expozice demokratických portfolií. Je to ale nejčistší veřejný způsob,
+      jak sledovat, kam peníze zákonodárců tečou.
+    </p>
+    <p>
       Co právě řeší dav na Redditu a StockTwits najdete na stránce
-      <a href="/socialni-site/">Sítě</a>.
+      <a href="/socialni-site/">Sítě</a> – včetně křížového pohledu, co ve
+      stejných akciích dělají insideři.
     </p>
   </Methodology>
 </Base>

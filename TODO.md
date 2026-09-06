@@ -132,6 +132,19 @@
       volume soubory jsou zdarma, ale většinu tvoří technické shorty
       market makerů. Místo toho nasazen CoT VIX futures (viz Chytré peníze)
       jako nejčistší týdenní měření spekulativních short pozic.
+- [x] **Insideři a politici** — hotovo 2026-09-06: (1) ETF NANC/KRUZ
+      (kopie přiznaných obchodů Kongresu dle STOCK Act) vs SPY na
+      /chytre-penize/; (2) křížový signál dav vs insideři na
+      /socialni-site/ — k top tickerům z Redditu se denně sčítají nákupy
+      a prodeje z formulářů 4 na SEC EDGAR (jen kódy P/S, 30 dní,
+      max 8 podání na ticker; UA s kontaktem dle pravidel SEC).
+- [ ] **Celotrhový insider buy/sell ratio**: akademicky nejsilnější verze
+      (agregát všech Form 4 svítí na dnech trhu — 2011, 2018, 2020), ale
+      chce stavovou infrastrukturu: tisíce podání denně, průběžné
+      zpracování, vlastní úložiště. Do bezstavového týdenního pipeline se
+      nevejde; volné agregátory jsou placené (Quiver, Unusual Whales) nebo
+      komunitní s nejistou údržbou (Senate/House Stock Watcher). Vrátit se,
+      až bude chuť na malý stavový worker.
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 

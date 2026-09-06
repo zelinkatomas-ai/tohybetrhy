@@ -11,8 +11,10 @@ Výstupy (src/data/):
   - sectors.json         ... americké sektory, SPDR (tabulka, řazeno dle 3M)
   - crypto.json          ... Bitcoin (tabulka + graf)
   - momentum_etfs.json   ... momentum ETF vs benchmarky (tabulka + graf)
-  - smart_money.json     ... chytré peníze vs retail (CoT, NAAIM, pákové ETF)
-  - social.json          ... sítě: Reddit (ApeWisdom + tradestie), StockTwits
+  - smart_money.json     ... chytré peníze vs retail (CoT, NAAIM, pákové ETF,
+                             politici přes NANC/KRUZ)
+  - social.json          ... sítě: Reddit (ApeWisdom + tradestie), StockTwits,
+                             insideři k top tickerům (SEC EDGAR, Form 4)
   - liquidity.json       ... likvidita: čistá likvidita Fedu, peníze vs inflace,
                              zaparkovaná hotovost, trh vs M2, dolar
   - risks.json           ... rizika: index GPR, nejistota EPU, obranný sektor
@@ -580,11 +582,50 @@ def fetch_stocktwits() -> dict:
     }
 
 
+def fetch_politicians() -> dict:
+    """Politici jako chytré peníze? ETF NANC (obchody demokratů) a KRUZ
+    (republikánů) mechanicky kopírují povinná přiznání členů Kongresu podle
+    STOCK Act. Přiznání chodí s až 45denním zpožděním, fondy tedy kupují
+    pozdě – kouzlo to není, teploměr ano. Rozestup NANC vs KRUZ je zároveň
+    sektorová sázka obou stran v jednom obrázku (demokraté těžcí na tech)."""
+    prices: dict[str, dict[str, float]] = {}
+    for t in ("NANC", "KRUZ", "SPY"):
+        prices[t], _ = fetch_yahoo_weekly(t)
+        time.sleep(1)
+    # osa podle SPY; chybějící týdny NANC/KRUZ = mezera (null), ne useknutí
+    # všech řad průnikem (Yahoo občas u malých ETF pár posledních týdnů nemá)
+    common = [d for d in sorted(prices["SPY"]) if d >= CHART_START]
+    start = next((d for d in common
+                  if d in prices["NANC"] and d in prices["KRUZ"]), None)
+    if start is None:
+        raise RuntimeError("žádný společný týden NANC/KRUZ/SPY")
+    common = [d for d in common if d >= start]
+    base = {t: p[start] for t, p in prices.items()}
+    for t in ("NANC", "KRUZ"):
+        if max(prices[t]) < common[-1]:
+            print(f"[smart_money] pozor: {t} končí {max(prices[t])} "
+                  f"(Yahoo nemá novější týdny)")
+
+    def idx(t: str) -> list[float | None]:
+        return [round(prices[t][d] / base[t] * 100, 1) if d in prices[t] else None
+                for d in common]
+
+    return {
+        "dates": common,
+        "series": [
+            {"name": "Demokraté (NANC)", "values": idx("NANC")},
+            {"name": "Republikáni (KRUZ)", "values": idx("KRUZ")},
+            {"name": "S&P 500 (SPY)", "values": idx("SPY"), "benchmark": True},
+        ],
+    }
+
+
 def build_smart_money() -> None:
     charts = {}
     for key, fn in [("cot", fetch_cot), ("cot_vix", fetch_cot_vix),
                     ("naaim", fetch_naaim),
-                    ("retail", fetch_retail_proxy), ("vix", fetch_vix)]:
+                    ("retail", fetch_retail_proxy), ("vix", fetch_vix),
+                    ("politicians", fetch_politicians)]:
         try:
             print(f"[smart_money] {key} ...")
             charts[key] = fn()
@@ -598,10 +639,84 @@ def build_smart_money() -> None:
                 "CoT VIX: totéž pro VIX futures – měření spekulativních short pozic na volatilitu. "
                 "NAAIM: průměrná akciová expozice aktivních správců. "
                 "Retail proxy: podíl pákových ETF na dolarovém objemu. "
+                "Politici: ETF NANC a KRUZ (kopie přiznaných obchodů Kongresu dle STOCK Act) vs SPY. "
                 "VIX: implikovaná volatilita S&P 500 + termínová struktura VIX3M/VIX.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[smart_money] -> smart_money.json")
+
+
+# SEC vyžaduje deklarovaný User-Agent s kontaktem (jinak 403); EDGAR je
+# oficiální bezplatný zdroj bez klíče, limit ~10 požadavků/s
+SEC_HEADERS = {"User-Agent": "tohybetrhy.cz momentum web (info@tohybetrhy.cz)"}
+
+
+def fetch_insiders(tickers: list[str]) -> dict[str, dict | None]:
+    """Co dělají insideři v akciích, které řeší dav: pro zadané tickery
+    sečte z formulářů 4 na SEC EDGAR nákupy (kód P) a prodeje (kód S) na
+    volném trhu za posledních 30 dní. Granty, exercisy opcí a daňové
+    srážky (kódy A/M/F/G) záměrně ignorujeme – signálem jsou jen dobrovolné
+    obchody za vlastní peníze. Insideři prodávají z tisíce důvodů, kupují
+    jen z jednoho."""
+    import xml.etree.ElementTree as ET
+    from datetime import timedelta
+
+    r = requests.get("https://www.sec.gov/files/company_tickers.json",
+                     headers=SEC_HEADERS, timeout=30)
+    r.raise_for_status()
+    cik_by_ticker = {v["ticker"].upper(): int(v["cik_str"]) for v in r.json().values()}
+
+    since = (date.today() - timedelta(days=30)).isoformat()
+    out: dict[str, dict | None] = {}
+    for ticker in tickers:
+        cik = cik_by_ticker.get(ticker.upper())
+        if cik is None:  # krypto, indexy apod. – Form 4 neexistuje
+            out[ticker] = None
+            continue
+        try:
+            time.sleep(0.2)
+            sub = requests.get(f"https://data.sec.gov/submissions/CIK{cik:010d}.json",
+                               headers=SEC_HEADERS, timeout=30)
+            sub.raise_for_status()
+            recent = sub.json()["filings"]["recent"]
+            form4 = [
+                (acc, doc)
+                for form, fdate, acc, doc in zip(recent["form"], recent["filingDate"],
+                                                 recent["accessionNumber"],
+                                                 recent["primaryDocument"])
+                if form == "4" and fdate >= since
+            ][:8]  # strop kvůli šetrnosti k EDGARu; 8 podání na měsíc bohatě stačí
+
+            buys = sells = 0.0
+            parsed = 0
+            for acc, doc in form4:
+                time.sleep(0.2)
+                doc = doc.split("/")[-1]  # občas s xsl prefixem pro HTML render
+                url = (f"https://www.sec.gov/Archives/edgar/data/{cik}/"
+                       f"{acc.replace('-', '')}/{doc}")
+                fx = requests.get(url, headers=SEC_HEADERS, timeout=30)
+                fx.raise_for_status()
+                root = ET.fromstring(fx.content)
+                for tr in root.iter("nonDerivativeTransaction"):
+                    code = (tr.findtext("transactionCoding/transactionCode") or "").strip()
+                    if code not in ("P", "S"):
+                        continue
+                    shares = float(tr.findtext(
+                        "transactionAmounts/transactionShares/value") or 0)
+                    price = float(tr.findtext(
+                        "transactionAmounts/transactionPricePerShare/value") or 0)
+                    value = shares * price
+                    if code == "P":
+                        buys += value
+                    else:
+                        sells += value
+                parsed += 1
+            out[ticker] = {"buys_usd": round(buys), "sells_usd": round(sells),
+                           "filings": parsed}
+        except Exception as e:
+            print(f"[social] insideři {ticker} SELHALO: {e}")
+            out[ticker] = None
+    return out
 
 
 def build_social() -> None:
@@ -615,10 +730,23 @@ def build_social() -> None:
             print(f"[social] {key} SELHALO: {e}")
             charts[key] = None
 
+    # křížový signál dav vs insideři: Form 4 k top tickerům z Redditu
+    if charts.get("reddit"):
+        try:
+            top = charts["reddit"]["top"]
+            print(f"[social] insideři (EDGAR) pro {len(top)} tickerů ...")
+            ins = fetch_insiders([r["ticker"] for r in top])
+            for r in top:
+                r["insiders"] = ins.get(r["ticker"])
+        except Exception as e:  # EDGAR nesmí shodit denní běh Sítí
+            print(f"[social] insideři SELHALO: {e}")
+
     (OUT_DIR / "social.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, "
                 "směr sentimentu (bullish/bearish) dle tradestie. "
+                "Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC "
+                "EDGAR za 30 dní. "
                 "StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
         **charts,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
