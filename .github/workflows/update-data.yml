@@ -22,6 +22,27 @@ jobs:
       - name: Instalace závislostí
         run: pip install -r pipeline/requirements.txt
 
+      - name: DOCASNE - diagnostika dat NANC/KRUZ
+        run: |
+          python3 - <<'EOF'
+          import sys; sys.path.insert(0, 'pipeline')
+          from fetch_data import fetch_yahoo_weekly
+          import time
+          series = {}
+          for t in ("NANC", "KRUZ", "SPY"):
+              p, _ = fetch_yahoo_weekly(t)
+              series[t] = p
+              ds = sorted(p)
+              print(f"{t}: {len(ds)} tydnu, posledních 10:", ds[-10:])
+              time.sleep(1)
+          spy = set(series["SPY"])
+          for t in ("NANC", "KRUZ"):
+              missing = sorted(spy - set(series[t]))
+              print(f"{t}: datumy SPY chybejici v {t} (poslednich 10):", missing[-10:])
+          EOF
+        env:
+          PYTHONUNBUFFERED: "1"
+
       - name: Stažení dat a výpočet momenta
         run: python pipeline/fetch_data.py
         timeout-minutes: 10 # zamrzlý zdroj nesmí držet job hodiny
