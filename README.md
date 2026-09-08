@@ -66,6 +66,11 @@ buildu, když jsou nastavené env proměnné – viz `.env.example`:
 2. V Umami vytvořte web a zkopírujte Website ID.
 3. Na Cloudflare Pages nastavte env proměnné `PUBLIC_UMAMI_URL`
    a `PUBLIC_UMAMI_WEBSITE_ID` (Settings → Environment variables) a redeploy.
+4. Doporučeno proti adblockerům: `PUBLIC_UMAMI_URL=/stats`. Měřicí skript
+   i sběr událostí pak jedou přes proxy na vlastní doméně
+   (`functions/stats/[[path]].js` → Umami Cloud), takže je neblokují
+   filtrační seznamy, které `cloud.umami.is` plošně zařezávají
+   (EasyPrivacy). Website ID zůstává stejné.
 
 Co tím dostanete: návštěvnost, zdroje, stránky – a díky architektuře
 `/go/<klíč>/` i affiliate prokliky jako pageview, bez konfigurace eventů.
