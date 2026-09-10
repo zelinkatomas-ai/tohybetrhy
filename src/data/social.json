@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-09T23:25:53+00:00",
+ "updated": "2026-09-10T23:19:45+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,12 +7,12 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 188,
-    "upvotes": 516,
-    "prev_mentions": 217,
-    "change_pct": -13.4,
-    "sentiment": "bearish",
-    "sentiment_score": -0.071,
+    "mentions": 268,
+    "upvotes": 692,
+    "prev_mentions": 188,
+    "change_pct": 42.6,
+    "sentiment": "bullish",
+    "sentiment_score": 0.009,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -21,78 +21,78 @@
    },
    {
     "rank": 2,
-    "ticker": "AAPL",
-    "name": "Apple",
-    "mentions": 134,
-    "upvotes": 2210,
-    "prev_mentions": 36,
-    "change_pct": 272.2,
+    "ticker": "ORCL",
+    "name": "Oracle",
+    "mentions": 238,
+    "upvotes": 541,
+    "prev_mentions": 42,
+    "change_pct": 466.7,
     "sentiment": "bullish",
-    "sentiment_score": 0.213,
+    "sentiment_score": 0.359,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 1788965,
-     "filings": 5
+     "sells_usd": 0,
+     "filings": 0
     }
    },
    {
     "rank": 3,
-    "ticker": "META",
-    "name": "Meta Platforms (Facebook)",
-    "mentions": 126,
-    "upvotes": 537,
-    "prev_mentions": 46,
-    "change_pct": 173.9,
+    "ticker": "USO",
+    "name": "United States Commodity Funds LLC - United States Oil Fund",
+    "mentions": 116,
+    "upvotes": 259,
+    "prev_mentions": 40,
+    "change_pct": 190.0,
     "sentiment": "bullish",
-    "sentiment_score": 0.072,
+    "sentiment_score": 0.217,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 12315003,
-     "filings": 8
+     "sells_usd": 0,
+     "filings": 0
     }
    },
    {
     "rank": 4,
-    "ticker": "MU",
-    "name": "Micron Technology",
-    "mentions": 122,
-    "upvotes": 281,
-    "prev_mentions": 204,
-    "change_pct": -40.2,
-    "sentiment": "bullish",
-    "sentiment_score": 0.417,
+    "ticker": "AAPL",
+    "name": "Apple",
+    "mentions": 103,
+    "upvotes": 397,
+    "prev_mentions": 134,
+    "change_pct": -23.1,
+    "sentiment": "bearish",
+    "sentiment_score": -0.034,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 52798820,
-     "filings": 3
+     "sells_usd": 2245142,
+     "filings": 6
     }
    },
    {
     "rank": 5,
-    "ticker": "GOOGL",
-    "name": "Alphabet (Google)",
-    "mentions": 76,
-    "upvotes": 521,
-    "prev_mentions": 31,
-    "change_pct": 145.2,
-    "sentiment": "bearish",
-    "sentiment_score": -0.095,
+    "ticker": "DTE",
+    "name": "DTE Energy",
+    "mentions": 81,
+    "upvotes": 276,
+    "prev_mentions": 48,
+    "change_pct": 68.8,
+    "sentiment": "bullish",
+    "sentiment_score": 0.249,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 27692,
-     "filings": 8
+     "sells_usd": 678560,
+     "filings": 1
     }
    },
    {
     "rank": 6,
     "ticker": "NVDA",
     "name": "NVIDIA",
-    "mentions": 74,
-    "upvotes": 139,
-    "prev_mentions": 140,
-    "change_pct": -47.1,
-    "sentiment": "bearish",
-    "sentiment_score": -0.109,
+    "mentions": 76,
+    "upvotes": 288,
+    "prev_mentions": 74,
+    "change_pct": 2.7,
+    "sentiment": "bullish",
+    "sentiment_score": 0.078,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 653017053,
@@ -101,46 +101,30 @@
    },
    {
     "rank": 7,
-    "ticker": "AEO",
-    "name": "American Eagle Outfitters",
-    "mentions": 65,
-    "upvotes": 99,
-    "prev_mentions": null,
-    "change_pct": null,
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 73,
+    "upvotes": 135,
+    "prev_mentions": 122,
+    "change_pct": -40.2,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 0,
-     "filings": 0
+     "sells_usd": 52798820,
+     "filings": 3
     }
    },
    {
     "rank": 8,
-    "ticker": "GOOG",
-    "name": "Alphabet (Google)",
-    "mentions": 63,
-    "upvotes": 245,
-    "prev_mentions": 15,
-    "change_pct": 320.0,
-    "sentiment": "bearish",
-    "sentiment_score": -0.082,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 27692,
-     "filings": 8
-    }
-   },
-   {
-    "rank": 9,
-    "ticker": "QQQ",
-    "name": "Invesco QQQ ETF",
-    "mentions": 56,
-    "upvotes": 91,
-    "prev_mentions": 62,
-    "change_pct": -9.7,
-    "sentiment": "bearish",
-    "sentiment_score": -0.105,
+    "ticker": "SPCX",
+    "name": "SpaceX",
+    "mentions": 60,
+    "upvotes": 138,
+    "prev_mentions": 18,
+    "change_pct": 233.3,
+    "sentiment": "bullish",
+    "sentiment_score": 0.366,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -148,78 +132,94 @@
     }
    },
    {
-    "rank": 10,
-    "ticker": "AVAV",
-    "name": "AeroVironment",
-    "mentions": 52,
-    "upvotes": 91,
-    "prev_mentions": null,
-    "change_pct": null,
-    "sentiment": null,
-    "sentiment_score": null,
+    "rank": 9,
+    "ticker": "META",
+    "name": "Meta Platforms (Facebook)",
+    "mentions": 53,
+    "upvotes": 76,
+    "prev_mentions": 126,
+    "change_pct": -57.9,
+    "sentiment": "bullish",
+    "sentiment_score": 0.136,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 89376,
-     "filings": 2
+     "sells_usd": 15616178,
+     "filings": 8
+    }
+   },
+   {
+    "rank": 10,
+    "ticker": "RDDT",
+    "name": "Reddit",
+    "mentions": 45,
+    "upvotes": 241,
+    "prev_mentions": 22,
+    "change_pct": 104.5,
+    "sentiment": "bearish",
+    "sentiment_score": -0.008,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 6691375,
+     "filings": 8
     }
    }
   ],
-  "prev_date": "2026-09-08",
+  "prev_date": "2026-09-09",
   "source": "apewisdom",
   "snapshot": {
-   "date": "2026-09-09",
+   "date": "2026-09-10",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 188,
-    "AAPL": 134,
-    "META": 126,
-    "MU": 122,
-    "GOOGL": 76,
-    "NVDA": 74,
-    "AEO": 65,
-    "GOOG": 63,
-    "QQQ": 56,
-    "AVAV": 52,
-    "SNDK": 49,
-    "RKLB": 49,
-    "DTE": 48,
-    "EU": 45,
-    "ORCL": 42,
-    "AGI": 41,
-    "USO": 40,
-    "AMZN": 40,
-    "AMD": 38,
-    "TSLA": 37,
-    "NBIS": 31,
-    "MSFT": 31,
-    "PLTR": 30,
-    "ASTS": 26,
-    "BE": 24,
-    "CC": 24,
-    "RDDT": 22,
-    "MC": 20,
-    "NOK": 19,
-    "MA": 19,
-    "SPCX": 18,
-    "NKE": 18,
-    "AVGO": 18,
-    "TLT": 17,
-    "PL": 16,
-    "YOU": 16,
-    "MRVL": 15,
-    "IT": 15,
-    "BATL": 14,
-    "GLD": 14,
-    "IQ": 14,
-    "FIG": 13,
-    "IREN": 13,
-    "IWM": 13,
-    "UNH": 13,
+    "SPY": 268,
+    "ORCL": 238,
+    "USO": 116,
+    "AAPL": 103,
+    "DTE": 81,
+    "NVDA": 76,
+    "MU": 73,
+    "SPCX": 60,
+    "META": 53,
+    "RDDT": 45,
+    "ADBE": 44,
+    "QQQ": 44,
+    "TLT": 37,
+    "TSLA": 33,
+    "AVAV": 33,
+    "WTI": 32,
+    "YOU": 29,
+    "NKE": 28,
+    "MAGA": 28,
+    "EU": 28,
+    "GOOG": 25,
+    "NBIS": 25,
+    "MSFT": 24,
+    "ALL": 24,
+    "SNDK": 24,
+    "GOOGL": 23,
+    "VOO": 22,
+    "LULU": 21,
+    "GLD": 21,
+    "AMD": 19,
+    "IT": 19,
+    "AGI": 19,
+    "RKLB": 16,
+    "GO": 14,
+    "PLTR": 14,
     "INTC": 13,
-    "KLAR": 12,
-    "TTAN": 12,
-    "APLD": 12,
-    "MSTR": 12
+    "ES": 13,
+    "IQ": 13,
+    "AM": 13,
+    "IWM": 13,
+    "ASTS": 13,
+    "NOW": 12,
+    "SGOV": 12,
+    "UBER": 11,
+    "SQQQ": 11,
+    "SOXS": 11,
+    "UP": 11,
+    "DJT": 10,
+    "FIG": 10,
+    "AMZN": 9
    }
   }
  },
@@ -227,63 +227,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "AAPL",
-    "name": "Apple Inc",
-    "watchers": 992600
+    "ticker": "GME",
+    "name": "GameStop Corp",
+    "watchers": 307607
    },
    {
     "rank": 2,
-    "ticker": "DJT",
-    "name": "Trump Media & Technology Group Corp.",
-    "watchers": 115648
+    "ticker": "ORCL",
+    "name": "Oracle Corp.",
+    "watchers": 70516
    },
    {
     "rank": 3,
-    "ticker": "META",
-    "name": "Meta Platforms Inc",
-    "watchers": 608856
+    "ticker": "USO",
+    "name": "United States Oil Fund",
+    "watchers": 75016
    },
    {
     "rank": 4,
-    "ticker": "ORCL",
-    "name": "Oracle Corp.",
-    "watchers": 69924
+    "ticker": "ADBE",
+    "name": "Adobe Inc",
+    "watchers": 50849
    },
    {
     "rank": 5,
-    "ticker": "AEO",
-    "name": "American Eagle Outfitters, Inc.",
-    "watchers": 7723
+    "ticker": "JOBY",
+    "name": "Joby Aviation Inc",
+    "watchers": 28978
    },
    {
     "rank": 6,
-    "ticker": "IRD",
-    "name": "Opus Genetics Inc.",
-    "watchers": 827
+    "ticker": "BABA",
+    "name": "Alibaba Group Holding Ltd",
+    "watchers": 425243
    },
    {
     "rank": 7,
-    "ticker": "USO",
-    "name": "United States Oil Fund",
-    "watchers": 74829
+    "ticker": "NKE",
+    "name": "Nike Inc",
+    "watchers": 139598
    },
    {
     "rank": 8,
-    "ticker": "CHWY",
-    "name": "Chewy Inc",
-    "watchers": 31210
+    "ticker": "M",
+    "name": "Macy's Inc",
+    "watchers": 28824
    },
    {
     "rank": 9,
-    "ticker": "SKHY",
-    "name": "SK Hynix Inc - ADR",
-    "watchers": 15381
+    "ticker": "QQQ",
+    "name": "Invesco QQQ Trust Series 1",
+    "watchers": 279446
    },
    {
     "rank": 10,
-    "ticker": "KLAR",
-    "name": "Klarna Group plc",
-    "watchers": 7892
+    "ticker": "SCO",
+    "name": "ProShares UltraShort Bloomberg Crude Oil",
+    "watchers": 8610
    }
   ]
  }
