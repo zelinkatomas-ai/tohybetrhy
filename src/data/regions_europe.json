@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-06T05:37:21+00:00",
+ "updated": "2026-09-11T20:20:44+00:00",
  "note": "Evropa v detailu po zemích. U menších trhů americká iShares ETF jako indikátor. Výnosy v měně fondu.",
  "rows": [
   {
@@ -8,34 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 1.51,
-   "r3": 11.0,
-   "r6": 31.83,
-   "r12": 45.55,
-   "signal": "above"
-  },
-  {
-   "ticker": "EXS1.DE",
-   "name": "Německo (DAX)",
-   "currency": "EUR",
-   "benchmark": false,
-   "core": false,
-   "r1": -1.42,
-   "r3": 5.66,
-   "r6": 10.68,
-   "r12": 9.37,
-   "signal": "above"
-  },
-  {
-   "ticker": "EWI",
-   "name": "Itálie",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -2.23,
-   "r3": 3.97,
-   "r6": 21.12,
-   "r12": 23.56,
+   "r1": 2.57,
+   "r3": 14.62,
+   "r6": 33.12,
+   "r12": 49.38,
    "signal": "above"
   },
   {
@@ -44,10 +20,34 @@
    "currency": "GBp",
    "benchmark": false,
    "core": false,
-   "r1": 0.99,
-   "r3": 3.08,
-   "r6": 5.57,
-   "r12": 17.59,
+   "r1": -1.47,
+   "r3": 3.61,
+   "r6": 7.82,
+   "r12": 16.59,
+   "signal": "above"
+  },
+  {
+   "ticker": "EXS1.DE",
+   "name": "Německo (DAX)",
+   "currency": "EUR",
+   "benchmark": false,
+   "core": false,
+   "r1": -2.18,
+   "r3": 2.33,
+   "r6": 13.82,
+   "r12": 7.65,
+   "signal": "above"
+  },
+  {
+   "ticker": "EWI",
+   "name": "Itálie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -1.51,
+   "r3": 2.24,
+   "r6": 24.62,
+   "r12": 24.6,
    "signal": "above"
   },
   {
@@ -56,10 +56,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.22,
-   "r3": 2.43,
-   "r6": 9.41,
-   "r12": 15.45,
+   "r1": -6.31,
+   "r3": -1.68,
+   "r6": 8.98,
+   "r12": 11.05,
    "signal": "above"
   },
   {
@@ -68,10 +68,10 @@
    "currency": "EUR",
    "benchmark": false,
    "core": false,
-   "r1": -4.06,
-   "r3": -0.72,
-   "r6": 7.13,
-   "r12": 9.0,
+   "r1": -3.54,
+   "r3": -2.71,
+   "r6": 9.14,
+   "r12": 7.31,
    "signal": "above"
   }
  ],

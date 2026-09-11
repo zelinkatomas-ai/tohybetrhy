@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-10T23:19:45+00:00",
+ "updated": "2026-09-11T20:21:40+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,12 +7,12 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 268,
-    "upvotes": 692,
-    "prev_mentions": 188,
-    "change_pct": 42.6,
-    "sentiment": "bullish",
-    "sentiment_score": 0.009,
+    "mentions": 278,
+    "upvotes": 1598,
+    "prev_mentions": 268,
+    "change_pct": 3.7,
+    "sentiment": "bearish",
+    "sentiment_score": -0.007,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -23,12 +23,12 @@
     "rank": 2,
     "ticker": "ORCL",
     "name": "Oracle",
-    "mentions": 238,
-    "upvotes": 541,
-    "prev_mentions": 42,
-    "change_pct": 466.7,
+    "mentions": 190,
+    "upvotes": 372,
+    "prev_mentions": 238,
+    "change_pct": -20.2,
     "sentiment": "bullish",
-    "sentiment_score": 0.359,
+    "sentiment_score": 0.021,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -37,78 +37,14 @@
    },
    {
     "rank": 3,
-    "ticker": "USO",
-    "name": "United States Commodity Funds LLC - United States Oil Fund",
-    "mentions": 116,
-    "upvotes": 259,
-    "prev_mentions": 40,
-    "change_pct": 190.0,
-    "sentiment": "bullish",
-    "sentiment_score": 0.217,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 0,
-     "filings": 0
-    }
-   },
-   {
-    "rank": 4,
-    "ticker": "AAPL",
-    "name": "Apple",
-    "mentions": 103,
-    "upvotes": 397,
-    "prev_mentions": 134,
-    "change_pct": -23.1,
-    "sentiment": "bearish",
-    "sentiment_score": -0.034,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 2245142,
-     "filings": 6
-    }
-   },
-   {
-    "rank": 5,
-    "ticker": "DTE",
-    "name": "DTE Energy",
-    "mentions": 81,
-    "upvotes": 276,
-    "prev_mentions": 48,
-    "change_pct": 68.8,
-    "sentiment": "bullish",
-    "sentiment_score": 0.249,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 678560,
-     "filings": 1
-    }
-   },
-   {
-    "rank": 6,
-    "ticker": "NVDA",
-    "name": "NVIDIA",
-    "mentions": 76,
-    "upvotes": 288,
-    "prev_mentions": 74,
-    "change_pct": 2.7,
-    "sentiment": "bullish",
-    "sentiment_score": 0.078,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 653017053,
-     "filings": 6
-    }
-   },
-   {
-    "rank": 7,
     "ticker": "MU",
     "name": "Micron Technology",
-    "mentions": 73,
-    "upvotes": 135,
-    "prev_mentions": 122,
-    "change_pct": -40.2,
-    "sentiment": null,
-    "sentiment_score": null,
+    "mentions": 92,
+    "upvotes": 168,
+    "prev_mentions": 73,
+    "change_pct": 26.0,
+    "sentiment": "bullish",
+    "sentiment_score": 0.071,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 52798820,
@@ -116,15 +52,47 @@
     }
    },
    {
-    "rank": 8,
-    "ticker": "SPCX",
-    "name": "SpaceX",
-    "mentions": 60,
-    "upvotes": 138,
-    "prev_mentions": 18,
-    "change_pct": 233.3,
+    "rank": 4,
+    "ticker": "DTE",
+    "name": "DTE Energy",
+    "mentions": 74,
+    "upvotes": 242,
+    "prev_mentions": 81,
+    "change_pct": -8.6,
+    "sentiment": null,
+    "sentiment_score": null,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 678560,
+     "filings": 1
+    }
+   },
+   {
+    "rank": 5,
+    "ticker": "AAPL",
+    "name": "Apple",
+    "mentions": 67,
+    "upvotes": 285,
+    "prev_mentions": 103,
+    "change_pct": -35.0,
     "sentiment": "bullish",
-    "sentiment_score": 0.366,
+    "sentiment_score": 0.059,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 2245142,
+     "filings": 6
+    }
+   },
+   {
+    "rank": 6,
+    "ticker": "USO",
+    "name": "United States Commodity Funds LLC - United States Oil Fund",
+    "mentions": 64,
+    "upvotes": 157,
+    "prev_mentions": 116,
+    "change_pct": -44.8,
+    "sentiment": "bearish",
+    "sentiment_score": -0.095,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -132,94 +100,126 @@
     }
    },
    {
-    "rank": 9,
-    "ticker": "META",
-    "name": "Meta Platforms (Facebook)",
-    "mentions": 53,
-    "upvotes": 76,
-    "prev_mentions": 126,
-    "change_pct": -57.9,
-    "sentiment": "bullish",
-    "sentiment_score": 0.136,
+    "rank": 7,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 56,
+    "upvotes": 120,
+    "prev_mentions": 76,
+    "change_pct": -26.3,
+    "sentiment": "bearish",
+    "sentiment_score": -0.178,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 15616178,
+     "sells_usd": 653017053,
+     "filings": 6
+    }
+   },
+   {
+    "rank": 8,
+    "ticker": "SNDK",
+    "name": "Sandisk",
+    "mentions": 54,
+    "upvotes": 104,
+    "prev_mentions": 24,
+    "change_pct": 125.0,
+    "sentiment": "bearish",
+    "sentiment_score": -0.758,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 12879106,
      "filings": 8
     }
    },
    {
-    "rank": 10,
-    "ticker": "RDDT",
-    "name": "Reddit",
-    "mentions": 45,
-    "upvotes": 241,
-    "prev_mentions": 22,
-    "change_pct": 104.5,
-    "sentiment": "bearish",
-    "sentiment_score": -0.008,
+    "rank": 9,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 49,
+    "upvotes": 392,
+    "prev_mentions": 44,
+    "change_pct": 11.4,
+    "sentiment": "bullish",
+    "sentiment_score": 0.118,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 6691375,
+     "sells_usd": 0,
+     "filings": 0
+    }
+   },
+   {
+    "rank": 10,
+    "ticker": "DELL",
+    "name": "Dell",
+    "mentions": 37,
+    "upvotes": 81,
+    "prev_mentions": null,
+    "change_pct": null,
+    "sentiment": null,
+    "sentiment_score": null,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 88231657,
      "filings": 8
     }
    }
   ],
-  "prev_date": "2026-09-09",
+  "prev_date": "2026-09-10",
   "source": "apewisdom",
   "snapshot": {
-   "date": "2026-09-10",
+   "date": "2026-09-11",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 268,
-    "ORCL": 238,
-    "USO": 116,
-    "AAPL": 103,
-    "DTE": 81,
-    "NVDA": 76,
-    "MU": 73,
-    "SPCX": 60,
-    "META": 53,
-    "RDDT": 45,
-    "ADBE": 44,
-    "QQQ": 44,
-    "TLT": 37,
-    "TSLA": 33,
-    "AVAV": 33,
-    "WTI": 32,
-    "YOU": 29,
-    "NKE": 28,
-    "MAGA": 28,
-    "EU": 28,
-    "GOOG": 25,
-    "NBIS": 25,
-    "MSFT": 24,
-    "ALL": 24,
-    "SNDK": 24,
-    "GOOGL": 23,
-    "VOO": 22,
-    "LULU": 21,
-    "GLD": 21,
-    "AMD": 19,
-    "IT": 19,
-    "AGI": 19,
-    "RKLB": 16,
-    "GO": 14,
-    "PLTR": 14,
-    "INTC": 13,
-    "ES": 13,
-    "IQ": 13,
-    "AM": 13,
-    "IWM": 13,
-    "ASTS": 13,
-    "NOW": 12,
-    "SGOV": 12,
-    "UBER": 11,
-    "SQQQ": 11,
-    "SOXS": 11,
-    "UP": 11,
-    "DJT": 10,
-    "FIG": 10,
-    "AMZN": 9
+    "SPY": 278,
+    "ORCL": 190,
+    "MU": 92,
+    "DTE": 74,
+    "AAPL": 67,
+    "USO": 64,
+    "NVDA": 56,
+    "SNDK": 54,
+    "QQQ": 49,
+    "DELL": 37,
+    "META": 31,
+    "ADBE": 26,
+    "SLS": 25,
+    "WTI": 23,
+    "GOOG": 22,
+    "MAGA": 21,
+    "PLTR": 21,
+    "TSLA": 20,
+    "YOU": 19,
+    "AEO": 19,
+    "TLT": 18,
+    "GOOGL": 17,
+    "SPCX": 17,
+    "IT": 17,
+    "ALL": 17,
+    "OKLO": 16,
+    "VOO": 16,
+    "HPE": 16,
+    "CRWV": 15,
+    "NBIS": 15,
+    "UP": 15,
+    "RDDT": 14,
+    "ASTS": 14,
+    "SOXS": 14,
+    "LULU": 14,
+    "NFLX": 14,
+    "MSFT": 14,
+    "EU": 13,
+    "RKLB": 12,
+    "HOOD": 12,
+    "AGI": 12,
+    "ON": 11,
+    "UNH": 11,
+    "AMD": 11,
+    "VTI": 10,
+    "GLD": 10,
+    "NOW": 10,
+    "ES": 10,
+    "AENT": 9,
+    "SMCI": 9
    }
   }
  },
@@ -227,63 +227,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "GME",
-    "name": "GameStop Corp",
-    "watchers": 307607
+    "ticker": "SLS",
+    "name": "SELLAS Life Sciences Group Inc",
+    "watchers": 61825
    },
    {
     "rank": 2,
-    "ticker": "ORCL",
-    "name": "Oracle Corp.",
-    "watchers": 70516
+    "ticker": "OKLO",
+    "name": "Oklo Inc.",
+    "watchers": 39739
    },
    {
     "rank": 3,
-    "ticker": "USO",
-    "name": "United States Oil Fund",
-    "watchers": 75016
+    "ticker": "GME",
+    "name": "GameStop Corp",
+    "watchers": 307721
    },
    {
     "rank": 4,
-    "ticker": "ADBE",
-    "name": "Adobe Inc",
-    "watchers": 50849
+    "ticker": "SMR",
+    "name": "NuScale Power Corp",
+    "watchers": 25138
    },
    {
     "rank": 5,
-    "ticker": "JOBY",
-    "name": "Joby Aviation Inc",
-    "watchers": 28978
+    "ticker": "FNMA",
+    "name": "Federal National Mortgage Association",
+    "watchers": 17853
    },
    {
     "rank": 6,
-    "ticker": "BABA",
-    "name": "Alibaba Group Holding Ltd",
-    "watchers": 425243
+    "ticker": "AENT",
+    "name": "Alliance Entertainment Holding Corporation - Ordinary Shares - Class A",
+    "watchers": 684
    },
    {
     "rank": 7,
-    "ticker": "NKE",
-    "name": "Nike Inc",
-    "watchers": 139598
+    "ticker": "IBM",
+    "name": "International Business Machines Corp.",
+    "watchers": 69355
    },
    {
     "rank": 8,
-    "ticker": "M",
-    "name": "Macy's Inc",
-    "watchers": 28824
+    "ticker": "GT",
+    "name": "Goodyear Tire & Rubber Co.",
+    "watchers": 5947
    },
    {
     "rank": 9,
-    "ticker": "QQQ",
-    "name": "Invesco QQQ Trust Series 1",
-    "watchers": 279446
+    "ticker": "MLTX",
+    "name": "MoonLake Immunotherapeutics",
+    "watchers": 6555
    },
    {
     "rank": 10,
-    "ticker": "SCO",
-    "name": "ProShares UltraShort Bloomberg Crude Oil",
-    "watchers": 8610
+    "ticker": "ORCL",
+    "name": "Oracle Corp.",
+    "watchers": 70931
    }
   ]
  }

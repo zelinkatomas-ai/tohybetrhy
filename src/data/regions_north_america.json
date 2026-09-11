@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-06T05:37:31+00:00",
+ "updated": "2026-09-11T20:20:56+00:00",
  "note": "Severní Amerika v detailu. USA stejným fondem jako v hlavní tabulce, Kanada přes americké iShares ETF jako indikátor.",
  "rows": [
   {
@@ -8,10 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.31,
-   "r3": 6.08,
-   "r6": 13.27,
-   "r12": 26.79,
+   "r1": -2.85,
+   "r3": 4.68,
+   "r6": 14.39,
+   "r12": 21.05,
    "signal": "above"
   },
   {
@@ -20,10 +20,10 @@
    "currency": "EUR",
    "benchmark": false,
    "core": false,
-   "r1": -1.26,
-   "r3": 3.42,
-   "r6": 14.48,
-   "r12": 19.05,
+   "r1": 0.57,
+   "r3": 1.36,
+   "r6": 17.1,
+   "r12": 18.12,
    "signal": "above"
   }
  ],
