@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-11T20:21:40+00:00",
+ "updated": "2026-09-11T23:27:52+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,10 +7,10 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 278,
-    "upvotes": 1598,
-    "prev_mentions": 268,
-    "change_pct": 3.7,
+    "mentions": 286,
+    "upvotes": 1659,
+    "prev_mentions": 278,
+    "change_pct": 2.9,
     "sentiment": "bearish",
     "sentiment_score": -0.007,
     "insiders": {
@@ -23,10 +23,10 @@
     "rank": 2,
     "ticker": "ORCL",
     "name": "Oracle",
-    "mentions": 190,
-    "upvotes": 372,
-    "prev_mentions": 238,
-    "change_pct": -20.2,
+    "mentions": 128,
+    "upvotes": 238,
+    "prev_mentions": 190,
+    "change_pct": -32.6,
     "sentiment": "bullish",
     "sentiment_score": 0.021,
     "insiders": {
@@ -39,10 +39,10 @@
     "rank": 3,
     "ticker": "MU",
     "name": "Micron Technology",
-    "mentions": 92,
-    "upvotes": 168,
-    "prev_mentions": 73,
-    "change_pct": 26.0,
+    "mentions": 90,
+    "upvotes": 167,
+    "prev_mentions": 92,
+    "change_pct": -2.2,
     "sentiment": "bullish",
     "sentiment_score": 0.071,
     "insiders": {
@@ -55,10 +55,10 @@
     "rank": 4,
     "ticker": "DTE",
     "name": "DTE Energy",
-    "mentions": 74,
-    "upvotes": 242,
-    "prev_mentions": 81,
-    "change_pct": -8.6,
+    "mentions": 71,
+    "upvotes": 237,
+    "prev_mentions": 74,
+    "change_pct": -4.1,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -71,10 +71,10 @@
     "rank": 5,
     "ticker": "AAPL",
     "name": "Apple",
-    "mentions": 67,
-    "upvotes": 285,
-    "prev_mentions": 103,
-    "change_pct": -35.0,
+    "mentions": 64,
+    "upvotes": 277,
+    "prev_mentions": 67,
+    "change_pct": -4.5,
     "sentiment": "bullish",
     "sentiment_score": 0.059,
     "insiders": {
@@ -85,44 +85,12 @@
    },
    {
     "rank": 6,
-    "ticker": "USO",
-    "name": "United States Commodity Funds LLC - United States Oil Fund",
-    "mentions": 64,
-    "upvotes": 157,
-    "prev_mentions": 116,
-    "change_pct": -44.8,
-    "sentiment": "bearish",
-    "sentiment_score": -0.095,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 0,
-     "filings": 0
-    }
-   },
-   {
-    "rank": 7,
-    "ticker": "NVDA",
-    "name": "NVIDIA",
-    "mentions": 56,
-    "upvotes": 120,
-    "prev_mentions": 76,
-    "change_pct": -26.3,
-    "sentiment": "bearish",
-    "sentiment_score": -0.178,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 653017053,
-     "filings": 6
-    }
-   },
-   {
-    "rank": 8,
     "ticker": "SNDK",
     "name": "Sandisk",
     "mentions": 54,
-    "upvotes": 104,
-    "prev_mentions": 24,
-    "change_pct": 125.0,
+    "upvotes": 101,
+    "prev_mentions": 54,
+    "change_pct": 0.0,
     "sentiment": "bearish",
     "sentiment_score": -0.758,
     "insiders": {
@@ -132,15 +100,47 @@
     }
    },
    {
-    "rank": 9,
+    "rank": 7,
     "ticker": "QQQ",
     "name": "Invesco QQQ ETF",
-    "mentions": 49,
-    "upvotes": 392,
-    "prev_mentions": 44,
-    "change_pct": 11.4,
+    "mentions": 53,
+    "upvotes": 486,
+    "prev_mentions": 49,
+    "change_pct": 8.2,
     "sentiment": "bullish",
     "sentiment_score": 0.118,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 0,
+     "filings": 0
+    }
+   },
+   {
+    "rank": 8,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 52,
+    "upvotes": 90,
+    "prev_mentions": 56,
+    "change_pct": -7.1,
+    "sentiment": "bearish",
+    "sentiment_score": -0.178,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 653017053,
+     "filings": 7
+    }
+   },
+   {
+    "rank": 9,
+    "ticker": "USO",
+    "name": "United States Commodity Funds LLC - United States Oil Fund",
+    "mentions": 43,
+    "upvotes": 135,
+    "prev_mentions": 64,
+    "change_pct": -32.8,
+    "sentiment": "bearish",
+    "sentiment_score": -0.095,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -152,74 +152,74 @@
     "ticker": "DELL",
     "name": "Dell",
     "mentions": 37,
-    "upvotes": 81,
-    "prev_mentions": null,
-    "change_pct": null,
+    "upvotes": 85,
+    "prev_mentions": 37,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 88231657,
+     "sells_usd": 87242218,
      "filings": 8
     }
    }
   ],
-  "prev_date": "2026-09-10",
+  "prev_date": "2026-09-11",
   "source": "apewisdom",
   "snapshot": {
    "date": "2026-09-11",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 278,
-    "ORCL": 190,
-    "MU": 92,
-    "DTE": 74,
-    "AAPL": 67,
-    "USO": 64,
-    "NVDA": 56,
+    "SPY": 286,
+    "ORCL": 128,
+    "MU": 90,
+    "DTE": 71,
+    "AAPL": 64,
     "SNDK": 54,
-    "QQQ": 49,
+    "QQQ": 53,
+    "NVDA": 52,
+    "USO": 43,
     "DELL": 37,
-    "META": 31,
-    "ADBE": 26,
-    "SLS": 25,
-    "WTI": 23,
-    "GOOG": 22,
-    "MAGA": 21,
+    "META": 32,
+    "SLS": 30,
+    "TSLA": 25,
+    "GOOG": 23,
     "PLTR": 21,
-    "TSLA": 20,
-    "YOU": 19,
+    "MAGA": 20,
+    "HPE": 20,
     "AEO": 19,
-    "TLT": 18,
+    "OKLO": 18,
+    "VOO": 18,
+    "ADBE": 18,
     "GOOGL": 17,
-    "SPCX": 17,
-    "IT": 17,
-    "ALL": 17,
-    "OKLO": 16,
-    "VOO": 16,
-    "HPE": 16,
+    "YOU": 17,
+    "SPCX": 16,
+    "WTI": 16,
     "CRWV": 15,
-    "NBIS": 15,
-    "UP": 15,
-    "RDDT": 14,
-    "ASTS": 14,
-    "SOXS": 14,
-    "LULU": 14,
-    "NFLX": 14,
-    "MSFT": 14,
-    "EU": 13,
+    "RDDT": 15,
+    "EU": 15,
+    "SOXS": 15,
+    "IT": 15,
+    "NBIS": 14,
+    "UP": 14,
+    "ASTS": 13,
+    "TLT": 13,
+    "VTI": 13,
     "RKLB": 12,
-    "HOOD": 12,
-    "AGI": 12,
-    "ON": 11,
+    "ALL": 12,
+    "NFLX": 12,
+    "HOOD": 11,
+    "SOXL": 11,
+    "AGI": 11,
+    "LULU": 11,
     "UNH": 11,
-    "AMD": 11,
-    "VTI": 10,
     "GLD": 10,
-    "NOW": 10,
-    "ES": 10,
+    "MSFT": 10,
     "AENT": 9,
-    "SMCI": 9
+    "SMR": 9,
+    "IWM": 9,
+    "OI": 9,
+    "ON": 9
    }
   }
  },
@@ -227,63 +227,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "SLS",
-    "name": "SELLAS Life Sciences Group Inc",
-    "watchers": 61825
+    "ticker": "ORCL",
+    "name": "Oracle Corp.",
+    "watchers": 70966
    },
    {
     "rank": 2,
-    "ticker": "OKLO",
-    "name": "Oklo Inc.",
-    "watchers": 39739
+    "ticker": "SLS",
+    "name": "SELLAS Life Sciences Group Inc",
+    "watchers": 61858
    },
    {
     "rank": 3,
-    "ticker": "GME",
-    "name": "GameStop Corp",
-    "watchers": 307721
+    "ticker": "OKLO",
+    "name": "Oklo Inc.",
+    "watchers": 39767
    },
    {
     "rank": 4,
-    "ticker": "SMR",
-    "name": "NuScale Power Corp",
-    "watchers": 25138
+    "ticker": "XCN.X",
+    "name": "Onyxcoin",
+    "watchers": 8204
    },
    {
     "rank": 5,
-    "ticker": "FNMA",
-    "name": "Federal National Mortgage Association",
-    "watchers": 17853
+    "ticker": "APP",
+    "name": "Applovin Corp",
+    "watchers": 24075
    },
    {
     "rank": 6,
-    "ticker": "AENT",
-    "name": "Alliance Entertainment Holding Corporation - Ordinary Shares - Class A",
-    "watchers": 684
+    "ticker": "BWET",
+    "name": "Breakwave Tanker Shipping ETF",
+    "watchers": 707
    },
    {
     "rank": 7,
-    "ticker": "IBM",
-    "name": "International Business Machines Corp.",
-    "watchers": 69355
+    "ticker": "XNDU",
+    "name": "Xanadu Quantum Technologies Ltd. - Ordinary Shares - Class B (Sub Voting)",
+    "watchers": 6414
    },
    {
     "rank": 8,
-    "ticker": "GT",
-    "name": "Goodyear Tire & Rubber Co.",
-    "watchers": 5947
+    "ticker": "LOW",
+    "name": "Lowe's Companies, Inc.",
+    "watchers": 19081
    },
    {
     "rank": 9,
-    "ticker": "MLTX",
-    "name": "MoonLake Immunotherapeutics",
-    "watchers": 6555
+    "ticker": "LAPTOP.X",
+    "name": "Hunter Biden's Laptop",
+    "watchers": 150
    },
    {
     "rank": 10,
-    "ticker": "ORCL",
-    "name": "Oracle Corp.",
-    "watchers": 70931
+    "ticker": "AZN",
+    "name": "AstraZeneca PLC",
+    "watchers": 19074
    }
   ]
  }
