@@ -9,6 +9,7 @@ určení toho, "co jede", by přepočet měn jen přidával šum.
 Výstupy (src/data/):
   - regions.json         ... regiony (tabulka + graf hlavních čtyř)
   - sectors.json         ... americké sektory, SPDR (tabulka, řazeno dle 3M)
+  - sector_leaders.json  ... tahouni: top 5 akcií z top 3 sektorů (S&P 500)
   - crypto.json          ... Bitcoin (tabulka + graf)
   - momentum_etfs.json   ... momentum ETF vs benchmarky (tabulka + graf)
   - smart_money.json     ... chytré peníze vs retail (CoT, NAAIM, pákové ETF,
@@ -1480,6 +1481,108 @@ def fetch_factor() -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# Tahouni nejsilnějších sektorů – rozpad top 3 sektorů na jednotlivé akcie
+# ---------------------------------------------------------------------------
+
+# GICS název sektoru (Wikipedie) -> náš sektorový ETF
+GICS_BY_ETF = {
+    "XLK": "Information Technology", "XLC": "Communication Services",
+    "XLY": "Consumer Discretionary", "XLF": "Financials",
+    "XLV": "Health Care", "XLI": "Industrials", "XLB": "Materials",
+    "XLE": "Energy", "XLP": "Consumer Staples", "XLU": "Utilities",
+    "XLRE": "Real Estate",
+}
+
+LEADERS_PER_SECTOR = 5
+LEADERS_SECTORS = 3
+
+
+def fetch_sp500_constituents() -> dict[str, list[dict]]:
+    """Složení S&P 500 podle GICS sektorů z Wikipedie (tabulka
+    „List of S&P 500 companies" je komunitně udržovaná do druhého dne po
+    každé rebalanci indexu a je to nejstabilnější bezplatný zdroj složek).
+    Vrací {GICS sektor: [{ticker, name}, ...]}."""
+    import html as html_mod
+    import re
+
+    r = requests.get("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+                     headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    m = re.search(r'id="constituents".*?</table>', r.text, re.S)
+    if not m:
+        raise RuntimeError("Wikipedie: tabulka constituents nenalezena")
+
+    def strip(cell: str) -> str:
+        return html_mod.unescape(re.sub(r"<[^>]+>", "", cell)).strip()
+
+    out: dict[str, list[dict]] = {}
+    for row in re.findall(r"<tr>(.*?)</tr>", m.group(0), re.S):
+        cells = [strip(c) for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.S)]
+        if len(cells) < 3 or cells[0] in ("", "Symbol"):
+            continue
+        ticker, name, gics = cells[0], cells[1], cells[2]
+        # třídní akcie: BRK.B (Wikipedie) = BRK-B (Yahoo)
+        out.setdefault(gics, []).append({"ticker": ticker.replace(".", "-"), "name": name})
+    if sum(len(v) for v in out.values()) < 400:
+        raise RuntimeError("Wikipedie: podezřele málo složek, formát se asi změnil")
+    return out
+
+
+def build_sector_leaders() -> None:
+    """Top akcie z top sektorů: pro 3 nejsilnější sektory (dle 3M, čte se
+    z čerstvého sectors.json) stáhne všechny členy z S&P 500 a vybere 5
+    s nejvyšším 3M výnosem. Mechanický výběr, žádná kurátorská volba –
+    stejná metodika jako všude jinde (týdenní ceny, adjusted close)."""
+    result = {
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": "Členové S&P 500 (složení dle Wikipedie) ze tří sektorů s nejvyšším "
+                "3M momentem; z každého sektoru 5 akcií s nejvyšším 3M výnosem. "
+                "Týdenní ceny Yahoo, USD, s reinvesticí dividend.",
+        "sectors": [],
+    }
+    try:
+        sectors = json.loads((OUT_DIR / "sectors.json").read_text(encoding="utf-8"))
+        top = [r for r in sectors["rows"] if not r.get("benchmark")][:LEADERS_SECTORS]
+        constituents = fetch_sp500_constituents()
+
+        for sec in top:
+            members = constituents.get(GICS_BY_ETF.get(sec["ticker"], ""), [])
+            print(f"[leaders] {sec['name']} ({sec['ticker']}): {len(members)} členů ...")
+            rows = []
+            for mbr in members:
+                try:
+                    time.sleep(0.4)  # šetrněji než 1 s – stovky requestů
+                    prices, _ = fetch_yahoo_weekly(mbr["ticker"])
+                    vals = [prices[d] for d in sorted(prices)]
+                    if len(vals) < MOMENTUM_WEEKS["r3"] + 1:
+                        continue
+                    sma = (sum(vals[-SMA_WEEKS:]) / SMA_WEEKS) if len(vals) >= SMA_WEEKS else None
+                    rows.append({
+                        "ticker": mbr["ticker"], "name": mbr["name"],
+                        "r1": pct(vals, MOMENTUM_WEEKS["r1"]),
+                        "r3": pct(vals, MOMENTUM_WEEKS["r3"]),
+                        "r6": pct(vals, MOMENTUM_WEEKS["r6"]),
+                        "r12": pct(vals, MOMENTUM_WEEKS["r12"]),
+                        "signal": ("above" if vals[-1] >= sma else "below") if sma else None,
+                    })
+                except Exception as e:  # jeden mrtvý ticker nesmí shodit sektor
+                    print(f"[leaders] {mbr['ticker']} SELHALO: {e}")
+            rows = [r for r in rows if r["r3"] is not None]
+            rows.sort(key=lambda r: -r["r3"])
+            result["sectors"].append({
+                "etf": sec["ticker"], "name": sec["name"], "r3_etf": sec["r3"],
+                "rows": rows[:LEADERS_PER_SECTOR],
+            })
+    except Exception as e:  # rozbitá Wikipedie nesmí shodit celý build
+        print(f"[leaders] SELHALO: {e}")
+        result["sectors"] = []
+
+    (OUT_DIR / "sector_leaders.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[leaders] -> sector_leaders.json")
+
+
 CYCLICAL = ["XLY", "XLI", "XLF", "XLB"]    # zbytná spotřeba, průmysl, finance, materiály
 DEFENSIVE = ["XLP", "XLU", "XLV"]          # základní spotřeba, utility, zdravotnictví
 
@@ -1802,6 +1905,7 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     for key, cfg in GROUPS.items():
         build_group(key, cfg)
+    build_sector_leaders()  # čte čerstvý sectors.json
     build_smart_money()
     build_social()
     build_liquidity()
