@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-13T08:42:24+00:00",
+ "updated": "2026-09-13T08:58:02+00:00",
  "note": "Poměr cen MTUM/VTV (iShares MSCI USA Momentum Factor vs Vanguard Value), týdenně, indexováno na 100 k 1. 1. 2024, vs 26týdenní klouzavý průměr poměru. Poměr pod průměrem = hodnota vede.",
  "perf": {
   "dates": [
@@ -249,7 +249,7 @@
      165.0,
      163.6,
      158.1,
-     166.3,
+     166.4,
      168.0,
      165.8,
      167.5,

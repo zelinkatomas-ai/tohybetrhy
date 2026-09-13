@@ -1,32 +1,16 @@
 {
- "updated": "2026-09-13T08:41:59+00:00",
+ "updated": "2026-09-13T08:57:40+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
    {
     "rank": 1,
-    "ticker": "MU",
-    "name": "Micron Technology",
-    "mentions": 25,
-    "upvotes": 53,
-    "prev_mentions": 90,
-    "change_pct": -72.2,
-    "sentiment": "bullish",
-    "sentiment_score": 0.427,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 52798820,
-     "filings": 3
-    }
-   },
-   {
-    "rank": 2,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
     "mentions": 25,
-    "upvotes": 35,
-    "prev_mentions": 286,
-    "change_pct": -91.3,
+    "upvotes": 36,
+    "prev_mentions": 25,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -36,13 +20,29 @@
     }
    },
    {
+    "rank": 2,
+    "ticker": "MU",
+    "name": "Micron Technology",
+    "mentions": 24,
+    "upvotes": 51,
+    "prev_mentions": 25,
+    "change_pct": -4.0,
+    "sentiment": "bullish",
+    "sentiment_score": 0.427,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 52798820,
+     "filings": 3
+    }
+   },
+   {
     "rank": 3,
     "ticker": "ORCL",
     "name": "Oracle",
     "mentions": 20,
     "upvotes": 69,
-    "prev_mentions": 128,
-    "change_pct": -84.4,
+    "prev_mentions": 20,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -56,9 +56,9 @@
     "ticker": "NBIS",
     "name": "Nebius Group",
     "mentions": 15,
-    "upvotes": 1342,
-    "prev_mentions": 14,
-    "change_pct": 7.1,
+    "upvotes": 1348,
+    "prev_mentions": 15,
+    "change_pct": 0.0,
     "sentiment": "bullish",
     "sentiment_score": 0.557,
     "insiders": {
@@ -72,9 +72,9 @@
     "ticker": "NVDA",
     "name": "NVIDIA",
     "mentions": 14,
-    "upvotes": 53,
-    "prev_mentions": 52,
-    "change_pct": -73.1,
+    "upvotes": 56,
+    "prev_mentions": 14,
+    "change_pct": 0.0,
     "sentiment": "bearish",
     "sentiment_score": 0.0,
     "insiders": {
@@ -89,8 +89,8 @@
     "name": "GameStop",
     "mentions": 12,
     "upvotes": 19,
-    "prev_mentions": null,
-    "change_pct": null,
+    "prev_mentions": 12,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -104,9 +104,9 @@
     "ticker": "AGI",
     "name": "Alamos Gold",
     "mentions": 10,
-    "upvotes": 46,
-    "prev_mentions": 11,
-    "change_pct": -9.1,
+    "upvotes": 49,
+    "prev_mentions": 10,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -121,8 +121,8 @@
     "name": "Invesco QQQ ETF",
     "mentions": 10,
     "upvotes": 32,
-    "prev_mentions": 53,
-    "change_pct": -81.1,
+    "prev_mentions": 10,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -137,8 +137,8 @@
     "name": "CLEAR Secure",
     "mentions": 9,
     "upvotes": 53,
-    "prev_mentions": 17,
-    "change_pct": -47.1,
+    "prev_mentions": 9,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": {
@@ -153,21 +153,21 @@
     "name": "Vanguard S&P 500 ETF",
     "mentions": 8,
     "upvotes": 12,
-    "prev_mentions": 18,
-    "change_pct": -55.6,
+    "prev_mentions": 8,
+    "change_pct": 0.0,
     "sentiment": null,
     "sentiment_score": null,
     "insiders": null
    }
   ],
-  "prev_date": "2026-09-11",
+  "prev_date": "2026-09-13",
   "source": "apewisdom",
   "snapshot": {
    "date": "2026-09-13",
    "source": "apewisdom",
    "mentions": {
-    "MU": 25,
     "SPY": 25,
+    "MU": 24,
     "ORCL": 20,
     "NBIS": 15,
     "NVDA": 14,
@@ -189,6 +189,7 @@
     "QQQM": 5,
     "ALL": 4,
     "DTE": 4,
+    "ES": 4,
     "ICE": 4,
     "IT": 4,
     "WEN": 4,
@@ -203,7 +204,6 @@
     "GOOG": 3,
     "MA": 3,
     "AMD": 3,
-    "ES": 3,
     "UI": 3,
     "RTX": 3,
     "SMH": 3,
@@ -223,63 +223,63 @@
   "top": [
    {
     "rank": 1,
+    "ticker": "BCRX",
+    "name": "Biocryst Pharmaceuticals Inc.",
+    "watchers": 36968
+   },
+   {
+    "rank": 2,
+    "ticker": "TSSI",
+    "name": "TSS Inc",
+    "watchers": 6144
+   },
+   {
+    "rank": 3,
+    "ticker": "ONON",
+    "name": "On Holding AG",
+    "watchers": 7017
+   },
+   {
+    "rank": 4,
     "ticker": "USO",
     "name": "United States Oil Fund",
     "watchers": 75112
    },
    {
-    "rank": 2,
-    "ticker": "BB",
-    "name": "BlackBerry Ltd",
-    "watchers": 150565
-   },
-   {
-    "rank": 3,
-    "ticker": "LITE",
-    "name": "Lumentum Holdings Inc",
-    "watchers": 15290
-   },
-   {
-    "rank": 4,
-    "ticker": "TSSI",
-    "name": "TSS Inc",
-    "watchers": 6143
-   },
-   {
     "rank": 5,
-    "ticker": "ABCL",
-    "name": "AbCellera Biologics Inc",
-    "watchers": 9557
+    "ticker": "CRWD",
+    "name": "Crowdstrike Holdings Inc",
+    "watchers": 62964
    },
    {
     "rank": 6,
-    "ticker": "BCRX",
-    "name": "Biocryst Pharmaceuticals Inc.",
-    "watchers": 36967
-   },
-   {
-    "rank": 7,
-    "ticker": "ORCL",
-    "name": "Oracle Corp.",
-    "watchers": 71121
-   },
-   {
-    "rank": 8,
-    "ticker": "BCH.X",
-    "name": "Bitcoin Cash",
-    "watchers": 32082
-   },
-   {
-    "rank": 9,
     "ticker": "XAGUSD",
     "name": "Silver US Dollar",
     "watchers": 3631
    },
    {
+    "rank": 7,
+    "ticker": "NFLX",
+    "name": "Netflix Inc",
+    "watchers": 521488
+   },
+   {
+    "rank": 8,
+    "ticker": "GEV",
+    "name": "GE Vernova Inc.",
+    "watchers": 10403
+   },
+   {
+    "rank": 9,
+    "ticker": "VG",
+    "name": "Venture Global Inc",
+    "watchers": 4685
+   },
+   {
     "rank": 10,
-    "ticker": "CRWD",
-    "name": "Crowdstrike Holdings Inc",
-    "watchers": 62964
+    "ticker": "XCN.X",
+    "name": "Onyxcoin",
+    "watchers": 8232
    }
   ]
  }

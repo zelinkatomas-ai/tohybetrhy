@@ -1,5 +1,162 @@
 {
- "updated": "2026-09-13T08:41:38+00:00",
+ "updated": "2026-09-13T08:55:37+00:00",
  "note": "Členové S&P 500 (složení dle Wikipedie) ze tří sektorů s nejvyšším 3M momentem; z každého sektoru 5 akcií s nejvyšším 3M výnosem. Týdenní ceny Yahoo, USD, s reinvesticí dividend.",
- "sectors": []
+ "sectors": [
+  {
+   "etf": "XLE",
+   "name": "Energie",
+   "r3_etf": 22.02,
+   "rows": [
+    {
+     "ticker": "VLO",
+     "name": "Valero Energy",
+     "r1": 11.91,
+     "r3": 65.86,
+     "r6": 64.18,
+     "r12": 145.17,
+     "signal": "above"
+    },
+    {
+     "ticker": "MPC",
+     "name": "Marathon Petroleum",
+     "r1": 9.76,
+     "r3": 63.44,
+     "r6": 71.39,
+     "r12": 117.05,
+     "signal": "above"
+    },
+    {
+     "ticker": "PSX",
+     "name": "Phillips 66",
+     "r1": 6.83,
+     "r3": 57.0,
+     "r6": 49.74,
+     "r12": 105.95,
+     "signal": "above"
+    },
+    {
+     "ticker": "APA",
+     "name": "APA Corporation",
+     "r1": 3.09,
+     "r3": 36.38,
+     "r6": 15.95,
+     "r12": 97.15,
+     "signal": "above"
+    },
+    {
+     "ticker": "COP",
+     "name": "ConocoPhillips",
+     "r1": 1.84,
+     "r3": 28.33,
+     "r6": 9.75,
+     "r12": 54.13,
+     "signal": "above"
+    }
+   ]
+  },
+  {
+   "etf": "XLV",
+   "name": "Zdravotnictví",
+   "r3_etf": 11.17,
+   "rows": [
+    {
+     "ticker": "MRNA",
+     "name": "Moderna",
+     "r1": -0.8,
+     "r3": 125.09,
+     "r6": 180.21,
+     "r12": 470.4,
+     "signal": "above"
+    },
+    {
+     "ticker": "VEEV",
+     "name": "Veeva Systems",
+     "r1": 5.85,
+     "r3": 71.17,
+     "r6": 42.55,
+     "r12": -5.54,
+     "signal": "above"
+    },
+    {
+     "ticker": "IQV",
+     "name": "IQVIA",
+     "r1": 0.75,
+     "r3": 56.03,
+     "r6": 57.63,
+     "r12": 39.82,
+     "signal": "above"
+    },
+    {
+     "ticker": "CRL",
+     "name": "Charles River Laboratories",
+     "r1": -5.74,
+     "r3": 50.41,
+     "r6": 81.16,
+     "r12": 79.07,
+     "signal": "above"
+    },
+    {
+     "ticker": "TMO",
+     "name": "Thermo Fisher Scientific",
+     "r1": -3.09,
+     "r3": 31.25,
+     "r6": 28.68,
+     "r12": 27.51,
+     "signal": "above"
+    }
+   ]
+  },
+  {
+   "etf": "XLF",
+   "name": "Finance",
+   "r3_etf": 7.24,
+   "rows": [
+    {
+     "ticker": "GPN",
+     "name": "Global Payments",
+     "r1": -5.29,
+     "r3": 32.39,
+     "r6": 29.75,
+     "r12": 3.34,
+     "signal": "above"
+    },
+    {
+     "ticker": "JKHY",
+     "name": "Jack Henry & Associates",
+     "r1": -2.7,
+     "r3": 28.1,
+     "r6": -1.78,
+     "r12": 7.63,
+     "signal": "above"
+    },
+    {
+     "ticker": "PYPL",
+     "name": "PayPal",
+     "r1": -12.51,
+     "r3": 26.68,
+     "r6": 22.77,
+     "r12": -20.38,
+     "signal": "above"
+    },
+    {
+     "ticker": "WTW",
+     "name": "Willis Towers Watson",
+     "r1": -7.71,
+     "r3": 24.12,
+     "r6": 9.12,
+     "r12": -5.1,
+     "signal": "above"
+    },
+    {
+     "ticker": "TRV",
+     "name": "Travelers Companies (The)",
+     "r1": 3.55,
+     "r3": 22.31,
+     "r6": 27.46,
+     "r12": 37.52,
+     "signal": "above"
+    }
+   ]
+  }
+ ]
 }
