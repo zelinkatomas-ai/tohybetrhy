@@ -1517,7 +1517,8 @@ def fetch_sp500_constituents() -> dict[str, list[dict]]:
         return html_mod.unescape(re.sub(r"<[^>]+>", "", cell)).strip()
 
     out: dict[str, list[dict]] = {}
-    for row in re.findall(r"<tr>(.*?)</tr>", m.group(0), re.S):
+    # <tr[^>]*>: Wikipedie generuje řádky s atributy, holé <tr> tam není
+    for row in re.findall(r"<tr[^>]*>(.*?)</tr>", m.group(0), re.S):
         cells = [strip(c) for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.S)]
         if len(cells) < 3 or cells[0] in ("", "Symbol"):
             continue
