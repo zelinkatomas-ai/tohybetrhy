@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-11T20:22:10+00:00",
+ "updated": "2026-09-13T08:42:31+00:00",
  "note": "Rovnovážné koše SPDR sektorů: cyklické (XLY, XLI, XLF, XLB) vs defenzivní (XLP, XLU, XLV), týdně, indexováno na 100 k 1. 1. 2024. Poměr košů vs 26týdenní klouzavý průměr; poměr pod průměrem = defenziva vede (risk-off).",
  "perf": {
   "dates": [
@@ -290,7 +290,7 @@
      150.0,
      149.2,
      147.6,
-     143.7,
+     144.8,
      144.8
     ]
    },
@@ -437,7 +437,7 @@
      133.2,
      132.0,
      132.0,
-     129.1,
+     129.0,
      129.0
     ]
    }
@@ -732,7 +732,7 @@
      112.6,
      113.0,
      111.9,
-     111.4,
+     112.3,
      112.3
     ]
    },
