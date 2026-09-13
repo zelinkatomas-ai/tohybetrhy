@@ -6,7 +6,11 @@ import Methodology from '../components/Methodology.astro';
 import sectors from '../data/sectors.json';
 import crypto from '../data/crypto.json';
 import cycdef from '../data/cycdef.json';
+import leaders from '../data/sector_leaders.json';
+import { fmtPct } from '../lib/utils';
 
+const ld = (leaders as any).sectors ?? [];
+const cls = (v: number | null) => (v == null ? '' : v >= 0 ? 'up' : 'down');
 const cd = cycdef as any;
 const cdLast = cd.ratio?.series?.[0]?.values?.at(-1) ?? null;
 const defenseLeads = (cd.weeks_below ?? 0) > 0;
@@ -22,6 +26,42 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
   </p>
 
   <MomentumTable data={sectors} title="Momentum amerických sektorů" />
+
+  {ld.length > 0 && (
+    <>
+      <h2 class="sub">Tahouni nejsilnějších sektorů</h2>
+      <p class="lead">
+        Rozpad tří nejsilnějších sektorů na jednotlivé akcie: z členů S&P 500
+        v každém z nich pět titulů s nejvyšším tříměsíčním výnosem. Výběr je
+        čistě mechanický – žádné tipy, jen kdo právě táhne sektor nahoru.
+        A drobná ironie regulace: na rozdíl od amerických ETF si tyhle
+        jednotlivé akcie český investor koupit může.
+      </p>
+      <div class="leaders">
+        {ld.map((s: any) => (
+          <div class="leader-card">
+            <h3>{s.name} <span class="etf-chip">{s.etf} {fmtPct(s.r3_etf)} 3M</span></h3>
+            <table>
+              <thead>
+                <tr><th>Akcie</th><th class="num">1M</th><th class="num">3M</th><th class="num">6M</th><th class="num">12M</th></tr>
+              </thead>
+              <tbody>
+                {s.rows.map((r: any) => (
+                  <tr>
+                    <td><span class="tick">{r.ticker}</span> <span class="nm">{r.name}</span></td>
+                    <td class={`num ${cls(r.r1)}`}>{fmtPct(r.r1)}</td>
+                    <td class={`num ${cls(r.r3)}`}>{fmtPct(r.r3)}</td>
+                    <td class={`num ${cls(r.r6)}`}>{fmtPct(r.r6)}</td>
+                    <td class={`num ${cls(r.r12)}`}>{fmtPct(r.r12)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+    </>
+  )}
 
   {cd.perf && (
     <>
@@ -93,6 +133,15 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
       evropských sektorových ETF je řádově nižší.
     </p>
     <p>
+      <strong>Tahouni sektorů:</strong> složení S&P 500 přebíráme z veřejně
+      udržovaného seznamu (Wikipedie, aktualizuje se do dne po každé změně
+      indexu). Ze tří sektorů s nejvyšším 3M momentem počítáme stejnou
+      metodikou jako u ETF klouzavé výnosy všech členů a ukazujeme pět
+      nejsilnějších podle 3M. Je to mechanický rozpad, ne výběr analytika –
+      u jednotlivých akcií platí dvojnásob, že vysoké momentum znamená
+      i vysokou volatilitu. Nejde o investiční doporučení.
+    </p>
+    <p>
       <strong>Cyklické vs. defenzivní:</strong> rovnovážné koše (průměr
       indexovaných cen) – cyklické XLY, XLI, XLF, XLB; defenzivní XLP, XLU,
       XLV. Energie, technologie, komunikace a reality necháváme stranou:
@@ -123,4 +172,23 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
   }
   .regime.calm { color: var(--delta-up); background: var(--badge-good-bg); }
   .regime.warn { color: var(--delta-down); background: var(--badge-bad-bg); }
+
+  .leaders { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .leader-card {
+    padding: 0.9rem 1rem; background: var(--surface-1);
+    border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  .leader-card h3 { font-size: 1rem; margin: 0 0 0.5rem; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+  .etf-chip {
+    font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
+    border: 1px solid var(--border); border-radius: 999px; padding: 0.1rem 0.55rem;
+  }
+  .leader-card table { border-collapse: collapse; width: 100%; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  .leader-card th, .leader-card td { padding: 0.35rem 0.4rem; text-align: left; border-bottom: 1px solid var(--gridline); }
+  .leader-card th { color: var(--text-muted); font-weight: 600; font-size: 0.72rem; }
+  .leader-card th.num, .leader-card td.num { text-align: right; white-space: nowrap; }
+  .tick { font-weight: 700; }
+  .nm { color: var(--text-secondary); font-size: 0.78rem; }
+  .up { color: var(--delta-up); }
+  .down { color: var(--delta-down); }
 </style>

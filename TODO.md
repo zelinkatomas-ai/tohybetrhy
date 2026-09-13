@@ -145,6 +145,19 @@
       nevejde; volné agregátory jsou placené (Quiver, Unusual Whales) nebo
       komunitní s nejistou údržbou (Senate/House Stock Watcher). Vrátit se,
       až bude chuť na malý stavový worker.
+- [x] **Tahouni nejsilnějších sektorů** — hotovo 2026-09-13: rozpad top 3
+      sektorů (dle 3M) na akcie — složení S&P 500 z Wikipedie (tabulka
+      constituents, sanity check na počet složek), top 5 dle 3M z každého
+      sektoru, karty na /sektory/. Mechanický výběr, metodika varuje před
+      volatilitou jednotlivých akcií. Bez detailových stránek a CTA záměrně
+      (indikátor, ne tipy).
+- [ ] **Anglická verze — rozhodnutí odloženo (2026-09-13)**: počkat ~měsíc
+      na Umami (podíl ne-českých návštěv). Česká nika je hlavní výhoda;
+      EN znamená dvojjazyčnou pipeline (generované věty mají českou
+      gramatiku), dvojí kurátorství Radaru a ztrátu Portu affiliate.
+      Kdyby: /en/ podcesta přes Astro i18n + hreflang, NE druhá doména.
+      Silnější EN úhel než překlad: „momentum dashboard pro evropské
+      retailové investory (UCITS-first)" — to v EN chybí.
 - [ ] Zvážit: backtest sekce (GEM / dual momentum na našich datech),
       e-mailový digest při změně signálů (budoucí platený tier).
 
