@@ -22,6 +22,30 @@ jobs:
       - name: Instalace závislostí
         run: pip install -r pipeline/requirements.txt
 
+      - name: DOCASNE - diagnostika parsovani Wikipedie
+        run: |
+          python3 - <<'EOF'
+          import re, requests
+          HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) tohybetrhy.cz data pipeline"}
+          r = requests.get("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+                           headers=HEADERS, timeout=30)
+          print("status:", r.status_code, "len:", len(r.text))
+          print("vyskyty id=constituents:", r.text.count('id="constituents"'))
+          m = re.search(r'id="constituents".*?</table>', r.text, re.S)
+          print("tabulka nalezena:", bool(m), "delka:", len(m.group(0)) if m else 0)
+          if m:
+              t = m.group(0)
+              print("tr bez atributu:", len(re.findall(r"<tr>", t)))
+              print("tr s atributy:", len(re.findall(r"<tr[^>]*>", t)))
+              rows = re.findall(r"<tr[^>]*>(.*?)</tr>", t, re.S)
+              print("radku:", len(rows))
+              for row in rows[1:3]:
+                  cells = re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.S)
+                  print("bunek:", len(cells), "| prvni 3:", [re.sub(r"<[^>]+>", "", c).strip()[:30] for c in cells[:3]])
+          EOF
+        env:
+          PYTHONUNBUFFERED: "1"
+
       - name: Stažení dat a výpočet momenta
         run: python pipeline/fetch_data.py
         timeout-minutes: 15 # zamrzlý zdroj nesmí držet job hodiny (tahouni sektorů přidali ~3 min)
