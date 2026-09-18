@@ -1,55 +1,55 @@
 {
- "updated": "2026-09-13T08:55:37+00:00",
+ "updated": "2026-09-18T20:18:19+00:00",
  "note": "Členové S&P 500 (složení dle Wikipedie) ze tří sektorů s nejvyšším 3M momentem; z každého sektoru 5 akcií s nejvyšším 3M výnosem. Týdenní ceny Yahoo, USD, s reinvesticí dividend.",
  "sectors": [
   {
    "etf": "XLE",
    "name": "Energie",
-   "r3_etf": 22.02,
+   "r3_etf": 19.48,
    "rows": [
-    {
-     "ticker": "VLO",
-     "name": "Valero Energy",
-     "r1": 11.91,
-     "r3": 65.86,
-     "r6": 64.18,
-     "r12": 145.17,
-     "signal": "above"
-    },
     {
      "ticker": "MPC",
      "name": "Marathon Petroleum",
-     "r1": 9.76,
-     "r3": 63.44,
-     "r6": 71.39,
-     "r12": 117.05,
+     "r1": 15.2,
+     "r3": 67.7,
+     "r6": 69.77,
+     "r12": 117.42,
      "signal": "above"
     },
     {
      "ticker": "PSX",
      "name": "Phillips 66",
-     "r1": 6.83,
-     "r3": 57.0,
-     "r6": 49.74,
-     "r12": 105.95,
+     "r1": 11.93,
+     "r3": 59.96,
+     "r6": 46.89,
+     "r12": 101.65,
+     "signal": "above"
+    },
+    {
+     "ticker": "VLO",
+     "name": "Valero Energy",
+     "r1": 17.29,
+     "r3": 59.96,
+     "r6": 63.91,
+     "r12": 140.3,
      "signal": "above"
     },
     {
      "ticker": "APA",
      "name": "APA Corporation",
-     "r1": 3.09,
-     "r3": 36.38,
-     "r6": 15.95,
-     "r12": 97.15,
+     "r1": 5.48,
+     "r3": 36.89,
+     "r6": 2.47,
+     "r12": 88.07,
      "signal": "above"
     },
     {
      "ticker": "COP",
      "name": "ConocoPhillips",
-     "r1": 1.84,
-     "r3": 28.33,
-     "r6": 9.75,
-     "r12": 54.13,
+     "r1": 1.14,
+     "r3": 25.24,
+     "r6": -0.08,
+     "r12": 38.08,
      "signal": "above"
     }
    ]
@@ -57,104 +57,104 @@
   {
    "etf": "XLV",
    "name": "Zdravotnictví",
-   "r3_etf": 11.17,
+   "r3_etf": 5.02,
    "rows": [
     {
      "ticker": "MRNA",
      "name": "Moderna",
-     "r1": -0.8,
-     "r3": 125.09,
-     "r6": 180.21,
-     "r12": 470.4,
+     "r1": 11.63,
+     "r3": 128.99,
+     "r6": 210.82,
+     "r12": 528.99,
      "signal": "above"
     },
     {
      "ticker": "VEEV",
      "name": "Veeva Systems",
-     "r1": 5.85,
-     "r3": 71.17,
-     "r6": 42.55,
-     "r12": -5.54,
+     "r1": -5.96,
+     "r3": 51.85,
+     "r6": 50.77,
+     "r12": -10.36,
      "signal": "above"
     },
     {
      "ticker": "IQV",
      "name": "IQVIA",
-     "r1": 0.75,
-     "r3": 56.03,
-     "r6": 57.63,
-     "r12": 39.82,
+     "r1": 1.78,
+     "r3": 39.38,
+     "r6": 62.6,
+     "r12": 48.37,
      "signal": "above"
     },
     {
      "ticker": "CRL",
      "name": "Charles River Laboratories",
-     "r1": -5.74,
-     "r3": 50.41,
-     "r6": 81.16,
-     "r12": 79.07,
+     "r1": -4.61,
+     "r3": 28.88,
+     "r6": 74.7,
+     "r12": 87.17,
      "signal": "above"
     },
     {
-     "ticker": "TMO",
-     "name": "Thermo Fisher Scientific",
-     "r1": -3.09,
-     "r3": 31.25,
-     "r6": 28.68,
-     "r12": 27.51,
+     "ticker": "DXCM",
+     "name": "Dexcom",
+     "r1": -1.62,
+     "r3": 27.39,
+     "r6": 43.53,
+     "r12": 33.16,
      "signal": "above"
     }
    ]
   },
   {
-   "etf": "XLF",
-   "name": "Finance",
-   "r3_etf": 7.24,
+   "etf": "XLK",
+   "name": "Technologie",
+   "r3_etf": 4.69,
    "rows": [
     {
-     "ticker": "GPN",
-     "name": "Global Payments",
-     "r1": -5.29,
-     "r3": 32.39,
-     "r6": 29.75,
-     "r12": 3.34,
+     "ticker": "PLTR",
+     "name": "Palantir Technologies",
+     "r1": -4.64,
+     "r3": 57.3,
+     "r6": 24.17,
+     "r12": 0.04,
      "signal": "above"
     },
     {
-     "ticker": "JKHY",
-     "name": "Jack Henry & Associates",
-     "r1": -2.7,
-     "r3": 28.1,
-     "r6": -1.78,
-     "r12": 7.63,
+     "ticker": "WDAY",
+     "name": "Workday, Inc.",
+     "r1": -5.3,
+     "r3": 56.08,
+     "r6": 56.12,
+     "r12": -21.41,
      "signal": "above"
     },
     {
-     "ticker": "PYPL",
-     "name": "PayPal",
-     "r1": -12.51,
-     "r3": 26.68,
-     "r6": 22.77,
-     "r12": -20.38,
+     "ticker": "HPQ",
+     "name": "HP Inc.",
+     "r1": 13.81,
+     "r3": 51.81,
+     "r6": 80.85,
+     "r12": 35.35,
      "signal": "above"
     },
     {
-     "ticker": "WTW",
-     "name": "Willis Towers Watson",
-     "r1": -7.71,
-     "r3": 24.12,
-     "r6": 9.12,
-     "r12": -5.1,
+     "ticker": "CRM",
+     "name": "Salesforce",
+     "r1": -6.9,
+     "r3": 50.49,
+     "r6": 33.6,
+     "r12": -1.43,
      "signal": "above"
     },
     {
-     "ticker": "TRV",
-     "name": "Travelers Companies (The)",
-     "r1": 3.55,
-     "r3": 22.31,
-     "r6": 27.46,
-     "r12": 37.52,
-     "signal": "above"
+     "ticker": "CTSH",
+     "name": "Cognizant",
+     "r1": -6.51,
+     "r3": 50.44,
+     "r6": 1.53,
+     "r12": -8.6,
+     "signal": "below"
     }
    ]
   }

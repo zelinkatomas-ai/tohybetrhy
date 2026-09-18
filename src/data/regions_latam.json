@@ -1,41 +1,29 @@
 {
- "updated": "2026-09-13T08:55:23+00:00",
+ "updated": "2026-09-18T20:18:04+00:00",
  "note": "Latinská Amerika v detailu (včetně Mexika). Americká ETF jako indikátor, výnosy v USD. Venezuela nemá investovatelný trh ani ETF.",
  "rows": [
-  {
-   "ticker": "EWZ",
-   "name": "Brazílie",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": 8.93,
-   "r3": 13.22,
-   "r6": 9.96,
-   "r12": 29.02,
-   "signal": "above"
-  },
-  {
-   "ticker": "GXG",
-   "name": "Kolumbie",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": 1.15,
-   "r3": 8.68,
-   "r6": 10.76,
-   "r12": 56.02,
-   "signal": "above"
-  },
   {
    "ticker": "EPU",
    "name": "Peru",
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -3.49,
-   "r3": 3.29,
-   "r6": 24.17,
-   "r12": 60.18,
+   "r1": -1.68,
+   "r3": 8.81,
+   "r6": 20.3,
+   "r12": 56.19,
+   "signal": "above"
+  },
+  {
+   "ticker": "EWZ",
+   "name": "Brazílie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": 5.54,
+   "r3": 8.22,
+   "r6": 3.4,
+   "r12": 27.58,
    "signal": "above"
   },
   {
@@ -44,22 +32,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 2.79,
-   "r3": -1.4,
-   "r6": 11.92,
-   "r12": 38.58,
-   "signal": "above"
-  },
-  {
-   "ticker": "EWW",
-   "name": "Mexiko",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -2.58,
-   "r3": -2.52,
-   "r6": 9.47,
-   "r12": 17.94,
+   "r1": -1.46,
+   "r3": 1.6,
+   "r6": 6.11,
+   "r12": 28.19,
    "signal": "above"
   },
   {
@@ -68,11 +44,35 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -4.73,
-   "r3": -2.9,
-   "r6": 5.37,
-   "r12": 19.82,
+   "r1": -3.76,
+   "r3": -0.2,
+   "r6": 3.07,
+   "r12": 21.24,
    "signal": "above"
+  },
+  {
+   "ticker": "EWW",
+   "name": "Mexiko",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -4.11,
+   "r3": -2.69,
+   "r6": 3.2,
+   "r12": 12.97,
+   "signal": "above"
+  },
+  {
+   "ticker": "GXG",
+   "name": "Kolumbie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": null,
+   "r3": null,
+   "r6": null,
+   "r12": null,
+   "signal": null
   }
  ],
  "chart": null

@@ -1,85 +1,57 @@
 {
- "updated": "2026-09-13T08:58:09+00:00",
+ "updated": "2026-09-18T20:21:31+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
-   "question": "Bab el-Mandeb Strait effectively closed by December 31?",
-   "outcome": "Yes",
-   "prob": 21.5,
-   "volume24h": 639576.0,
-   "url": "https://polymarket.com/event/bab-el-mandeb-strait-effectively-closed-by"
-  },
-  {
-   "question": "Will Flávio Bolsonaro win the 2026 Brazilian presidential election?",
-   "outcome": "Yes",
-   "prob": 49.7,
-   "volume24h": 505529.0,
-   "url": "https://polymarket.com/event/brazil-presidential-election"
-  },
-  {
    "question": "Will United Russia (ER) gain the most seats in the next Russian parliamentary election?",
    "outcome": "Yes",
-   "prob": 79.5,
-   "volume24h": 383504.0,
+   "prob": 80.5,
+   "volume24h": 2516930.0,
    "url": "https://polymarket.com/event/which-party-will-gain-most-seats-in-russian-parliamentary-election"
   },
   {
    "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
-   "prob": 34.4,
-   "volume24h": 289833.0,
+   "prob": 38.0,
+   "volume24h": 1015375.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
   },
   {
-   "question": "Iran-Oman Hormuz Agreement by October 31?",
+   "question": "Will Flávio Bolsonaro win the 2026 Brazilian presidential election?",
    "outcome": "Yes",
-   "prob": 63.5,
-   "volume24h": 217668.0,
-   "url": "https://polymarket.com/event/iran-oman-hormuz-management-agreement-byptptpt-20260804222725871"
+   "prob": 55.5,
+   "volume24h": 533702.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election"
+  },
+  {
+   "question": "Will the U.S. invade Iran before 2027?",
+   "outcome": "Yes",
+   "prob": 16.5,
+   "volume24h": 320803.0,
+   "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
   },
   {
    "question": "US announces end of Iranian blockade by December 31, 2026?",
    "outcome": "Yes",
-   "prob": 66.1,
-   "volume24h": 186217.0,
+   "prob": 59.9,
+   "volume24h": 275822.0,
    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+  },
+  {
+   "question": "Will SPD win the most seats in the 2026 Mecklenburg-Vorpommern parliamentary elections?",
+   "outcome": "Yes",
+   "prob": 51.0,
+   "volume24h": 231773.0,
+   "url": "https://polymarket.com/event/mecklenburg-vorpommern-parliamentary-election-winner"
   }
  ],
  "macro": [
   {
-   "question": "Will the Fed increase interest rates by 25 bps after the September 2026 meeting?",
+   "question": "Will the Fed increase interest rates by 25 bps after the October 2026 meeting?",
    "outcome": "Yes",
-   "prob": 79.5,
-   "volume24h": 5311811.0,
-   "url": "https://polymarket.com/event/fed-decision-in-september-762"
-  },
-  {
-   "question": "Strait of Hormuz traffic returns to normal by December 31?",
-   "outcome": "Yes",
-   "prob": 19.5,
-   "volume24h": 135023.0,
-   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31"
-  },
-  {
-   "question": "Fed Rate Hike by October 2026 Meeting?",
-   "outcome": "Yes",
-   "prob": 82.5,
-   "volume24h": 91498.0,
-   "url": "https://polymarket.com/event/fed-rate-hike-by"
-  },
-  {
-   "question": "Will NVIDIA be the largest company in the world by market cap on September 30?",
-   "outcome": "Yes",
-   "prob": 93.5,
-   "volume24h": 89673.0,
-   "url": "https://polymarket.com/event/largest-company-end-of-september-1785358369147"
-  },
-  {
-   "question": "Fed rate hike in 2026?",
-   "outcome": "Yes",
-   "prob": 89.0,
-   "volume24h": 66833.0,
-   "url": "https://polymarket.com/event/fed-rate-hike-in-2026"
+   "prob": 54.5,
+   "volume24h": 1185038.0,
+   "url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537"
   }
  ]
 }

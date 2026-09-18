@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-13T08:55:13+00:00",
+ "updated": "2026-09-18T20:17:54+00:00",
  "note": "Asie v detailu po zemích (velká trojka stejnými fondy jako v hlavní tabulce). U menších trhů americká iShares/VanEck ETF jako indikátor, výnosy v měně fondu.",
  "rows": [
   {
@@ -8,34 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.44,
-   "r3": 12.86,
-   "r6": 25.09,
-   "r12": 21.65,
-   "signal": "above"
-  },
-  {
-   "ticker": "EIDO",
-   "name": "Indonésie",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -0.16,
-   "r3": 2.57,
-   "r6": -14.09,
-   "r12": -26.27,
-   "signal": "below"
-  },
-  {
-   "ticker": "CSJP.MI",
-   "name": "Japonsko",
-   "currency": "EUR",
-   "benchmark": false,
-   "core": false,
-   "r1": 4.22,
-   "r3": 1.53,
-   "r6": 20.48,
-   "r12": 29.48,
+   "r1": -3.33,
+   "r3": 10.59,
+   "r6": 21.07,
+   "r12": 20.69,
    "signal": "above"
   },
   {
@@ -44,11 +20,23 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 6.34,
-   "r3": 0.84,
-   "r6": 59.03,
-   "r12": 83.03,
+   "r1": 3.47,
+   "r3": 8.59,
+   "r6": 60.66,
+   "r12": 86.12,
    "signal": "above"
+  },
+  {
+   "ticker": "EIDO",
+   "name": "Indonésie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -1.5,
+   "r3": 5.14,
+   "r6": -17.45,
+   "r12": -27.11,
+   "signal": "below"
   },
   {
    "ticker": "MCHI",
@@ -56,10 +44,34 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -4.85,
-   "r3": 0.36,
-   "r6": -3.44,
-   "r12": -16.26,
+   "r1": -3.91,
+   "r3": 5.13,
+   "r6": -2.55,
+   "r12": -15.93,
+   "signal": "below"
+  },
+  {
+   "ticker": "CSJP.MI",
+   "name": "Japonsko",
+   "currency": "EUR",
+   "benchmark": false,
+   "core": false,
+   "r1": 1.45,
+   "r3": 3.29,
+   "r6": 19.6,
+   "r12": 28.25,
+   "signal": "above"
+  },
+  {
+   "ticker": "VNM",
+   "name": "Vietnam",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -3.03,
+   "r3": -3.98,
+   "r6": 5.44,
+   "r12": 0.66,
    "signal": "below"
   },
   {
@@ -68,22 +80,10 @@
    "currency": "EUR",
    "benchmark": false,
    "core": false,
-   "r1": -2.33,
-   "r3": -3.52,
-   "r6": 4.43,
-   "r12": -10.83,
-   "signal": "below"
-  },
-  {
-   "ticker": "VNM",
-   "name": "Vietnam",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -2.07,
-   "r3": -4.63,
-   "r6": 6.51,
-   "r12": -0.81,
+   "r1": -2.98,
+   "r3": -4.28,
+   "r6": 6.13,
+   "r12": -7.38,
    "signal": "below"
   },
   {
@@ -92,10 +92,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 5.82,
-   "r3": -13.91,
-   "r6": 50.04,
-   "r12": 141.05,
+   "r1": 0.62,
+   "r3": -8.1,
+   "r6": 49.87,
+   "r12": 135.05,
    "signal": "above"
   }
  ],
