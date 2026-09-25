@@ -1,0 +1,71 @@
+<!doctype html>
+<!--
+  Podklad pro náhledový OG obrázek (public/og.png, 1200x630).
+  Regenerace po úpravě: screenshot přes headless Chromium/Playwright
+  s viewportem přesně 1200x630 (pozor: samotné `chromium --screenshot
+  --window-size` ořezává spodních ~85 px o rám okna, použít Playwright):
+    const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
+    await page.goto('file://.../og-image.html'); await page.screenshot({ path: 'public/og.png' });
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #0d0d0d;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #ffffff; position: relative;
+  }
+  .glow {
+    position: absolute; right: -180px; top: -220px; width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(57, 135, 229, 0.16) 0%, rgba(57, 135, 229, 0) 62%);
+  }
+  .chart { position: absolute; left: 0; right: 0; bottom: 0; }
+  .content { position: absolute; left: 84px; top: 118px; max-width: 900px; }
+  h1 { font-size: 96px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+  h1 span { color: #3987e5; }
+  .tagline {
+    margin-top: 30px; font-size: 33px; line-height: 1.4; color: #c3c2b7; max-width: 780px;
+  }
+  .domain {
+    position: absolute; left: 70px; top: 538px; z-index: 5;
+    font-size: 27px; color: #a8a6a0; font-weight: 600;
+    background: rgba(13, 13, 13, 0.78); padding: 9px 16px; border-radius: 10px;
+  }
+  .domain b { color: #ffffff; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <svg class="chart" width="1200" height="360" viewBox="0 0 1200 360" fill="none">
+    <!-- jemná mřížka -->
+    <g stroke="#2c2c2a" stroke-width="1">
+      <line x1="0" y1="90" x2="1200" y2="90"/>
+      <line x1="0" y1="180" x2="1200" y2="180"/>
+      <line x1="0" y1="270" x2="1200" y2="270"/>
+    </g>
+    <!-- benchmark: klidná šedá čárkovaná -->
+    <path d="M0 338 C 200 330, 380 312, 560 292 C 760 270, 980 248, 1200 215"
+          stroke="#5a5952" stroke-width="4" stroke-dasharray="12 10"/>
+    <!-- momentum: akcentová řada s výplní -->
+    <path d="M0 320 C 170 310, 300 288, 430 262 C 570 234, 660 244, 780 200 C 910 152, 1020 130, 1200 64"
+          stroke="#3987e5" stroke-width="7" stroke-linecap="round"/>
+    <path d="M0 320 C 170 310, 300 288, 430 262 C 570 234, 660 244, 780 200 C 910 152, 1020 130, 1200 64 L 1200 360 L 0 360 Z"
+          fill="url(#fade)"/>
+    <defs>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3987e5" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#3987e5" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <div class="content">
+    <h1>To hýbe <span>trhy</span></h1>
+    <p class="tagline">Kde je na trzích momentum, kam teče kapitál a jaký je
+    sentiment. Čerstvá data každý týden.</p>
+  </div>
+  <div class="domain"><b>tohybetrhy.cz</b> · bez tipů, jen měření</div>
+</body>
+</html>
