@@ -1,0 +1,71 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "VIX: jak funguje index strachu a jak ho číst"
+description: "Co přesně měří index volatility VIX, jaká pásma dávají smysl, proč nízký VIX není „bezpečno“ a co prozrazuje termínová struktura a pozice hedge fondů."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import sm from '../../data/smart_money.json';
+
+Když trhy padají, je VIX v každém titulku. „Index strachu“ je ale často
+popisován mlhavě – přitom je to jedno z mála čísel na trhu, které má přesnou
+definici a dá se číst mechanicky.
+
+## Co VIX skutečně měří
+
+VIX není anketa ani nálada. Počítá se z cen opcí na index S&P 500 a říká
+jediné: **jak velké pohyby trh očekává v příštích 30 dnech**. Opce jsou
+pojistky proti pohybu ceny – a když pojistky zdražují, znamená to, že se
+účastníci trhu bojí velkých výkyvů. VIX kolem 15 odpovídá očekávání ročního
+kolísání zhruba 15 %, tedy běžnému dennímu pohybu pod jedno procento.
+
+Dvě vlastnosti z definice plynou a obě se hodí znát:
+
+- VIX měří **očekávanou, ne skutečnou** volatilitu – je to cena strachu,
+  ne jeho realita.
+- VIX měří **obousměrné** výkyvy, ale protože trhy padají rychleji, než
+  rostou, chová se v praxi jako zrcadlo poklesů: skáče nahoru, když akcie
+  padají.
+
+## Pásma, která dávají smysl
+
+<LineChart
+  title="VIX a jeho 52týdenní průměr"
+  note="Index očekávané 30denní volatility S&P 500 počítaný z cen opcí."
+  dates={sm.vix.level.dates}
+  series={sm.vix.level.series}
+/>
+
+Hrubá čtecí mřížka: **pod 15** je klid (a často samolibost), **15–20**
+normál, **20–30** zvýšená nervozita a **nad 30** stres, jaký doprovází
+výprodeje. Extrémy nad 50 – rok 2008, březen 2020 – historicky ležely blízko
+paniky, a tedy paradoxně blízko den. VIX je totiž jeden z mála ukazatelů,
+který se **vrací k průměru**: strach ani klid nevydrží věčně.
+
+Z toho plyne kontrariánské čtení: velmi vysoký VIX bývá zajímavější zprávou
+pro kupující než velmi nízký pro prodávající. Ale pozor na symetrii – nízký
+VIX není signál poklesu, jen konstatování, že pojistky jsou levné a trh
+nečeká nic zlého. Klid umí trvat roky.
+
+## Dvě pokročilejší čtení
+
+- **Termínová struktura.** Vedle VIXu existuje i VIX3M – stejné měření na
+  tři měsíce dopředu. Normálně je delší strach dražší (poměr VIX3M/VIX nad
+  jednou). Když se poměr překlopí pod jedničku, trh se bojí *teď* víc než
+  budoucnosti – to je vzácný stav doprovázející akutní stres.
+- **Kdo je na jaké straně.** Z výkazů CFTC jde vyčíst pozice ve VIX
+  futures: hedge fondy typicky volatilitu prodávají (vydělávají na klidu) a
+  jejich extrémní short bývá suchým prachem pro překvapení – jako v únoru
+  2018, kdy „Volmageddon“ během dne smetl fondy sázející na věčný klid.
+
+Obojí sledujeme týdně na stránce [Chytré peníze](/chytre-penize/).
+
+## Co si z toho odnést
+
+VIX je teploměr, ne křišťálová koule: přesně měří cenu strachu, nic víc.
+V extrémech je cenný, uprostřed pásma je to šum – stejná logika, jakou
+popisujeme u [Fear & Greed Indexu](/clanky/fear-and-greed-index/), jehož je
+VIX ostatně jednou ze sedmi složek.
+
+*Tento článek není investičním doporučením.*
