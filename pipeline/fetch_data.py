@@ -583,41 +583,79 @@ def fetch_stocktwits() -> dict:
     }
 
 
+POLITICIAN_FUNDS = {"NANC": "Demokraté (NANC)", "KRUZ": "Republikáni (KRUZ)"}
+POLITICIAN_STALE_DAYS = 60  # fond bez čerstvých dat vynecháváme, ne celý graf
+
+
 def fetch_politicians() -> dict:
     """Politici jako chytré peníze? ETF NANC (obchody demokratů) a KRUZ
     (republikánů) mechanicky kopírují povinná přiznání členů Kongresu podle
     STOCK Act. Přiznání chodí s až 45denním zpožděním, fondy tedy kupují
     pozdě – kouzlo to není, teploměr ano. Rozestup NANC vs KRUZ je zároveň
-    sektorová sázka obou stran v jednom obrázku (demokraté těžcí na tech)."""
+    sektorová sázka obou stran v jednom obrázku (demokraté těžcí na tech).
+    Mrtvá řada (Yahoo přestal fond dodávat) graf nesmí zabít ani useknout:
+    vynechá se a zbytek se vykreslí dál."""
+    from datetime import timedelta
+
     prices: dict[str, dict[str, float]] = {}
-    for t in ("NANC", "KRUZ", "SPY"):
-        prices[t], _ = fetch_yahoo_weekly(t)
+    for t in (*POLITICIAN_FUNDS, "SPY"):
+        try:
+            prices[t], _ = fetch_yahoo_weekly(t)
+        except Exception as e:
+            print(f"[smart_money] politici: {t} SELHALO: {e}")
         time.sleep(1)
-    # osa podle SPY; chybějící týdny NANC/KRUZ = mezera (null), ne useknutí
+    if "SPY" not in prices:
+        raise RuntimeError("politici: chybí benchmark SPY")
+
+    stale_before = (date.today() - timedelta(days=POLITICIAN_STALE_DAYS)).isoformat()
+    funds = []
+    dropped = []
+    for t in POLITICIAN_FUNDS:
+        if t not in prices:
+            dropped.append(t)
+        elif max(prices[t]) < stale_before:
+            print(f"[smart_money] politici: {t} vynechán, data končí {max(prices[t])}")
+            dropped.append(t)
+        else:
+            funds.append(t)
+    if not funds:
+        raise RuntimeError("politici: žádný fond s čerstvými daty")
+
+    # osa podle SPY; chybějící týdny fondů = mezera (null), ne useknutí
     # všech řad průnikem (Yahoo občas u malých ETF pár posledních týdnů nemá)
     common = [d for d in sorted(prices["SPY"]) if d >= CHART_START]
-    start = next((d for d in common
-                  if d in prices["NANC"] and d in prices["KRUZ"]), None)
+    start = next((d for d in common if all(d in prices[t] for t in funds)), None)
     if start is None:
-        raise RuntimeError("žádný společný týden NANC/KRUZ/SPY")
+        raise RuntimeError("politici: žádný společný týden fondů a SPY")
     common = [d for d in common if d >= start]
-    base = {t: p[start] for t, p in prices.items()}
-    for t in ("NANC", "KRUZ"):
-        if max(prices[t]) < common[-1]:
-            print(f"[smart_money] pozor: {t} končí {max(prices[t])} "
-                  f"(Yahoo nemá novější týdny)")
+    base = {t: prices[t][start] for t in (*funds, "SPY")}
 
     def idx(t: str) -> list[float | None]:
         return [round(prices[t][d] / base[t] * 100, 1) if d in prices[t] else None
                 for d in common]
 
+    series = [{"name": POLITICIAN_FUNDS[t], "values": idx(t)} for t in funds]
+    series.append({"name": "S&P 500 (SPY)", "values": idx("SPY"), "benchmark": True})
+
+    note = ("ETF NANC a KRUZ mechanicky kopírují obchody, které členové Kongresu "
+            "(demokraté, resp. republikáni) povinně přiznávají podle STOCK Act. "
+            "Přiznání chodí s až 45denním zpožděním – fondy kupují pozdě. "
+            "Rozestup čar je zároveň sektorová sázka stran: demokratická "
+            "portfolia jsou těžká na technologie.")
+    if dropped:
+        note += (" Řada " + " a ".join(dropped) + " dočasně chybí – zdroj "
+                 "cen nedodává čerstvá data.")
+
+    # poslední známá hodnota každé řady (kvůli větě „od začátku vs SPY“)
+    def last(vals: list[float | None]) -> float | None:
+        return next((v for v in reversed(vals) if v is not None), None)
+
     return {
         "dates": common,
-        "series": [
-            {"name": "Demokraté (NANC)", "values": idx("NANC")},
-            {"name": "Republikáni (KRUZ)", "values": idx("KRUZ")},
-            {"name": "S&P 500 (SPY)", "values": idx("SPY"), "benchmark": True},
-        ],
+        "series": series,
+        "note": note,
+        "since": start,
+        "last": {s["name"]: last(s["values"]) for s in series},
     }
 
 
@@ -698,6 +736,12 @@ def fetch_insiders(tickers: list[str]) -> dict[str, dict | None]:
                 fx = requests.get(url, headers=SEC_HEADERS, timeout=30)
                 fx.raise_for_status()
                 root = ET.fromstring(fx.content)
+                # Form 4 je indexovaný i pod CIK nakupujícího (např. Berkshire
+                # jako >10% vlastník jiné firmy) – počítáme jen podání, kde je
+                # skenovaná firma emitentem, jinak se cizí obchod započte dvakrát
+                issuer = (root.findtext("issuer/issuerCik") or "").strip()
+                if issuer and int(issuer) != cik:
+                    continue
                 for tr in root.iter("nonDerivativeTransaction"):
                     code = (tr.findtext("transactionCoding/transactionCode") or "").strip()
                     if code not in ("P", "S"):
@@ -718,6 +762,139 @@ def fetch_insiders(tickers: list[str]) -> dict[str, dict | None]:
             print(f"[social] insideři {ticker} SELHALO: {e}")
             out[ticker] = None
     return out
+
+
+# Celoplošný sken S&P 500: ~500 firem × (1 přehled podání + max pár XML).
+# Řádově tisíce requestů na EDGAR – proto vlastní týdenní workflow
+# (insidery.yml) s vlastním timeoutem, ne součást hlavního datového běhu.
+INSIDER_DAYS = 30              # okno podání
+INSIDER_MAX_FILINGS = 6        # strop XML na firmu (šetrnost k EDGARu)
+INSIDER_MIN_BUY_USD = 100_000  # menší nákupy jsou šum (symbolická gesta)
+INSIDER_TOP_ROWS = 15
+INSIDER_PACE = 0.12            # s mezi requesty; SEC limit je ~10/s
+
+CZ_BY_GICS = {
+    "Information Technology": "Technologie", "Communication Services": "Komunikace",
+    "Consumer Discretionary": "Zbytná spotřeba", "Financials": "Finance",
+    "Health Care": "Zdravotnictví", "Industrials": "Průmysl",
+    "Materials": "Materiály", "Energy": "Energie",
+    "Consumer Staples": "Základní spotřeba", "Utilities": "Utility",
+    "Real Estate": "Reality",
+}
+
+
+def fetch_insiders_market() -> list[dict]:
+    """Kde v celém S&P 500 insideři právě nakupují: pro každou složku
+    indexu sečte z formulářů 4 nákupy (kód P) a prodeje (kód S) na volném
+    trhu za posledních 30 dní a spočítá počet různých kupujících –
+    „cluster buying“ (shoda více informovaných lidí) je podle výzkumu
+    nejsilnější varianta signálu. Vrací firmy s největšími nákupy."""
+    import xml.etree.ElementTree as ET
+    from datetime import timedelta
+
+    constituents = fetch_sp500_constituents()
+    members = [(m["ticker"], m["name"], gics)
+               for gics, lst in constituents.items() for m in lst]
+
+    r = requests.get("https://www.sec.gov/files/company_tickers.json",
+                     headers=SEC_HEADERS, timeout=30)
+    r.raise_for_status()
+    cik_by_ticker = {v["ticker"].upper(): int(v["cik_str"]) for v in r.json().values()}
+
+    since = (date.today() - timedelta(days=INSIDER_DAYS)).isoformat()
+    rows: list[dict] = []
+    for n, (ticker, name, gics) in enumerate(members, 1):
+        if n % 50 == 0:
+            print(f"[insiders] {n}/{len(members)} firem ...")
+        t = ticker.upper()
+        cik = cik_by_ticker.get(t) or cik_by_ticker.get(t.replace("-", ""))
+        if cik is None:
+            print(f"[insiders] {ticker}: CIK nenalezen")
+            continue
+        try:
+            time.sleep(INSIDER_PACE)
+            sub = requests.get(f"https://data.sec.gov/submissions/CIK{cik:010d}.json",
+                               headers=SEC_HEADERS, timeout=30)
+            sub.raise_for_status()
+            recent = sub.json()["filings"]["recent"]
+            form4 = [
+                (acc, doc)
+                for form, fdate, acc, doc in zip(recent["form"], recent["filingDate"],
+                                                 recent["accessionNumber"],
+                                                 recent["primaryDocument"])
+                if form == "4" and fdate >= since
+            ][:INSIDER_MAX_FILINGS]
+
+            buys = sells = biggest = 0.0
+            buyers: set[str] = set()
+            for acc, doc in form4:
+                time.sleep(INSIDER_PACE)
+                doc = doc.split("/")[-1]  # občas s xsl prefixem pro HTML render
+                url = (f"https://www.sec.gov/Archives/edgar/data/{cik}/"
+                       f"{acc.replace('-', '')}/{doc}")
+                fx = requests.get(url, headers=SEC_HEADERS, timeout=30)
+                fx.raise_for_status()
+                root = ET.fromstring(fx.content)
+                # Form 4 je indexovaný i pod CIK nakupujícího (např. Berkshire
+                # jako >10% vlastník jiné firmy) – počítáme jen podání, kde je
+                # skenovaná firma emitentem, jinak se cizí obchod započte dvakrát
+                issuer = (root.findtext("issuer/issuerCik") or "").strip()
+                if issuer and int(issuer) != cik:
+                    continue
+                owner = (root.findtext(
+                    "reportingOwner/reportingOwnerId/rptOwnerName") or "?").strip()
+                filing_buys = 0.0
+                for tr in root.iter("nonDerivativeTransaction"):
+                    code = (tr.findtext("transactionCoding/transactionCode") or "").strip()
+                    if code not in ("P", "S"):
+                        continue
+                    shares = float(tr.findtext(
+                        "transactionAmounts/transactionShares/value") or 0)
+                    price = float(tr.findtext(
+                        "transactionAmounts/transactionPricePerShare/value") or 0)
+                    value = shares * price
+                    if code == "P":
+                        buys += value
+                        filing_buys += value
+                    else:
+                        sells += value
+                if filing_buys > 0:
+                    buyers.add(owner)
+                    biggest = max(biggest, filing_buys)
+            if buys >= INSIDER_MIN_BUY_USD:
+                rows.append({
+                    "ticker": ticker, "name": name,
+                    "sector": CZ_BY_GICS.get(gics, gics),
+                    "buys_usd": round(buys), "sells_usd": round(sells),
+                    "buyers": len(buyers), "biggest_buy_usd": round(biggest),
+                })
+        except Exception as e:  # jedna mrtvá firma nesmí shodit sken
+            print(f"[insiders] {ticker} SELHALO: {e}")
+
+    rows.sort(key=lambda r: -r["buys_usd"])
+    print(f"[insiders] nákupy nad {INSIDER_MIN_BUY_USD:,} USD: {len(rows)} firem")
+    return rows[:INSIDER_TOP_ROWS]
+
+
+def build_insiders() -> None:
+    result = {
+        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "note": f"Sken všech složek S&P 500 (dle Wikipedie) na SEC EDGAR: nákupy a "
+                f"prodeje insiderů na volném trhu (formulář 4, kódy P/S) za posledních "
+                f"{INSIDER_DAYS} dní, max {INSIDER_MAX_FILINGS} podání na firmu. "
+                f"Zobrazují se firmy s nákupy nad {INSIDER_MIN_BUY_USD // 1000} tis. USD, "
+                f"řazeno podle objemu nákupů.",
+        "days": INSIDER_DAYS,
+        "rows": [],
+    }
+    try:
+        result["rows"] = fetch_insiders_market()
+    except Exception as e:  # rozbitý zdroj = prázdná sekce, ne rozbitý web
+        print(f"[insiders] SELHALO: {e}")
+
+    (OUT_DIR / "insiders.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("[insiders] -> insiders.json")
 
 
 def build_social() -> None:
@@ -1927,13 +2104,27 @@ def main_daily() -> None:
     print(f"Hotovo (denní běh). Vygenerováno do {OUT_DIR}")
 
 
+def main_insiders() -> None:
+    """Týdenní sken insiderů: běží v samostatném workflow (insidery.yml),
+    protože ~500 firem × pár requestů na EDGAR trvá řádově deset minut a
+    nesmí zdržovat ani ohrozit hlavní datový běh."""
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    build_insiders()
+    print(f"Hotovo (sken insiderů). Vygenerováno do {OUT_DIR}")
+
+
 if __name__ == "__main__":
     import argparse
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--daily", action="store_true",
                     help="aktualizovat jen denní data (Sítě)")
-    if ap.parse_args().daily:
+    ap.add_argument("--insiders", action="store_true",
+                    help="jen týdenní sken nákupů insiderů v S&P 500")
+    args = ap.parse_args()
+    if args.daily:
         main_daily()
+    elif args.insiders:
+        main_insiders()
     else:
         main()

@@ -1,0 +1,74 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Fear & Greed Index česky: jak číst strach a chamtivost na trzích"
+description: "Z čeho se skládá Fear & Greed Index, proč funguje jako kontrariánský ukazatel jen v extrémech a jak sentiment měřit poctivěji – pozicemi, ne pocity."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import sm from '../../data/smart_money.json';
+
+„Buďte chamtiví, když se ostatní bojí, a bojte se, když jsou ostatní
+chamtiví.“ Buffettova věta je nejcitovanější poučka o sentimentu – a Fear &
+Greed Index od CNN je nejznámější pokus tu poučku převést na číslo od 0
+(extrémní strach) do 100 (extrémní chamtivost).
+
+## Z čeho se index skládá
+
+Fear & Greed není anketa mezi investory. Skládá se ze sedmi tržních měření,
+u kterých se porovnává aktuální stav s obvyklým:
+
+1. **Momentum trhu** – S&P 500 vůči svému 125dennímu průměru.
+2. **Síla akcií** – počet titulů na 52týdenních maximech vs minimech.
+3. **Šíře trhu** – objemy v rostoucích vs klesajících akciích.
+4. **Poměr put/call opcí** – kolik se kupuje pojistek proti poklesu.
+5. **Volatilita** – index VIX vůči svému průměru.
+6. **Poptávka po rizikových dluhopisech** – rozpětí výnosů „junk“ vs bezpečných.
+7. **Poptávka po bezpečí** – výnos akcií vs dluhopisů za poslední měsíc.
+
+To je důležité: index měří **chování cen a pozic, ne nálady v hlavách**. Je to
+teploměr přiložený přímo k trhu, ne dotazník rozeslaný investorům.
+
+## Jak ho číst – a jak ne
+
+Sentimentové ukazatele fungují **kontrariánsky, ale jen v extrémech**.
+Hodnota 80 neznamená „zítra to spadne“; trh umí zůstat chamtivý měsíce a
+strach umí prohloubit i dobře vypadající dno. Historicky užitečný vzorec je
+střídmější:
+
+- **Extrémní strach** (pod ~20) se často objevuje blízko lokálních den –
+  ne proto, že by strach byl „signál nákupu“, ale protože v té chvíli už
+  prodali skoro všichni, kdo prodat chtěli.
+- **Extrémní chamtivost** (nad ~80) sama o sobě růst nezastaví, ale říká,
+  že očekávání jsou napjatá a trh je zranitelnější vůči zklamání.
+- **Střední hodnoty neříkají nic.** Většinu času se index pohybuje mezi 30 a
+  70 a v tomto pásmu nemá žádnou prediktivní hodnotu.
+
+## Pozice říkají víc než pocity
+
+Slabina všech „indexů nálad“ je, že míchají rychlé a pomalé složky do jednoho
+čísla. Poctivější pohled je sledovat přímo **kdo drží jaké pozice** – protože
+pozice, na rozdíl od nálad, stojí peníze. Přesně to děláme na stránce
+[Chytré peníze](/chytre-penize/): z povinných výkazů CFTC čteme, jak jsou ve
+futures na S&P 500 rozestavěné instituce, hedge fondy a malí obchodníci:
+
+<LineChart
+  title="Čisté pozice ve futures na S&P 500 (% otevřených kontraktů)"
+  note="Povinné týdenní výkazy CFTC (Commitments of Traders). Kladné hodnoty = sázka na růst, záporné = na pokles."
+  dates={sm.cot.dates}
+  series={sm.cot.series}
+/>
+
+Podobnou logiku „měř pozice, ne pocity“ držíme i u dalších ukazatelů:
+zajišťování přes VIX futures, aktivita retailu v pákových ETF nebo to, o čem
+se skutečně mluví na [sociálních sítích](/socialni-site/).
+
+## Co si z toho odnést
+
+Fear & Greed Index je užitečná rychlá zkratka – jedno číslo, které řekne,
+jestli je trh napjatý. Rozhodovat se podle něj ale znamená rozhodovat se podle
+sedmi zprůměrovaných ukazatelů, které si můžete prohlédnout i jednotlivě a
+s kontextem. Sentiment je koření analýzy, ne její základ: v extrémech stojí za
+pozornost, ve středu pásma je to šum.
+
+*Tento článek není investičním doporučením.*

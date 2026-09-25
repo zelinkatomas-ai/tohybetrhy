@@ -1,0 +1,72 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Inverzní výnosová křivka: nejslavnější signál recese"
+description: "Co je výnosová křivka, proč její inverze historicky předcházela recesím v USA a proč nebezpečná bývá až chvíle, kdy se křivka narovnává zpět."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import liq from '../../data/liquidity.json';
+
+Když se o nějakém tržním ukazateli mluví v hlavních zprávách, je to skoro
+vždy tenhle. Inverzní výnosová křivka je nejslavnější předzvěst recese –
+a zároveň signál, který se nejčastěji čte špatně.
+
+## Co je výnosová křivka
+
+Vlády si půjčují vydáváním dluhopisů s různou splatností a výnosová křivka
+je jen graf: na ose x splatnost (3 měsíce, 2 roky, 10 let…), na ose y výnos.
+V normálních časech křivka **stoupá** – kdo půjčuje na deset let, nese vyšší
+riziko (inflace, nejistota) a chce za něj vyšší výnos než ten, kdo půjčuje
+na dva roky.
+
+**Inverze** znamená, že se to obrátí: krátkodobé výnosy jsou *vyšší* než
+dlouhodobé. Nejsledovanější měřítko je rozdíl mezi 10letým a 2letým výnosem
+amerických dluhopisů – takzvaný spread 10Y−2Y. Když klesne pod nulu, křivka
+je inverzní.
+
+## Proč je to signál recese
+
+Inverze je zpráva o očekáváních. Krátký konec křivky drží centrální banka
+svými sazbami; dlouhý konec je sázka trhu na budoucnost. Když 10letý výnos
+klesne pod 2letý, trh fakticky říká: *„Sazby jsou dnes vysoko, ale
+nevydrží – ekonomika zpomalí a centrální banka bude muset zlevnit peníze.“*
+Inverze zároveň recesi nejen předpovídá, ale i pomáhá vyvolat: bankám se
+přestává vyplácet klasický byznys (půjčovat si krátce levně, půjčovat dlouze
+dráž), a tak přiškrcují úvěry.
+
+Historická bilance je pozoruhodná: spread 10Y−2Y se překlopil do záporu před
+každou americkou recesí posledních zhruba padesáti let, s předstihem
+typicky 6 až 24 měsíců. Právě ten rozptyl je důležitý – „přijde recese“ a
+„přijde do dvou let“ jsou pro investora dvě velmi různé informace.
+
+<LineChart
+  title="Výnosová křivka: 10letý − 2letý výnos USA (p. b.)"
+  note="Rozdíl výnosů 10letých a 2letých amerických státních dluhopisů. Hodnoty pod nulou = inverzní křivka."
+  dates={liq.curve.dates}
+  series={liq.curve.series}
+/>
+
+## Tři nejčastější omyly
+
+- **„Inverze = prodat akcie.“** Historicky trhy po vzniku inverze často
+  ještě měsíce rostly. Samotný okamžik překlopení pod nulu je špatný
+  časovací nástroj.
+- **Přehlédnutá je dis-inverze.** Riziková bývá spíš chvíle, kdy se křivka
+  po dlouhé inverzi prudce **narovnává zpět** (krátké výnosy padají, protože
+  trh čeká rychlé snižování sazeb) – ta historicky ležela recesi nejblíž.
+- **„Tentokrát je to jinak.“** Nejdražší věta ve financích – ale poctivě:
+  inverze z let 2022–2024 byla nejdelší v moderní historii a recese v USA
+  během ní nepřišla. Signál s hrstkou historických případů není přírodní
+  zákon; proto ho sledujeme jako jeden vstup mezi mnoha, ne jako verdikt.
+
+## Co si z toho odnést
+
+Výnosová křivka je pomalý, vzácný a silný ukazatel: většinu času neříká nic
+a právě proto stojí za to všimnout si, když mluví. Aktuální stav spreadu
+10Y−2Y, výnosů i sazeb Fedu a ECB sledujeme každý týden na stránce
+[Likvidita](/likvidita/) – a když je křivka inverzní, píšeme to rovnou i do
+týdenního shrnutí na úvodní stránce. Souvislosti sazeb a hotovosti rozebírá
+článek [Volné peníze](/clanky/volne-penize/).
+
+*Tento článek není investičním doporučením.*

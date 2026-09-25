@@ -1,0 +1,73 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Sektorová rotace: co trh říká o ekonomice, když se přeskupuje kapitál"
+description: "Jak číst přesuny kapitálu mezi sektory, co znamená souboj cyklických a defenzivních akcií a proč je poměr cyklické/defenzivní jeden z nejužitečnějších ukazatelů režimu trhu."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import cy from '../../data/cycdef.json';
+
+Index může stát na místě, a pod povrchem se přitom odehrává velké stěhování:
+kapitál odtéká z jedněch sektorů do druhých. Tomu pohybu se říká sektorová
+rotace – a protože každý sektor vydělává v jiné fázi ekonomického cyklu, je
+rotace jedním z nejčitelnějších způsobů, jak zjistit, co si trh *skutečně*
+myslí o ekonomice.
+
+## Sektory nejsou stejné povahy
+
+Jedenáct sektorů indexu S&P 500 se dá zhruba rozdělit podle citlivosti na
+ekonomiku:
+
+- **Cyklické** – spotřeba zbytná (XLY), průmysl (XLI), finance (XLF),
+  materiály (XLB): vydělávají, když ekonomika šlape, a padají první, když
+  zpomaluje.
+- **Defenzivní** – základní spotřeba (XLP), utility (XLU), zdravotnictví
+  (XLV): zubní pastu, elektřinu a léky lidé kupují i v recesi, takže jejich
+  zisky tolik nekolísají.
+- **Zvláštní kapitoly** – technologie (citlivé hlavně na úrokové sazby),
+  energie (žijí cenou ropy) a reality (sazby + nájmy).
+
+Učebnicová posloupnost cyklu říká: v ranné fázi vedou finance a zbytná
+spotřeba, v rozjeté expanzi průmysl a technologie, v pozdní fázi energie a
+materiály, a když se blíží zpomalení, kapitál se stahuje do defenzivy.
+Realita je méně úhledná – ale právě přesun mezi cyklickými a defenzivními
+sektory zůstává čitelný.
+
+## Jeden poměr místo jedenácti grafů
+
+Abychom rotaci nemuseli luštit z jedenácti křivek, počítáme jediné číslo:
+poměr rovnovážného koše cyklických sektorů proti koši defenzivních a jeho
+26týdenní průměr. Když poměr roste, trh věří růstu ekonomiky; když vytrvale
+klesá pod svůj průměr, trh hraje defenzivu – ať už titulky říkají cokoliv:
+
+<LineChart
+  title="Poměr cyklické / defenzivní sektory vs 26týdenní průměr"
+  note={cy.note}
+  dates={cy.ratio.dates}
+  series={cy.ratio.series}
+/>
+
+Stejně jako u ostatních našich ukazatelů platí dvoustupňové čtení: čerstvý
+pokles pod průměr je varování, mnohaměsíční pobyt pod ním je režim, na který
+si trh zvykl a který už sám o sobě není zpráva.
+
+## K čemu je to investorovi
+
+- **Kontrola příběhu.** Když média mluví o boomu, ale kapitál se přesouvá
+  do utilit a zubní pasty, věřte penězům, ne titulkům. A naopak.
+- **Kontext pro momentum.** Vedení trhu se pozná podle toho, *které* sektory
+  táhnou. Růst tažený cyklickými sektory je jiný druh růstu než ten, který
+  drží defenziva – druhý jmenovaný bývá křehčí.
+- **Předstih před indexem.** Rotace do defenzivy často začíná dřív, než
+  index výrazněji klesne – pod pokličkou se opatrnost projeví jako první.
+
+## Kde to sledovat
+
+Kompletní tabulku momenta všech sektorů, poměr cyklické/defenzivní i
+nejsilnější akcie z vedoucích sektorů (Tahouni) aktualizujeme každý týden
+na stránce [Sektory](/sektory/). Jak se sektorové trendy převádějí na
+mechanická pravidla, popisuje článek
+[Momentum strategie v praxi](/clanky/momentum-strategie/).
+
+*Tento článek není investičním doporučením.*

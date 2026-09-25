@@ -1,0 +1,72 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Volné peníze: biliony na okraji trhu a proč s ním hýbou"
+description: "Rekordní hotovost ve fondech peněžního trhu, vklady v bankách a likvidita centrálních bank: jak volné peníze ovlivňují trhy a co na tom je mýtus."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import liq from '../../data/liquidity.json';
+
+Na okraji amerického trhu leží rekordní hora hotovosti: fondy peněžního trhu
+spravují řádově sedm bilionů dolarů a k tomu se přidávají biliony na
+termínovaných a spořicích vkladech. Komentátoři z toho rádi vyvozují, že „až
+ty peníze vtečou do akcií, trh vystřelí“. Realita je zajímavější – a stojí za
+to ji rozebrat poctivě.
+
+## Odkud se ta hora vzala
+
+Dvě příčiny. První byla pandemická: vlády a centrální banky napumpovaly do
+ekonomik biliony a část z nich se usadila na účtech. Druhá přišla se
+zvyšováním sazeb – jakmile bezriziková krátkodobá sazba vyskočila k pěti
+procentům, hotovost přestala být „mrtvým“ aktivem. Fond peněžního trhu, který
+nese víc než dividendový výnos indexu, je legitimní konkurent akcií, a tak se
+v něm hotovost hromadí. Vývoj obou zásobáren sledujeme každý týden:
+
+<LineChart
+  title="Kde se hromadí hotovost (meziroční růst, %)"
+  note="Vklady v amerických bankách a retailové fondy peněžního trhu – hotovost investorů „na parkovišti“. Zrychlující růst obou = hotovost se hromadí."
+  dates={liq.cash.dates}
+  series={liq.cash.series}
+  yLabel="%"
+/>
+
+## Mýtus „peněz na kraji hřiště“
+
+Teď ta poctivá část. Představa, že hotovost „vteče do akcií“ a zmizí
+z parkoviště, je účetně děravá: **každý nákup akcie má prodávajícího**. Když
+investor pošle peníze z peněžního fondu na burzu, prodávající je inkasuje – a
+hotovost v systému jen změnila majitele, nezmizela. Objem „volných peněz“ se
+nákupy akcií sám o sobě nesnižuje.
+
+Proč na nich tedy záleží? Protože fungují jako **tlak, ne jako palivo, které
+se spálí**. Ochota držitelů hotovosti akceptovat vyšší ceny akcií (a ochota
+držitelů akcií je za ty ceny pouštět) se mění s tím, kolik hotovost nese a
+jak se investoři cítí. Velká zásoba vysoko úročené hotovosti znamená, že
+existuje rezervoár kupní síly, který se může dát do pohybu, jakmile sazby
+klesnou a držení hotovosti přestane být pohodlné. Směr sazeb je proto pro
+„volné peníze“ důležitější než jejich absolutní výše – proto na stránce
+[Likvidita](/likvidita/) sledujeme vedle hotovosti i sazby Fedu a ECB a
+výnosovou křivku.
+
+## Likvidita centrálních bank: druhá vrstva
+
+Vedle hotovosti investorů existuje ještě systémová vrstva – **čistá
+likvidita**: bilance Fedu očištěná o peníze, které jsou dočasně odstavené
+mimo trh (účet ministerstva financí a reverzní repo operace). Když čistá
+likvidita roste, finanční systém má víc volných rezerv a rizikovým aktivům to
+historicky svědčilo; když se stahuje, trh ztrácí jeden z opěrných bodů. Je to
+pomalý, týdenní ukazatel – přesně ten druh dat, který nemá cenu sledovat
+denně, ale vyplatí se znát jeho směr.
+
+## Co si z toho odnést
+
+- Rekordní hotovost na okraji trhu **není časovaná bomba růstu** – peníze
+  nákupem nezmizí, jen změní majitele.
+- Je to ale **měřitelný tlak**: čím víc hotovosti a čím nižší její úročení,
+  tím větší motivace hledat výnos jinde.
+- Sledujte proto **směr, ne titulky**: kam míří sazby, jestli hotovost
+  přibývá nebo ubývá a co dělá čistá likvidita. Všechny tři křivky
+  aktualizujeme každý týden na stránce [Likvidita](/likvidita/).
+
+*Tento článek není investičním doporučením.*

@@ -1,0 +1,76 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Obchody amerických politiků: dá se kopírovat Pelosi?"
+description: "Američtí zákonodárci musí své obchody s akciemi zveřejňovat. Jak funguje „Pelosi efekt“, co jsou ETF NANC a KRUZ a co říkají data o tom, jestli se kopírování vyplácí."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import sm from '../../data/smart_money.json';
+
+Málokteré finanční téma přitahuje tolik pozornosti: američtí kongresmani
+rozhodují o zákonech, rozpočtech a regulacích – a zároveň smí obchodovat
+akcie firem, kterých se ta rozhodnutí týkají. Musí to ale přiznat. A protože
+přiznání jsou veřejná, vznikl celý průmysl jejich kopírování.
+
+## Odkud data pocházejí
+
+Od roku 2012 platí v USA zákon STOCK Act: členové Kongresu (a jejich
+manželé či manželky) musí každý obchod s akciemi nad 1 000 dolarů nahlásit
+**do 45 dnů**. Hlášení jsou veřejně dostupná a částky se uvádějí v pásmech
+(např. 100 001–250 000 USD), ne přesně. Za pozdní hlášení hrozí pokuta –
+symbolických 200 dolarů, což vypovídá o vymahatelnosti.
+
+Slavným symbolem se stalo portfolio spojované s Nancy Pelosi – přesněji
+s obchody jejího manžela. Několik dobře načasovaných opčních obchodů
+s technologickými tituly udělalo z „Pelosi tracker“ účtů fenomén sociálních
+sítí a z „Pelosi efektu“ zkratku pro podezření, že zákonodárci obchodují
+s informační výhodou.
+
+## Z fenoménu se stala ETF
+
+Zájem byl tak velký, že vznikla dvě fondová zrcadla politických portfolií:
+**NANC** kopíruje veřejně hlášené obchody demokratických zákonodárců,
+**KRUZ** republikánských. Tím se z anekdot stal měřitelný experiment: stačí
+obě ETF porovnat s indexem S&P 500 a „Pelosi efekt“ se dá průběžně testovat
+skutečnými penězi:
+
+{sm.politicians && (
+  <LineChart
+    title="Portfolia politiků vs S&P 500 (indexováno na 100)"
+    note={sm.politicians.note ?? 'NANC (obchody demokratů) a KRUZ (obchody republikánů) vs SPY. Fondy kopírují veřejně hlášené obchody se zpožděním daným 45denní lhůtou.'}
+    dates={sm.politicians.dates}
+    series={sm.politicians.series}
+  />
+)}
+
+Aktuální podobu grafu najdete vždy na stránce
+[Chytré peníze](/chytre-penize/) – aktualizuje se každý týden spolu
+s ostatními daty webu.
+
+## Co říkají výsledky – poctivě
+
+Tři střízlivé závěry, které z dat a studií plynou:
+
+- **Průměrný kongresman trh neporáží.** Akademické studie novějšího období
+  (po STOCK Actu) nacházejí u většiny zákonodárců výnosy blízké trhu, nebo
+  horší. Mediálně viditelné jsou výjimky – a výjimky se špatně poznávají
+  dopředu.
+- **Kopírování má vestavěné zpoždění.** 45 dní je na trzích dlouhá doba;
+  než se obchod dozvíte, důvod pro něj mohl pominout. ETF navíc kopírují
+  akciové pozice, ne opční konstrukce, které stály za nejslavnějšími zisky.
+- **Skutečná hodnota dat je jinde.** Hlášení politiků fungují spíš jako
+  **mapa zájmů** – ukazují, ve kterých sektorech se koncentrují sázky lidí
+  s vlivem na regulaci (typicky technologie, obrana, energetika) – než jako
+  strojek na výnos.
+
+## Co si z toho odnést
+
+Obchody politiků jsou fascinující data o střetu zájmů a užitečný doplněk
+sentimentu, ne svatý grál. Sledujeme je proto stejně jako ostatní „chytré
+peníze“: mechanicky, s vědomím zpoždění a vedle dalších pohledů – pozic
+institucí z [výkazů CFTC](/clanky/chytre-penize-vs-retail/) a nákupů
+[insiderů](/clanky/legalni-insider-trading/), kteří na rozdíl od politiků
+hlásí obchody do dvou dnů.
+
+*Tento článek není investičním doporučením.*

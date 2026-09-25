@@ -138,13 +138,23 @@
       /socialni-site/ — k top tickerům z Redditu se denně sčítají nákupy
       a prodeje z formulářů 4 na SEC EDGAR (jen kódy P/S, 30 dní,
       max 8 podání na ticker; UA s kontaktem dle pravidel SEC).
+- [x] **Sken nákupů insiderů v S&P 500** — hotovo 2026-09-25: týdenní
+      workflow insidery.yml (sobota ráno, samostatný kvůli ~10min běhu)
+      projde všechny složky S&P 500 (Wikipedie) na SEC EDGAR: Form 4 za
+      30 dní, jen kódy P/S, max 6 podání na firmu, práh nákupů 100 tis.
+      USD, počet různých kupujících (cluster buying), top 15 →
+      insiders.json → tabulka „Kde nakupují insideři" na /chytre-penize/.
+      Zároveň zrobustněn graf politiků: mrtvá řada (KRUZ bez dat od
+      července) se vynechá místo shození celého grafu; dynamické note
+      + průběžný výsledek vs SPY pod grafem.
 - [ ] **Celotrhový insider buy/sell ratio**: akademicky nejsilnější verze
       (agregát všech Form 4 svítí na dnech trhu — 2011, 2018, 2020), ale
       chce stavovou infrastrukturu: tisíce podání denně, průběžné
       zpracování, vlastní úložiště. Do bezstavového týdenního pipeline se
       nevejde; volné agregátory jsou placené (Quiver, Unusual Whales) nebo
-      komunitní s nejistou údržbou (Senate/House Stock Watcher). Vrátit se,
-      až bude chuť na malý stavový worker.
+      komunitní s nejistou údržbou (Senate/House Stock Watcher). Sken
+      S&P 500 (viz výše) je bezstavová aproximace; plná verze čeká na
+      malý stavový worker.
 - [x] **Tahouni nejsilnějších sektorů** — hotovo 2026-09-13: rozpad top 3
       sektorů (dle 3M) na akcie — složení S&P 500 z Wikipedie (tabulka
       constituents, sanity check na počet složek), top 5 dle 3M z každého

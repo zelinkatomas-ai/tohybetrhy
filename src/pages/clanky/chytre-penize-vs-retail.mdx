@@ -1,0 +1,85 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Chytré peníze vs retail: kdo na trhu skutečně vyhrává"
+description: "Co znamená smart money, jak se pozice institucí a malých investorů dají měřit z výkazů CFTC – a proč retail už dávno není automaticky „hloupé peníze“."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import sm from '../../data/smart_money.json';
+
+„Sleduj chytré peníze“ patří k nejstarším burzovním radám. Jenže kdo přesně
+jsou chytré peníze, jak se dají sledovat – a je vůbec pravda, že drobní
+investoři jsou ta pověstná „hloupá“ strana obchodu? Data k tomu existují a
+jsou veřejná.
+
+## Kdo je kdo
+
+Za **chytré peníze** se tradičně označují profesionálové: penzijní fondy a
+správci aktiv (pomalé, velké, dlouhodobé peníze), hedge fondy (rychlé, pákové,
+spekulativní) a insideři – manažeři obchodující akcie vlastní firmy. **Retail**
+jsou drobní investoři: účty u brokerů, mobilní aplikace, opce a pákové ETF.
+
+Rozdíl není v inteligenci, ale v **omezeních a informacích**. Instituce mají
+výzkumné týmy a lepší exekuci, zároveň ale svazující mandáty: musí být
+zainvestované, hlídat odchylku od benchmarku, řídit riziko podle předpisů.
+Retail nemá žádný mandát – může držet hotovost, koncentrovat pozice a čekat.
+To je výhoda i past zároveň.
+
+## Jak se pozice měří
+
+Nejčistší veřejný zdroj jsou týdenní výkazy americké komise CFTC
+(Commitments of Traders): každý větší obchodník s futures musí hlásit pozice
+a komise je publikuje rozdělené podle typu hráče. Na futures na S&P 500 tak
+jde přímo vidět, jak jsou rozestavěné instituce, hedge fondy a malí
+obchodníci:
+
+<LineChart
+  title="Čisté pozice ve futures na S&P 500 (% otevřených kontraktů)"
+  note="Povinné týdenní výkazy CFTC (Commitments of Traders). Kladné hodnoty = sázka na růst, záporné = na pokles."
+  dates={sm.cot.dates}
+  series={sm.cot.series}
+/>
+
+Čtení má jeden háček: hedge fondy bývají ve futures systematicky „short“,
+protože jimi zajišťují akciové pozice jinde – záporné číslo tedy není
+automaticky sázka na pád trhu. Proto je důležitější **změna a extrém** než
+absolutní hodnota.
+
+## Retail už není hloupé peníze
+
+Poctivá část článku. Klišé „retail nakupuje na vrcholu a prodává na dně“ má
+reálný akademický základ z 90. let, ale poslední roky ho komplikují: v
+propadech 2020 i 2022 drobní investoři ve velkém **nakupovali dna**, zatímco
+řada institucí odprodávala nebo se zajišťovala. Provizí zdarma a indexovými
+ETF navíc zmizely dvě největší historické nevýhody retailu – náklady a špatná
+diverzifikace.
+
+Kde retail o výhodu dál přichází, je **chování v extrémech**: pákové produkty,
+krátkodobé opce a honba za tím, co právě letí. Právě proto neměříme „co si
+retail myslí“, ale co dělá – například jaký podíl obchodování tvoří páková
+ETF:
+
+<LineChart
+  title="Aktivita retailu: objem pákových ETF vs SPY+QQQ (%)"
+  note="Podíl objemu obchodů v pákových ETF na objemu hlavních indexových ETF. Vysoké hodnoty = spekulativní apetit, nízké = opatrnost."
+  dates={sm.retail.dates}
+  series={sm.retail.series}
+  yLabel="%"
+/>
+
+## Co si z toho odnést
+
+- „Chytré peníze“ nejsou jeden hráč – asset manažeři, hedge fondy a insideři
+  se často rozcházejí a každý má jiný důvod obchodovat.
+- Sledujte **pozice, ne výroky**: výkazy CFTC jsou povinné a stojí za nimi
+  skutečné peníze.
+- Retail není hloupý, ale je **náladový** – jeho extrémy (páka, opce,
+  jednosměrný optimismus či panika) jsou cennější signál než jeho průměr.
+
+Všechny tři pohledy – instituce, hedge fondy i retail – sledujeme týdně na
+stránce [Chytré peníze](/chytre-penize/) a doplňujeme je o
+[obchody amerických politiků](/clanky/obchody-americkych-politiku/) a nákupy
+insiderů na [Sítích](/socialni-site/).
+
+*Tento článek není investičním doporučením.*

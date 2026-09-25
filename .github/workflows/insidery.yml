@@ -1,0 +1,40 @@
+name: Sken insiderů
+
+on:
+  schedule:
+    # Každou sobotu ráno; sken ~500 firem na SEC EDGAR trvá řádově deset
+    # minut, proto běží odděleně od hlavní páteční aktualizace dat
+    - cron: "23 6 * * 6"
+  workflow_dispatch: {} # ruční spuštění z GitHubu
+
+permissions:
+  contents: write
+
+jobs:
+  insiders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalace závislostí
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Sken nákupů insiderů (S&P 500, SEC EDGAR)
+        run: python pipeline/fetch_data.py --insiders
+        timeout-minutes: 30 # ~2000 requestů s pauzami; zamrzlý EDGAR nesmí viset déle
+        env:
+          PYTHONUNBUFFERED: "1" # průběžný výstup v logu (kvůli diagnostice)
+
+      - name: Commit nových dat
+        run: |
+          git config user.name "data-bot"
+          git config user.email "actions@github.com"
+          git pull --rebase origin main || true
+          git add src/data
+          git diff --cached --quiet || git commit -m "Automatický sken insiderů ($(date -u +%F))"
+          git push
+      # Push spustí build & deploy (Cloudflare Pages napojené na repo).

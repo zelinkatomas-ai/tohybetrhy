@@ -3,18 +3,31 @@ import Base from '../layouts/Base.astro';
 import LineChart from '../components/LineChart.astro';
 import Methodology from '../components/Methodology.astro';
 import smartMoney from '../data/smart_money.json';
+import insiders from '../data/insiders.json';
 
 const vix = (smartMoney as any).vix ?? null;
+const pol = (smartMoney as any).politicians ?? null;
+const ins = (insiders as any)?.rows?.length ? (insiders as any) : null;
+const fmtUsd = (v: number) =>
+  v >= 1e6 ? `${(v / 1e6).toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} mil. $`
+           : `${Math.round(v / 1e3).toLocaleString('cs-CZ')} tis. $`;
+// věta „průběžný výsledek“ pod grafem politiků (hodnoty indexované na 100)
+const polPerf = pol?.last
+  ? Object.entries(pol.last as Record<string, number | null>)
+      .filter(([, v]) => v != null)
+      .map(([name, v]) => `${name.replace(/ \(.*\)/, '')} ${(v as number) >= 100 ? '+' : ''}${Math.round((v as number) - 100)} %`)
+      .join(', ')
+  : null;
 ---
 <Base title="Chytré peníze vs retail – To hýbe trhy" description="Kdo do trhu přitéká a kdo utíká: pozice institucí ve futures, expozice aktivních správců, apetit retailu a cena strachu (VIX).">
   <h1>Chytré peníze vs retail</h1>
   <p class="lead">
-    Kdo teď do trhu přitéká a kdo utíká? Šest nezávislých pohledů: oficiální
+    Kdo teď do trhu přitéká a kdo utíká? Sedm nezávislých pohledů: oficiální
     data CFTC o pozicích ve futures na S&P 500 i na VIX (short sázky na
     klid), expozice aktivních správců (NAAIM), apetit retailu měřený objemem
-    pákových ETF, cena strachu z opčního trhu (VIX) a portfolia amerických
-    politiků. Žádný z nich není neomylný – nejcennější informace vzniká,
-    když se rozejdou.
+    pákových ETF, cena strachu z opčního trhu (VIX), portfolia amerických
+    politiků a nákupy insiderů napříč S&P 500. Žádný z nich není neomylný –
+    nejcennější informace vzniká, když se rozejdou.
   </p>
 
   {smartMoney.cot && (
@@ -57,13 +70,21 @@ const vix = (smartMoney as any).vix ?? null;
       series={vix.level.series}
     />
   )}
-  {(smartMoney as any).politicians && (
-    <LineChart
-      title="Politici jako chytré peníze? NANC a KRUZ vs S&P 500 (indexováno na 100)"
-      note="ETF NANC a KRUZ mechanicky kopírují obchody, které členové Kongresu (demokraté, resp. republikáni) povinně přiznávají podle STOCK Act. Přiznání chodí s až 45denním zpožděním – fondy kupují pozdě. Rozestup obou čar je zároveň sektorová sázka stran: demokratická portfolia jsou těžká na technologie."
-      dates={(smartMoney as any).politicians.dates}
-      series={(smartMoney as any).politicians.series}
-    />
+  {pol && (
+    <>
+      <LineChart
+        title="Politici jako chytré peníze? Kopie obchodů Kongresu vs S&P 500 (indexováno na 100)"
+        note={pol.note ?? 'ETF NANC a KRUZ mechanicky kopírují obchody, které členové Kongresu (demokraté, resp. republikáni) povinně přiznávají podle STOCK Act. Přiznání chodí s až 45denním zpožděním – fondy kupují pozdě.'}
+        dates={pol.dates}
+        series={pol.series}
+      />
+      {polPerf && (
+        <p class="verdict-line">
+          Průběžný výsledek od {new Date(pol.since).toLocaleDateString('cs-CZ')}:
+          {' '}{polPerf}.
+        </p>
+      )}
+    </>
   )}
   {vix?.term && (
     <LineChart
@@ -72,6 +93,43 @@ const vix = (smartMoney as any).vix ?? null;
       dates={vix.term.dates}
       series={vix.term.series}
     />
+  )}
+
+  {ins && (
+    <section class="ins">
+      <h2>Kde nakupují insideři (S&P 500, posledních {ins.days} dní)</h2>
+      <p class="note">
+        Sken všech složek indexu na SEC EDGAR: firmy, kde manažeři a členové
+        představenstev v posledních {ins.days} dnech nejvíc nakupovali vlastní
+        akcie za vlastní peníze. Insideři prodávají z tisíce důvodů, kupují
+        jen z jednoho – a shoda více kupujících najednou („cluster buying“)
+        je historicky nejsilnější varianta signálu.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ticker</th><th>Firma</th><th>Sektor</th>
+              <th class="num">Nákupy</th><th class="num">Kupujících</th>
+              <th class="num">Největší nákup</th><th class="num">Prodeje</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ins.rows.map((r: any) => (
+              <tr>
+                <td class="ticker">{r.ticker}</td>
+                <td>{r.name}</td>
+                <td>{r.sector}</td>
+                <td class="num up">▲ {fmtUsd(r.buys_usd)}</td>
+                <td class="num">{r.buyers}</td>
+                <td class="num">{fmtUsd(r.biggest_buy_usd)}</td>
+                <td class="num">{r.sells_usd > 0 ? `▼ ${fmtUsd(r.sells_usd)}` : '–'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   )}
 
   <Methodology>
@@ -121,6 +179,17 @@ const vix = (smartMoney as any).vix ?? null;
       jak sledovat, kam peníze zákonodárců tečou.
     </p>
     <p>
+      <strong>Insideři (SEC EDGAR):</strong> jednou týdně projdeme všechny
+      složky S&P 500 a z oficiálních formulářů 4 sečteme nákupy a prodeje
+      insiderů (ředitelé, členové představenstev, vlastníci nad 10 %) na
+      volném trhu za posledních 30 dní. Počítají se jen dobrovolné obchody
+      za vlastní peníze (kódy P a S) – granty, exercisy opcí a daňové srážky
+      jsou šum. Práh 100 tis. USD filtruje symbolická gesta; sloupec
+      „kupujících“ měří cluster buying. Proč jsou nákupy silnější signál než
+      prodeje, rozebírá článek
+      <a href="/clanky/legalni-insider-trading/">o legálním insider tradingu</a>.
+    </p>
+    <p>
       Co právě řeší dav na Redditu a StockTwits najdete na stránce
       <a href="/socialni-site/">Sítě</a> – včetně křížového pohledu, co ve
       stejných akciích dělají insideři.
@@ -131,4 +200,16 @@ const vix = (smartMoney as any).vix ?? null;
 <style>
   h1 { font-size: 1.6rem; margin: 0.5rem 0 0.25rem; }
   .lead { color: var(--text-secondary); margin-top: 0; }
+  .verdict-line { margin: -0.5rem 0 1.5rem; font-size: 0.85rem; color: var(--text-secondary); }
+
+  .ins { margin: 2rem 0; }
+  .ins h2 { font-size: 1.2rem; margin: 0 0 0.35rem; }
+  .ins .note { margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--text-secondary); }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid var(--gridline); white-space: nowrap; }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; }
+  th.num, td.num { text-align: right; }
+  td.ticker { font-weight: 600; }
+  .up { color: var(--delta-up); }
 </style>

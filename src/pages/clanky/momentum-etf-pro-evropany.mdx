@@ -1,0 +1,82 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Momentum ETF pro evropské investory: UCITS varianty a jak si vybrat"
+description: "Proč si Evropan nekoupí americká momentum ETF jako MTUM či SPMO, jaké existují UCITS alternativy (World, USA, Europe momentum) a na co si dát pozor."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import etfs from '../../data/momentum_etfs.json';
+
+Většina textů o momentum ETF končí u amerických fondů: MTUM, SPMO, XMMO.
+Jenže evropský retailový investor si je u běžného brokera **koupit nemůže**.
+Tenhle článek je o tom, proč to tak je – a jaké varianty Evropanům skutečně
+zbývají.
+
+## Proč na americká ETF nedosáhnete
+
+Od roku 2018 platí v EU nařízení PRIIPs: fond nabízený drobným investorům
+musí mít sdělení klíčových informací (KID) v předepsaném formátu. Američtí
+správci ho pro své domácí ETF nevydávají – nemají důvod – a evropský broker
+proto americké ETF retailovým klientům nabízet nesmí. Nejde o kvalitu fondů,
+ale o papírování. Výjimkou jsou profesionální klienti a některé opční
+konstrukce, pro běžné investování je to ale slepá ulička.
+
+## UCITS momentum: co reálně existuje
+
+Evropskou odpovědí jsou fondy v režimu UCITS, obvykle s irským domicilem.
+Momentum nabídka je užší než v USA, ale základ pokrývá – nejznámější fondy
+stavějí na indexech MSCI Momentum:
+
+- **iShares Edge MSCI World Momentum Factor UCITS ETF** – celosvětové
+  vyspělé trhy, největší a nejlikvidnější z nabídky (ISIN IE00BP3QZ825).
+- **iShares Edge MSCI USA Momentum Factor UCITS ETF** – čistě americká
+  varianta (ISIN IE00BD1F4N50).
+- **iShares Edge MSCI Europe Momentum Factor UCITS ETF** – evropské akcie
+  (ISIN IE00BQN1K901); právě tento fond sledujeme v týdenní tabulce na
+  stránce [Momentum ETF](/momentum-etf/).
+- **Xtrackers MSCI World Momentum Factor UCITS ETF** – konkurenční světová
+  varianta od DWS (ISIN IE00BL25JP72).
+
+Nabídka se průběžně mění a přibývají další emitenti; před nákupem si fond
+vždy ověřte podle **ISIN** (ne podle tickeru, ten se liší burzu od burzy)
+na stránkách emitenta nebo v databázi justETF.
+
+## Na co se dívat při výběru
+
+- **Index a jeho pravidla.** MSCI Momentum indexy váží akcie podle síly
+  trendu za 6 a 12 měsíců a rebalancují pololetně, s mimořádnými
+  rebalancemi při obratech trhu. Pololetní krok znamená, že fond na prudký
+  obrat reaguje s odstupem – to není chyba, ale vlastnost, se kterou je
+  třeba počítat.
+- **Akumulační vs distribuční třída.** Pro dlouhodobé skládání výnosu bývá
+  praktičtější akumulační; irský domicil navíc zvýhodňuje zdanění amerických
+  dividend uvnitř fondu.
+- **Náklady.** TER se u faktorových UCITS ETF pohybuje zhruba mezi 0,20 a
+  0,30 % ročně – víc než u čistě indexových fondů, stále zlomek nákladů
+  aktivní správy.
+- **Koncentrace.** Faktorový fond je koncentrovaná sázka: pár set akcií
+  vážených podle jednoho kritéria se může od širokého trhu dlouho a výrazně
+  odchylovat – oběma směry. Vlastní zkušenost z tohoto webu: koncentrovaný
+  faktorový fond nikdy neberte jako věrnou kopii celého stylu.
+
+## Jak si momentum ETF vedou právě teď
+
+Výkonnost amerických momentum fondů proti širokému trhu (S&P 500 a MSCI
+World, čárkovaně) sledujeme každý týden – UCITS varianty se jim dlouhodobě
+podobají, protože stavějí na stejné rodině indexů:
+
+<LineChart
+  title="Momentum ETF vs široký trh (indexováno na 100)"
+  note={etfs.note}
+  dates={etfs.chart.dates}
+  series={etfs.chart.series}
+/>
+
+Aktuální tabulku s výnosy za 1, 3, 6 a 12 měsíců a signálem vůči
+52týdennímu průměru najdete na stránce [Momentum ETF](/momentum-etf/); jak
+s takovými fondy pracují mechanické strategie, popisujeme v článku
+[Momentum strategie v praxi](/clanky/momentum-strategie/).
+
+*Tento článek není investičním doporučením. Údaje o fondech se mění –
+ověřujte je vždy u emitenta.*
