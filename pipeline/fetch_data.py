@@ -736,6 +736,12 @@ def fetch_insiders(tickers: list[str]) -> dict[str, dict | None]:
                 fx = requests.get(url, headers=SEC_HEADERS, timeout=30)
                 fx.raise_for_status()
                 root = ET.fromstring(fx.content)
+                # Form 4 je indexovaný i pod CIK nakupujícího (např. Berkshire
+                # jako >10% vlastník jiné firmy) – počítáme jen podání, kde je
+                # skenovaná firma emitentem, jinak se cizí obchod započte dvakrát
+                issuer = (root.findtext("issuer/issuerCik") or "").strip()
+                if issuer and int(issuer) != cik:
+                    continue
                 for tr in root.iter("nonDerivativeTransaction"):
                     code = (tr.findtext("transactionCoding/transactionCode") or "").strip()
                     if code not in ("P", "S"):
@@ -829,6 +835,12 @@ def fetch_insiders_market() -> list[dict]:
                 fx = requests.get(url, headers=SEC_HEADERS, timeout=30)
                 fx.raise_for_status()
                 root = ET.fromstring(fx.content)
+                # Form 4 je indexovaný i pod CIK nakupujícího (např. Berkshire
+                # jako >10% vlastník jiné firmy) – počítáme jen podání, kde je
+                # skenovaná firma emitentem, jinak se cizí obchod započte dvakrát
+                issuer = (root.findtext("issuer/issuerCik") or "").strip()
+                if issuer and int(issuer) != cik:
+                    continue
                 owner = (root.findtext(
                     "reportingOwner/reportingOwnerId/rptOwnerName") or "?").strip()
                 filing_buys = 0.0
