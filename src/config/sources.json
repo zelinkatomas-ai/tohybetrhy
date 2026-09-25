@@ -1,62 +1,63 @@
 {
-  "items": [
-    {
-      "title": "Dražší plyn v Evropě zvedá výnosy dluhopisů",
-      "source": "Financial Times",
-      "url": "https://www.ft.com/content/f73c2c95-5c73-4b2f-9f00-9fa8c12c10c9",
-      "date": "2026-09-02",
-      "tags": [
-        "Evropa",
-        "Energie"
-      ],
-      "summary": "Evropský plyn je nejdražší za tři roky a výprodej dluhopisů poslal výnosy amerických desetiletek nejvýš od roku 2023 – trh se bojí návratu plnohodnotného konfliktu s Íránem.",
-      "why": "Dražší energie → vyšší inflační očekávání → vyšší sazby. Přesně kanál, kterým se geopolitika přelévá do valuací akcií; sazby jsou hlavní protivítr momenta."
-    },
-    {
-      "title": "Nvidia táhne čipové akcie vzhůru, důvěra v AI investice se vrací",
-      "source": "Investor's Business Daily (via Yahoo)",
-      "url": "https://www.investors.com/news/technology/nvidia-stock-buy-point-chip-stocks-rally/",
-      "date": "2026-09-02",
-      "tags": [
-        "Technologie"
-      ],
-      "summary": "Čipový sektor posiluje v čele s Nvidií poté, co se na trh vrátila důvěra v pokračování investic do AI infrastruktury.",
-      "why": "Technologie jsou největší váhou amerického trhu – dokud drží AI capex, drží i sektorové momentum USA."
-    },
-    {
-      "title": "Si Ťin-pching sbírá diplomatické body před summitem s Trumpem",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/08/31/china-xi-us-trump-visit-sco-brics-modi-india.html",
-      "date": "2026-09-01",
-      "tags": [
-        "Čína",
-        "Indie"
-      ],
-      "summary": "Čínský prezident míří poprvé do Indie a poté do USA na jednání s Trumpem; sérií státních návštěv si buduje pozici před klíčovým summitem.",
-      "why": "Vztahy USA–Čína jsou hlavní katalyzátor pro čínské akcie a rotaci kapitálu do rozvíjejících se trhů, která právě běží v našich datech."
-    },
-    {
-      "title": "Krypto padá s novou eskalací konfliktu s Íránem",
-      "source": "Yahoo Finance",
-      "url": "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-wednesday-september-2-2026-crypto-prices-tumble-as-iran-war-reignites-112639522.html",
-      "date": "2026-09-02",
-      "tags": [
-        "Krypto"
-      ],
-      "summary": "Bitcoin i ethereum oslabily poté, co se znovu rozhořel konflikt s Íránem – krypto se chová jako rizikové aktivum, ne jako bezpečný přístav.",
-      "why": "Bitcoin sledujeme jako barometr rizikového apetitu; risk-off reakce potvrzuje, proč je stále pod 52týdenním průměrem."
-    },
-    {
-      "title": "Goldman Sachs: čekejte v příštím roce nižší výnosy akcií",
-      "source": "Yahoo Finance",
-      "url": "https://finance.yahoo.com/markets/article/goldman-sachs-warns-investors-to-expect-lower-returns-over-the-next-year-171050637.html",
-      "date": "2026-09-02",
-      "tags": [
-        "USA",
-        "Sentiment"
-      ],
-      "summary": "Goldman Sachs varuje, že výnosy akcií budou v příštím roce znatelně nižší než v uplynulých letech.",
-      "why": "Ladí s naším poměrem S&P 500 vs peněžní zásoba, který je vysoko nad pětiletým trendem – další růst by musel stát na dražších valuacích, ne na nových penězích."
-    }
-  ]
+ "items": [
+  {
+   "title": "Výprodej amerických dluhopisů tlačí dlouhé výnosy nejvýš od roku 2004",
+   "source": "Financial Times",
+   "url": "https://www.ft.com/content/c5af4151-2c14-481b-8145-f5ec1f43a3f4",
+   "date": "2026-09-25",
+   "tags": [
+    "Sentiment",
+    "USA"
+   ],
+   "summary": "Trh s americkými vládními dluhopisy má za sebou nejhorší týden od roku 2024; dlouhodobé výnosy vystoupaly na nová maxima od roku 2004 a investoři podle FT nechtějí držet riziko přes víkend.",
+   "why": "Výnos dluhopisů je diskontní sazba pro všechno ostatní: čím výš, tím menší ochota platit vysoké násobky za růstové akcie, které táhnou momentum. Vývoj sledujeme týdně na stránce Likvidita (výnosy a sklon křivky)."
+  },
+  {
+   "title": "Tři slova šéfa Fedu nechávají Wall Street hádat, jak vysoko sazby půjdou",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/18/three-words-from-kevin-warsh-have-wall-street-wondering-how-far-the-fed-will-go-with-rate-hikes.html",
+   "date": "2026-09-18",
+   "tags": [
+    "USA"
+   ],
+   "summary": "Kevin Warsh po zasedání vysvětlil, proč Fed tento týden zvedl sazby – a zároveň komentářem otevřel otázku, kolik dalších zvýšení má centrální banka v plánu.",
+   "why": "Cena peněz je hlavní protivítr momenta: každé další zvýšení zdražuje riziko a posiluje dolar. Nejistota o stropu sazeb se propisuje přímo do výnosové křivky, kterou sledujeme na Likviditě."
+  },
+  {
+   "title": "USA a Čína prodlužují obchodní příměří o dva měsíce, Si zahájil státní návštěvu",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/24/us-china-trade-truce-bessent-trump-xi.html",
+   "date": "2026-09-24",
+   "tags": [
+    "Čína",
+    "USA"
+   ],
+   "summary": "Obchodní dohoda, která měla vypršet v listopadu, se podle ministra financí Bessenta prodlužuje do 10. ledna; obě strany zároveň potvrdily první společné rozhovory o AI.",
+   "why": "Čínská expozice je v našich tabulkách regionů dlouhodobě citlivá právě na obchodní politiku. Příměří snižuje rizikovou přirážku pro emerging markets i pro americké technologie závislé na čínském řetězci."
+  },
+  {
+   "title": "Microsoft ožil a míří na nejvyšší závěr roku",
+   "source": "MarketWatch",
+   "url": "https://www.marketwatch.com/story/microsofts-stock-has-roared-back-to-life-and-is-now-headed-for-its-highest-close-of-the-year-89e4d596",
+   "date": "2026-09-25",
+   "tags": [
+    "Technologie",
+    "USA"
+   ],
+   "summary": "Akcie Microsoftu měly slabší začátek roku, ale investoři se podle MarketWatch v posledních měsících vrátili k jeho AI příběhu a titul míří na nejvyšší uzavírací cenu roku.",
+   "why": "Jedna z největších vah indexu S&P 500 i momentum fondů. Když se otočí trend u takového tahouna, hýbe to celým měřením amerického momenta v našich tabulkách."
+  },
+  {
+   "title": "Húsíové slibují, že nebudou útočit na evropské lodě",
+   "source": "Financial Times",
+   "url": "https://www.ft.com/content/a255d9e6-ae6f-4b30-9ca6-b694663f547c",
+   "date": "2026-09-25",
+   "tags": [
+    "Evropa",
+    "Energie"
+   ],
+   "summary": "Kontejnerová doprava úžinou Báb al-Mandab je nejvyšší za téměř tři roky a příslib Húsíů ji může dál posílit.",
+   "why": "Návrat lodí do Rudého moře znamená levnější a rychlejší dopravu pro evropský průmysl a maloobchod – protiinflační impuls, který nahrává cyklickým sektorům v našem poměru cyklické/defenzivní."
+  }
+ ]
 }

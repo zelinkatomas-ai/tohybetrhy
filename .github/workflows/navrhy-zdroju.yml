@@ -1,9 +1,10 @@
 name: Návrhy do Radaru
 
-# Sobotní sběr týdne: stáhne RSS feedy a vypíše návrhy zpráv do logu.
-# Radar se plní jednou týdně jen kvalitními kousky – kurátorský krok
-# zůstává lidský (návrhy se ručně, nebo přes Claude s revizí v PR,
-# přenášejí do src/config/sources.json). Nic necommituje.
+# Sobotní sběr týdne: stáhne RSS feedy a uloží návrhy zpráv do
+# pipeline/sources_proposals.json (commituje se, ať jsou návrhy po ruce –
+# v logu je nikdo nečetl a Radar zastarával). Kurátorský krok zůstává
+# lidský: návrhy se ručně, nebo přes Claude s revizí v PR, přenášejí
+# do src/config/sources.json.
 on:
   schedule:
     - cron: "0 7 * * 6" # sobota ráno, po páteční aktualizaci dat
@@ -29,3 +30,11 @@ jobs:
           cat pipeline/sources_proposals.json
         env:
           PYTHONUNBUFFERED: "1"
+
+      - name: Commit návrhů
+        run: |
+          git config user.name "data-bot"
+          git config user.email "actions@github.com"
+          git add pipeline/sources_proposals.json pipeline/sources_seen.json
+          git diff --cached --quiet || git commit -m "Návrhy do Radaru ($(date -u +%F))"
+          git push
