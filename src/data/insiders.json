@@ -1,6 +1,142 @@
 {
- "updated": null,
- "note": "Sken všech složek S&P 500 (dle Wikipedie) na SEC EDGAR: nákupy a prodeje insiderů na volném trhu (formulář 4, kódy P/S) za posledních 30 dní. Naplní se prvním během workflow Sken insiderů.",
+ "updated": "2026-09-25T11:16:35+00:00",
+ "note": "Sken všech složek S&P 500 (dle Wikipedie) na SEC EDGAR: nákupy a prodeje insiderů na volném trhu (formulář 4, kódy P/S) za posledních 30 dní, max 6 podání na firmu. Zobrazují se firmy s nákupy nad 100 tis. USD, řazeno podle objemu nákupů.",
  "days": 30,
- "rows": []
+ "rows": [
+  {
+   "ticker": "RSG",
+   "name": "Republic Services",
+   "sector": "Průmysl",
+   "buys_usd": 818587418,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 164701666
+  },
+  {
+   "ticker": "LEN",
+   "name": "Lennar",
+   "sector": "Zbytná spotřeba",
+   "buys_usd": 212395151,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 212395151
+  },
+  {
+   "ticker": "AON",
+   "name": "Aon plc",
+   "sector": "Finance",
+   "buys_usd": 6549688,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 6549688
+  },
+  {
+   "ticker": "WELL",
+   "name": "Welltower",
+   "sector": "Reality",
+   "buys_usd": 2407650,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 2407650
+  },
+  {
+   "ticker": "COO",
+   "name": "Cooper Companies (The)",
+   "sector": "Zdravotnictví",
+   "buys_usd": 1880110,
+   "sells_usd": 0,
+   "buyers": 3,
+   "biggest_buy_usd": 549320
+  },
+  {
+   "ticker": "ECL",
+   "name": "Ecolab",
+   "sector": "Materiály",
+   "buys_usd": 1020798,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 1020798
+  },
+  {
+   "ticker": "TFC",
+   "name": "Truist Financial",
+   "sector": "Finance",
+   "buys_usd": 1015577,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 1015577
+  },
+  {
+   "ticker": "TSN",
+   "name": "Tyson Foods",
+   "sector": "Základní spotřeba",
+   "buys_usd": 1001617,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 1001617
+  },
+  {
+   "ticker": "MSCI",
+   "name": "MSCI",
+   "sector": "Finance",
+   "buys_usd": 1000160,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 1000160
+  },
+  {
+   "ticker": "CRM",
+   "name": "Salesforce",
+   "sector": "Technologie",
+   "buys_usd": 999451,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 999451
+  },
+  {
+   "ticker": "HONA",
+   "name": "Honeywell Aerospace",
+   "sector": "Průmysl",
+   "buys_usd": 998400,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 998400
+  },
+  {
+   "ticker": "VST",
+   "name": "Vistra Corp.",
+   "sector": "Utility",
+   "buys_usd": 903069,
+   "sells_usd": 9768145,
+   "buyers": 1,
+   "biggest_buy_usd": 903069
+  },
+  {
+   "ticker": "DVN",
+   "name": "Devon Energy",
+   "sector": "Energie",
+   "buys_usd": 199876,
+   "sells_usd": 344218,
+   "buyers": 1,
+   "biggest_buy_usd": 199876
+  },
+  {
+   "ticker": "CINF",
+   "name": "Cincinnati Financial",
+   "sector": "Finance",
+   "buys_usd": 171640,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 171640
+  },
+  {
+   "ticker": "EVRG",
+   "name": "Evergy",
+   "sector": "Utility",
+   "buys_usd": 133611,
+   "sells_usd": 0,
+   "buyers": 1,
+   "biggest_buy_usd": 133611
+  }
+ ]
 }
