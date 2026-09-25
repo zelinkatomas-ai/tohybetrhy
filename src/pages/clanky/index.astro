@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Všechny články ze složky; řazeno od nejnovějšího, při shodě data podle názvu.
+const posts = Object.values(import.meta.glob('./*.mdx', { eager: true }))
+  .map((p: any) => ({
+    url: p.url,
+    title: p.frontmatter.title,
+    description: p.frontmatter.description,
+    date: new Date(p.frontmatter.date),
+  }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime() || a.title.localeCompare(b.title, 'cs'));
+---
+<Base
+  title="Články – To hýbe trhy"
+  description="Vzdělávací články o momentum investování, sentimentu a likviditě trhů. Bez tipů a bez humbuku – vysvětlujeme, co měříme a proč."
+>
+  <h1>Články</h1>
+  <p class="lead">
+    Delší texty k tomu, co na dashboardu měříme: jak funguje momentum,
+    sentiment a likvidita. Grafy v článcích jsou živé – aktualizují se spolu
+    s daty webu.
+  </p>
+
+  <ul class="posts">
+    {posts.map((p) => (
+      <li>
+        <a href={p.url + '/'}>
+          <h2>{p.title}</h2>
+          <p>{p.description}</p>
+          <span class="date">{p.date.toLocaleDateString('cs-CZ')}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <style>
+    h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+    .lead { color: var(--text-secondary); }
+    .posts { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1rem; }
+    .posts a {
+      display: block; text-decoration: none;
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.25rem; background: var(--surface-1);
+    }
+    .posts a:hover { border-color: var(--accent); }
+    .posts h2 { font-size: 1.05rem; margin: 0 0 0.35rem; color: var(--text-primary); line-height: 1.4; }
+    .posts p { margin: 0 0 0.5rem; color: var(--text-secondary); font-size: 0.9rem; }
+    .posts .date { color: var(--text-muted); font-size: 0.8rem; }
+  </style>
+</Base>

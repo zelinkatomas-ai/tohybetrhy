@@ -1,0 +1,86 @@
+---
+layout: ../../layouts/ArticleLayout.astro
+title: "Momentum strategie v praxi: mechanická pravidla od 12−1 po Dual Momentum"
+description: "Jak se z momentum efektu staví skutečná strategie: relativní a absolutní momentum, pravidlo 12−1, klouzavé průměry, rebalancování – a kdy momentum selhává."
+date: 2026-09-25
+---
+
+import LineChart from '../../components/LineChart.astro';
+import factor from '../../data/factor.json';
+
+V [úvodním článku](/clanky/co-je-momentum/) jsme popsali, *co* momentum je:
+statisticky doložený sklon vítězů zůstávat vítězi. Tady se podíváme na to,
+*jak* se z tohoto pozorování staví skutečná strategie – tedy sada mechanických
+pravidel, která jdou napsat na jednu stránku a dodržet i ve chvíli, kdy se
+trhy třesou.
+
+## Dvě rodiny pravidel
+
+**Relativní momentum** porovnává aktiva mezi sebou: seřaď je podle výnosu za
+posledních 3–12 měsíců a drž ty nejsilnější. Akademický standard je pravidlo
+„12−1“ – výnos za posledních 12 měsíců *bez* posledního měsíce. Poslední měsíc
+se vynechává, protože na horizontu týdnů ceny naopak mírně „pruží“ zpět
+(krátkodobý reverzal) a započítáním by se signál kazil.
+
+**Absolutní momentum** (též time-series momentum) neporovnává aktivum s
+konkurencí, ale s jeho vlastní minulostí: drž, dokud je výnos za posledních
+12 měsíců kladný – nebo v jednodušší variantě dokud je cena nad dlouhodobým
+klouzavým průměrem (typicky 200denním, což je zhruba 40týdenní). Smyslem není
+trefit vrchol, ale nebýt plně zainvestovaný během vleklých medvědích trhů.
+
+**Dual Momentum** Garyho Antonacciho obě rodiny spojuje: relativním momentem
+vybere nejsilnější akciový region (např. USA vs zbytek světa), absolutním
+momentem ověří, že akcie vůbec stojí za držení – a když ne, přesune kapitál do
+dluhopisů. Celá strategie je jedno rozhodnutí měsíčně.
+
+## Na co pravidla nezapomínat
+
+- **Rebalancovat řídce.** Měsíční frekvence je u momenta standard; častější
+  přepínání přidává náklady a šum, ne výnos.
+- **Náklady a daně jsou součást strategie.** Momentum obchoduje víc než
+  „kup a drž“. V českém kontextu stojí za pozornost časový test – prodej po
+  méně než třech letech znamená danit zisk, což mechanickému přepínání
+  systematicky ukrajuje z výsledku.
+- **Jedno pravidlo, žádné výjimky.** Výhoda momenta pochází z disciplíny.
+  Strategie, do které investor „občas sáhne“, protože se mu signál zrovna
+  nezdá, už není mechanická – a její statistika přestává platit.
+
+## Kdy momentum prohrává
+
+Poctivá část: momentum má zdokumentovaná slabá místa. Nejznámější je
+**momentum crash** – prudký obrat trhu po propadu, jako na jaře 2009 nebo
+2020, kdy se nejvíc odrazí právě to, co předtím nejvíc padalo. Portfolio
+poskládané ze včerejších vítězů je v té chvíli na špatné straně. Dlouhodobá
+statistická výhoda tyhle epizody historicky přežila, ale investor je musí
+přežít taky – bez páky a bez paniky.
+
+Druhé slabé místo jsou **boční trhy bez trendu**, kde pravidla generují falešné
+signály: nákup nahoře, prodej dole, několikrát za sebou. I proto dává smysl
+sledovat, v jakém režimu se trh nachází, dřív než pravidla naslepo aplikujete.
+
+## Jak momentum cykluje proti hodnotě
+
+Momentum jako faktor navíc nestřídá jen růst a pokles, ale i období, kdy ho
+poráží protilehlý styl – hodnota. Tenhle cyklus měříme přímo na dashboardu
+poměrem momentum/hodnota (MTUM vs VTV):
+
+<LineChart
+  title="Poměr momentum / hodnota vs 26týdenní průměr"
+  note={factor.note}
+  dates={factor.ratio.dates}
+  series={factor.ratio.series}
+/>
+
+Když poměr drží nad svým 26týdenním průměrem, režim přeje trendovým
+strategiím; vytrvalý pobyt pod ním historicky provázel období, kdy se dařilo
+spíš levným a opomíjeným akciím.
+
+## Kde to sledovat
+
+Všechny stavební kameny výše počítáme každý týden z čerstvých dat:
+[momentum hlavních regionů](/regiony/) a [sektorů](/sektory/) (relativní
+momentum), signály vůči 40týdennímu průměru u [momentum ETF](/momentum-etf/)
+(absolutní momentum) a faktorový cyklus výše. Pravidla jsou veřejná a
+mechanická – žádné tipy, jen měření.
+
+*Tento článek není investičním doporučením.*
