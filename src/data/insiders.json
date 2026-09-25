@@ -1,0 +1,6 @@
+{
+ "updated": null,
+ "note": "Sken všech složek S&P 500 (dle Wikipedie) na SEC EDGAR: nákupy a prodeje insiderů na volném trhu (formulář 4, kódy P/S) za posledních 30 dní. Naplní se prvním během workflow Sken insiderů.",
+ "days": 30,
+ "rows": []
+}
