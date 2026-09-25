@@ -22,14 +22,32 @@ jobs:
       - name: Instalace závislostí
         run: pip install -r pipeline/requirements.txt
 
-      - name: Stažení dat a výpočet momenta
-        run: python pipeline/fetch_data.py
-        timeout-minutes: 15 # zamrzlý zdroj nesmí držet job hodiny (tahouni sektorů přidali ~3 min)
+      # DOČASNÁ diagnostika (větev claude/verify-insiders): ověření oprav
+      - name: Diagnostika politici (NANC/KRUZ)
+        run: |
+          python - <<'EOF'
+          import importlib.util
+          spec = importlib.util.spec_from_file_location("fd", "pipeline/fetch_data.py")
+          fd = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(fd)
+          try:
+              p = fd.fetch_politicians()
+              print("POLITICI OK")
+              print("  série:", [s["name"] for s in p["series"]])
+              print("  since:", p["since"], "poslední hodnoty:", p["last"])
+              print("  note:", p["note"])
+          except Exception as e:
+              print("POLITICI SELHALO:", repr(e))
+          EOF
+        timeout-minutes: 5
         env:
-          PYTHONUNBUFFERED: "1" # průběžný výstup v logu (kvůli diagnostice)
-          # Volitelný bezplatný klíč pro FRED API (záloha, když CSV endpoint
-          # blokuje IP runneru): https://fred.stlouisfed.org/docs/api/api_key.html
-          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+
+      - name: Sken insiderů (ostrý běh)
+        run: python pipeline/fetch_data.py --insiders
+        timeout-minutes: 30
+        env:
+          PYTHONUNBUFFERED: "1"
 
       - name: Commit nových dat
         run: |
