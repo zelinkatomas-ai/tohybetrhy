@@ -1,57 +1,71 @@
 {
- "updated": "2026-09-18T20:21:31+00:00",
+ "updated": "2026-09-25T21:04:14+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
-   "question": "Will United Russia (ER) gain the most seats in the next Russian parliamentary election?",
+   "question": "Strait of Hormuz traffic returns to normal by September 30?",
    "outcome": "Yes",
-   "prob": 80.5,
-   "volume24h": 2516930.0,
-   "url": "https://polymarket.com/event/which-party-will-gain-most-seats-in-russian-parliamentary-election"
+   "prob": 0.8,
+   "volume24h": 860447.0,
+   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-september-30-20260702154339440"
+  },
+  {
+   "question": "US announces end of Iranian blockade by March 31, 2027?",
+   "outcome": "Yes",
+   "prob": 79.0,
+   "volume24h": 435590.0,
+   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
   },
   {
    "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
-   "prob": 38.0,
-   "volume24h": 1015375.0,
+   "prob": 38.4,
+   "volume24h": 419340.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
   },
   {
    "question": "Will Flávio Bolsonaro win the 2026 Brazilian presidential election?",
    "outcome": "Yes",
    "prob": 55.5,
-   "volume24h": 533702.0,
+   "volume24h": 288711.0,
    "url": "https://polymarket.com/event/brazil-presidential-election"
+  },
+  {
+   "question": "Kharg Island no longer under Iranian control by December 31?",
+   "outcome": "Yes",
+   "prob": 5.5,
+   "volume24h": 249238.0,
+   "url": "https://polymarket.com/event/kharg-island-no-longer-under-iranian-control-by-march-31"
   },
   {
    "question": "Will the U.S. invade Iran before 2027?",
    "outcome": "Yes",
-   "prob": 16.5,
-   "volume24h": 320803.0,
+   "prob": 14.5,
+   "volume24h": 198326.0,
    "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
-  },
-  {
-   "question": "US announces end of Iranian blockade by December 31, 2026?",
-   "outcome": "Yes",
-   "prob": 59.9,
-   "volume24h": 275822.0,
-   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
-  },
-  {
-   "question": "Will SPD win the most seats in the 2026 Mecklenburg-Vorpommern parliamentary elections?",
-   "outcome": "Yes",
-   "prob": 51.0,
-   "volume24h": 231773.0,
-   "url": "https://polymarket.com/event/mecklenburg-vorpommern-parliamentary-election-winner"
   }
  ],
  "macro": [
   {
    "question": "Will the Fed increase interest rates by 25 bps after the October 2026 meeting?",
    "outcome": "Yes",
-   "prob": 54.5,
-   "volume24h": 1185038.0,
+   "prob": 62.5,
+   "volume24h": 1133959.0,
    "url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537"
+  },
+  {
+   "question": "Strait of Hormuz traffic returns to normal by December 31?",
+   "outcome": "Yes",
+   "prob": 27.5,
+   "volume24h": 178598.0,
+   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31"
+  },
+  {
+   "question": "US recession by end of 2026?",
+   "outcome": "Yes",
+   "prob": 10.5,
+   "volume24h": 95000.0,
+   "url": "https://polymarket.com/event/us-recession-by-end-of-2026"
   }
  ]
 }

@@ -1,34 +1,18 @@
 {
- "updated": "2026-09-24T23:57:17+00:00",
+ "updated": "2026-09-25T21:02:52+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
    {
     "rank": 1,
-    "ticker": "META",
-    "name": "Meta Platforms (Facebook)",
-    "mentions": 298,
-    "upvotes": 1204,
-    "prev_mentions": 160,
-    "change_pct": 86.2,
-    "sentiment": "bearish",
-    "sentiment_score": -0.126,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 62431424,
-     "filings": 7
-    }
-   },
-   {
-    "rank": 2,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 260,
-    "upvotes": 800,
-    "prev_mentions": 227,
-    "change_pct": 14.5,
+    "mentions": 254,
+    "upvotes": 692,
+    "prev_mentions": 260,
+    "change_pct": -2.3,
     "sentiment": "bearish",
-    "sentiment_score": -0.045,
+    "sentiment_score": -0.034,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -36,31 +20,63 @@
     }
    },
    {
+    "rank": 2,
+    "ticker": "META",
+    "name": "Meta Platforms (Facebook)",
+    "mentions": 181,
+    "upvotes": 465,
+    "prev_mentions": 298,
+    "change_pct": -39.3,
+    "sentiment": "bullish",
+    "sentiment_score": 0.211,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 62431424,
+     "filings": 7
+    }
+   },
+   {
     "rank": 3,
     "ticker": "MU",
     "name": "Micron Technology",
-    "mentions": 118,
-    "upvotes": 258,
-    "prev_mentions": 171,
-    "change_pct": -31.0,
+    "mentions": 150,
+    "upvotes": 342,
+    "prev_mentions": 118,
+    "change_pct": 27.1,
     "sentiment": "bullish",
-    "sentiment_score": 0.12,
+    "sentiment_score": 0.11,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 38784470,
-     "filings": 2
+     "sells_usd": 28308,
+     "filings": 1
     }
    },
    {
     "rank": 4,
+    "ticker": "MSFT",
+    "name": "Microsoft",
+    "mentions": 76,
+    "upvotes": 146,
+    "prev_mentions": 24,
+    "change_pct": 216.7,
+    "sentiment": "bearish",
+    "sentiment_score": -0.075,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 20764845,
+     "filings": 8
+    }
+   },
+   {
+    "rank": 5,
     "ticker": "AMD",
     "name": "AMD",
-    "mentions": 77,
-    "upvotes": 292,
-    "prev_mentions": 94,
-    "change_pct": -18.1,
-    "sentiment": "bullish",
-    "sentiment_score": 0.143,
+    "mentions": 67,
+    "upvotes": 211,
+    "prev_mentions": 77,
+    "change_pct": -13.0,
+    "sentiment": "bearish",
+    "sentiment_score": -0.038,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 71879141,
@@ -68,59 +84,15 @@
     }
    },
    {
-    "rank": 5,
-    "ticker": "QQQ",
-    "name": "Invesco QQQ ETF",
-    "mentions": 69,
-    "upvotes": 209,
-    "prev_mentions": 99,
-    "change_pct": -30.3,
-    "sentiment": "bearish",
-    "sentiment_score": -0.008,
-    "insiders": null
-   },
-   {
     "rank": 6,
-    "ticker": "NBIS",
-    "name": "Nebius Group",
-    "mentions": 66,
-    "upvotes": 117,
-    "prev_mentions": 28,
-    "change_pct": 135.7,
-    "sentiment": "bearish",
-    "sentiment_score": -0.371,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 8337314,
-     "filings": 8
-    }
-   },
-   {
-    "rank": 7,
-    "ticker": "SNDK",
-    "name": "Sandisk",
-    "mentions": 62,
-    "upvotes": 125,
-    "prev_mentions": 51,
-    "change_pct": 21.6,
-    "sentiment": "bearish",
-    "sentiment_score": -0.162,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 107167222,
-     "filings": 8
-    }
-   },
-   {
-    "rank": 8,
     "ticker": "DTE",
     "name": "DTE Energy",
-    "mentions": 59,
-    "upvotes": 303,
-    "prev_mentions": 49,
-    "change_pct": 20.4,
+    "mentions": 65,
+    "upvotes": 249,
+    "prev_mentions": 59,
+    "change_pct": 10.2,
     "sentiment": "bearish",
-    "sentiment_score": -0.113,
+    "sentiment_score": -0.006,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 678560,
@@ -128,94 +100,122 @@
     }
    },
    {
-    "rank": 9,
-    "ticker": "BB",
-    "name": "BlackBerry",
-    "mentions": 55,
-    "upvotes": 94,
-    "prev_mentions": 33,
-    "change_pct": 66.7,
+    "rank": 7,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 57,
+    "upvotes": 117,
+    "prev_mentions": 69,
+    "change_pct": -17.4,
     "sentiment": "bullish",
-    "sentiment_score": 0.245,
+    "sentiment_score": 0.17,
+    "insiders": null
+   },
+   {
+    "rank": 8,
+    "ticker": "TSLA",
+    "name": "Tesla",
+    "mentions": 55,
+    "upvotes": 97,
+    "prev_mentions": 19,
+    "change_pct": 189.5,
+    "sentiment": "bullish",
+    "sentiment_score": 0.381,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 0,
-     "filings": 7
+     "sells_usd": 938419,
+     "filings": 1
+    }
+   },
+   {
+    "rank": 9,
+    "ticker": "NBIS",
+    "name": "Nebius Group",
+    "mentions": 48,
+    "upvotes": 165,
+    "prev_mentions": 66,
+    "change_pct": -27.3,
+    "sentiment": "bullish",
+    "sentiment_score": 0.203,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 8337314,
+     "filings": 8
     }
    },
    {
     "rank": 10,
-    "ticker": "NVDA",
-    "name": "NVIDIA",
-    "mentions": 51,
-    "upvotes": 218,
-    "prev_mentions": 56,
-    "change_pct": -8.9,
-    "sentiment": "bullish",
-    "sentiment_score": 0.085,
+    "ticker": "SNDK",
+    "name": "Sandisk",
+    "mentions": 48,
+    "upvotes": 123,
+    "prev_mentions": 62,
+    "change_pct": -22.6,
+    "sentiment": "bearish",
+    "sentiment_score": -0.068,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 314582260,
+     "sells_usd": 107167222,
      "filings": 8
     }
    }
   ],
-  "prev_date": "2026-09-23",
+  "prev_date": "2026-09-24",
   "source": "apewisdom",
   "snapshot": {
-   "date": "2026-09-24",
+   "date": "2026-09-25",
    "source": "apewisdom",
    "mentions": {
-    "META": 298,
-    "SPY": 260,
-    "MU": 118,
-    "AMD": 77,
-    "QQQ": 69,
-    "NBIS": 66,
-    "SNDK": 62,
-    "DTE": 59,
-    "BB": 55,
-    "NVDA": 51,
-    "ORCL": 48,
-    "GOOGL": 44,
-    "GOOG": 43,
+    "SPY": 254,
+    "META": 181,
+    "MU": 150,
+    "MSFT": 76,
+    "AMD": 67,
+    "DTE": 65,
+    "QQQ": 57,
+    "TSLA": 55,
+    "NBIS": 48,
+    "SNDK": 48,
+    "NVDA": 47,
     "TLT": 39,
-    "COST": 28,
-    "USO": 26,
-    "VOO": 25,
-    "RKLB": 24,
-    "MSFT": 24,
-    "AMZN": 21,
-    "EU": 20,
-    "SOXL": 20,
-    "IT": 20,
-    "AVGO": 20,
-    "AAPL": 20,
-    "RDDT": 19,
-    "TSLA": 19,
-    "ARM": 18,
-    "INTC": 18,
-    "PLTR": 17,
-    "AM": 16,
-    "MRNA": 16,
-    "MCD": 16,
-    "GLND": 14,
-    "ASTS": 14,
-    "YOU": 13,
+    "GLND": 38,
+    "RKLB": 29,
+    "GOOG": 28,
+    "AMZN": 24,
+    "USO": 20,
+    "RDDT": 20,
+    "AVGO": 19,
+    "VOO": 19,
+    "IT": 18,
+    "INTC": 17,
+    "COST": 16,
+    "YOU": 16,
+    "AAPL": 15,
+    "ORCL": 15,
+    "SMCI": 15,
+    "GOOGL": 15,
+    "MRNA": 14,
+    "BB": 14,
+    "JAGX": 14,
+    "NFLX": 13,
+    "NKE": 13,
     "BE": 13,
-    "ES": 13,
-    "CRWV": 12,
-    "SPCX": 12,
-    "GO": 12,
-    "CRWD": 11,
-    "ON": 11,
-    "INFQ": 10,
-    "SGOV": 10,
-    "WTI": 10,
-    "IQ": 10,
-    "DC": 9,
-    "IONQ": 9,
-    "UP": 9
+    "EU": 13,
+    "AKAM": 12,
+    "TTWO": 12,
+    "IQ": 12,
+    "ASTS": 11,
+    "UP": 11,
+    "DELL": 10,
+    "SPCX": 10,
+    "MAGA": 10,
+    "CRDO": 10,
+    "MCD": 9,
+    "ON": 9,
+    "GO": 8,
+    "BYD": 7,
+    "AM": 7,
+    "PLTR": 7
    }
   }
  },
@@ -223,63 +223,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "COST",
-    "name": "Costco Wholesale Corp",
-    "watchers": 65145
+    "ticker": "MSFT",
+    "name": "Microsoft Corp",
+    "watchers": 550569
    },
    {
     "rank": 2,
-    "ticker": "ENPH",
-    "name": "Enphase Energy Inc",
-    "watchers": 49409
+    "ticker": "SOL.X",
+    "name": "Solana",
+    "watchers": 83341
    },
    {
     "rank": 3,
-    "ticker": "IBM",
-    "name": "International Business Machines Corp.",
-    "watchers": 69446
+    "ticker": "UPST",
+    "name": "Upstart Holdings Inc",
+    "watchers": 47601
    },
    {
     "rank": 4,
-    "ticker": "AKAM",
-    "name": "Akamai Technologies Inc",
-    "watchers": 6573
+    "ticker": "CRCL",
+    "name": "Circle",
+    "watchers": 23267
    },
    {
     "rank": 5,
-    "ticker": "ONDO.X",
-    "name": "Ondo",
-    "watchers": 7148
+    "ticker": "GIS",
+    "name": "General Mills, Inc.",
+    "watchers": 7810
    },
    {
     "rank": 6,
-    "ticker": "BB",
-    "name": "BlackBerry Ltd",
-    "watchers": 151364
+    "ticker": "PYPL",
+    "name": "PayPal Holdings Inc",
+    "watchers": 166460
    },
    {
     "rank": 7,
-    "ticker": "KYTX",
-    "name": "Kyverna Therapeutics Inc.",
-    "watchers": 1474
+    "ticker": "AMZN",
+    "name": "Amazon.com Inc",
+    "watchers": 704418
    },
    {
     "rank": 8,
-    "ticker": "MRNA",
-    "name": "Moderna Inc",
-    "watchers": 116208
+    "ticker": "AERO.X",
+    "name": "Aerodrome Finance",
+    "watchers": 4612
    },
    {
     "rank": 9,
-    "ticker": "SECZ",
-    "name": "Securitize Corp.",
-    "watchers": 1013
+    "ticker": "LTC.X",
+    "name": "Litecoin",
+    "watchers": 110564
    },
    {
     "rank": 10,
-    "ticker": "ANTHZZX.P",
-    "name": "Anthropic",
-    "watchers": 2168
+    "ticker": "JMKE",
+    "name": "Jersey Mike`s Subs Inc. - Ordinary Shares - Class A",
+    "watchers": 882
    }
   ]
  }

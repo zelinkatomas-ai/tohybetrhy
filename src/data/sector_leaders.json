@@ -1,107 +1,55 @@
 {
- "updated": "2026-09-18T20:18:19+00:00",
+ "updated": "2026-09-25T21:00:57+00:00",
  "note": "Členové S&P 500 (složení dle Wikipedie) ze tří sektorů s nejvyšším 3M momentem; z každého sektoru 5 akcií s nejvyšším 3M výnosem. Týdenní ceny Yahoo, USD, s reinvesticí dividend.",
  "sectors": [
   {
    "etf": "XLE",
    "name": "Energie",
-   "r3_etf": 19.48,
+   "r3_etf": 17.27,
    "rows": [
     {
      "ticker": "MPC",
      "name": "Marathon Petroleum",
-     "r1": 15.2,
-     "r3": 67.7,
-     "r6": 69.77,
-     "r12": 117.42,
+     "r1": 1.19,
+     "r3": 48.15,
+     "r6": 63.86,
+     "r12": 107.15,
      "signal": "above"
     },
     {
      "ticker": "PSX",
      "name": "Phillips 66",
-     "r1": 11.93,
-     "r3": 59.96,
-     "r6": 46.89,
-     "r12": 101.65,
+     "r1": 0.26,
+     "r3": 45.74,
+     "r6": 46.97,
+     "r12": 97.97,
      "signal": "above"
     },
     {
      "ticker": "VLO",
      "name": "Valero Energy",
-     "r1": 17.29,
-     "r3": 59.96,
-     "r6": 63.91,
-     "r12": 140.3,
+     "r1": 4.44,
+     "r3": 45.16,
+     "r6": 59.99,
+     "r12": 146.5,
      "signal": "above"
     },
     {
      "ticker": "APA",
      "name": "APA Corporation",
-     "r1": 5.48,
-     "r3": 36.89,
-     "r6": 2.47,
-     "r12": 88.07,
+     "r1": -0.07,
+     "r3": 33.01,
+     "r6": 3.07,
+     "r12": 80.24,
      "signal": "above"
     },
     {
      "ticker": "COP",
      "name": "ConocoPhillips",
-     "r1": 1.14,
-     "r3": 25.24,
-     "r6": -0.08,
-     "r12": 38.08,
-     "signal": "above"
-    }
-   ]
-  },
-  {
-   "etf": "XLV",
-   "name": "Zdravotnictví",
-   "r3_etf": 5.02,
-   "rows": [
-    {
-     "ticker": "MRNA",
-     "name": "Moderna",
-     "r1": 11.63,
-     "r3": 128.99,
-     "r6": 210.82,
-     "r12": 528.99,
-     "signal": "above"
-    },
-    {
-     "ticker": "VEEV",
-     "name": "Veeva Systems",
-     "r1": -5.96,
-     "r3": 51.85,
-     "r6": 50.77,
-     "r12": -10.36,
-     "signal": "above"
-    },
-    {
-     "ticker": "IQV",
-     "name": "IQVIA",
-     "r1": 1.78,
-     "r3": 39.38,
-     "r6": 62.6,
-     "r12": 48.37,
-     "signal": "above"
-    },
-    {
-     "ticker": "CRL",
-     "name": "Charles River Laboratories",
-     "r1": -4.61,
-     "r3": 28.88,
-     "r6": 74.7,
-     "r12": 87.17,
-     "signal": "above"
-    },
-    {
-     "ticker": "DXCM",
-     "name": "Dexcom",
-     "r1": -1.62,
-     "r3": 27.39,
-     "r6": 43.53,
-     "r12": 33.16,
+     "r1": -5.18,
+     "r3": 22.36,
+     "r6": -1.09,
+     "r12": 39.46,
      "signal": "above"
     }
    ]
@@ -109,52 +57,104 @@
   {
    "etf": "XLK",
    "name": "Technologie",
-   "r3_etf": 4.69,
+   "r3_etf": 8.81,
    "rows": [
     {
-     "ticker": "PLTR",
-     "name": "Palantir Technologies",
-     "r1": -4.64,
-     "r3": 57.3,
-     "r6": 24.17,
-     "r12": 0.04,
+     "ticker": "P",
+     "name": "Everpure",
+     "r1": 26.62,
+     "r3": 73.29,
+     "r6": 101.66,
+     "r12": 45.03,
      "signal": "above"
     },
     {
-     "ticker": "WDAY",
-     "name": "Workday, Inc.",
-     "r1": -5.3,
-     "r3": 56.08,
-     "r6": 56.12,
-     "r12": -21.41,
+     "ticker": "SMCI",
+     "name": "Supermicro",
+     "r1": 9.27,
+     "r3": 58.93,
+     "r6": 86.3,
+     "r12": -16.74,
+     "signal": "above"
+    },
+    {
+     "ticker": "HPE",
+     "name": "Hewlett Packard Enterprise",
+     "r1": 21.34,
+     "r3": 53.04,
+     "r6": 157.15,
+     "r12": 162.28,
+     "signal": "above"
+    },
+    {
+     "ticker": "PLTR",
+     "name": "Palantir Technologies",
+     "r1": 8.8,
+     "r3": 46.69,
+     "r6": 27.76,
+     "r12": 9.59,
      "signal": "above"
     },
     {
      "ticker": "HPQ",
      "name": "HP Inc.",
-     "r1": 13.81,
-     "r3": 51.81,
-     "r6": 80.85,
-     "r12": 35.35,
+     "r1": -3.17,
+     "r3": 44.11,
+     "r6": 63.96,
+     "r12": 23.48,
+     "signal": "above"
+    }
+   ]
+  },
+  {
+   "etf": "XLV",
+   "name": "Zdravotnictví",
+   "r3_etf": 4.65,
+   "rows": [
+    {
+     "ticker": "MRNA",
+     "name": "Moderna",
+     "r1": 36.64,
+     "r3": 149.35,
+     "r6": 304.23,
+     "r12": 598.07,
      "signal": "above"
     },
     {
-     "ticker": "CRM",
-     "name": "Salesforce",
-     "r1": -6.9,
-     "r3": 50.49,
-     "r6": 33.6,
-     "r12": -1.43,
+     "ticker": "VEEV",
+     "name": "Veeva Systems",
+     "r1": 2.03,
+     "r3": 45.63,
+     "r6": 61.33,
+     "r12": -5.27,
      "signal": "above"
     },
     {
-     "ticker": "CTSH",
-     "name": "Cognizant",
-     "r1": -6.51,
-     "r3": 50.44,
-     "r6": 1.53,
-     "r12": -8.6,
-     "signal": "below"
+     "ticker": "ILMN",
+     "name": "Illumina, Inc.",
+     "r1": 23.73,
+     "r3": 43.1,
+     "r6": 111.96,
+     "r12": 164.39,
+     "signal": "above"
+    },
+    {
+     "ticker": "RVTY",
+     "name": "Revvity",
+     "r1": 16.04,
+     "r3": 32.92,
+     "r6": 70.14,
+     "r12": 61.11,
+     "signal": "above"
+    },
+    {
+     "ticker": "A",
+     "name": "Agilent Technologies",
+     "r1": 14.54,
+     "r3": 32.21,
+     "r6": 49.92,
+     "r12": 22.72,
+     "signal": "above"
     }
    ]
   }

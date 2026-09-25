@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-18T20:18:04+00:00",
+ "updated": "2026-09-25T21:00:42+00:00",
  "note": "Latinská Amerika v detailu (včetně Mexika). Americká ETF jako indikátor, výnosy v USD. Venezuela nemá investovatelný trh ani ETF.",
  "rows": [
   {
@@ -8,10 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -1.68,
-   "r3": 8.81,
-   "r6": 20.3,
-   "r12": 56.19,
+   "r1": -1.33,
+   "r3": 8.09,
+   "r6": 13.34,
+   "r12": 48.97,
    "signal": "above"
   },
   {
@@ -20,22 +20,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 5.54,
-   "r3": 8.22,
-   "r6": 3.4,
-   "r12": 27.58,
-   "signal": "above"
-  },
-  {
-   "ticker": "ARGT",
-   "name": "Argentina",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -1.46,
-   "r3": 1.6,
-   "r6": 6.11,
-   "r12": 28.19,
+   "r1": -2.75,
+   "r3": 6.94,
+   "r6": -3.08,
+   "r12": 26.85,
    "signal": "above"
   },
   {
@@ -44,11 +32,11 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -3.76,
-   "r3": -0.2,
-   "r6": 3.07,
-   "r12": 21.24,
-   "signal": "above"
+   "r1": -4.41,
+   "r3": -0.23,
+   "r6": -0.96,
+   "r12": 23.14,
+   "signal": "below"
   },
   {
    "ticker": "EWW",
@@ -56,23 +44,23 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -4.11,
-   "r3": -2.69,
-   "r6": 3.2,
-   "r12": 12.97,
+   "r1": -4.29,
+   "r3": -2.86,
+   "r6": -2.22,
+   "r12": 13.53,
    "signal": "above"
   },
   {
-   "ticker": "GXG",
-   "name": "Kolumbie",
+   "ticker": "ARGT",
+   "name": "Argentina",
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": null,
-   "r3": null,
-   "r6": null,
-   "r12": null,
-   "signal": null
+   "r1": -8.1,
+   "r3": -3.12,
+   "r6": -5.29,
+   "r12": 30.78,
+   "signal": "below"
   }
  ],
  "chart": null

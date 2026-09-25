@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-18T20:17:54+00:00",
+ "updated": "2026-09-25T21:00:34+00:00",
  "note": "Asie v detailu po zemích (velká trojka stejnými fondy jako v hlavní tabulce). U menších trhů americká iShares/VanEck ETF jako indikátor, výnosy v měně fondu.",
  "rows": [
   {
@@ -8,10 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -3.33,
-   "r3": 10.59,
-   "r6": 21.07,
-   "r12": 20.69,
+   "r1": -3.01,
+   "r3": 11.17,
+   "r6": 20.66,
+   "r12": 20.28,
    "signal": "above"
   },
   {
@@ -20,10 +20,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 3.47,
-   "r3": 8.59,
-   "r6": 60.66,
-   "r12": 86.12,
+   "r1": 2.32,
+   "r3": 9.46,
+   "r6": 62.19,
+   "r12": 85.73,
    "signal": "above"
   },
   {
@@ -32,58 +32,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -1.5,
-   "r3": 5.14,
-   "r6": -17.45,
-   "r12": -27.11,
-   "signal": "below"
-  },
-  {
-   "ticker": "MCHI",
-   "name": "Čína",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -3.91,
-   "r3": 5.13,
-   "r6": -2.55,
-   "r12": -15.93,
-   "signal": "below"
-  },
-  {
-   "ticker": "CSJP.MI",
-   "name": "Japonsko",
-   "currency": "EUR",
-   "benchmark": false,
-   "core": false,
-   "r1": 1.45,
-   "r3": 3.29,
-   "r6": 19.6,
-   "r12": 28.25,
-   "signal": "above"
-  },
-  {
-   "ticker": "VNM",
-   "name": "Vietnam",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -3.03,
-   "r3": -3.98,
-   "r6": 5.44,
-   "r12": 0.66,
-   "signal": "below"
-  },
-  {
-   "ticker": "QDV5.DE",
-   "name": "Indie",
-   "currency": "EUR",
-   "benchmark": false,
-   "core": false,
-   "r1": -2.98,
-   "r3": -4.28,
-   "r6": 6.13,
-   "r12": -7.38,
+   "r1": -8.12,
+   "r3": 4.8,
+   "r6": -21.33,
+   "r12": -29.18,
    "signal": "below"
   },
   {
@@ -92,11 +44,59 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": 0.62,
-   "r3": -8.1,
-   "r6": 49.87,
-   "r12": 135.05,
+   "r1": -0.89,
+   "r3": 3.91,
+   "r6": 52.34,
+   "r12": 128.25,
    "signal": "above"
+  },
+  {
+   "ticker": "CSJP.MI",
+   "name": "Japonsko",
+   "currency": "EUR",
+   "benchmark": false,
+   "core": false,
+   "r1": 1.17,
+   "r3": 3.79,
+   "r6": 16.85,
+   "r12": 28.49,
+   "signal": "above"
+  },
+  {
+   "ticker": "MCHI",
+   "name": "Čína",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -4.17,
+   "r3": 3.36,
+   "r6": -5.14,
+   "r12": -19.43,
+   "signal": "below"
+  },
+  {
+   "ticker": "QDV5.DE",
+   "name": "Indie",
+   "currency": "EUR",
+   "benchmark": false,
+   "core": false,
+   "r1": -2.67,
+   "r3": -3.53,
+   "r6": 4.07,
+   "r12": -7.64,
+   "signal": "below"
+  },
+  {
+   "ticker": "VNM",
+   "name": "Vietnam",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -4.9,
+   "r3": -6.6,
+   "r6": -1.14,
+   "r12": -1.28,
+   "signal": "below"
   }
  ],
  "chart": null
