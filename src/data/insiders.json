@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25T11:16:35+00:00",
+ "updated": "2026-09-26T11:34:01+00:00",
  "note": "Sken všech složek S&P 500 (dle Wikipedie) na SEC EDGAR: nákupy a prodeje insiderů na volném trhu (formulář 4, kódy P/S) za posledních 30 dní, max 6 podání na firmu. Zobrazují se firmy s nákupy nad 100 tis. USD, řazeno podle objemu nákupů.",
  "days": 30,
  "rows": [
@@ -16,7 +16,7 @@
    "ticker": "LEN",
    "name": "Lennar",
    "sector": "Zbytná spotřeba",
-   "buys_usd": 212395151,
+   "buys_usd": 348777941,
    "sells_usd": 0,
    "buyers": 1,
    "biggest_buy_usd": 212395151
