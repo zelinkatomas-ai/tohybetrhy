@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25T21:02:52+00:00",
+ "updated": "2026-09-26T00:00:14+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,10 +7,10 @@
     "rank": 1,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 254,
-    "upvotes": 692,
-    "prev_mentions": 260,
-    "change_pct": -2.3,
+    "mentions": 247,
+    "upvotes": 676,
+    "prev_mentions": 254,
+    "change_pct": -2.8,
     "sentiment": "bearish",
     "sentiment_score": -0.034,
     "insiders": {
@@ -23,10 +23,10 @@
     "rank": 2,
     "ticker": "META",
     "name": "Meta Platforms (Facebook)",
-    "mentions": 181,
-    "upvotes": 465,
-    "prev_mentions": 298,
-    "change_pct": -39.3,
+    "mentions": 159,
+    "upvotes": 346,
+    "prev_mentions": 181,
+    "change_pct": -12.2,
     "sentiment": "bullish",
     "sentiment_score": 0.211,
     "insiders": {
@@ -39,10 +39,10 @@
     "rank": 3,
     "ticker": "MU",
     "name": "Micron Technology",
-    "mentions": 150,
-    "upvotes": 342,
-    "prev_mentions": 118,
-    "change_pct": 27.1,
+    "mentions": 144,
+    "upvotes": 327,
+    "prev_mentions": 150,
+    "change_pct": -4.0,
     "sentiment": "bullish",
     "sentiment_score": 0.11,
     "insiders": {
@@ -55,10 +55,10 @@
     "rank": 4,
     "ticker": "MSFT",
     "name": "Microsoft",
-    "mentions": 76,
-    "upvotes": 146,
-    "prev_mentions": 24,
-    "change_pct": 216.7,
+    "mentions": 77,
+    "upvotes": 163,
+    "prev_mentions": 76,
+    "change_pct": 1.3,
     "sentiment": "bearish",
     "sentiment_score": -0.075,
     "insiders": {
@@ -71,26 +71,38 @@
     "rank": 5,
     "ticker": "AMD",
     "name": "AMD",
-    "mentions": 67,
-    "upvotes": 211,
-    "prev_mentions": 77,
-    "change_pct": -13.0,
+    "mentions": 62,
+    "upvotes": 129,
+    "prev_mentions": 67,
+    "change_pct": -7.5,
     "sentiment": "bearish",
     "sentiment_score": -0.038,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 71879141,
-     "filings": 4
+     "sells_usd": 63939982,
+     "filings": 3
     }
    },
    {
     "rank": 6,
+    "ticker": "QQQ",
+    "name": "Invesco QQQ ETF",
+    "mentions": 61,
+    "upvotes": 126,
+    "prev_mentions": 57,
+    "change_pct": 7.0,
+    "sentiment": "bullish",
+    "sentiment_score": 0.17,
+    "insiders": null
+   },
+   {
+    "rank": 7,
     "ticker": "DTE",
     "name": "DTE Energy",
-    "mentions": 65,
-    "upvotes": 249,
-    "prev_mentions": 59,
-    "change_pct": 10.2,
+    "mentions": 59,
+    "upvotes": 240,
+    "prev_mentions": 65,
+    "change_pct": -9.2,
     "sentiment": "bearish",
     "sentiment_score": -0.006,
     "insiders": {
@@ -100,25 +112,13 @@
     }
    },
    {
-    "rank": 7,
-    "ticker": "QQQ",
-    "name": "Invesco QQQ ETF",
-    "mentions": 57,
-    "upvotes": 117,
-    "prev_mentions": 69,
-    "change_pct": -17.4,
-    "sentiment": "bullish",
-    "sentiment_score": 0.17,
-    "insiders": null
-   },
-   {
     "rank": 8,
     "ticker": "TSLA",
     "name": "Tesla",
-    "mentions": 55,
-    "upvotes": 97,
-    "prev_mentions": 19,
-    "change_pct": 189.5,
+    "mentions": 56,
+    "upvotes": 100,
+    "prev_mentions": 55,
+    "change_pct": 1.8,
     "sentiment": "bullish",
     "sentiment_score": 0.381,
     "insiders": {
@@ -129,17 +129,17 @@
    },
    {
     "rank": 9,
-    "ticker": "NBIS",
-    "name": "Nebius Group",
-    "mentions": 48,
-    "upvotes": 165,
-    "prev_mentions": 66,
-    "change_pct": -27.3,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 45,
+    "upvotes": 91,
+    "prev_mentions": 47,
+    "change_pct": -4.3,
     "sentiment": "bullish",
-    "sentiment_score": 0.203,
+    "sentiment_score": 0.256,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 8337314,
+     "sells_usd": 314582260,
      "filings": 8
     }
    },
@@ -147,10 +147,10 @@
     "rank": 10,
     "ticker": "SNDK",
     "name": "Sandisk",
-    "mentions": 48,
-    "upvotes": 123,
-    "prev_mentions": 62,
-    "change_pct": -22.6,
+    "mentions": 45,
+    "upvotes": 113,
+    "prev_mentions": 48,
+    "change_pct": -6.2,
     "sentiment": "bearish",
     "sentiment_score": -0.068,
     "insiders": {
@@ -160,62 +160,62 @@
     }
    }
   ],
-  "prev_date": "2026-09-24",
+  "prev_date": "2026-09-25",
   "source": "apewisdom",
   "snapshot": {
-   "date": "2026-09-25",
+   "date": "2026-09-26",
    "source": "apewisdom",
    "mentions": {
-    "SPY": 254,
-    "META": 181,
-    "MU": 150,
-    "MSFT": 76,
-    "AMD": 67,
-    "DTE": 65,
-    "QQQ": 57,
-    "TSLA": 55,
-    "NBIS": 48,
-    "SNDK": 48,
-    "NVDA": 47,
-    "TLT": 39,
-    "GLND": 38,
-    "RKLB": 29,
-    "GOOG": 28,
+    "SPY": 247,
+    "META": 159,
+    "MU": 144,
+    "MSFT": 77,
+    "AMD": 62,
+    "QQQ": 61,
+    "DTE": 59,
+    "TSLA": 56,
+    "NVDA": 45,
+    "SNDK": 45,
+    "NBIS": 41,
+    "GLND": 37,
+    "TLT": 33,
+    "GOOG": 27,
     "AMZN": 24,
-    "USO": 20,
+    "RKLB": 24,
+    "VOO": 23,
     "RDDT": 20,
-    "AVGO": 19,
-    "VOO": 19,
-    "IT": 18,
+    "USO": 18,
     "INTC": 17,
-    "COST": 16,
-    "YOU": 16,
+    "AVGO": 16,
+    "IT": 16,
     "AAPL": 15,
-    "ORCL": 15,
-    "SMCI": 15,
-    "GOOGL": 15,
-    "MRNA": 14,
-    "BB": 14,
+    "NKE": 15,
+    "YOU": 15,
     "JAGX": 14,
-    "NFLX": 13,
-    "NKE": 13,
+    "GOOGL": 14,
+    "ORCL": 13,
+    "SMCI": 13,
+    "MRNA": 13,
     "BE": 13,
-    "EU": 13,
-    "AKAM": 12,
+    "NFLX": 12,
     "TTWO": 12,
-    "IQ": 12,
-    "ASTS": 11,
+    "EU": 12,
+    "COST": 11,
+    "AKAM": 11,
+    "IQ": 11,
     "UP": 11,
-    "DELL": 10,
     "SPCX": 10,
-    "MAGA": 10,
+    "ASTS": 10,
     "CRDO": 10,
-    "MCD": 9,
-    "ON": 9,
-    "GO": 8,
-    "BYD": 7,
-    "AM": 7,
-    "PLTR": 7
+    "BB": 9,
+    "SOXL": 9,
+    "MAGA": 9,
+    "VTI": 9,
+    "MX": 9,
+    "API": 9,
+    "MCD": 8,
+    "DELL": 8,
+    "GO": 8
    }
   }
  },
@@ -223,63 +223,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "MSFT",
-    "name": "Microsoft Corp",
-    "watchers": 550569
+    "ticker": "SUI.X",
+    "name": "SUI",
+    "watchers": 11411
    },
    {
     "rank": 2,
-    "ticker": "SOL.X",
-    "name": "Solana",
-    "watchers": 83341
+    "ticker": "KOD",
+    "name": "Kodiak Sciences Inc",
+    "watchers": 3965
    },
    {
     "rank": 3,
-    "ticker": "UPST",
-    "name": "Upstart Holdings Inc",
-    "watchers": 47601
+    "ticker": "AKAM",
+    "name": "Akamai Technologies Inc",
+    "watchers": 7068
    },
    {
     "rank": 4,
-    "ticker": "CRCL",
-    "name": "Circle",
-    "watchers": 23267
+    "ticker": "SOL.X",
+    "name": "Solana",
+    "watchers": 83359
    },
    {
     "rank": 5,
-    "ticker": "GIS",
-    "name": "General Mills, Inc.",
-    "watchers": 7810
+    "ticker": "CHTR",
+    "name": "Charter Communications Inc. - Ordinary Shares - Class A",
+    "watchers": 4248
    },
    {
     "rank": 6,
-    "ticker": "PYPL",
-    "name": "PayPal Holdings Inc",
-    "watchers": 166460
+    "ticker": "FET.X",
+    "name": "Fetch.ai",
+    "watchers": 9847
    },
    {
     "rank": 7,
-    "ticker": "AMZN",
-    "name": "Amazon.com Inc",
-    "watchers": 704418
+    "ticker": "CMG",
+    "name": "Chipotle Mexican Grill",
+    "watchers": 62171
    },
    {
     "rank": 8,
-    "ticker": "AERO.X",
-    "name": "Aerodrome Finance",
-    "watchers": 4612
+    "ticker": "POL.X",
+    "name": "Polygon",
+    "watchers": 38219
    },
    {
     "rank": 9,
-    "ticker": "LTC.X",
-    "name": "Litecoin",
-    "watchers": 110564
+    "ticker": "DAL",
+    "name": "Delta Air Lines, Inc.",
+    "watchers": 83797
    },
    {
     "rank": 10,
-    "ticker": "JMKE",
-    "name": "Jersey Mike`s Subs Inc. - Ordinary Shares - Class A",
-    "watchers": 882
+    "ticker": "CAR",
+    "name": "Avis Budget Group Inc",
+    "watchers": 11289
    }
   ]
  }
