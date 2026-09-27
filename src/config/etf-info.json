@@ -356,5 +356,47 @@
   "category": "Země",
   "region": "Latinská Amerika",
   "description": "Kolumbijský trh – ropa (Ecopetrol) a banky. Malé a méně likvidní ETF; americký fond, na webu slouží jako indikátor."
+ },
+ "VUG": {
+  "provider": "Vanguard",
+  "index": "CRSP US Large Cap Growth",
+  "category": "Faktorové ETF",
+  "region": "USA",
+  "description": "Růstový faktor: velké americké firmy s rychle rostoucími tržbami a zisky. Protipól hodnoty – drahé akcie, od kterých trh čeká hodně."
+ },
+ "IWM": {
+  "provider": "iShares",
+  "index": "Russell 2000",
+  "category": "Faktorové ETF",
+  "region": "USA",
+  "description": "Size faktor: dva tisíce menších amerických firem. Citlivé na domácí ekonomiku a úrokové sazby; historicky vedou v raných fázích oživení."
+ },
+ "QUAL": {
+  "provider": "iShares",
+  "index": "MSCI USA Sector Neutral Quality",
+  "category": "Faktorové ETF",
+  "region": "USA",
+  "description": "Faktor kvality: firmy s vysokou ziskovostí, stabilními zisky a nízkým dluhem. Obranná volba, která nevzdává růst."
+ },
+ "USMV": {
+  "provider": "iShares",
+  "index": "MSCI USA Minimum Volatility",
+  "category": "Faktorové ETF",
+  "region": "USA",
+  "description": "Nízká volatilita: portfolio složené tak, aby kolísalo co nejméně. Vede, když trh couvá do klidu; v euforii zaostává."
+ },
+ "SPHB": {
+  "provider": "Invesco",
+  "index": "S&P 500 High Beta",
+  "category": "Faktorové ETF",
+  "region": "USA",
+  "description": "Vysoká beta: stovka akcií z S&P 500, které se hýbou nejvíc. Čistá sázka na risk – rozestup proti nízké volatilitě čteme jako teploměr chuti riskovat."
+ },
+ "VYM": {
+  "provider": "Vanguard",
+  "index": "FTSE High Dividend Yield",
+  "category": "Faktorové ETF",
+  "region": "USA",
+  "description": "Dividendový faktor: americké akcie s nadprůměrným dividendovým výnosem. Konzervativní příjmový styl, blízký hodnotě."
  }
 }

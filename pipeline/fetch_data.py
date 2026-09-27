@@ -158,6 +158,26 @@ GROUPS: dict[str, dict] = {
             {"ticker": "URTH",    "name": "Svět (MSCI World)", "chart": True, "benchmark": True},
         ],
     },
+    "factors": {
+        "file": "factors.json",
+        # Záměrně široká, velká ETF (poučení z VLUE: koncentrovaný fond umí
+        # vydávat pár svých pozic za celý styl). V grafu jen pětice s největší
+        # vypovídací hodnotou – 9 čar by bylo nečitelných, tabulka má všechny.
+        "note": "Souboj investičních faktorů přes velká americká ETF vs S&P 500 "
+                "(čárkovaně). Výnosy v USD. Řazeno podle 3M momenta.",
+        "sort_by": "r3",
+        "items": [
+            {"ticker": "MTUM", "name": "Momentum (MTUM)",         "chart": True},
+            {"ticker": "VTV",  "name": "Hodnota (VTV)"},
+            {"ticker": "VUG",  "name": "Růst (VUG)",              "chart": True},
+            {"ticker": "IWM",  "name": "Malé firmy (IWM)",        "chart": True},
+            {"ticker": "QUAL", "name": "Kvalita (QUAL)"},
+            {"ticker": "USMV", "name": "Nízká volatilita (USMV)", "chart": True},
+            {"ticker": "SPHB", "name": "Vysoká beta (SPHB)",      "chart": True},
+            {"ticker": "VYM",  "name": "Dividendy (VYM)"},
+            {"ticker": "SPY",  "name": "USA (S&P 500)", "chart": True, "benchmark": True},
+        ],
+    },
 }
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
@@ -2061,6 +2081,32 @@ def build_summary() -> None:
     except Exception:
         pass
 
+    # 11) souboj faktorů – kdo právě vede + teploměr rizika (beta vs volatilita)
+    s_factors = None
+    try:
+        fac = json.loads((OUT_DIR / "factors.json").read_text(encoding="utf-8"))
+        frows = {r["ticker"]: r for r in fac["rows"]}
+        lead = next((r for r in fac["rows"]
+                     if not r["benchmark"] and r["r3"] is not None), None)
+        if lead:
+            # název bez tickeru, malým písmenem; IWM je jediné množné číslo
+            fname = lead["name"].split(" (")[0]
+            fname = fname[0].lower() + fname[1:]
+            verb = "jsou" if lead["ticker"] == "IWM" else "je"
+            s_factors = (f"Nejsilnějším faktorem posledních tří měsíců {verb} "
+                         f"{fname} ({_fmt(lead['r3'])}).")
+            hb, lv = frows.get("SPHB"), frows.get("USMV")
+            if hb and lv and hb["r3"] is not None and lv["r3"] is not None:
+                gap = hb["r3"] - lv["r3"]
+                if gap > 2:
+                    s_factors += (" Vysoká beta zároveň poráží nízkou volatilitu "
+                                  "– trh má chuť riskovat.")
+                elif gap < -2:
+                    s_factors += (" Nízká volatilita zároveň poráží vysokou betu "
+                                  "– kapitál couvá do klidu.")
+    except Exception:
+        pass
+
     (OUT_DIR / "summary.json").write_text(json.dumps({
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sentences": {
@@ -2068,6 +2114,7 @@ def build_summary() -> None:
             "rotation": s_rotation,
             "sectors": s_sectors,
             "etfs": s_etfs,
+            "factors": s_factors,
             "smart": s_smart,
             "btc": s_btc,
             "liquidity": s_liq,

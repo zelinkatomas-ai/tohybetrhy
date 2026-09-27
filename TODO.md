@@ -147,6 +147,16 @@
       Zároveň zrobustněn graf politiků: mrtvá řada (KRUZ bez dat od
       července) se vynechá místo shození celého grafu; dynamické note
       + průběžný výsledek vs SPY pod grafem.
+- [x] **Souboj faktorů** — hotovo 2026-09-27: nová skupina factors
+      v GROUPS (MTUM/VTV/VUG/IWM/QUAL/USMV/SPHB/VYM vs SPY, záměrně široká
+      ETF — poučení z VLUE), tabulka + graf pětice s největší vypovídací
+      hodnotou na /momentum-etf/, verdikt s vedoucím faktorem, rozestup
+      SPHB−USMV jako teploměr chuti riskovat (věta ve shrnutí při rozdílu
+      >2 p. b.), detailové stránky + popisy v etf-info.json.
+- [ ] **Hlídka GXG (Kolumbie)**: páteční běh 2026-09-25 nestáhl GXG
+      z Yahoo, řádek i detailová stránka vypadly (robustnost zafungovala).
+      Pokud se do ~měsíce nevrátí, najít náhradní kolumbijské ETF, nebo
+      řádek z konfigurace vyřadit.
 - [ ] **Celotrhový insider buy/sell ratio**: akademicky nejsilnější verze
       (agregát všech Form 4 svítí na dnech trhu — 2011, 2018, 2020), ale
       chce stavovou infrastrukturu: tisíce podání denně, průběžné
