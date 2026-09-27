@@ -5,10 +5,21 @@ import MomentumTable from '../components/MomentumTable.astro';
 import Methodology from '../components/Methodology.astro';
 import momentumEtfs from '../data/momentum_etfs.json';
 import factor from '../data/factor.json';
+import factors from '../data/factors.json';
 
 const f = factor as any;
 const ratioLast = f.ratio?.series?.[0]?.values?.at(-1) ?? null;
 const valueLeads = (f.weeks_below ?? 0) > 0;
+
+// souboj faktorů: vedoucí faktor dle 3M + teploměr rizika (beta vs volatilita)
+const fac = factors as any;
+const facRows = fac?.rows ?? [];
+const facLead = facRows.find((r: any) => !r.benchmark && r.r3 != null) ?? null;
+const leadName = facLead ? facLead.name.split(' (')[0] : null;
+const leadVerb = facLead?.ticker === 'IWM' ? 'jsou' : 'je';
+const hb = facRows.find((r: any) => r.ticker === 'SPHB');
+const lv = facRows.find((r: any) => r.ticker === 'USMV');
+const betaGap = hb?.r3 != null && lv?.r3 != null ? hb.r3 - lv.r3 : null;
 ---
 <Base title="Momentum ETF – To hýbe trhy" description="Jak se daří ETF postaveným na momentum faktoru proti širokému trhu – a kontrariánský teploměr momentum vs hodnota jako systém včasného varování.">
   <h1>Momentum ETF vs široký trh</h1>
@@ -27,6 +38,37 @@ const valueLeads = (f.weeks_below ?? 0) > 0;
     dates={momentumEtfs.chart.dates}
     series={momentumEtfs.chart.series}
   />
+
+  {facRows.length > 0 && (
+    <>
+      <h2 class="sub">Souboj faktorů: kdo právě vládne trhu</h2>
+      <p class="lead">
+        Momentum je jen jeden z „faktorů“ – mechanických pravidel výběru
+        akcií, o kterých výzkum ví, že dlouhodobě nesou prémii. Každé vede
+        v jiné fázi cyklu: růst a vysoká beta v euforii, kvalita a nízká
+        volatilita v nejistotě, malé firmy při oživení, hodnota po výprodejích.
+        Stejná mechanika jako u regionů a sektorů: výnosy, signál vůči
+        52týdennímu průměru, benchmark čárkovaně.
+      </p>
+      {facLead && (
+        <p class="factor-verdict calm">
+          Nejsilnějším faktorem posledních tří měsíců {leadVerb} {leadName}
+          {' '}({facLead.r3 >= 0 ? '+' : ''}{facLead.r3.toLocaleString('cs-CZ', { maximumFractionDigits: 1 })} %).
+          {betaGap != null && betaGap > 2 && ' Vysoká beta poráží nízkou volatilitu – trh má chuť riskovat.'}
+          {betaGap != null && betaGap < -2 && ' Nízká volatilita poráží vysokou betu – kapitál couvá do klidu.'}
+        </p>
+      )}
+      <MomentumTable data={factors} title="Žebříček faktorů (řazeno podle 3M)" />
+      {fac.chart && (
+        <LineChart
+          title="Vybrané faktory vs S&P 500 od 1. 1. 2024 (indexováno na 100)"
+          note="V grafu pětice s největší vypovídací hodnotou (momentum, růst, malé firmy a protipóly vysoká beta / nízká volatilita); kompletní žebříček je v tabulce."
+          dates={fac.chart.dates}
+          series={fac.chart.series}
+        />
+      )}
+    </>
+  )}
 
   {f.perf && (
     <>
@@ -82,6 +124,15 @@ const valueLeads = (f.weeks_below ?? 0) > 0;
       (SPMO, MTUM, XSMO, FMTM), mezinárodní (IDMO), evropské UCITS (IEMO)
       a emerging markets (PIE, EEMO). Benchmarky SPY a URTH ukazují, jestli
       momentum výběr přidává hodnotu proti prostému držení trhu.
+    </p>
+    <p>
+      Souboj faktorů: velká americká faktorová ETF (momentum MTUM, hodnota
+      VTV, růst VUG, malé firmy IWM, kvalita QUAL, nízká volatilita USMV,
+      vysoká beta SPHB, dividendy VYM) proti S&P 500, řazeno podle
+      tříměsíčního výnosu. Každý fond je jen aproximace faktoru – jiný index,
+      jiná pravidla vážení – proto volíme záměrně široké varianty. Rozestup
+      dvojice vysoká beta vs nízká volatilita čteme jako teploměr chuti
+      riskovat. Faktory se střídají pomalu; nudná tabulka je normální stav.
     </p>
     <p>
       Momentum vs. hodnota: poměr týdenních cen MTUM (iShares MSCI USA

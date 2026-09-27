@@ -10,6 +10,9 @@ on:
     - cron: "0 7 * * 6" # sobota ráno, po páteční aktualizaci dat
   workflow_dispatch: {}
 
+permissions:
+  contents: write # commit návrhů (bez toho push končí 403)
+
 jobs:
   navrhy:
     runs-on: ubuntu-latest

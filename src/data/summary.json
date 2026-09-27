@@ -1,12 +1,13 @@
 {
- "updated": "2026-09-25T21:04:14+00:00",
+ "updated": "2026-09-27T13:16:15+00:00",
  "sentences": {
   "global": "Globální momentum zůstává pozitivní – světový index se drží nad 52týdenním průměrem a za poslední tři měsíce přidal +2,5 %.",
   "rotation": "V posledních čtyřech týdnech se relativní síla přesouvá z Evropy směrem k USA.",
   "sectors": "Nejlepší sektorové momentum mají energie, technologie a zdravotnictví.",
   "etfs": "Z momentum ETF se nejvíce daří EEMO – S&P EM Momentum (+37,4 % za šest měsíců).",
+  "factors": "Nejsilnějším faktorem posledních tří měsíců je růst (+6,4 %). Vysoká beta zároveň poráží nízkou volatilitu – trh má chuť riskovat.",
   "smart": "Apetit retailu podle objemu pákových ETF roste, instituce ve futures na S&P 500 pozice přidávají.",
-  "btc": "Bitcoin, barometr rizikového apetitu, se drží nad svým 52týdenním průměrem (+32,0 % za tři měsíce).",
+  "btc": "Bitcoin, barometr rizikového apetitu, se drží nad svým 52týdenním průměrem (+33,2 % za tři měsíce).",
   "liquidity": "Čistá likvidita ve finančním systému USA za poslední tři měsíce klesá a peněžní zásoba roste rychleji než inflace.",
   "risks": null,
   "factor": null,
