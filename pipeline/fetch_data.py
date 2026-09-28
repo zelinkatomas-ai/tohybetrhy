@@ -2126,6 +2126,106 @@ def build_summary() -> None:
     print("[summary] -> summary.json")
 
 
+POST_FILE = Path(__file__).resolve().parent / "social_post.md"
+POST_LIMIT = 275  # rezerva pod 280 znaků X
+
+
+def build_social_post() -> None:
+    """Páteční vlákno pro X: hotový text k okopírování, složený z čerstvých
+    JSONů (bez stahování – jen čte, co týdenní běh právě spočítal). Tón webu:
+    čísla a mechanická pravidla, žádné výkřiky. Každý blok = jeden post,
+    generátor hlídá limit znaků."""
+    def load(name):
+        try:
+            return json.loads((OUT_DIR / name).read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+
+    regions, sectors = load("regions.json"), load("sectors.json")
+    factors, factor = load("factors.json"), load("factor.json")
+    smart, liq = load("smart_money.json"), load("liquidity.json")
+
+    posts: list[str] = []
+
+    # 1) hook: svět + rotace + top sektory
+    p1 = ["Co tento týden hýbe trhy 🧵"]
+    world = next((r for r in regions.get("rows", []) if r["ticker"] == "IWDA.AS"), None)
+    if world:
+        p1.append(f"🌍 Světový index {'nad' if world['signal'] == 'above' else 'pod'} "
+                  f"52týdenním průměrem, {_fmt(world['r3'])} za 3 měsíce")
+    top = [r["name"].lower() for r in sectors.get("rows", [])[:3]]
+    if top:
+        p1.append(f"📈 Nejsilnější sektory: {', '.join(top)}")
+    p1.append("Kompletní data zdarma → tohybetrhy.cz")
+    posts.append("\n\n".join(p1))
+
+    # 2) faktory + kontrariánský teploměr
+    p2 = []
+    frows = {r["ticker"]: r for r in factors.get("rows", [])}
+    lead = next((r for r in factors.get("rows", [])
+                 if not r["benchmark"] and r["r3"] is not None), None)
+    if lead:
+        fname = lead["name"].split(" (")[0].lower()
+        p2.append(f"🏆 Faktorový žebříček: za poslední 3 měsíce vede "
+                  f"{fname} ({_fmt(lead['r3'])})")
+    hb, lv = frows.get("SPHB"), frows.get("USMV")
+    if hb and lv and hb["r3"] is not None and lv["r3"] is not None:
+        gap = hb["r3"] - lv["r3"]
+        if gap > 2:
+            p2.append("⚖️ Vysoká beta poráží nízkou volatilitu – trh má chuť riskovat")
+        elif gap < -2:
+            p2.append("⚖️ Nízká volatilita poráží vysokou betu – kapitál couvá do klidu")
+    wb = factor.get("weeks_below")
+    if wb is not None:
+        p2.append("🔄 Momentum vs hodnota: "
+                  + (f"hodnota vede už {wb} t. – kontrariánské varování"
+                     if wb >= 4 else "momentum drží vedení, žádné varování"))
+    if p2:
+        p2.append("Grafy → tohybetrhy.cz/momentum-etf/")
+        posts.append("\n\n".join(p2))
+
+    # 3) chytré peníze + sazby
+    def delta_word(chart, idx=0, lim=1.0):
+        v = chart["series"][idx]["values"]
+        d = v[-1] - (v[-5] if len(v) >= 5 else v[0])
+        return "přidávají" if d > lim else "ubírají" if d < -lim else "drží"
+
+    p3 = []
+    if smart.get("cot"):
+        p3.append(f"🧠 Instituce ve futures na S&P 500 pozice "
+                  f"{delta_word(smart['cot'])}")
+    vix = (smart.get("vix") or {}).get("level")
+    if vix:
+        v = vix["series"][0]["values"][-1]
+        if v is not None:
+            mood = "klid" if v < 15 else "normál" if v < 20 else "nervozita" if v < 30 else "stres"
+            p3.append(f"😱 VIX {str(round(v, 1)).replace('.', ',')} = {mood}")
+    curve = (liq.get("curve") or {}).get("series")
+    if curve:
+        cv = curve[0]["values"][-1]
+        if cv is not None:
+            p3.append(f"💰 Výnosová křivka 10Y−2Y: {str(round(cv, 2)).replace('.', ',')} p. b."
+                      + (" (inverze)" if cv < 0 else ""))
+    if p3:
+        p3.append("Sentiment a likvidita → tohybetrhy.cz/chytre-penize/")
+        posts.append("\n\n".join(p3))
+
+    n = len(posts)
+    lines = [
+        f"# Páteční vlákno pro X – vygenerováno {date.today().isoformat()}",
+        "",
+        "Každý blok = jeden post vlákna, kopíruj po blocích. Doporučené obrázky:",
+        "screenshot verdiktu z homepage k postu 1, graf faktorů z /momentum-etf/",
+        "k postu 2, graf CoT nebo VIX z /chytre-penize/ k postu 3.",
+        "",
+    ]
+    for i, p in enumerate(posts, 1):
+        over = " ⚠️ PŘES LIMIT, zkrať!" if len(p) > POST_LIMIT else ""
+        lines += [f"## Post {i}/{n} ({len(p)} znaků{over})", "", p, ""]
+    POST_FILE.write_text("\n".join(lines), encoding="utf-8")
+    print(f"[post] -> {POST_FILE.name} ({n} posty)")
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     for key, cfg in GROUPS.items():
@@ -2139,6 +2239,7 @@ def main() -> None:
     build_cycdef()
     build_polymarket()
     build_summary()
+    build_social_post()  # čte čerstvé JSONy, nic nestahuje
     print(f"Hotovo. Vygenerováno do {OUT_DIR}")
 
 
@@ -2168,10 +2269,14 @@ if __name__ == "__main__":
                     help="aktualizovat jen denní data (Sítě)")
     ap.add_argument("--insiders", action="store_true",
                     help="jen týdenní sken nákupů insiderů v S&P 500")
+    ap.add_argument("--post", action="store_true",
+                    help="jen přegenerovat páteční vlákno pro X z existujících dat")
     args = ap.parse_args()
     if args.daily:
         main_daily()
     elif args.insiders:
         main_insiders()
+    elif args.post:
+        build_social_post()
     else:
         main()
