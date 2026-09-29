@@ -41,6 +41,7 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
         {ld.map((s: any) => (
           <div class="leader-card">
             <h3>{s.name} <span class="etf-chip">{s.etf} {fmtPct(s.r3_etf)} 3M</span></h3>
+            <div class="scroll">
             <table>
               <thead>
                 <tr><th>Akcie</th><th class="num">1M</th><th class="num">3M</th><th class="num">6M</th><th class="num">12M</th></tr>
@@ -57,6 +58,7 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         ))}
       </div>
@@ -173,11 +175,12 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
   .regime.calm { color: var(--delta-up); background: var(--badge-good-bg); }
   .regime.warn { color: var(--delta-down); background: var(--badge-bad-bg); }
 
-  .leaders { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .leaders { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
   .leader-card {
     padding: 0.9rem 1rem; background: var(--surface-1);
     border: 1px solid var(--border); border-radius: var(--radius);
   }
+  .leader-card .scroll { overflow-x: auto; } /* pojistka pro nejužší displeje */
   .leader-card h3 { font-size: 1rem; margin: 0 0 0.5rem; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
   .etf-chip {
     font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
@@ -188,7 +191,17 @@ const cdWeeks = cd.weeks_below === 1 ? 'týden' : cd.weeks_below < 5 ? 'týdny' 
   .leader-card th { color: var(--text-muted); font-weight: 600; font-size: 0.72rem; }
   .leader-card th.num, .leader-card td.num { text-align: right; white-space: nowrap; }
   .tick { font-weight: 700; }
-  .nm { color: var(--text-secondary); font-size: 0.78rem; }
+  .nm { color: var(--text-secondary); font-size: 0.78rem; display: block; }
+  /* na úzkých displejích se 4 procentní sloupce nevejdou – 1M je pro
+     momentum nejméně podstatný, tak ho schováme (12M zůstává);
+     zbytek zhustíme, ať se 3M/6M/12M vejdou beze zbytku */
+  @media (max-width: 520px) {
+    .leader-card th:nth-child(2), .leader-card td:nth-child(2) { display: none; }
+    .leader-card table { font-size: 0.8rem; }
+    .leader-card th, .leader-card td { padding: 0.35rem 0.28rem; }
+    .leader-card th:first-child, .leader-card td:first-child { padding-left: 0; }
+    .leader-card th:last-child, .leader-card td:last-child { padding-right: 0; }
+  }
   .up { color: var(--delta-up); }
   .down { color: var(--delta-down); }
 </style>
