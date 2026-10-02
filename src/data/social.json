@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T00:40:49+00:00",
+ "updated": "2026-10-02T01:00:01+00:00",
  "note": "Reddit: zmínky za 24 h dle ApeWisdom, změna proti předchozí aktualizaci, směr sentimentu (bullish/bearish) dle tradestie. Insideři: nákupy/prodeje na volném trhu (kódy P/S) z formulářů 4 na SEC EDGAR za 30 dní. StockTwits: trending symboly + počet sledujících. Sítě se aktualizují denně.",
  "reddit": {
   "top": [
@@ -7,12 +7,12 @@
     "rank": 1,
     "ticker": "MU",
     "name": "Micron Technology",
-    "mentions": 1155,
-    "upvotes": 4167,
-    "prev_mentions": 261,
-    "change_pct": 342.5,
+    "mentions": 631,
+    "upvotes": 1641,
+    "prev_mentions": 1155,
+    "change_pct": -45.4,
     "sentiment": "bearish",
-    "sentiment_score": -0.002,
+    "sentiment_score": -0.035,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -21,14 +21,30 @@
    },
    {
     "rank": 2,
+    "ticker": "NKE",
+    "name": "Nike",
+    "mentions": 442,
+    "upvotes": 1186,
+    "prev_mentions": 21,
+    "change_pct": 2004.8,
+    "sentiment": "bullish",
+    "sentiment_score": 0.029,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 371239,
+     "filings": 8
+    }
+   },
+   {
+    "rank": 3,
     "ticker": "SPY",
     "name": "SPDR S&P 500 ETF Trust",
-    "mentions": 252,
-    "upvotes": 667,
-    "prev_mentions": 269,
-    "change_pct": -6.3,
+    "mentions": 268,
+    "upvotes": 815,
+    "prev_mentions": 252,
+    "change_pct": 6.3,
     "sentiment": "bullish",
-    "sentiment_score": 0.113,
+    "sentiment_score": 0.126,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -36,59 +52,27 @@
     }
    },
    {
-    "rank": 3,
+    "rank": 4,
     "ticker": "QQQ",
     "name": "Invesco QQQ ETF",
-    "mentions": 97,
-    "upvotes": 199,
-    "prev_mentions": 69,
-    "change_pct": 40.6,
+    "mentions": 113,
+    "upvotes": 232,
+    "prev_mentions": 97,
+    "change_pct": 16.5,
     "sentiment": "bullish",
-    "sentiment_score": 0.064,
+    "sentiment_score": 0.187,
     "insiders": null
    },
    {
-    "rank": 4,
-    "ticker": "NVDA",
-    "name": "NVIDIA",
-    "mentions": 82,
-    "upvotes": 208,
-    "prev_mentions": 77,
-    "change_pct": 6.5,
-    "sentiment": "bullish",
-    "sentiment_score": 0.274,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 314582260,
-     "filings": 8
-    }
-   },
-   {
     "rank": 5,
-    "ticker": "TSLA",
-    "name": "Tesla",
-    "mentions": 75,
-    "upvotes": 148,
-    "prev_mentions": 61,
-    "change_pct": 23.0,
-    "sentiment": "bearish",
-    "sentiment_score": -0.123,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 938419,
-     "filings": 1
-    }
-   },
-   {
-    "rank": 6,
     "ticker": "GOOG",
     "name": "Alphabet (Google)",
-    "mentions": 62,
-    "upvotes": 254,
-    "prev_mentions": 46,
-    "change_pct": 34.8,
+    "mentions": 101,
+    "upvotes": 221,
+    "prev_mentions": 62,
+    "change_pct": 62.9,
     "sentiment": "bearish",
-    "sentiment_score": -0.01,
+    "sentiment_score": -0.088,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 0,
@@ -96,31 +80,15 @@
     }
    },
    {
-    "rank": 7,
-    "ticker": "META",
-    "name": "Meta Platforms (Facebook)",
-    "mentions": 58,
-    "upvotes": 81,
-    "prev_mentions": 81,
-    "change_pct": -28.4,
-    "sentiment": "bullish",
-    "sentiment_score": 0.205,
-    "insiders": {
-     "buys_usd": 0,
-     "sells_usd": 82969337,
-     "filings": 8
-    }
-   },
-   {
-    "rank": 8,
+    "rank": 6,
     "ticker": "DTE",
     "name": "DTE Energy",
-    "mentions": 51,
-    "upvotes": 205,
-    "prev_mentions": 53,
-    "change_pct": -3.8,
-    "sentiment": null,
-    "sentiment_score": null,
+    "mentions": 93,
+    "upvotes": 598,
+    "prev_mentions": 51,
+    "change_pct": 82.4,
+    "sentiment": "bullish",
+    "sentiment_score": 0.629,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 678560,
@@ -128,31 +96,59 @@
     }
    },
    {
-    "rank": 9,
-    "ticker": "HOOD",
-    "name": "Robinhood",
-    "mentions": 48,
-    "upvotes": 206,
-    "prev_mentions": 13,
-    "change_pct": 269.2,
-    "sentiment": null,
-    "sentiment_score": null,
+    "rank": 7,
+    "ticker": "GOOGL",
+    "name": "Alphabet (Google)",
+    "mentions": 92,
+    "upvotes": 1694,
+    "prev_mentions": 45,
+    "change_pct": 104.4,
+    "sentiment": "bullish",
+    "sentiment_score": 0.234,
     "insiders": {
      "buys_usd": 0,
-     "sells_usd": 73349820,
+     "sells_usd": 0,
      "filings": 8
     }
+   },
+   {
+    "rank": 8,
+    "ticker": "NVDA",
+    "name": "NVIDIA",
+    "mentions": 88,
+    "upvotes": 1680,
+    "prev_mentions": 82,
+    "change_pct": 7.3,
+    "sentiment": "bearish",
+    "sentiment_score": -0.007,
+    "insiders": {
+     "buys_usd": 0,
+     "sells_usd": 314582260,
+     "filings": 8
+    }
+   },
+   {
+    "rank": 9,
+    "ticker": "TLT",
+    "name": "BlackRock Institutional Trust Company N.A. - BTC iShares 20+ Year Trea",
+    "mentions": 66,
+    "upvotes": 450,
+    "prev_mentions": 36,
+    "change_pct": 83.3,
+    "sentiment": "bullish",
+    "sentiment_score": 0.093,
+    "insiders": null
    },
    {
     "rank": 10,
     "ticker": "SNDK",
     "name": "Sandisk",
-    "mentions": 47,
-    "upvotes": 96,
-    "prev_mentions": 38,
-    "change_pct": 23.7,
-    "sentiment": "bullish",
-    "sentiment_score": 0.013,
+    "mentions": 46,
+    "upvotes": 83,
+    "prev_mentions": 47,
+    "change_pct": -2.1,
+    "sentiment": "bearish",
+    "sentiment_score": -0.426,
     "insiders": {
      "buys_usd": 0,
      "sells_usd": 107167222,
@@ -160,62 +156,62 @@
     }
    }
   ],
-  "prev_date": "2026-09-30",
+  "prev_date": "2026-10-01",
   "source": "apewisdom",
   "snapshot": {
-   "date": "2026-10-01",
+   "date": "2026-10-02",
    "source": "apewisdom",
    "mentions": {
-    "MU": 1155,
-    "SPY": 252,
-    "QQQ": 97,
-    "NVDA": 82,
-    "TSLA": 75,
-    "GOOG": 62,
-    "META": 58,
-    "DTE": 51,
-    "HOOD": 48,
-    "SNDK": 47,
-    "GOOGL": 45,
-    "AAPL": 42,
-    "AMD": 39,
-    "TLT": 36,
-    "DB": 35,
-    "AMZN": 35,
-    "RDDT": 34,
-    "INTC": 32,
-    "NBIS": 29,
-    "VOO": 29,
-    "APP": 24,
-    "RKLB": 23,
-    "SPCX": 23,
-    "NKE": 21,
-    "ASTS": 20,
-    "MCD": 19,
-    "MSFT": 19,
-    "BE": 16,
-    "ALL": 16,
-    "YOU": 15,
-    "AVGO": 15,
-    "APLD": 13,
-    "AM": 13,
-    "IT": 13,
-    "CBRS": 12,
-    "IWM": 12,
-    "SMCI": 12,
-    "JPM": 12,
-    "UP": 11,
-    "SOFI": 11,
-    "HBM": 11,
-    "EU": 10,
-    "NU": 10,
-    "SGOV": 10,
-    "SPMO": 10,
-    "SOXL": 10,
-    "PR": 9,
-    "BLGO": 9,
-    "VT": 9,
-    "SCHD": 9
+    "MU": 631,
+    "NKE": 442,
+    "SPY": 268,
+    "QQQ": 113,
+    "GOOG": 101,
+    "DTE": 93,
+    "GOOGL": 92,
+    "NVDA": 88,
+    "TLT": 66,
+    "SNDK": 46,
+    "MSFT": 43,
+    "LULU": 42,
+    "VOO": 42,
+    "AVGO": 36,
+    "RKLB": 35,
+    "AAPL": 34,
+    "ACN": 34,
+    "AMZN": 31,
+    "AMD": 29,
+    "NFLX": 29,
+    "PLTR": 26,
+    "MCD": 24,
+    "IT": 24,
+    "APP": 23,
+    "TSLA": 22,
+    "SPCX": 22,
+    "ASTS": 22,
+    "META": 22,
+    "NBIS": 22,
+    "USO": 21,
+    "ON": 19,
+    "EU": 19,
+    "HOOD": 18,
+    "BE": 17,
+    "SOXX": 17,
+    "ES": 16,
+    "WTI": 15,
+    "AM": 14,
+    "RDDT": 14,
+    "YOU": 13,
+    "CBRS": 13,
+    "INTC": 12,
+    "HD": 12,
+    "ORCL": 12,
+    "NOW": 12,
+    "SOXL": 12,
+    "UP": 12,
+    "GLP": 12,
+    "FICO": 11,
+    "CD": 11
    }
   }
  },
@@ -223,63 +219,63 @@
   "top": [
    {
     "rank": 1,
-    "ticker": "MU",
-    "name": "Micron Technology Inc",
-    "watchers": 218210
+    "ticker": "NKE",
+    "name": "Nike Inc",
+    "watchers": 141229
    },
    {
     "rank": 2,
-    "ticker": "RKLB",
-    "name": "Rocket Lab USA Inc",
-    "watchers": 68536
+    "ticker": "NFLX",
+    "name": "Netflix Inc",
+    "watchers": 522029
    },
    {
     "rank": 3,
-    "ticker": "TLT",
-    "name": "iShares 20+ Year Treasury Bond ETF",
-    "watchers": 31314
+    "ticker": "CTVA",
+    "name": "Corteva Inc",
+    "watchers": 2255
    },
    {
     "rank": 4,
-    "ticker": "IBRX",
-    "name": "ImmunityBio Inc",
-    "watchers": 30740
+    "ticker": "APP",
+    "name": "Applovin Corp",
+    "watchers": 24804
    },
    {
     "rank": 5,
-    "ticker": "NKE",
-    "name": "Nike Inc",
-    "watchers": 140690
+    "ticker": "SPCX",
+    "name": "SpaceX",
+    "watchers": 106090
    },
    {
     "rank": 6,
-    "ticker": "XRPN",
-    "name": "Evernorth Holdings Inc.",
-    "watchers": 940
+    "ticker": "ON",
+    "name": "ON Semiconductor Corp.",
+    "watchers": 13245
    },
    {
     "rank": 7,
-    "ticker": "LQDA",
-    "name": "Liquidia Corp",
-    "watchers": 4765
+    "ticker": "XRPN",
+    "name": "Evernorth Holdings Inc.",
+    "watchers": 1260
    },
    {
     "rank": 8,
-    "ticker": "FUBO",
-    "name": "fuboTV Inc",
-    "watchers": 67744
+    "ticker": "APLD",
+    "name": "Applied Digital Corporation",
+    "watchers": 46612
    },
    {
     "rank": 9,
-    "ticker": "PSKY",
-    "name": "Paramount Skydance Corp. - Ordinary Shares - Class B",
-    "watchers": 26781
+    "ticker": "BB.TSX",
+    "name": "BlackBerry Ltd",
+    "watchers": 1067
    },
    {
     "rank": 10,
-    "ticker": "IWM",
-    "name": "iShares Russell 2000 ETF",
-    "watchers": 49850
+    "ticker": "CIEN",
+    "name": "CIENA Corp.",
+    "watchers": 7323
    }
   ]
  }
