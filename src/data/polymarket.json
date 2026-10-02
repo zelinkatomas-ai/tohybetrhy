@@ -1,64 +1,64 @@
 {
- "updated": "2026-09-27T13:16:15+00:00",
+ "updated": "2026-10-02T21:46:42+00:00",
  "note": "Polymarket: pravděpodobnosti oceněné penězi sázkařů. Výběr mechanicky – nejobchodovanější otevřené otázky (objem 24 h) s tagy dané skupiny. Týdenní snímek; živé kurzy na polymarket.com.",
  "geopolitics": [
   {
-   "question": "US x Iran ceasefire continues through September 30?",
+   "question": "Will Flávio Bolsonaro win the 2026 Brazilian presidential election?",
    "outcome": "Yes",
-   "prob": 89.5,
-   "volume24h": 440118.0,
-   "url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt"
+   "prob": 57.0,
+   "volume24h": 2993069.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election"
   },
   {
    "question": "Will Marine Le Pen win the 2027 French presidential election?",
    "outcome": "Yes",
-   "prob": 38.4,
-   "volume24h": 384413.0,
+   "prob": 44.5,
+   "volume24h": 650321.0,
    "url": "https://polymarket.com/event/next-french-presidential-election"
   },
   {
-   "question": "Will Flávio Bolsonaro win the 2026 Brazilian presidential election?",
+   "question": "Will Flávio Bolsonaro finish in second place in the first round of the 2026 Brazilian presidential election?",
    "outcome": "Yes",
-   "prob": 57.2,
-   "volume24h": 257242.0,
-   "url": "https://polymarket.com/event/brazil-presidential-election"
+   "prob": 74.5,
+   "volume24h": 304115.0,
+   "url": "https://polymarket.com/event/brazil-presidential-election-first-round-2nd-place"
   },
   {
-   "question": "Bab el-Mandeb Strait effectively closed by December 31?",
+   "question": "Will the U.S. invade Iran before 2027?",
    "outcome": "Yes",
-   "prob": 18.5,
-   "volume24h": 240221.0,
-   "url": "https://polymarket.com/event/bab-el-mandeb-strait-effectively-closed-by"
+   "prob": 15.5,
+   "volume24h": 273136.0,
+   "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027"
   },
   {
-   "question": "US announces end of Iranian blockade by March 31, 2027?",
+   "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
    "outcome": "Yes",
-   "prob": 72.5,
-   "volume24h": 217526.0,
-   "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+   "prob": 46.9,
+   "volume24h": 262912.0,
+   "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election"
   },
   {
-   "question": "Will the Iranian regime fall by September 30?",
+   "question": "Will Sudan's Emergency Response Rooms win the Nobel Peace Prize in 2026?",
    "outcome": "Yes",
-   "prob": 0.1,
-   "volume24h": 208439.0,
-   "url": "https://polymarket.com/event/will-the-iranian-regime-fall-by-september-30-20260629143335077"
+   "prob": 15.8,
+   "volume24h": 258234.0,
+   "url": "https://polymarket.com/event/nobel-peace-prize-winner-2026-139"
   }
  ],
  "macro": [
   {
-   "question": "Will the Fed increase interest rates by 25 bps after the October 2026 meeting?",
+   "question": "Will there be no change in Fed interest rates after the October 2026 meeting?",
    "outcome": "Yes",
-   "prob": 64.5,
-   "volume24h": 202805.0,
+   "prob": 82.5,
+   "volume24h": 2834575.0,
    "url": "https://polymarket.com/event/fed-decision-in-october-20260617190323537"
   },
   {
-   "question": "Strait of Hormuz traffic returns to normal by December 31?",
+   "question": "Will the Fed increase interest rates by 25 bps after the December 2026 meeting?",
    "outcome": "Yes",
-   "prob": 19.5,
-   "volume24h": 124906.0,
-   "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-december-31"
+   "prob": 74.5,
+   "volume24h": 249259.0,
+   "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
   }
  ]
 }

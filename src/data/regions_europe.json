@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-27T13:13:22+00:00",
+ "updated": "2026-10-02T21:43:41+00:00",
  "note": "Evropa v detailu po zemích. U menších trhů americká iShares ETF jako indikátor. Výnosy v měně fondu.",
  "rows": [
   {
@@ -8,34 +8,10 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -0.6,
-   "r3": 13.72,
-   "r6": 22.88,
-   "r12": 41.87,
-   "signal": "above"
-  },
-  {
-   "ticker": "ISF.L",
-   "name": "Velká Británie (FTSE 100)",
-   "currency": "GBp",
-   "benchmark": false,
-   "core": false,
-   "r1": -2.03,
-   "r3": 0.07,
-   "r6": 1.82,
-   "r12": 12.78,
-   "signal": "above"
-  },
-  {
-   "ticker": "EWI",
-   "name": "Itálie",
-   "currency": "USD",
-   "benchmark": false,
-   "core": false,
-   "r1": -2.36,
-   "r3": -0.38,
-   "r6": 13.41,
-   "r12": 18.6,
+   "r1": -5.55,
+   "r3": 6.59,
+   "r6": 10.33,
+   "r12": 41.0,
    "signal": "above"
   },
   {
@@ -44,10 +20,22 @@
    "currency": "EUR",
    "benchmark": false,
    "core": false,
-   "r1": -2.42,
-   "r3": -1.5,
-   "r6": 9.47,
-   "r12": 3.76,
+   "r1": -1.3,
+   "r3": 0.7,
+   "r6": 5.69,
+   "r12": 3.61,
+   "signal": "above"
+  },
+  {
+   "ticker": "ISF.L",
+   "name": "Velká Británie (FTSE 100)",
+   "currency": "GBp",
+   "benchmark": false,
+   "core": false,
+   "r1": -2.5,
+   "r3": -0.52,
+   "r6": -1.98,
+   "r12": 11.0,
    "signal": "above"
   },
   {
@@ -56,10 +44,22 @@
    "currency": "EUR",
    "benchmark": false,
    "core": false,
-   "r1": -2.03,
-   "r3": -4.64,
-   "r6": 4.03,
-   "r12": 3.2,
+   "r1": -3.14,
+   "r3": -4.85,
+   "r6": -1.98,
+   "r12": 2.93,
+   "signal": "below"
+  },
+  {
+   "ticker": "EWI",
+   "name": "Itálie",
+   "currency": "USD",
+   "benchmark": false,
+   "core": false,
+   "r1": -7.36,
+   "r3": -5.26,
+   "r6": 2.19,
+   "r12": 17.87,
    "signal": "above"
   },
   {
@@ -68,11 +68,11 @@
    "currency": "USD",
    "benchmark": false,
    "core": false,
-   "r1": -3.91,
-   "r3": -5.19,
-   "r6": 4.72,
-   "r12": 8.95,
-   "signal": "above"
+   "r1": -1.77,
+   "r3": -5.88,
+   "r6": -0.7,
+   "r12": 7.45,
+   "signal": "below"
   }
  ],
  "chart": null
