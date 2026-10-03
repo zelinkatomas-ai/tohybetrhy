@@ -1,0 +1,340 @@
+{
+ "generated": "2026-10-03T12:09:04+00:00",
+ "_comment": "Návrhy ke schválení. Schválení: python3 pipeline/fetch_sources.py --approve 1,3 (čísla _id). Texty (summary, why) pak doladíš v src/config/sources.json.",
+ "proposals": [
+  {
+   "title": "'The hottest skill on Wall Street’: Demand for this AI ability jumped 1,721% as banks embrace agents",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/10/02/ai-skills-most-in-demand-at-jpmorgan-chase-citigroup-capital-one.html",
+   "date": "2026-10-02",
+   "tags": [
+    "USA",
+    "Technologie",
+    "Finance"
+   ],
+   "summary": "Banks are fueling a hiring surge for AI engineers who are good at \"agent orchestration\" — the ability to coordinate teams of specialized agents.",
+   "why": "",
+   "_score": 4,
+   "_id": 1
+  },
+  {
+   "title": "How AI is redefining Wall Street jobs — and boosting demand for this new 'hottest skill' by 1,721%",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/10/02/ai-redefining-wall-street-jobs.html",
+   "date": "2026-10-02",
+   "tags": [
+    "USA",
+    "Technologie",
+    "Finance"
+   ],
+   "summary": "Banks are fueling a hiring surge for AI engineers who are good at \"agent orchestration\" — the ability to coordinate teams of specialized agents.",
+   "why": "",
+   "_score": 4,
+   "_id": 2
+  },
+  {
+   "title": "Beijing warns of retaliation if Europe imposes curbs on Chinese businesses",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/30/china-warns-europe-increases-trade-pressure.html",
+   "date": "2026-09-30",
+   "tags": [
+    "Evropa",
+    "Čína"
+   ],
+   "summary": "China must \"respond firmly\" if the EU introduces restrictions on Chinese businesses or products, the Commerce Ministry said, according to a CNBC translation.",
+   "why": "",
+   "_score": 4,
+   "_id": 3
+  },
+  {
+   "title": "China launches anti-dumping probe into European chemical exports",
+   "source": "Financial Times",
+   "url": "https://www.ft.com/content/bae0af94-f42d-47d1-a1a8-fab608e75a72?syn-25a6b1a6=1",
+   "date": "2026-10-03",
+   "tags": [
+    "Evropa",
+    "Čína"
+   ],
+   "summary": "Latest tit-for-tat move follows three similar investigations launched by the EU last week",
+   "why": "",
+   "_score": 3,
+   "_id": 4
+  },
+  {
+   "title": "Apple says it will flag AI requests for Mac data after Meta’s Muse draws complaints",
+   "source": "Investing.com",
+   "url": "https://www.investing.com/news/stock-market-news/apple-says-it-will-flag-ai-requests-for-mac-data-after-metas-muse-draws-complaints-4930505",
+   "date": "2026-10-02",
+   "tags": [
+    "Technologie"
+   ],
+   "summary": "Apple says it will flag AI requests for Mac data after Meta’s Muse draws complaints",
+   "why": "",
+   "_score": 2,
+   "_id": 5
+  },
+  {
+   "title": "Exclusive-China demands copper supply commitments for Anglo Teck merger approval, sources say",
+   "source": "Investing.com",
+   "url": "https://www.investing.com/news/stock-market-news/exclusivechina-demands-copper-supply-commitments-for-anglo-teck-merger-approval-sources-say-4929672",
+   "date": "2026-10-02",
+   "tags": [
+    "Čína",
+    "Materiály"
+   ],
+   "summary": "Exclusive-China demands copper supply commitments for Anglo Teck merger approval, sources say",
+   "why": "",
+   "_score": 2,
+   "_id": 6
+  },
+  {
+   "title": "Polymarket taps Goldman Sachs veteran Lisa Mantil to attract Wall Street liquidity",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/29/polymarket-lisa-mantil-institutional-growth.html",
+   "date": "2026-09-29",
+   "tags": [
+    "USA",
+    "Materiály"
+   ],
+   "summary": "Lisa Mantil, after a nearly three-decade run at Goldman, will join the prediction market's team to attract institutional traders.",
+   "why": "",
+   "_score": 2,
+   "_id": 7
+  },
+  {
+   "title": "U.S., China to lower tariffs on $60 billion of goods. Here's what qualifies",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/28/us-china-lower-tariffs-trump-xi-meeting.html",
+   "date": "2026-09-28",
+   "tags": [
+    "Čína"
+   ],
+   "summary": "The lists included U.S. imports of toys, sports equipment and Christmas decorations, while U.S. farm products appeared on the list of Chinese imports.",
+   "why": "",
+   "_score": 2,
+   "_id": 8
+  },
+  {
+   "title": "Trump-Xi summit analysis: 'Tangible outcomes' needed for U.S.-China truce to hold",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/28/trump-xi-summit-tangible-outcomes-us-china-truce.html",
+   "date": "2026-09-28",
+   "tags": [
+    "Čína"
+   ],
+   "summary": "U.S. President Donald Trump and Chinese President Xi Jinping met in Washington, D.C., last week and signaled plans to meet two more times this year.",
+   "why": "",
+   "_score": 2,
+   "_id": 9
+  },
+  {
+   "title": "Debt-hungry AI companies face increased risk as bond yields spike",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/27/debt-hungry-data-center-companies-increased-risk-bond-yields-spike.html",
+   "date": "2026-09-27",
+   "tags": [
+    "USA",
+    "Technologie"
+   ],
+   "summary": "The AI infrastructure buildout shows no sign of slowing, but the surge in Treasury yields means it's at least going to cost more.",
+   "why": "",
+   "_score": 2,
+   "_id": 10
+  },
+  {
+   "title": "Why Xi believes the U.S. and China can overcome the 'Thucydides Trap'",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/26/xi-trump-thucydides-trap-us-china.html",
+   "date": "2026-09-26",
+   "tags": [
+    "Čína"
+   ],
+   "summary": "In May, Chinese President Xi Jinping asked U.S. President Donald Trump whether the countries could avoid destructive rivalry. Now, it seems, he thinks they can",
+   "why": "",
+   "_score": 2,
+   "_id": 11
+  },
+  {
+   "title": "As Treasury yields touch generational highs, investors brace for the market fallout",
+   "source": "MarketWatch",
+   "url": "https://www.marketwatch.com/story/as-treasury-yields-touch-generational-highs-investors-brace-for-the-market-fallout-0457e698?mod=mw_rss_topstories",
+   "date": "2026-10-03",
+   "tags": [
+    "USA"
+   ],
+   "summary": "The surge in bond yields to generational highs has investors around the world watching and worrying about what could crack, spiral or leave a trail of carnage in its path.",
+   "why": "",
+   "_score": 1,
+   "_id": 12
+  },
+  {
+   "title": "Why Western Digital and Seagate are seeing big stock drops today",
+   "source": "MarketWatch",
+   "url": "https://www.marketwatch.com/story/why-western-digital-and-seagate-are-seeing-big-stock-drops-today-6b16d95e?mod=mw_rss_topstories",
+   "date": "2026-10-02",
+   "tags": [
+    "Technologie"
+   ],
+   "summary": "Investors are worried that Toshiba will boost its production of a key AI storage product, potentially hurting the strong pricing power that Western Digital and Seagate currently enjoy.",
+   "why": "",
+   "_score": 1,
+   "_id": 13
+  },
+  {
+   "title": "Tesla sold a lot more EVs than Wall Street expected, and the stock is surging",
+   "source": "MarketWatch",
+   "url": "https://www.marketwatch.com/story/tesla-ev-sales-beat-wall-streets-expectations-again-and-the-stock-jumps-294a4f53?mod=mw_rss_topstories",
+   "date": "2026-10-02",
+   "tags": [
+    "USA"
+   ],
+   "summary": "EV giant Tesla had the best three-month period for vehicle sales this year, but it was less than a year ago.",
+   "why": "",
+   "_score": 1,
+   "_id": 14
+  },
+  {
+   "title": "China, America and the new Great Game",
+   "source": "Financial Times",
+   "url": "https://www.ft.com/content/8869caf9-3cd1-4300-aeb3-828a4d9da4f9?syn-25a6b1a6=1",
+   "date": "2026-10-03",
+   "tags": [
+    "Čína"
+   ],
+   "summary": "Which power will prevail? As in the 19th-century struggle between the UK and Russia, the answer may depend on forces beyond either’s control",
+   "why": "",
+   "_score": 1,
+   "_id": 15
+  },
+  {
+   "title": "US justice department will not reopen criminal probe of Fed’s Jay Powell",
+   "source": "Financial Times",
+   "url": "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846?syn-25a6b1a6=1",
+   "date": "2026-10-02",
+   "tags": [
+    "Finance"
+   ],
+   "summary": "US attorney-general Todd Blanche says not having ‘any oversight’ of the central bank’s $2.5bn renovation project ‘isn’t necessarily a crime’",
+   "why": "",
+   "_score": 1,
+   "_id": 16
+  },
+  {
+   "title": "As public fears of AI grow, Trump digs in on voluntary safeguards",
+   "source": "Investing.com",
+   "url": "https://www.investing.com/news/stock-market-news/as-public-fears-of-ai-grow-trump-digs-in-on-voluntary-safeguards-4930823",
+   "date": "2026-10-03",
+   "tags": [
+    "Technologie"
+   ],
+   "summary": "As public fears of AI grow, Trump digs in on voluntary safeguards",
+   "why": "",
+   "_score": 1,
+   "_id": 17
+  },
+  {
+   "title": "US-Russia talks on Ukraine involve multi-billion dollar oil deal, NYT reports",
+   "source": "Investing.com",
+   "url": "https://www.investing.com/news/stock-market-news/usrussia-talks-on-ukraine-involve-multibillion-dollar-oil-deal-nyt-reports-4930830",
+   "date": "2026-10-03",
+   "tags": [
+    "Energie"
+   ],
+   "summary": "US-Russia talks on Ukraine involve multi-billion dollar oil deal, NYT reports",
+   "why": "",
+   "_score": 1,
+   "_id": 18
+  },
+  {
+   "title": "G7 countries agree on release of diesel and oil stocks after US pressure",
+   "source": "Investing.com",
+   "url": "https://www.investing.com/news/stock-market-news/europe-discussing-plan-for-diesel-stock-releases-after-us-pressure-source-says-4929100",
+   "date": "2026-10-02",
+   "tags": [
+    "Energie"
+   ],
+   "summary": "G7 countries agree on release of diesel and oil stocks after US pressure",
+   "why": "",
+   "_score": 1,
+   "_id": 19
+  },
+  {
+   "title": "Chinese auto show debuts in Argentina as sales surge",
+   "source": "Investing.com",
+   "url": "https://www.investing.com/news/stock-market-news/chinese-auto-show-debuts-in-argentina-as-their-sales-surge-4930114",
+   "date": "2026-10-02",
+   "tags": [
+    "Čína"
+   ],
+   "summary": "Chinese auto show debuts in Argentina as sales surge",
+   "why": "",
+   "_score": 1,
+   "_id": 20
+  },
+  {
+   "title": "Goldman Sachs CEO succession planning faces one big problem",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/29/goldman-sachs-ceo-succession-planning.html",
+   "date": "2026-09-29",
+   "tags": [
+    "Materiály"
+   ],
+   "summary": "The Goldman Sachs board has reportedly discussed replacing CEO David Solomon, 64, with president John Waldron, 57, as early as next year.",
+   "why": "",
+   "_score": 1,
+   "_id": 21
+  },
+  {
+   "title": "China has three new criteria for humanoid robot IPOs. Few, if any, meet them",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/29/china-criteria-humanoid-robot-ipos.html",
+   "date": "2026-09-30",
+   "tags": [
+    "Čína"
+   ],
+   "summary": "China's securities regulator is raising the bar for public listings of humanoid robot startups with three specific criteria, according to three sources.",
+   "why": "",
+   "_score": 1,
+   "_id": 22
+  },
+  {
+   "title": "Nearly half the stocks in the S&P 500 are at cross purposes with the rest of the market",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/28/nearly-half-of-the-stocks-in-the-sp-500-are-working-against-it.html",
+   "date": "2026-09-28",
+   "tags": [
+    "USA"
+   ],
+   "summary": "Almost half of the stocks in the S&P 500 have a negative beta, evidence of a chasm between the entire index and its individual components.",
+   "why": "",
+   "_score": 1,
+   "_id": 23
+  },
+  {
+   "title": "This may be the ‘missing piece’ for investors looking to boost AI exposure",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/26/ai-portfolios-may-need-china-to-grab-the-biggest-gains.html",
+   "date": "2026-09-26",
+   "tags": [
+    "Technologie"
+   ],
+   "summary": "Matthews Asia portfolio manager Andrew Mattock delivers a strategy that revolves around the world's second largest economy.",
+   "why": "",
+   "_score": 1,
+   "_id": 24
+  },
+  {
+   "title": "The 10-year Treasury yield is at its highest in nearly two decades. How we got here",
+   "source": "CNBC",
+   "url": "https://www.cnbc.com/2026/09/26/10-year-treasury-yield-is-at-its-highest-in-19-years-how-we-got-here.html",
+   "date": "2026-09-26",
+   "tags": [
+    "USA"
+   ],
+   "summary": "The benchmark yield has climbed to a 19-year high, fueled by sticky inflation, heavy bond issuance and an AI-fueled investment boom.",
+   "why": "",
+   "_score": 1,
+   "_id": 25
+  }
+ ]
+}
